@@ -1,0 +1,40 @@
+Connection Event: Carrier Detect found.412205    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Thu Mar 17 18:51:21 2022 MT:  412205
+DR  Location:  5349.798 N -5043.603 E measured    1127.54 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5347.979 N -5055.335 E measured    1230.98 secs ago
+GPS Location:  5349.798 N -5043.603 E measured    1130.61 secs ago
+   sensor:c_autoballast_state(enum)=2             1344.51 secs ago
+   sensor:c_climb_bpump(X)=20                     1336.86 secs ago
+   sensor:c_dive_bpump(X)=-280                    1336.87 secs ago
+   sensor:c_wpt_lat(lat)=5353.31                   295572 secs ago
+   sensor:c_wpt_lon(lon)=-5038.32                  295572 secs ago
+   sensor:m_battery(volts)=14.6228115129601       622.149 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.838 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.34204        3.853 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=14.736096        3.822 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=315.313383999928        3.826 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021        0.063 secs ago
+   sensor:m_final_water_vx(m/s)=0.000411811606179      41986.9 secs ago
+   sensor:m_final_water_vy(m/s)=0.003050208747038      41986.9 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5       28.065 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5         622.046 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49996947496948      622.009 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5      621.974 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=56.2064744444544        3.859 secs ago
+   sensor:m_tot_num_inflections(nodim)=1524       1337.07 secs ago
+   sensor:m_vacuum(inHg)=9.73118012210012         622.157 secs ago
+   sensor:m_water_vx(m/s)=0.101592736771116       1192.95 secs ago
+   sensor:m_water_vy(m/s)=-0.063146081382996      1192.96 secs ago
+   sensor:x_last_wpt_lat(lat)=5340.87              295572 secs ago
+   sensor:x_last_wpt_lon(lon)=-5104.44             295572 secs ago
+412205    No login script found for processing.
+412241 35 SCI ERROR: science start logging failed
+GLD: ERROR resuming logging
+
+--------------------------------
+Error from CmdDispatch():Error sending files
+412241    ERROR behavior surface_4: S COMMAND FAILED: s 00510198.tbd 00510078.tbd 00510056.tbd 00510044.tbd 00420002.tbd
+
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0318 C_FIN:0.0000

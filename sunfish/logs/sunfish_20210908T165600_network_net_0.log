@@ -1,0 +1,27 @@
+Connection Event: Carrier Detect found.343.04    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Wed Sep  8 16:55:47 2021 MT:     343
+DR  Location:  4931.880 N -5754.554 E measured      0.518 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  4931.872 N -5754.543 E measured     84.019 secs ago
+GPS Location:  4931.880 N -5754.554 E measured     43.457 secs ago
+   sensor:c_wpt_lat(lat)=0                         1e+308 secs ago
+   sensor:c_wpt_lon(lon)=0                         1e+308 secs ago
+   sensor:m_battery(volts)=14.7429442709361         3.726 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=0.12375          3.861 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=6.056249        3.865 secs ago
+   sensor:m_final_water_vx(m/s)=-0.036120560647426       40.977 secs ago
+   sensor:m_final_water_vy(m/s)=0.164772279412776        40.98 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5       24.297 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5           3.609 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.5        3.573 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=99.1588543055556        3.889 secs ago
+   sensor:m_tot_num_inflections(nodim)=34          1e+308 secs ago
+   sensor:m_vacuum(inHg)=7.70102654456655           3.716 secs ago
+   sensor:m_water_vx(m/s)=-0.036120560647426       41.009 secs ago
+   sensor:m_water_vy(m/s)=0.164772279412776        41.013 secs ago
+   sensor:u_use_current_correction(nodim)=0        1e+308 secs ago
+   sensor:x_last_wpt_lat(lat)=4137.998             1e+308 secs ago
+   sensor:x_last_wpt_lon(lon)=-7032.061            1e+308 secs ago
+
+GliderDos N -1 >343.13    No login script found for processing.

@@ -1,0 +1,45 @@
+Connection Event: Carrier Detect found.Connection Event: Carrier Detect lost.Connection Event: Carrier Detect found.1281697    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Fri Dec 31 17:05:05 2021 MT: 1281697
+DR  Location:  5020.709 N -4647.696 E measured    396.164 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5015.829 N -4646.117 E measured    491.645 secs ago
+GPS Location:  5020.709 N -4647.696 E measured    396.288 secs ago
+   sensor:c_autoballast_state(enum)=2              387818 secs ago
+   sensor:c_climb_bpump(X)=70                     748.103 secs ago
+   sensor:c_dive_bpump(X)=-330                    748.107 secs ago
+   sensor:c_wpt_lat(lat)=5035.76                   176124 secs ago
+   sensor:c_wpt_lon(lon)=-4647.95                  176124 secs ago
+   sensor:m_battery(volts)=15.042669678063           3.68 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.841 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.546144        3.857 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=31.6798059999999        3.825 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=106.391174000005        3.829 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021        0.064 secs ago
+   sensor:m_final_water_vx(m/s)=-0.026487041472458      35167.5 secs ago
+   sensor:m_final_water_vy(m/s)=0.028126290724832      35167.5 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5       28.139 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5          35.739 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49996947496948       35.703 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       35.668 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=85.2234480555549        3.863 secs ago
+   sensor:m_tot_num_inflections(nodim)=842         630.33 secs ago
+   sensor:m_vacuum(inHg)=9.53304446886447          79.645 secs ago
+   sensor:m_water_vx(m/s)=-0.032287144499311      457.553 secs ago
+   sensor:m_water_vy(m/s)=0.006914557014181       457.556 secs ago
+   sensor:x_last_wpt_lat(lat)=4827.53              1e+308 secs ago
+   sensor:x_last_wpt_lon(lon)=-5243.65             1e+308 secs ago
+1281697    No login script found for processing.
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0347 C_FIN:0.0000
+
+
+
+
+Glider sunfish at surface.
+Because:pitch not commanded [behavior surface_4 start_when = 2.0]
+MissionName:regm20.mi MissionNum:sunfish-2021-349-0-40 (0045.0040)
+Vehicle Name: sunfish
+Curr Time: Fri Dec 31 17:05:48 2021 MT: 1281741
+DR  Location:  5020.709 N -4647.696 E measured    439.413 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5015.829 N -4646.117 E measured    534.893 secs

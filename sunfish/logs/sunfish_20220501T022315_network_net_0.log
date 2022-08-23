@@ -1,0 +1,33 @@
+Connection Event: Carrier Detect found.796419    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Sun May  1 02:23:03 2022 MT:  796419
+DR  Location:  5406.003 N -5012.675 E measured    820.421 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5403.149 N -5016.113 E measured    918.039 secs ago
+GPS Location:  5406.003 N -5012.676 E measured    823.504 secs ago
+   sensor:c_autoballast_state(enum)=2             1038.01 secs ago
+   sensor:c_climb_bpump(X)=20                     1029.92 secs ago
+   sensor:c_dive_bpump(X)=-280                    1029.93 secs ago
+   sensor:c_wpt_lat(lat)=5407.88                   128319 secs ago
+   sensor:c_wpt_lon(lon)=-5008.19                  128319 secs ago
+   sensor:m_battery(volts)=14.5122601530344        39.486 secs ago
+   sensor:m_bms_battery_in_use(bool)=0               3.86 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.409912        3.876 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=133.243400000019        3.844 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=433.820687999463        3.849 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1022        4.077 secs ago
+   sensor:m_final_water_vx(m/s)=-0.047805574635623      42314.5 secs ago
+   sensor:m_final_water_vy(m/s)=-0.09268107409712      42314.5 secs ago
+   sensor:m_iridium_signal_strength(nodim)=0       24.077 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5          39.433 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49996947496948       39.397 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       39.362 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=39.7471266667413        3.882 secs ago
+   sensor:m_tot_num_inflections(nodim)=1892       1030.14 secs ago
+   sensor:m_vacuum(inHg)=9.7017053968254          111.601 secs ago
+   sensor:m_water_vx(m/s)=-0.074962686740145      886.065 secs ago
+   sensor:m_water_vy(m/s)=-0.004651789651055      886.069 secs ago
+   sensor:x_last_wpt_lat(lat)=5358.78              128319 secs ago
+   sensor:x_last_wpt_lon(lon)=-5027.92             128319 secs ago
+ABORT HISTORY: total since reset: 2
+ABORT HISTORY: la

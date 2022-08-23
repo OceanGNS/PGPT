@@ -1,0 +1,772 @@
+Connection Event: Carrier Detect found.4355902    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Sat Mar 12 23:40:36 2022 MT: 4355902
+DR  Location:  5349.194 N -5048.771 E measured     51.552 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5352.913 N -5042.051 E measured    156.566 secs ago
+GPS Location:  5349.194 N -5048.771 E measured     52.556 secs ago
+   sensor:c_autoballast_state(enum)=2              304.41 secs ago
+   sensor:c_climb_bpump(X)=20                     296.369 secs ago
+   sensor:c_dive_bpump(X)=-280                    296.373 secs ago
+   sensor:c_wpt_lat(lat)=5340.87                  49643.6 secs ago
+   sensor:c_wpt_lon(lon)=-5104.44                 49643.6 secs ago
+   sensor:m_battery(volts)=14.7469252689839        60.112 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.907 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.364744        3.923 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=225.770960000023        3.892 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=300.482327999884        3.896 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1019        4.124 secs ago
+   sensor:m_final_water_vx(m/s)=-0.067656074031941      38679.1 secs ago
+   sensor:m_final_water_vy(m/s)=0.005707117843982      38679.1 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5       36.087 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5          40.041 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.5       11.935 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       11.899 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=58.2663433333495        3.929 secs ago
+   sensor:m_tot_num_inflections(nodim)=1484       296.717 secs ago
+   sensor:m_vacuum(inHg)=9.5510568009768           12.565 secs ago
+   sensor:m_water_vx(m/s)=0.002718721488899       123.662 secs ago
+   sensor:m_water_vy(m/s)=-0.004182316368682      123.666 secs ago
+   sensor:x_last_wpt_lat(lat)=5353.31             49643.7 secs ago
+   sensor:x_last_wpt_lon(lon)=-5038.32            49643.7 secs ago
+ABORT HISTORY: total since reset: 1
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior sample_8 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-01-15T14:43:47
+ABORT HISTORY: last abort segment: sunfish-2022-014-0-0 (0048.0000)
+ABORT HISTORY: last abort mission: regm22.mi
+4355902    No login script found for processing.
+4355902    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355902    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355902    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355902    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355902    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4355905 94 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355905    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355905    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355905    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355905    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355905    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355905    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355905    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355905    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355905    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355905    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355905    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4355906    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355906    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355906    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355906    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355906    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355906    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355906    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4355909 95 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355909    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355909    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355909    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355909    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355909    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355909    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355909    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355909    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355909    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355909    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355909    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4355910    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355910    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355910    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355910    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355910    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355910    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355910    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+
+
+
+
+Glider sunfish at surface.
+Because:pitch not commanded [behavior surface_4 start_when = 2.0]
+MissionName:regm20.mi MissionNum:sunfish-2022-020-0-211 (0051.0211)
+Vehicle Name: sunfish
+Curr Time: Sat Mar 12 23:40:47 2022 MT: 4355914
+DR  Location:  5349.194 N -5048.771 E measured      62.99 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5352.913 N -5042.051 E measured    168.005 secs ago
+GPS Location:  5349.194 N -5048.771 E measured     63.995 secs ago
+   sensor:c_autoballast_state(enum)=2             315.849 secs ago
+   sensor:c_climb_bpump(X)=20                     307.808 secs ago
+   sensor:c_dive_bpump(X)=-280                    307.812 secs ago
+   sensor:c_wpt_lat(lat)=5340.87                  49655.1 secs ago
+   sensor:c_wpt_lon(lon)=-5104.44                 49655.1 secs ago
+   sensor:m_battery(volts)=14.7271016065544         3.979 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.244 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.319336         3.26 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=225.773632000023        3.228 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=300.484999999884        3.233 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1016        7.474 secs ago
+   sensor:m_final_water_vx(m/s)=-0.067656074031941      38690.6 secs ago
+   sensor:m_final_water_vy(m/s)=0.005707117843982      38690.6 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5       47.525 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5          51.479 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.5       23.373 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       23.337 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=58.2659722222383        3.265 secs ago
+   sensor:m_tot_num_inflections(nodim)=1484       308.155 secs ago
+   sensor:m_vacuum(inHg)=9.5510568009768           24.003 secs ago
+   sensor:m_water_vx(m/s)=0.002718721488899       135.101 secs ago
+   sensor:m_water_vy(m/s)=-0.004182316368682      135.105 secs ago
+   sensor:x_last_wpt_lat(lat)=5353.31             49655.1 secs ago
+   sensor:x_last_wpt_lon(lon)=-5038.32            49655.2 secs ago
+devices:(t/m/s) errs:   0/   0/   0 warn:  21/  14/   0 odd:380367/379909/241699
+ABORT HISTORY: total since reset: 1
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior sample_8 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-01-15T14:43:47
+ABORT HISTORY: last abort segment: sunfish-2022-014-0-0 (0048.0000)
+ABORT HISTORY: last abort mission: regm22.mi
+
+   Hit Control-R to RESUME the mission, i.e. dive!
+   Hit Control-C to END    the mission, i.e. GliderDos
+   Hit Control-E to extend surface time by 5 minutes.
+   Hit Control-W to get device warning reports.
+   Hit Control-F to re-read yo, goto_l, surface, sample, drift_ mafiles.
+   Hit H <n> <0:1> to Hangup and call back in <n> minutes at 0-primary 1-alternate number.
+   Hit S [-f={rf}|{irid] [-num=<n>] [-t=<s>] [filespec ...] to send log files
+   Hit ! <GliderDos cmd>  to execute <GliderDos cmd>
+   Hit Control-T to consci to science computer when comms ready:
+                                               ... communications ready for consci.
+
+Water Velocity Calculations waiting for final gps fix(ideally 44 secs)
+Waypoint: (5340.8700,-5104.4400) Range: 23126m, Bearing: 249deg, Age: 13:47h:m
+Time until diving is: 412 secs
+4355913 96 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355913    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355913    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355913    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355913    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355913    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355913    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355913    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355913    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355914    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355914    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355914    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4355914    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355914    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355914    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355914    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355914    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355914    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355914    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4355917 97 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355917    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355917    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355917    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355917    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355917    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355917    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355917    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355917    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355917    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355917    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355917    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0347 C_FIN:0.0000
+4355918    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355918    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355918    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355918    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355918    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355918    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355918    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4355921 98 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355921    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355921    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355921    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355921    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355921    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355921    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355921    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355921    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355921    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355921    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355921    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4355922    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355922    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355922    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355922    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355922    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355922    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355922    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4355925 99 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355925    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355925    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355925    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355925    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355925    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355925    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355925    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355925    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355925    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355925    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355925    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4355926    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355926    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355926    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355926    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355926    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355926    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355926    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4355929  0 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355929    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355929    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355929    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355929    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355929    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355929    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355929    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355929    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355929    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355929    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355929    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4355930    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355930    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355930    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355930    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355930    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355930    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355930    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4355933  1 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355933    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355933    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355933    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355933    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355933    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355933    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355933    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355933    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355933    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355933    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355933    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4355934    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355934    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355934    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355934    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355934    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355934    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355934    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+^C4355937  2 behavior surface_4: User Hit a Control-C, terminating the mission
+4355937    behavior surface_4: STATE Active -> Mission Complete
+4355937    behavior ?_-1: layered_control(): Mission completed normally
+4355937    behavior ?_-1: run_mission(): Mission completed: MS_COMPLETED_NORMALLY(-1)
+
+Vehicle Name: sunfish
+Mission Name:   regm20.mi
+Mission Number: sunfish-2022-020-0-211 (0051.0211)
+post_mission_cleanup(): End of Mission
+timestamp: Sat Mar 12 23:41:18 2022
+4355944    00510211.mlg LOG FILE CLOSED
+4355944  3 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355944    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355944    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355944    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355944    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355944    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355944    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355944    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355944    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355944    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355944    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355944    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4355945    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355945    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355945    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355945    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355945    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355945    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355945    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4355948  4 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355948    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355948    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355948    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355948    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355948    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355948    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355948    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355948    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355948    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355948    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355948    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+timestamp: Sat Mar 12 23:41:23 2022
+Mission completed normally
+Mission end: grun_mission() regm20.mi sunfish-2022-020-0-211 (0051.0211)
+SEQUENCE: regm20.mi sunfish-2022-020-0-211 (0051.0211) completed normally
+
+
+
+ABORT HISTORY: total since reset: 1
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior sample_8 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-01-15T14:43:47
+ABORT HISTORY: last abort segment: sunfish-2022-014-0-0 (0048.0000)
+ABORT HISTORY: last abort mission: regm22.mi
+Vehicle Name: sunfish
+SEQUENCE: About to run regm20.mi on try 1
+    You have 120 seconds to type a control-C to terminate the sequence.
+    The control-P character immediately starts the mission.
+    All other characters are ignored.
+4355949  5 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355949    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+^@
+I heard a keystroke ('NUL'), but not the right one!
+Drained the following 2 pending chars from input buffer:
+03 03                         ^C  ^C                              ..      
+
+
+
+ABORT HISTORY: total since reset: 1
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior sample_8 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-01-15T14:43:47
+ABORT HISTORY: last abort segment: sunfish-2022-014-0-0 (0048.0000)
+ABORT HISTORY: last abort mission: regm22.mi
+Vehicle Name: sunfish
+SEQUENCE: About to run regm20.mi on try 1
+    You have 120 seconds to type a control-C to terminate the sequence.
+    The control-P character immediately starts the mission.
+    All other characters are ignored.
+4355950  6 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355950    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4355951    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355951    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355951    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355951    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355951    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355951    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355951    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4355953  7 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355953    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355953    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355953    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355953    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355953    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355953    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355953    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355953    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355953    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355953    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355953    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0289 C_FIN:0.0000
+4355954    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+^C
+Heard a Control-C, terminating the sequence
+
+GliderDos N -1 >
+Vehicle Name: sunfish
+4355954    GliderDos: No keystroke heard for 0 seconds
+          900 seconds to go before running:SEQUENCE -resume_next
+
+GliderDos N -1 >4355954  8 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355954    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4355955  9 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4355955    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0232 C_FIN:0.0000
+4355956    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4355956    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4355956    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4355956    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4355956    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4355956    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4355956    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+^C^C^C^C^C^C^C^C^C^C^C^Cdevices?
+Parse error: Command not found
+
+GliderDos N -1 >4356059 36 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356059    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356059    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356059    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356059    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356059    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356059    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4356059    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4356059    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4356059    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4356059    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4356059    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4356060    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4356060    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4356060    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4356060    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4356060    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4356060    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4356060    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4356063 37 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356063    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356063    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356063    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356063    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356063    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356063    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4356063    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4356063    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4356063    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4356063    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4356063    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4356064    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4356064    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4356064    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4356064    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4356064    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4356064    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4356064    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4356065 38 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356065    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356065    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356065    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356065    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356065    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356065    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4356065    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4356065    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4356065    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4356065    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4356065    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4356066    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4356066    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4356066    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4356066    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4356066    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4356066    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4356066    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+devices?
+4356066    print_device_queue():
+4356066    print_all_devices():
+  Time since device sched start this cycle(ms) = 6
+  device scheduler total allowable run time(ms)= 41327
+  device drivers called normally               = yes
+
+                                    call 
+                           last  # again recal      run(ms)            allow 
+ #         NAME         S -DTms       ms +DTms last  min  avg  max Rmax   ms
+ 0        simdrvr _ _ _ 2
+ 1    test_driver _ _ _ 2
+ 2          ARGOS I U _ 0     0  1 DONE  DONE 4294967295    042947722774294967295    0 6000*
+ 3       WATCHDOG I U _ 0     0  1 DONE  DONE 4294967295    042949672954294967295    0  500*
+ 4        DEADMAN I U _ 0     0  1 DONE  DONE 4294967295    042949672954294967295    0  500*
+ 5        CONSOLE I U _ 0     0  1 DONE  DONE 4294967295    042947722774294967295    0  500*
+ 6            GPS I U _ 0     0  1 DONE  DONE 4294967295    0429496729542949672954294967295 6000*
+ 7   attitude_rev I U _ 0     0  1 DONE  DONE 4294967295    042947722774294967295    0 1000*
+ 8 ocean_pressure I U _ 0     0  1 DONE  DONE 4294967295    042947722774294967295   53 2000*
+ 9         vacuum I U _ 0     0  1 DONE  DONE 4294967295    042947722774294967295    0  500*
+10        battery I U _ 0     0  1 DONE  DONE 4294967295    042947722774294967295    0  500*
+11       air_pump I U _ 0     0  1 DONE  DONE 4294967295    042949672954294967295    0  500*
+12    pitch_motor I U _ 0     0  1 DONE  DONE 4294967295    042947722774294967295    0 2000*
+13  science_super I U _ 0     0  1 DONE  DONE 4294967295    042949672954294967295    0 5000*
+14        digifin I U _ 0     0  1 DONE  DONE 4294967295  27142947722774294967295    0 1000*
+15      altimeter I U _ 0     0  1 DONE  DONE 4294967295    042949672954294967295    0  500*
+16        IRIDIUM I U _ 0     0  1 DONE  DONE 4294967295    042947722774294967295    0 1500*
+17     leakdetect I U _ 0     0  1 DONE  DONE 4294967295    042947722774294967295    0 1000*
+18       recovery _ _ _ 2
+19        coulomb I U _ 0     0  1 DONE  DONE 4294967295  21942947722774294967295    0 1000*
+20       veh_temp I U _ 0     0  1 DONE  DONE 4294967295    042947722774294967295    0  500*
+21  BUOYANCY_PUMP _ _ _ 2
+22        DE_PUMP _ _ _ 2
+23        HD_PUMP I U _ 0     0  1 DONE  DONE 4294967295    042947722774294967295    0 2000*
+24       thruster _ _ _ 2
+>>>>SOME DEVICES xxx_ctrl() RAN TOO LONG<<<<<
+4356066    Done:print_all_devices()
+
+GliderDos N -1 >4356066 39 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356066    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356066    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356066    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356066    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356066    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356066    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4356067    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4356067    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4356067    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4356067    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4356067    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4356067    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4356067    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4356067    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4356067    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4356067    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4356067    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4356067    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4356071 40 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4356071    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4356072    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4356072    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4356075 41 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4356075    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4356079 42 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4356079    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4356080    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4356080    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4356080    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4356083 43 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356083    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356083    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356083    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356083    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356083    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356083    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4356083    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4356083    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4356083    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4356083    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4356083    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4356083    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4356083    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4356083    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4356084    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4356084    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4356084    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4356084    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4356087 44 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4356087    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4356088    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4356088    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4356088    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4356091 45 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356091    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356091    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356091    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356091    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356091    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356091    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4356091    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4356091    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4356091    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4356091    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4356091    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0232 C_FIN:0.0000
+4356092    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4356092    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4356092    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4356092    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4356092    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4356092    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4356092    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4356095 46 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356095    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356095    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356095    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356095    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356095    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356095    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4356095    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4356095    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4356095    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4356095    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4356095    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0695 C_FIN:0.0000
+4356096    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4356096    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4356096    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4356096    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4356096    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4356096    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4356096    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4356099 47 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356099    DRIVER_ODDITY:watchdo
+... Iridium dropped 16383 ...
+
+4356141    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4356144 59 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4356144    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4356145    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4356145    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4356145    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4356145 60 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356145    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356145    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356145    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356145    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356145    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356145    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4356145    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4356145    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4356145    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+exit reset
+
+Preparing to exit GliderDos
+WAITING for all motors to be idle --and--
+            science power to be stable
+4356146 61 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356146    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long
+4356147    DRIVER_ODDITY:vacuum:-1:xxx_ctrl() ran too long
+4356147    DRIVER_ODDITY:battery:-1:xxx_ctrl() ran too long
+4356147    DRIVER_ODDITY:air_pump:-1:xxx_ctrl() ran too long
+4356147    DRIVER_ODDITY:pitch_motor:-1:xxx_ctrl() ran too long
+4356147    DRIVER_ODDITY:science_super:-1:xxx_ctrl() ran too long
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0289 C_FIN:0.0000
+4356147    DRIVER_ODDITY:digifin:-1:xxx_ctrl() ran too long
+4356147    DRIVER_ODDITY:altimeter:-1:xxx_ctrl() ran too long
+4356147    DRIVER_ODDITY:iridium:-1:xxx_ctrl() ran too long
+4356147    DRIVER_ODDITY:leakdetect:-1:xxx_ctrl() ran too long
+4356147    DRIVER_ODDITY:coulomb:-1:xxx_ctrl() ran too long
+4356147    DRIVER_ODDITY:veh_temp:-1:xxx_ctrl() ran too long
+4356148    DRIVER_ODDITY:hd_pump:-1:xxx_ctrl() ran too long
+4356150 62 DRIVER_ODDITY:argos:-1:xxx_ctrl() ran too long
+4356150    DRIVER_ODDITY:watchdog:-1:xxx_ctrl() ran too long
+4356150    DRIVER_ODDITY:deadman:-1:xxx_ctrl() ran too long
+4356150    DRIVER_ODDITY:console:-1:xxx_ctrl() ran too long
+4356150    DRIVER_ODDITY:gps:-1:xxx_ctrl() ran too long
+4356150    DRIVER_ODDITY:attitude_rev:-1:xxx_ctrl() ran too long
+4356150    DRIVER_ODDITY:ocean_pressure:-1:xxx_ctrl() ran too long

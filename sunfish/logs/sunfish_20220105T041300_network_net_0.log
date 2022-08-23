@@ -1,0 +1,33 @@
+Connection Event: Carrier Detect found.Connection Event: Carrier Detect lost.Connection Event: Carrier Detect found.1667279    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Wed Jan  5 04:12:49 2022 MT: 1667279
+DR  Location:  5103.301 N -4704.783 E measured    388.228 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5100.328 N -4702.906 E measured     484.58 secs ago
+GPS Location:  5103.301 N -4704.783 E measured    389.903 secs ago
+   sensor:c_autoballast_state(enum)=2              218677 secs ago
+   sensor:c_climb_bpump(X)=45                     7978.91 secs
+<dockserver command="!dockzr *.*">
+not found>*.*<
+[dockzr | dockszr] [?][-v N][-nosmartdir][-f rf | irid][-cd dir][-noremove] [-archive]
+  [-d <path1>] <file11> <file12> ... <file1N>
+  [[-d <path2> <file21> <file22> ... <file2N>] ... ]
+</dockserver>
+ ago
+   sensor:c_dive_bpump(X)=-355                    7978.91 secs ago
+   sensor:c_wpt_lat(lat)=5120.66                   130042 secs ago
+   sensor:c_wpt_lon(lon)=-4709.23                  130042 secs ago
+   sensor:m_battery(volts)=14.9387301756885        39.705 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.708 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.500736        3.724 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=40.8586239999998        3.692 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=115.569992000007        3.696 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021        0.064 secs ago
+   sensor:m_final_water_vx(m/s)=0.015729971277593      25022.4 secs ago
+   sensor:m_final_water_vy(m/s)=-0.054035037314654      25022.4 secs ago
+   sensor:m_iridium_signal_strength(nodim)=4       36.083 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5          60.728 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49993894993895       60.692 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       60.657 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=83.9486122222212         3.73 secs ago
+   sensor:m_tot_num_inflections(nodim)=888        601.956 secs

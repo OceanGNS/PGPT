@@ -1,0 +1,206 @@
+Connection Event: Carrier Detect found.357788    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Tue Jan 25 16:50:59 2022 MT:  357787
+DR  Location:  5343.461 N -5102.735 E measured    170.556 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5345.873 N -5055.794 E measured    269.058 secs ago
+GPS Location:  5343.461 N -5102.735 E measured    173.672 secs ago
+   sensor:c_autoballast_state(enum)=2             550.374 secs ago
+   sensor:c_climb_bpump(X)=45                      40.358 secs ago
+   sensor:c_dive_bpump(X)=-305                     40.362 secs ago
+   sensor:c_wpt_lat(lat)=5338.9                    47.038 secs ago
+   sensor:c_wpt_lon(lon)=-5131.24                  47.041 secs ago
+   sensor:m_battery(volts)=14.9387501416891         7.815 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.838 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.52344        3.854 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=92.0707680000023        3.822 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=166.782136000032        3.827 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021         0.19 secs ago
+   sensor:m_final_water_vx(m/s)=-0.016454042380193      37873.1 secs ago
+   sensor:m_final_water_vy(m/s)=-0.066163381069536      37873.1 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5       20.193 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5           7.762 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49984737484737        7.726 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5        7.691 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=76.83581444444         3.86 secs ago
+   sensor:m_tot_num_inflections(nodim)=1082       400.582 secs ago
+   sensor:m_vacuum(inHg)=9.54876432234433          87.631 secs ago
+   sensor:m_water_vx(m/s)=0.009267793756671       236.087 secs ago
+   sensor:m_water_vy(m/s)=-0.09300117465302        236.09 secs ago
+   sensor:x_last_wpt_lat(lat)=5345.11             5324.47 secs ago
+   sensor:x_last_wpt_lon(lon)=-5107.59            5324.47 secs ago
+ABORT HISTORY: total since reset: 1
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior sample_8 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-01-15T14:43:47
+ABORT HISTORY: last abort segment: sunfish-2022-014-0-0 (0048.0000)
+ABORT HISTORY: last abort mission: regm22.mi
+357788    No login script found for processing.
+
+
+
+
+Glider sunfish at surface.
+Because:pitch not commanded [behavior surface_4 start_when = 2.0]
+MissionName:regm20.mi MissionNum:sunfish-2022-020-0-20 (0051.0020)
+Vehicle Name: sunfish
+Curr Time: Tue Jan 25 16:51:35 2022 MT:  357823
+DR  Location:  5343.461 N -5102.735 E measured    205.941 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5345.873 N -5055.794 E measured    304.443 secs ago
+GPS Location:  5343.461 N -5102.735 E measured    209.057 secs ago
+   sensor:c_autoballast_state(enum)=2             585.759 secs ago
+   sensor:c_climb_bpump(X)=45                      75.743 secs ago
+   sensor:c_dive_bpump(X)=-305                     75.746 secs ago
+   sensor:c_wpt_lat(lat)=5338.9                    82.422 secs ago
+   sensor:c_wpt_lon(lon)=-5131.24                  82.426 secs ago
+   sensor:m_battery(volts)=14.9387501416891          43.2 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.349 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.478024        3.365 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=92.0746880000024        3.333 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=166.786056000032        3.338 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1016        3.565 secs ago
+   sensor:m_final_water_vx(m/s)=-0.016454042380193      37908.4 secs ago
+   sensor:m_final_water_vy(m/s)=-0.066163381069536      37908.5 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5       55.578 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5          43.147 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49984737484737       43.111 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       43.076 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=76.8352699999956        3.371 secs ago
+   sensor:m_tot_num_inflections(nodim)=1082       435.967 secs ago
+   sensor:m_vacuum(inHg)=9.54876432234433         123.016 secs ago
+   sensor:m_water_vx(m/s)=0.009267793756671       271.472 secs ago
+   sensor:m_water_vy(m/s)=-0.09300117465302       271.475 secs ago
+   sensor:x_last_wpt_lat(lat)=5345.11             5359.85 secs ago
+   sensor:x_last_wpt_lon(lon)=-5107.59            5359.85 secs ago
+devices:(t/m/s) errs:   0/   0/   0 warn:   7/   0/   0 odd: 501/  43/   8
+ABORT HISTORY: total since reset: 1
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior sample_8 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-01-15T14:43:47
+ABORT HISTORY: last abort segment: sunfish-2022-014-0-0 (0048.0000)
+ABORT HISTORY: last abort mission: regm22.mi
+
+   Hit Control-R to RESUME the mission, i.e. dive!
+   Hit Control-C to END    the mission, i.e. GliderDos
+   Hit Control-E to extend surface time by 5 minutes.
+   Hit Control-W to get device warning reports.
+   Hit Control-F to re-read yo, goto_l, surface, sample, drift_ mafiles.
+   Hit H <n> <0:1> to Hangup and call back in <n> minutes at 0-primary 1-alternate number.
+   Hit S [-f={rf}|{irid] [-num=<n>] [-t=<s>] [filespec ...] to send log files
+   Hit ! <GliderDos cmd>  to execute <GliderDos cmd>
+   Hit Control-T to consci to science computer when comms ready:
+                                               ... communications ready for consci.
+
+Water Velocity Calculations waiting for final gps fix(ideally -111 secs)
+Waypoint: (5338.9000,-5131.2400) Range: 32495m, Bearing: 276deg, Age: 1:29h:m
+Time until diving is: 656 secs
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0405 C_FIN:0.0000
+^F
+MAFILES will be re-read.
+
+Extending surface time by 5 minutes just in case
+ user might want to verify quality of MAFILE(s).
+357851 17 behavior surface_3: SUBSTATE 0 UnInited->0 UnInited: rereading .ma file
+357851    behavior surface_3: STATE Waiting for Activation -> UnInited
+357851    behavior surface_2: SUBSTATE 0 UnInited->0 UnInited: rereading .ma file
+357851    behavior surface_2: STATE Waiting for Activation -> UnInited
+357855 18 behavior sample_9: SUBSTATE 4 ->0 UnInited: Unitialized
+357855    behavior sample_9: STATE Active -> UnInited
+357855    behavior sample_8: SUBSTATE 4 ->0 UnInited: Unitialized
+357855    behavior sample_8: STATE Active -> UnInited
+357855    behavior sample_7: SUBSTATE 4 ->0 UnInited: Unitialized
+357855    behavior sample_7: STATE Active -> UnInited
+357855    behavior goto_list_6: STATE Active -> UnInited
+357855    behavior yo_5: STATE Active -> UnInited
+357855    behavior surface_3: Reading b_args from surfac42.ma
+357855    behavior surface_3: start_when(enum)=3.000000
+357855    behavior surface_3: end_action(enum)=0.000000
+357855    behavior surface_3: gps_wait_time(s)=480.000000
+357855    behavior surface_3: keystroke_wait_time(sec)=480.000000
+357855    behavior surface_3: when_wpt_dist(m)=100.000000
+357855    behavior surface_3: c_use_pitch(enum)=3.000000
+357855    behavior surface_3: c_pitch_value(X)=0.453800
+357855    behavior surface_3: STATE UnInited -> Waiting for Activation
+357855    behavior surface_2: Reading b_args from surfac41.ma
+357855    behavior surface_2: start_when(enum)=12.000000
+357855    behavior surface_2: when_secs(sec)=57600.000000
+357855    behavior surface_2: end_action(enum)=1.000000
+357855    behavior surface_2: gps_wait_time(s)=480.000000
+357855    behavior surface_2: keystroke_wait_time(sec)=480.000000
+357855    behavior surface_2: when_wpt_dist(m)=100.000000
+357855    behavior surface_2: c_use_pitch(enum)=3.000000
+357855    behavior surface_2: c_pitch_value(X)=0.453800
+357855    behavior surface_2: printout_cycle_time(sec)=60.000000
+357855    behavior surface_2: STATE UnInited -> Waiting for Activation
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0203 C_FIN:0.0000
+357859 19 behavior sample_9: sample(): reading bargs
+357859    behavior sample_9: Reading b_args from sample50.ma
+357859    behavior sample_9: sensor_type(enum)=54.000000
+357859    behavior sample_9: sample_time_after_state_change(s)=0.000000
+357859    behavior sample_9: intersample_time(sec)=4.000000
+357859    behavior sample_9: state_to_sample(enum)=1.000000
+357859    behavior sample_9: nth_yo_to_sample(nodim)=1.000000
+357859    behavior sample_9: min_depth(m)=-5.000000
+357859    behavior sample_9: max_depth(m)=2000.000000
+357859    behavior sample_9: STATE UnInited -> Active
+357859    behavior sample_9: SUBSTATE 0 UnInited->4 : On Surface
+357859    behavior sample_8: sample(): reading bargs
+357859    behavior sample_8: Reading b_args from sample51.ma
+357859    behavior sample_8: sensor_type(enum)=48.000000
+357859    behavior sample_8: sample_time_after_state_change(s)=0.000000
+357859    behavior sample_8: intersample_time(sec)=1.000000
+357859    behavior sample_8: state_to_sample(enum)=1.000000
+357859    behavior sample_8: nth_yo_to_sample(nodim)=2.000000
+357859    behavior sample_8: min_depth(m)=-5.000000
+357859    behavior sample_8: max_depth(m)=200.000000
+357859    behavior sample_8: STATE UnInited -> Active
+357859    behavior sample_8: SUBSTATE 0 UnInited->4 : On Surface
+357859    behavior sample_7: sample(): reading bargs
+357859    behavior sample_7: Reading b_args from sample49.ma
+357859    behavior sample_7: sensor_type(enum)=1.000000
+357859    behavior sample_7: state_to_sample(enum)=1.000000
+357859    behavior sample_7: intersample_time(s)=2.000000
+357859    behavior sample_7: nth_yo_to_sample(nodim)=1.000000
+357859    behavior sample_7: intersample_depth(m)=-1.000000
+357859    behavior sample_7: min_depth(m)=-5.000000
+357859    behavior sample_7: max_depth(m)=2000.000000
+357859    behavior sample_7: STATE UnInited -> Active
+357859    behavior sample_7: SUBSTATE 0 UnInited->4 : On Surface
+357859    behavior goto_list_6: Reading b_args from goto_l20.ma
+357859    behavior goto_list_6: num_legs_to_run(nodim)=-1.000000
+357859    behavior goto_list_6: start_when(enum)=0.000000
+357859    behavior goto_list_6: list_stop_when(enum)=7.000000
+357859    behavior goto_list_6: list_when_wpt_dist(m)=5000.000000
+357859    behavior goto_list_6: initial_wpt(enum)=-1.000000
+357859    behavior goto_list_6: num_waypoints(nodim)=8.000000
+357859    behavior goto_list_6: Reading waypoints from file:
+357859    behavior goto_list_6:    0 lon: -4956.6500   lat: 5403.6500
+357859    behavior goto_list_6:    1 lon: -5020.3000   lat: 5357.4900
+357859    behavior goto_list_6:    2 lon: -5043.9500   lat: 5351.3100
+357859    behavior goto_list_6:    3 lon: -5107.5900   lat: 5345.1100
+357859    behavior goto_list_6:    4 lon: -5131.2400   lat: 5338.9000
+357859    behavior goto_list_6:    5 lon: -5107.5900   lat: 5345.1100
+357859    behavior goto_list_6:    6 lon: -5043.9500   lat: 5351.3100
+357859    behavior goto_list_6:    7 lon: -5020.3000   lat: 5357.4900
+357859    behavior goto_list_6: STATE UnInited -> Waiting for Activation
+357859    behavior goto_list_6: STATE Waiting for Activation -> Active
+357859    behavior goto_list_6: SUBSTATE 0 UnInited->1 : waiting for LMC to be established
+357859    behavior goto_list_6: SUBSTATE 1 ->2 : Building waypoint list
+357859    behavior goto_list_6: pick_initial_wpt(): NEXT waypoint selected wpt#4
+print_waypoint_list():
+   num_wpts_listed = 8
+   num_wpts_to_run = -1
+   initial_wpt = #4
+   # lat lon lmc_x lmc_y
+   #0   5403.650  -4956.650                -7581               -13152
+   #1   5357.490  -5020.300               -35778               -14802
+   #2   5351.310  -5043.950               -64056               -16307
+   #3   5345.110  -5107.590               -92404               -17670
+   #4   5338.900  -5131.240              -120836               -18866
+   #5   5345.110  -5107.590               -92404               -17670
+   #6   5351.310  -5043.950               -64056               -16307
+   #7   5357.490  -5020.300               -35778               -14802
+357860    behavior goto_list_6: SUBSTATE 2 ->3 : Steering
+357860    behavior goto_wpt_605: STATE UnInited -> Active
+357860    behavior goto_wpt_605: S

@@ -1,0 +1,253 @@
+Connection Event: Carrier Detect found.2906752    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Thu Feb 24 05:02:41 2022 MT: 2906752
+DR  Location:  5401.782 N -5028.938 E measured     68.367 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5359.202 N -5031.261 E measured    165.888 secs ago
+GPS Location:  5401.782 N -5028.938 E measured     71.501 secs ago
+   sensor:c_autoballast_state(enum)=2             333.158 secs ago
+   sensor:c_climb_bpump(X)=20                     325.915 secs ago
+   sensor:c_dive_bpump(X)=-280                    325.919 secs ago
+   sensor:c_wpt_lat(lat)=5407.74                    13498 secs ago
+   sensor:c_wpt_lon(lon)=-5008                      13498 secs ago
+   sensor:m_battery(volts)=14.763616122766         47.746 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.899 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.364744        3.915 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=174.768528000007        3.884 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=249.479896000043        3.888 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021        4.116 secs ago
+   sensor:m_final_water_vx(m/s)=-0.018860183445656      41841.6 secs ago
+   sensor:m_final_water_vy(m/s)=0.053129099095362      41841.6 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5       32.137 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5           15.73 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49996947496948       15.693 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       15.658 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=65.3500144444384        3.921 secs ago
+   sensor:m_tot_num_inflections(nodim)=1344       326.067 secs ago
+   sensor:m_vacuum(inHg)=9.17967526251526         123.597 secs ago
+   sensor:m_water_vx(m/s)=-0.114437401023133      132.536 secs ago
+   sensor:m_water_vy(m/s)=0.042614799527637        132.54 secs ago
+   sensor:x_last_wpt_lat(lat)=5353.31               13498 secs ago
+   sensor:x_last_wpt_lon(lon)=-5038.32              13498 secs ago
+ABORT HISTORY: total since reset: 1
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior sample_8 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-01-15T14:43:47
+ABORT HISTORY: last abort segment: sunfish-2022-014-0-0 (0048.0000)
+ABORT HISTORY: last abort mission: regm22.mi
+2906753    No login script found for processing.
+
+
+
+
+Glider sunfish at surface.
+Because:pitch not commanded [behavior surface_4 start_when = 2.0]
+MissionName:regm20.mi MissionNum:sunfish-2022-020-0-154 (0051.0154)
+Vehicle Name: sunfish
+Curr Time: Thu Feb 24 05:03:39 2022 MT: 2906810
+DR  Location:  5401.782 N -5028.938 E measured    125.815 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5359.202 N -5031.261 E measured    223.336 secs ago
+GPS Location:  5401.782 N -5028.938 E measured    128.949 secs ago
+   sensor:c_autoballast_state(enum)=2             390.606 secs ago
+   sensor:c_climb_bpump(X)=20                     383.363 secs ago
+   sensor:c_dive_bpump(X)=-280                    383.367 secs ago
+   sensor:c_wpt_lat(lat)=5407.74                   135037 secs ago
+   sensor:c_wpt_lon(lon)=-5008                     135037 secs ago
+   sensor:m_battery(volts)=14.7387709940059        41.183 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.348 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.45532        3.364 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=174.776344000007        3.333 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=249.487712000043        3.337 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021        3.565 secs ago
+   sensor:m_final_water_vx(m/s)=-0.018860183445656      41899.1 secs ago
+   sensor:m_final_water_vy(m/s)=0.053129099095362      41899.1 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5       89.585 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5          11.216 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.5        11.18 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       11.144 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=65.3489288888829         3.37 secs ago
+   sensor:m_tot_num_inflections(nodim)=1344       383.514 secs ago
+   sensor:m_vacuum(inHg)=9.68172808302808          57.039 secs ago
+   sensor:m_water_vx(m/s)=-0.114437401023133      189.983 secs ago
+   sensor:m_water_vy(m/s)=0.042614799527637       189.987 secs ago
+   sensor:x_last_wpt_lat(lat)=5353.31              135038 secs ago
+   sensor:x_last_wpt_lon(lon)=-5038.32             135038 secs ago
+devices:(t/m/s) errs:   0/   0/   0 warn:  19/  12/   0 odd: 852/ 394/   7
+ABORT HISTORY: total since reset: 1
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior sample_8 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-01-15T14:43:47
+ABORT HISTORY: last abort segment: sunfish-2022-014-0-0 (0048.0000)
+ABORT HISTORY: last abort mission: regm22.mi
+
+   Hit Control-R to RESUME the mission, i.e. dive!
+   Hit Control-C to END    the mission, i.e. GliderDos
+   Hit Control-E to extend surface time by 5 minutes.
+   Hit Control-W to get device warning reports.
+   Hit Control-F to re-read yo, goto_l, surface, sample, drift_ mafiles.
+   Hit H <n> <0:1> to Hangup and call back in <n> minutes at 0-primary 1-alternate number.
+   Hit S [-f={rf}|{irid] [-num=<n>] [-t=<s>] [filespec ...] to send log files
+   Hit ! <GliderDos cmd>  to execute <GliderDos cmd>
+   Hit Control-T to consci to science computer when comms ready:
+                                               ... communications ready for consci.
+
+Water Velocity Calculations waiting for final gps fix(ideally 3 secs)
+Waypoint: (5407.7400,-5008.0000) Range: 25365m, Bearing: 85deg, Age: 37:30h:m
+Time until diving is: 350 secs
+^W             name in ALLCAPS means CRITICAL device (* => SUPERCRITICAL)
+                  [I Installed] [- Not_Installed]
+                    [u In_use] [- Not_In_use] [X Out_of_Service]
+             name       limits     stats (#total/#mission/#segment)
+                        os w/s w/m os       errors      warnings      oddities
+ 0        simdrvr  -
+ 1    test_driver  -
+ 2          ARGOS* I u  -1  20   5  0
+ 3       WATCHDOG  I u  -1  -1  -1  0
+ 4        DEADMAN  I u  -1  20   5  0
+ 5        CONSOLE* I u  -1  20   5  0
+ 6            GPS  I u  -1  20   5  0 [   0   0  0] [  10   7  0] [   0   0  0]
+ 7   attitude_rev  I u   3  20   5  0
+ 8 ocean_pressure  I u   3  20   5  0
+ 9         vacuum  I u   3  20   5  0
+10        battery  I u   3  20   5  0
+11       air_pump  I u   3  20   5  0
+12    pitch_motor  I u   3  20   5  0 [   0   0  0] [   0   0  0] [  17  17  0]
+13  science_super  I u   3  20   5  0 [   0   0  0] [   0   0  0] [  19  14  0]
+14        digifin  I u   3  20   5  0 [   0   0  0] [   9   5  0] [ 604 261  3]
+15      altimeter  I u   3  20   5  0
+16        IRIDIUM* I u  -1  20   5  0 [   0   0  0] [   0   0  0] [ 156  62  2]
+17     leakdetect  I u   3  20   5  0
+18       recovery  -
+19        coulomb  I u   3  20   5  0 [   0   0  0] [   0   0  0] [  26  12  0]
+20       veh_temp  I u   3  20   5  0
+21  BUOYANCY_PUMP  -
+22        DE_PUMP  -
+23        HD_PUMP  I u   3  20   5  0 [   0   0  0] [   0   0  0] [  30  28  2]
+24       thruster  -
+devices:(t/m/s) errs:   0/   0/   0 warn:  19/  12/   0 odd: 852/ 394/   7
+
+
+
+
+Glider sunfish at surface.
+Because:pitch not commanded [behavior surface_4 start_when = 2.0]
+MissionName:regm20.mi MissionNum:sunfish-2022-020-0-154 (0051.0154)
+Vehicle Name: sunfish
+Curr Time: Thu Feb 24 05:04:39 2022 MT: 2906870
+DR  Location:  5401.782 N -5028.938 E measured    185.819 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5359.202 N -5031.261 E measured    283.341 secs ago
+GPS Location:  5401.782 N -5028.938 E measured    188.954 secs ago
+   sensor:c_autoballast_state(enum)=2             450.611 secs ago
+   sensor:c_climb_bpump(X)=20                     443.368 secs ago
+   sensor:c_dive_bpump(X)=-280                    443.372 secs ago
+   sensor:c_wpt_lat(lat)=5407.74                   135097 secs ago
+   sensor:c_wpt_lon(lon)=-5008                     135097 secs ago
+   sensor:m_battery(volts)=14.6982516479631        39.189 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.338 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.45532        3.354 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=174.783664000007        3.322 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=249.495032000043        3.327 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021        7.565 secs ago
+   sensor:m_final_water_vx(m/s)=-0.018860183445656      41959.1 secs ago
+   sensor:m_final_water_vy(m/s)=0.053129099095362      41959.1 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5      149.589 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5           7.175 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49996947496948        7.139 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5        7.104 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=65.3479122222162         3.36 secs ago
+   sensor:m_tot_num_inflections(nodim)=1344        443.52 secs ago
+   sensor:m_vacuum(inHg)=9.68172808302808         117.045 secs ago
+   sensor:m_water_vx(m/s)=-0.114437401023133      249.988 secs ago
+   sensor:m_water_vy(m/s)=0.042614799527637       249.992 secs ago
+   sensor:x_last_wpt_lat(lat)=5353.31              135098 secs ago
+   sensor:x_last_wpt_lon(lon)=-5038.32             135098 secs ago
+devices:(t/m/s) errs:   0/   0/   0 warn:  19/  12/   0 odd: 852/ 394/   7
+ABORT HISTORY: total since reset: 1
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior sample_8 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-01-15T14:43:47
+ABORT HISTORY: last abort segment: sunfish-2022-014-0-0 (0048.0000)
+ABORT HISTORY: last abort mission: regm22.mi
+
+   Hit Control-R to RESUME the mission, i.e. dive!
+   Hit Control-C to END    the mission, i.e. GliderDos
+   Hit Control-E to extend surface time by 5 minutes.
+   Hit Control-W to get device warning reports.
+   Hit Control-F to re-read yo, goto_l, surface, sample, drift_ mafiles.
+   Hit H <n> <0:1> to Hangup and call back in <n> minutes at 0-primary 1-alternate number.
+   Hit S [-f={rf}|{irid] [-num=<n>] [-t=<s>] [filespec ...] to send log files
+   Hit ! <GliderDos cmd>  to execute <GliderDos cmd>
+   Hit Control-T to consci to science computer when comms ready:
+                                               ... communications ready for consci.
+
+Water Velocity Calculations waiting for final gps fix(ideally -57 secs)
+Waypoint: (5407.7400,-5008.0000) Range: 25365m, Bearing: 85deg, Age: 37:31h:m
+Time until diving is: 290 secs
+^W             name in ALLCAPS means CRITICAL device (* => SUPERCRITICAL)
+                  [I Installed] [- Not_Installed]
+                    [u In_use] [- Not_In_use] [X Out_of_Service]
+             name       limits     stats (#total/#mission/#segment)
+                        os w/s w/m os       errors      warnings      oddities
+ 0        simdrvr  -
+ 1    test_driver  -
+ 2          ARGOS* I u  -1  20   5  0
+ 3       WATCHDOG  I u  -1  -1  -1  0
+ 4        DEADMAN  I u  -1  20   5  0
+ 5        CONSOLE* I u  -1  20   5  0
+ 6            GPS  I u  -1  20   5  0 [   0   0  0] [  10   7  0] [   0   0  0]
+ 7   attitude_rev  I u   3  20   5  0
+ 8 ocean_pressure  I u   3  20   5  0
+ 9         vacuum  I u   3  20   5  0
+10        battery  I u   3  20   5  0
+11       air_pump  I u   3  20   5  0
+12    pitch_motor  I u   3  20   5  0 [   0   0  0] [   0   0  0] [  17  17  0]
+13  science_super  I u   3  20   5  0 [   0   0  0] [   0   0  0] [  19  14  0]
+14        digifin  I u   3  20   5  0 [   0   0  0] [   9   5  0] [ 604 261  3]
+15      altimeter  I u   3  20   5  0
+16        IRIDIUM* I u  -1  20   5  0 [   0   0  0] [   0   0  0] [ 156  62  2]
+17     leakdetect  I u   3  20   5  0
+18       recovery  -
+19        coulomb  I u   3  20   5  0 [   0   0  0] [   0   0  0] [  26  12  0]
+20       veh_temp  I u   3  20   5  0
+21  BUOYANCY_PUMP  -
+22        DE_PUMP  -
+23        HD_PUMP  I u   3  20   5  0 [   0   0  0] [   0   0  0] [  30  28  2]
+24       thruster  -
+devices:(t/m/s) errs:   0/   0/   0 warn:  19/  12/   0 odd: 852/ 394/   7
+^R2906906 58 behavior surface_4: User typed Control-R, resuming
+
+
+   I heard a Control-R
+   RESUMING MISSION
+
+2906906    00510154.mlg LOG FILE CLOSED
+Doing system wide housekeeping.......
+report_heap_size(): M_FREE_HEAP=250.4K(256404 bytes)
+                    M_MIN_FREE_HEAP=167.4K(171400 bytes)
+                    M_SRAM_FREE_HEAP=1395.9K(1429416 bytes)
+                    M_SRAM_MIN_FREE_HEAP=1381.8K(1414960 bytes)
+Running algorithm to free disk space if required
+Not necessary to delete any files at this time
+Scanning free space...
+Megabytes used      on c: = 331.968750
+Megabytes available on c: = 7543.031250
+Megabytes used      on w: = 0.021973
+Megabytes available on w: = 0.978027
+Writing longterm state disk file: c:/state/longterm.sta
+   f_ocean_pressure_min(volts) 0.084737
+   m_avg_climb_rate(m/s) -0.109598
+   m_avg_speed(m/s) 0.234388
+   m_avg_upward_inflection_time(sec) 83.933960
+   m_battery(volts) 14.659399
+   m_coulomb_amphr_total(amp-hrs) 249.499912
+   m_iridium_call_num(nodim) 471.000000
+   m_iridium_dialed_num(nodim) 762.000000
+   m_lat(lat) 5401.782200
+   m_lon(lon) -5028.938300
+   m_pump_effective_num_cycles(nodim) 672.000000
+   m_tot_ballast_pumped_energy(kjoules) 0.000000
+   m_tot_horz_dist(km) 1909.745223
+   m_tot_num_inflections(nodim) 1344.000000
+   m_tot_num_thermal_valve_cmd(nodim) 1774.000000

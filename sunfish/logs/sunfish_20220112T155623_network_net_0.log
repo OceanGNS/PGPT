@@ -1,0 +1,396 @@
+Connection Event: Carrier Detect found.2314144    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Wed Jan 12 15:56:10 2022 MT: 2314144
+DR  Location:  5225.984 N -4848.174 E measured     40.574 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5219.200 N -4841.430 E measured    135.979 secs ago
+GPS Location:  5225.983 N -4848.175 E measured     41.258 secs ago
+   sensor:c_autoballast_state(enum)=2             369.974 secs ago
+   sensor:c_climb_bpump(X)=70                 
+<dockserver command="dockzr -archive *">
+not found>*<
+[dockzr | dockszr] [?][-v N][-nosmartdir][-f rf | irid][-cd dir][-noremove] [-archive]
+  [-d <path1>] <file11> <file12> ... <file1N>
+  [[-d <path2> <file21> <file22> ... <file2N>] ... ]
+</dockserver>
+    362.604 secs ago
+   sensor:c_dive_bpump(X)=-330                    362.608 secs ago
+   sensor:c_wpt_lat(lat)=5258.65                   180001 secs ago
+   sensor:c_wpt_lon(lon)=-4858.43                  180001 secs ago
+   sensor:m_battery(volts)=15.0456389196966        11.699 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.857 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.546144        3.873 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=55.1410879999996        3.841 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=129.852456000012        3.846 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021        4.074 secs ago
+   sensor:m_final_water_vx(m/s)=-0.10468213922344      35800.9 secs ago
+   sensor:m_final_water_vy(m/s)=0.119123702360612      35800.9 secs ago
+   sensor:m_iridium_signal_strength(nodim)=4       24.084 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5          47.285 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49990842490842       47.249 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       47.214 secs ago
+   sensor:m_lithium_battery_relative_
+<dockserver command="dockszr -archive *">
+not found>*<
+[dockzr | dockszr] [?][-v N][-nosmartdir][-f rf | irid][-cd dir][-noremove] [-archive]
+  [-d <path1>] <file11> <file12> ... <file1N>
+  [[-d <path2> <file21> <file22> ... <file2N>] ... ]
+</dockserver>
+charge(%)=81.9649366666649        3.879 secs ago
+   sensor:m_tot_num_inflections(nodim)=958        258.761 secs ago
+   sensor:m_vacuum(inHg)=9.0899410989011           23.744 secs ago
+   sensor:m_water_vx(m/s)=-0.101050546670432      106.054 secs ago
+   sensor:m_water_vy(m/s)=0.135679711742634       106.057 secs ago
+   sensor:x_last_wpt_lat(lat)=5035.76              939497 secs ago
+   sensor:x_last_wpt_lon(lon)=-4647.95             939497 secs ago
+2314144    No login script found for processing.
+
+
+
+
+Glider sunfish at surface.
+Because:pitch not commanded [behavior surface_4 start_when = 2.0]
+MissionName:regm20.mi MissionNum:sunfish-2021-349-0-78 (0045.0078)
+Vehicle Name: sunfish
+Curr Time: Wed Jan 12 15:56:33 2022 MT: 2314168
+DR  Location:  5225.984 N -4848.174 E measured     63.875 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5219.200 N -4841.430 E measured    159.279 secs ago
+GPS Location:  5225.983 N -4848.175 E measured     64.559 secs ago
+   sensor:c_autoballast_state(enum)=2             393.274 secs ago
+   sensor:c_climb_bpump(X)=70                     385.904 secs ago
+   sensor:c_dive_bpump(X)=-330                    385.908 secs ago
+   sensor:c_wpt_lat(lat)=5258.65                   180024 secs ago
+   sensor:c_wpt_lon(lon)=-4858.43                  180024 secs ago
+   sensor:m_battery(volts)=15.0456389196966            35 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.338 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.52344        3.354 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=55.1450079999996        3.323 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=129.856376000012        3.327 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1019        7.564 secs ago
+   sensor:m_final_water_vx(m/s)=-0.10468213922344      35824.2 secs ago
+   sensor:m_final_water_vy(m/s)=0.119123702360612      35824.2 secs ago
+   sensor:m_iridium_signal_strength(nodim)=4       47.384 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5           7.175 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.5        7.138 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5        7.102 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=81.9643922222205         3.36 secs ago
+   sensor:m_tot_num_inflections(nodim)=958         282.06 secs ago
+   sensor:m_vacuum(inHg)=9.0899410989011           47.043 secs ago
+   sensor:m_water_vx(m/s)=-0.101050546670432      129.353 secs ago
+   sensor:m_water_vy(m/s)=0.135679711742634       129.357 secs ago
+   sensor:x_last_wpt_lat(lat)=5035.76               93952 secs ago
+   sensor:x_last_wpt_lon(lon)=-4647.95              93952 secs ago
+devices:(t/m/s) errs:   0/   0/   0 warn:   4/   4/   1 odd: 350/ 350/   7
+ABORT HISTORY: total since reset: 0
+
+   Hit Control-R to RESUME the mission, i.e. dive!
+   Hit Control-C to END    the mission, i.e. GliderDos
+   Hit Control-E to extend surface time by 5 minutes.
+   Hit Control-W to get device warning reports.
+   Hit Control-F to re-read yo, goto_l, surface, sample, drift_ mafiles.
+   Hit H <n> <0:1> to Hangup and call back in <n> minutes at 0-primary 1-alternate number.
+   Hit S [-f={rf}|{irid] [-num=<n>] [-t=<s>] [filespec ...] to send log files
+   Hit ! <GliderDos cmd>  to execute <GliderDos cmd>
+   Hit Control-T to consci to science computer when comms ready:
+                                               ... communications ready for consci.
+
+Water Velocity Calculations waiting for final gps fix(ideally 20 secs)
+Waypoint: (5258.6500,-4858.4300) Range: 61668m, Bearing: 6deg, Age: 50:0h:m
+Time until diving is: 412 secs
+s *.sbd *.tbd
+
+--------------------------------
+2314188 93 00450078.mlg LOG FILE CLOSED
+SCIENCE DATA LOGGING: science IS running
+CONSCI REQUESTED (using IRIDIUM as console)
+ASKING SCIENCE COMPUTER TO SWITCH TO COMMAND MODE via IRIDIUM
+SWITCHING TO SCIENCE COMMAND MODE over IRIDIUM
+Normal operation resumes when:
+    SciDos> QUIT              -or-
+    Lose CD (unplug freewave/hangup iridium) -or-
+    run longer than U_SCI_CMD_MAX_CONSCI_TIME(3600)s
+2314196 96 Neutering the Freewave Console
+
+SciDos>SCI: Implicitly limiting total transfer to 1800 secs, representing 180 KB total size
+SCI: Enumerating and selecting files
+About to send 30 files
+Prechecking is not necessary for this invocation
+START
+**B00000000000000
+Starting zModem transfer of 00450078.tbd to/from sunfish size is 467
+Total Bytes sent/received: 467
+zModem transfer DONE for file 00450078.tbd
+
+Starting zModem transfer of 00450077.tbd to/from sunfish size is 529
+Total Bytes sent/received: 529
+zModem transfer DONE for file 00450077.tbd
+
+Starting zModem transfer of 00450076.tbd to/from sunfish size is 467
+Total Bytes sent/received: 467
+zModem transfer DONE for file 00450076.tbd
+
+Starting zModem transfer of 00450072.tbd to/from sunfish size is 505
+Total Bytes sent/received: 505
+zModem transfer DONE for file 00450072.tbd
+
+Starting zModem transfer of 00450071.tbd to/from sunfish size is 467
+Total Bytes sent/received: 467
+zModem transfer DONE for file 00450071.tbd
+
+Starting zModem transfer of 00450067.tbd to/from sunfish size is 505
+Total Bytes sent/received: 505
+zModem transfer DONE for file 00450067.tbd
+
+Starting zModem transfer of 00450066.tbd to/from sunfish size is 505
+Total Bytes sent/received: 505
+zModem transfer DONE for file 00450066.tbd
+
+Starting zModem transfer of 00450065.tbd to/from sunfish size is 505
+Total Bytes sent/received: 505
+zModem transfer DONE for file 00450065.tbd
+
+Starting zModem transfer of 00450064.tbd to/from sunfish size is 517
+Total Bytes sent/received: 517
+zModem transfer DONE for file 00450064.tbd
+
+Starting zModem transfer of 00450063.tbd to/from sunfish size is 519
+Total Bytes sent/received: 519
+zModem transfer DONE for file 00450063.tbd
+
+Starting zModem transfer of 00450062.tbd to/from sunfish size is 529
+Total Bytes sent/received: 529
+zModem transfer DONE for file 00450062.tbd
+
+Starting zModem transfer of 00450061.tbd to/from sunfish size is 467
+Total Bytes sent/received: 467
+zModem transfer DONE for file 00450061.tbd
+
+Starting zModem transfer of 00450060.tbd to/from sunfish size is 529
+Total Bytes sent/received: 529
+zModem transfer DONE for file 00450060.tbd
+
+Starting zModem transfer of 00450059.tbd to/from sunfish size is 467
+Total Bytes sent/received: 467
+zModem transfer DONE for file 00450059.tbd
+
+Starting zModem transfer of 00450058.tbd to/from sunfish size is 517
+Total Bytes sent/received: 517
+zModem transfer DONE for file 00450058.tbd
+
+Starting zModem transfer of 00450057.tbd to/from sunfish size is 507
+Total Bytes sent/received: 507
+zModem transfer DONE for file 00450057.tbd
+
+Starting zModem transfer of 00450056.tbd to/from sunfish size is 517
+Total Bytes sent/received: 517
+zModem transfer DONE for file 00450056.tbd
+
+Starting zModem transfer of 00450055.tbd to/from sunfish size is 519
+Total Bytes sent/received: 519
+zModem transfer DONE for file 00450055.tbd
+
+Starting zModem transfer of 00450054.tbd to/from sunfish size is 505
+Total Bytes sent/received: 505
+zModem transfer DONE for file 00450054.tbd
+
+Starting zModem transfer of 00450053.tbd to/from sunfish size is 531
+Total Bytes sent/received: 531
+zModem transfer DONE for file 00450053.tbd
+
+Starting zModem transfer of 00450052.tbd to/from sunfish size is 505
+Total Bytes sent/received: 505
+zModem transfer DONE for file 00450052.tbd
+
+Starting zModem transfer of 00450051.tbd to/from sunfish size is 505
+Total Bytes sent/received: 505
+zModem transfer DONE for file 00450051.tbd
+
+Starting zModem transfer of 00450050.tbd to/from sunfish size is 517
+Total Bytes sent/received: 517
+zModem transfer DONE for file 00450050.tbd
+
+Starting zModem transfer of 00450049.tbd to/from sunfish size is 519
+Total Bytes sent/received: 519
+zModem transfer DONE for file 00450049.tbd
+
+Starting zModem transfer of 00450048.tbd to/from sunfish size is 529
+Total Bytes sent/received: 529
+zModem transfer DONE for file 00450048.tbd
+
+Starting zModem transfer of 00450047.tbd to/from sunfish size is 467
+Total Bytes sent/received: 467
+zModem transfer DONE for file 00450047.tbd
+
+Starting zModem transfer of 00450046.tbd to/from sunfish size is 505
+Total Bytes sent/received: 571
+Total Bytes sent/received: 505
+zModem transfer DONE for file 00450046.tbd
+
+Starting zModem transfer of 00450045.tbd to/from sunfish size is 505
+Total Bytes sent/received: 505
+zModem transfer DONE for file 00450045.tbd
+
+Starting zModem transfer of 00450044.tbd to/from sunfish size is 517
+Total Bytes sent/received: 517
+zModem transfer DONE for file 00450044.tbd
+
+Starting zModem transfer of 00450043.tbd to/from sunfish size is 519
+Total Bytes sent/received: 519
+zModem transfer DONE for file 00450043.tbd
+.......*.*.^X.B.0.8.0.0.0.0.0.0.0.0.0.2.2.d.
+.DEL.*.*
+SCI: Sent 30 file(s):
+00450078.tbd  00450077.tbd  00450076.tbd  00450072.tbd  00450071.tbd
+00450067.tbd  00450066.tbd  00450065.tbd  00450064.tbd  00450063.tbd
+00450062.tbd  00450061.tbd  00450060.tbd  00450059.tbd  00450058.tbd
+00450057.tbd  00450056.tbd  00450055.tbd  00450054.tbd  00450053.tbd
+00450052.tbd  00450051.tbd  00450050.tbd  00450049.tbd  00450048.tbd
+00450047.tbd  00450046.tbd  00450045.tbd  00450044.tbd  00450043.tbd
+SCI: SUCCESS
+2314453 57 Freewave console restored
+REVERTING FROM SCIENCE COMMAND MODE
+SCIENCE COMMAND MODE TERMINATED because:
+   Science Program QUIT (cts lowered)
+2314455    GLD: Enumerating and selecting files
+About to send 30 files
+Prechecking is not necessary for this invocation
+selected IRIDIUM
+2314457    save_and_change_sensors()....
+          Changed u_use_ctd_depth_for_flying from 0 to 0
+          Changed c_science_on from 1 to 0
+2314457    save_and_change_sensors()....
+          Changed c_science_printout from 0 to 0
+Waiting for motors idle
+START
+**B00000000000000
+Starting zModem transfer of 00450078.sbd to/from sunfish size is 18533
+Total Bytes sent/received: 1024
+Total Bytes sent/received: 2048
+Total Bytes sent/received: 3072
+Total Bytes sent/received: 4096
+Total Bytes sent/received: 5120
+Total Bytes sent/received: 6144
+Total Bytes sent/received: 7168
+Total Bytes sent/received: 8192
+Total Bytes sent/received: 9216
+Total Bytes sent/received: 10240
+Total Bytes sent/received: 11264
+Total Bytes sent/received: 12288
+Total Bytes sent/received: 13312
+Total Bytes sent/received: 14336
+Total Bytes sent/received: 15360
+Total Bytes sent/received: 16384
+Total Bytes sent/received: 17408
+Total Bytes sent/received: 18432
+Total Bytes sent/received: 18533
+zModem transfer DONE for file 00450078.sbd
+
+Starting zModem transfer of 00450077.sbd to/from sunfish size is 18154
+Total Bytes sent/received: 1024
+Total Bytes sent/received: 2048
+Total Bytes sent/received: 3072
+Total Bytes sent/received: 4096
+Total Bytes sent/received: 5120
+Total Bytes sent/received: 6144
+Total Bytes sent/received: 7168
+Total Bytes sent/received: 8192
+Total Bytes sent/received: 9216
+Total Bytes sent/received: 10240
+Total Bytes sent/received: 11264
+Total Bytes sent/received: 12288
+Total Bytes sent/received: 13312
+Total Bytes sent/received: 14336
+Total Bytes sent/received: 15360
+Total Bytes sent/received: 16384
+Total Bytes sent/received: 17408
+Total Bytes sent/received: 18154
+zModem transfer DONE for file 00450077.sbd
+
+Starting zModem transfer of 00450076.sbd to/from sunfish size is 607
+Total Bytes sent/received: 607
+zModem transfer DONE for file 00450076.sbd
+
+Starting zModem transfer of 00450073.sbd to/from sunfish size is 20241
+Total Bytes sent/received: 14336
+Total Bytes sent/received: 15360
+Total Bytes sent/received: 16384
+Total Bytes sent/received: 17408
+Total Bytes sent/received: 18432
+Total Bytes sent/received: 19456
+Total Bytes sent/received: 20241
+zModem transfer DONE for file 00450073.sbd
+
+Starting zModem transfer of 00450072.sbd to/from sunfish size is 19843
+Total Bytes sent/received: 1024
+Total Bytes sent/received: 2048
+Total Bytes sent/received: 3072
+Total Bytes sent/received: 4096
+Total Bytes sent/received: 5120
+Total Bytes sent/received: 6144
+Total Bytes sent/received: 7168
+Total Bytes sent/received: 8192
+Total Bytes sent/received: 9216
+Total Bytes sent/received: 10240
+Total Bytes sent/received: 11264
+Total Bytes sent/received: 12288
+Total Bytes sent/received: 13312
+Total Bytes sent/received: 14336
+Total Bytes sent/received: 15360
+Total Bytes sent/received: 16384
+Total Bytes sent/received: 17408
+Total Bytes sent/received: 18432
+Total Bytes sent/received: 19456
+Total Bytes sent/received: 19843
+zModem transfer DONE for file 00450072.sbd
+
+Starting zModem transfer of 00450071.sbd to/from sunfish size is 636
+Total Bytes sent/received: 636
+zModem transfer DONE for file 00450071.sbd
+
+Starting zModem transfer of 00450070.sbd to/from sunfish size is 607
+Total Bytes sent/received: 607
+zModem transfer DONE for file 00450070.sbd
+
+Starting zModem transfer of 00450069.sbd to/from sunfish size is 17902
+Total Bytes sent/received: 1024
+Total Bytes sent/received: 2048
+Total Bytes sent/received: 3072
+Total Bytes sent/received: 4096
+Total Bytes sent/received: 5120
+Total Bytes sent/received: 6144
+Total Bytes sent/received: 7168
+Total Bytes sent/received: 8192
+Total Bytes sent/received: 9216
+Total Bytes sent/received: 10240
+Total Bytes sent/received: 11264
+Total Bytes sent/received: 12288
+Total Bytes sent/received: 13312
+Total Bytes sent/received: 14336
+Total Bytes sent/received: 15360
+Total Bytes sent/received: 16384
+Total Bytes sent/received: 17408
+Total Bytes sent/received: 17902
+zModem transfer DONE for file 00450069.sbd
+
+Starting zModem transfer of 00450068.sbd to/from sunfish size is 18800
+Total Bytes sent/received: 1024
+Total Bytes sent/received: 2048
+Total Bytes sent/received: 3072
+Total Bytes sent/received: 4096
+Total Bytes sent/received: 5120
+Total Bytes sent/received: 6144
+Total Bytes sent/received: 7168
+Total Bytes sent/received: 8192
+Total Bytes sent/received: 9216
+Total Bytes sent/received: 10240
+Total Bytes sent/received: 11264
+Total Bytes sent/received: 12288
+Total Bytes sent/received: 13312
+Total Bytes sent/received: 14336
+Total Bytes sent/received: 15360
+Total Bytes sent/received: 16384
+Total Bytes sent/received: 17408
+Total Bytes sent/received: 18432
+Total Bytes sent/received: 18800
+zModem transfer DONE for file 00450068.sbd

@@ -1,0 +1,205 @@
+Connection Event: Carrier Detect found.178273    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Sun Jan 23 14:58:27 2022 MT:  178272
+DR  Location:  5357.609 N -5024.585 E measured     60.758 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5359.772 N -5017.440 E measured    152.253 secs ago
+GPS Location:  5357.609 N -5024.585 E measured     61.895 secs ago
+   sensor:c_autoballast_state(enum)=2             379.172 secs ago
+   sensor:c_climb_bpump(X)=70                     372.672 secs ago
+   sensor:c_dive_bpump(X)=-330                    372.676 secs ago
+   sensor:c_wpt_lat(lat)=5351.31                  40283.6 secs ago
+   sensor:c_wpt_lon(lon)=-5043.95                 40283.6 secs ago
+   sensor:m_battery(volts)=14.9623401093697          3.81 secs ago
+   sensor:m_bms_battery_in_use(bool)=0               3.97 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.52344        3.986 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=85.5024160000015        3.954 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=160.213784000022        3.959 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021         0.19 secs ago
+   sensor:m_final_water_vx(m/s)=0.026735445456376      33908.4 secs ago
+   sensor:m_final_water_vy(m/s)=0.030958438787439      33908.5 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5       28.261 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5           63.48 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.4997557997558       63.444 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       63.409 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=77.7480855555525        3.992 secs ago
+   sensor:m_tot_num_inflections(nodim)=1062        250.88 secs ago
+   sensor:m_vacuum(inHg)=9.45608268620269           3.819 secs ago
+   sensor:m_water_vx(m/s)=0.008951606891162       126.214 secs ago
+   sensor:m_water_vy(m/s)=0.016999365166574       126.218 secs ago
+   sensor:x_last_wpt_lat(lat)=5357.49             40283.7 secs ago
+   sensor:x_last_wpt_lon(lon)=-5020.3             40283.7 secs ago
+ABORT HISTORY: total since reset: 1
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior sample_8 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-01-15T14:43:47
+ABORT HISTORY: last abort segment: sunfish-2022-014-0-0 (0048.0000)
+ABORT HISTORY: last abort mission: regm22.mi
+178273    No login script found for processing.
+s -num=1 *.tbd
+
+--------------------------------
+178307 34 00510011.mlg LOG FILE CLOSED
+SCIENCE DATA LOGGING: science IS running
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0347 C_FIN:0.0000
+CONSCI REQUESTED (using IRIDIUM as console)
+ASKING SCIENCE COMPUTER TO SWITCH TO COMMAND MODE via IRIDIUM
+SWITCHING TO SCIENCE COMMAND MODE over IRIDIUM
+Normal operation resumes when:
+    SciDos> QUIT              -or-
+    Lose CD (unplug freewave/hangup iridium) -or-
+    run longer than U_SCI_CMD_MAX_CONSCI_TIME(3600)s
+178316 37 Neutering the Freewave Console
+
+SciDos>SCI: Implicitly limiting total transfer to 1800 secs, representing 180 KB total size
+SCI: Enumerating and selecting files
+About to send 1 files
+Prechecking is not necessary for this invocation
+START
+**B00000000000000
+Starting zModem transfer of 00510011.tbd to/from sunfish size is 10987
+Total Bytes sent/received: 1024
+Total Bytes sent/received: 2048
+Total Bytes sent/received: 3072
+Total Bytes sent/received: 4096
+Total Bytes sent/received: 5120
+Total Bytes sent/received: 6144
+Total Bytes sent/received: 7168
+Total Bytes sent/received: 8192
+Total Bytes sent/received: 9216
+Total Bytes sent/received: 10240
+Total Bytes sent/received: 10987
+zModem transfer DONE for file 00510011.tbd
+
+SCI: Sent 1 file(s):
+00510011.tbd
+SCI: SUCCESS
+178399 57 Freewave console restored
+REVERTING FROM SCIENCE COMMAND MODE
+SCIENCE COMMAND MODE TERMINATED because:
+   Science Program QUIT (cts lowered)
+178402    GLD: Enumerating and selecting files
+GLD: No files to send
+178402    GLD: Sent 0 file(s):
+
+GLD: SUCCESS
+178413 59 00510012.mlg LOG FILE OPENED
+
+--------------------------------
+178413    behavior surface_4: SUBSTATE 7 ->7 : After data transmission, waiting for control-C to exit/resume
+
+
+
+
+Glider sunfish at surface.
+Because:pitch not commanded [behavior surface_4 start_when = 2.0]
+MissionName:regm20.mi MissionNum:sunfish-2022-020-0-12 (0051.0012)
+Vehicle Name: sunfish
+Curr Time: Sun Jan 23 15:00:48 2022 MT:  178415
+DR  Location:  5357.609 N -5024.585 E measured    202.333 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5359.772 N -5017.440 E measured    293.828 secs ago
+GPS Location:  5357.609 N -5024.585 E measured     203.47 secs ago
+   sensor:c_autoballast_state(enum)=2             520.747 secs ago
+   sensor:c_climb_bpump(X)=70                     514.246 secs ago
+   sensor:c_dive_bpump(X)=-330                     514.25 secs ago
+   sensor:c_wpt_lat(lat)=5351.31                  40425.2 secs ago
+   sensor:c_wpt_lon(lon)=-5043.95                 40425.2 secs ago
+   sensor:m_battery(volts)=14.9212328383595         0.322 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              0.481 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.432616        0.497 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=85.5195040000015        0.465 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=160.230872000022        0.469 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021        0.697 secs ago
+   sensor:m_final_water_vx(m/s)=0.026735445456376        34050 secs ago
+   sensor:m_final_water_vy(m/s)=0.030958438787439        34050 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5      169.836 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5           0.218 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49990842490842        0.182 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5        0.147 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=77.7457122222192        0.503 secs ago
+   sensor:m_tot_num_inflections(nodim)=1062       392.455 secs ago
+   sensor:m_vacuum(inHg)=9.66142327228327            0.33 secs ago
+   sensor:m_water_vx(m/s)=0.008951606891162       267.789 secs ago
+   sensor:m_water_vy(m/s)=0.016999365166574       267.793 secs ago
+   sensor:x_last_wpt_lat(lat)=5357.49             40425.3 secs ago
+   sensor:x_last_wpt_lon(lon)=-5020.3             40425.3 secs ago
+devices:(t/m/s) errs:   0/   0/   0 warn:   7/   0/   0 odd: 480/  22/   4
+ABORT HISTORY: total since reset: 1
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior sample_8 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-01-15T14:43:47
+ABORT HISTORY: last abort segment: sunfish-2022-014-0-0 (0048.0000)
+ABORT HISTORY: last abort mission: regm22.mi
+
+   Hit Control-R to RESUME the mission, i.e. dive!
+   Hit Control-C to END    the mission, i.e. GliderDos
+   Hit Control-E to extend surface time by 5 minutes.
+   Hit Control-W to get device warning reports.
+   Hit Control-F to re-read yo, goto_l, surface, sample, drift_ mafiles.
+   Hit H <n> <0:1> to Hangup and call back in <n> minutes at 0-primary 1-alternate number.
+   Hit S [-f={rf}|{irid] [-num=<n>] [-t=<s>] [filespec ...] to send log files
+   Hit ! <GliderDos cmd>  to execute <GliderDos cmd>
+   Hit Control-T to consci to science computer when comms ready:
+                                               ... communications ready for consci.
+
+Water Velocity Calculations waiting for final gps fix(ideally -147 secs)
+Waypoint: (5351.3100,-5043.9500) Range: 24208m, Bearing: 262deg, Age: 11:13h:m
+*
+I heard a character ('*'), but not the right one
+Drained the following 19 pending chars from input buffer:
+2a 18 42 30 38 30 30 30       *   ^X  B   0   8   0   0   0       *.B08000
+30 30 30 30 30 30 32 32       0   0   0   0   0   0   2   2       00000022
+64 0d 8a                      d   CR  .                           d..     
+Time until diving is: 479 secs
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0289 C_FIN:0.0000
+^R178450 69 behavior surface_4: User typed Control-R, resuming
+
+
+   I heard a Control-R
+   RESUMING MISSION
+
+178450    00510012.mlg LOG FILE CLOSED
+Doing system wide housekeeping.......
+report_heap_size(): M_FREE_HEAP=248.7K(254672 bytes)
+                    M_MIN_FREE_HEAP=168.2K(172196 bytes)
+                    M_SRAM_FREE_HEAP=1395.9K(1429416 bytes)
+                    M_SRAM_MIN_FREE_HEAP=1385.8K(1419088 bytes)
+Running algorithm to free disk space if required
+Not necessary to delete any files at this time
+Scanning free space...
+Megabytes used      on c: = 239.375000
+Megabytes available on c: = 7635.625000
+Megabytes used      on w: = 0.021973
+Megabytes available on w: = 0.978027
+Writing longterm state disk file: c:/state/longterm.sta
+   f_ocean_pressure_min(volts) 0.085598
+   m_avg_climb_rate(m/s) -0.143095
+   m_avg_speed(m/s) 0.274998
+   m_avg_upward_inflection_time(sec) 68.878721
+   m_battery(volts) 14.921233
+   m_coulomb_amphr_total(amp-hrs) 160.236244
+   m_iridium_call_num(nodim) 359.000000
+   m_iridium_dialed_num(nodim) 628.000000
+   m_lat(lat) 5357.609400
+   m_lon(lon) -5024.585100
+   m_pump_effective_num_cycles(nodim) 531.000000
+   m_tot_ballast_pumped_energy(kjoules) 0.000000
+   m_tot_horz_dist(km) 1234.598489
+   m_tot_num_inflections(nodim) 1062.000000
+   m_tot_num_thermal_valve_cmd(nodim) 1460.000000
+   m_weight_drop(bool) 0.000000
+   s_water_depth_avg(m) 200.000000
+   s_water_depth_delta(m) 0.000000
+   s_water_depth_wavelength(m) 100.000000
+   x_hover_ballast_deep(cc) 0.000000
+   x_hover_ballast_shallow(cc) 0.000000
+   x_hover_depth_deep(m) 0.000000
+   x_hover_depth_shallow(m) 0.000000
+   x_last_wpt_lat(lat) 5357.490000
+   x_last_wpt_lon(lon) -5020.300000
+Housekeeping is done
+178462 71 00510013.mlg LOG FILE OPENED
+178462    init_gps_input()
+178462    behavior surface_4: SUBSTATE 7 ->10 : Waiting for final gps fix
+surface_4: Waitin

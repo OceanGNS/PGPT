@@ -1,0 +1,35 @@
+Connection Event: Carrier Detect found.180444    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Sat Jan 15 14:39:34 2022 MT:  180444
+DR  Location:  5311.462 N -4923.673 E measured    930.565 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5305.304 N -4918.235 E measured    1033.97 secs ago
+GPS Location:  5311.462 N -4923.673 E measured     933.65 secs ago
+   sensor:c_autoballast_state(enum)=2             18749.2 secs ago
+   sensor:c_climb_bpump(X)=95                     830.647 secs ago
+   sensor:c_dive_bpump(X)=-305                    830.651 secs ago
+   sensor:c_wpt_lat(lat)=5410.51                  834.516 secs ago
+   sensor:c_wpt_lon(lon)=-4953.93                  834.52 secs ago
+   sensor:m_battery(volts)=14.4502975485662         3.706 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.866 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.52344        3.881 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=63.7547359999976         3.85 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=138.466104000023        3.854 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1022        0.064 secs ago
+   sensor:m_final_water_vx(m/s)=-0.04934479232227       129.22 secs ago
+   sensor:m_final_water_vy(m/s)=0.092125713609976      129.223 secs ago
+   sensor:m_iridium_signal_strength(nodim)=4       24.227 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5           19.71 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49990842490842       19.674 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       19.639 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=80.7685966666635        3.888 secs ago
+   sensor:m_tot_num_inflections(nodim)=986        1140.59 secs ago
+   sensor:m_vacuum(inHg)=9.69843042735043           3.714 secs ago
+   sensor:m_water_vx(m/s)=-0.04934479232227       129.257 secs ago
+   sensor:m_water_vy(m/s)=0.092125713609976       129.261 secs ago
+   sensor:x_last_wpt_lat(lat)=5035.76              1e+308 secs ago
+   sensor:x_last_wpt_lon(lon)=-4647.95             1e+308 secs ago
+
+GliderDos N -1 >180445    No login script found for processing.
+
+GliderDos N -1 >sequence r

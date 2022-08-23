@@ -1,0 +1,487 @@
+Connection Event: Carrier Detect found.627689    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Fri Apr 29 03:30:18 2022 MT:  627689
+DR  Location:  5352.922 N -5029.404 E measured     48.482 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5349.213 N -5034.193 E measured    143.892 secs ago
+GPS Location:  5352.922 N -5029.404 E measured     49.154 secs ago
+   sensor:c_autoballast_state(enum)=2             285.976 secs ago
+   sensor:c_climb_bpump(X)=20                     277.813 secs ago
+   sensor:c_dive_bpump(X)=-280                    277.817 secs ago
+   sensor:c_wpt_lat(lat)=5358.78                   113178 secs ago
+   sensor:c_wpt_lon(lon)=-5027.92                  113178 secs ago
+   sensor:m_battery(volts)=14.7894494581855        35.602 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              7.713 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.34204        7.729 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=128.148428000013        7.698 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=428.725715999491        7.702 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021         7.93 secs ago
+   sensor:m_final_water_vx(m/s)=0.007871101938383      41708.6 secs ago
+   sensor:m_final_water_vy(m/s)=-0.124918417598171      41708.6 secs ago
+   sensor:m_iridium_signal_strength(nodim)=4       32.001 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5          67.235 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.5       67.199 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       67.163 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=40.4547616667373        7.735 secs ago
+   sensor:m_tot_num_inflections(nodim)=1876       278.027 secs ago
+   sensor:m_vacuum(inHg)=9.41088810744811          11.591 secs ago
+   sensor:m_water_vx(m/s)=0.023425152376025       113.897 secs ago
+   sensor:m_water_vy(m/s)=-0.048988305500037      113.901 secs ago
+   sensor:x_last_wpt_lat(lat)=5349.25              113179 secs ago
+   sensor:x_last_wpt_lon(lon)=-5046.81             113179 secs ago
+ABORT HISTORY: total since reset: 2
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior surface_4 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-04-21T20:45:22
+ABORT HISTORY: last abort segment: sunfish-2022-077-0-132 (0055.0132)
+ABORT HISTORY: last abort mission: regm20.mi
+627689    No login script found for processing.
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0289 C_FIN:0.0000
+
+
+
+
+Glider sunfish at surface.
+Because:pitch not commanded [behavior surface_4 start_when = 2.0]
+MissionName:regm20.mi MissionNum:sunfish-2022-110-0-33 (0056.0033)
+Vehicle Name: sunfish
+Curr Time: Fri Apr 29 03:30:34 2022 MT:  627705
+DR  Location:  5352.922 N -5029.404 E measured     63.968 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5349.213 N -5034.193 E measured    159.379 secs ago
+GPS Location:  5352.922 N -5029.404 E measured     64.641 secs ago
+   sensor:c_autoballast_state(enum)=2             301.463 secs ago
+   sensor:c_climb_bpump(X)=20                       293.3 secs ago
+   sensor:c_dive_bpump(X)=-280                    293.304 secs ago
+   sensor:c_wpt_lat(lat)=5358.78                   113194 secs ago
+   sensor:c_wpt_lon(lon)=-5027.92                  113194 secs ago
+   sensor:m_battery(volts)=14.7894494581855        51.089 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.349 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.296632        3.365 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=128.152092000013        3.333 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=428.729379999491        3.338 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021        3.566 secs ago
+   sensor:m_final_water_vx(m/s)=0.007871101938383      41724.1 secs ago
+   sensor:m_final_water_vy(m/s)=-0.124918417598171      41724.1 secs ago
+   sensor:m_iridium_signal_strength(nodim)=4       47.488 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5          15.019 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.5       14.983 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       14.947 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=40.4542527778485         3.37 secs ago
+   sensor:m_tot_num_inflections(nodim)=1876       293.514 secs ago
+   sensor:m_vacuum(inHg)=9.41088810744811          27.078 secs ago
+   sensor:m_water_vx(m/s)=0.023425152376025       129.384 secs ago
+   sensor:m_water_vy(m/s)=-0.048988305500037      129.388 secs ago
+   sensor:x_last_wpt_lat(lat)=5349.25              113194 secs ago
+   sensor:x_last_wpt_lon(lon)=-5046.81             113194 secs ago
+devices:(t/m/s) errs:   0/   0/   0 warn:  14/   2/   0 odd: 666/  95/   6
+ABORT HISTORY: total since reset: 2
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior surface_4 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-04-21T20:45:22
+ABORT HISTORY: last abort segment: sunfish-2022-077-0-132 (0055.0132)
+ABORT HISTORY: last abort mission: regm20.mi
+
+   Hit Control-R to RESUME the mission, i.e. dive!
+   Hit Control-C to END    the mission, i.e. GliderDos
+   Hit Control-E to extend surface time by 5 minutes.
+   Hit Control-W to get device warning reports.
+   Hit Control-F to re-read yo, goto_l, surface, sample, drift_ mafiles.
+   Hit H <n> <0:1> to Hangup and call back in <n> minutes at 0-primary 1-alternate number.
+   Hit S [-f={rf}|{irid] [-num=<n>] [-t=<s>] [filespec ...] to send log files
+   Hit ! <GliderDos cmd>  to execute <GliderDos cmd>
+   Hit Control-T to consci to science computer when comms ready:
+                                               ... communications ready for consci.
+
+Water Velocity Calculations waiting for final gps fix(ideally 35 secs)
+Waypoint: (5358.7800,-5027.9200) Range: 10984m, Bearing: 29deg, Age: 31:26h:m
+Time until diving is: 412 secs
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0289 C_FIN:0.0000
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0232 C_FIN:0.0000
+s -num=1 *.tbd
+
+--------------------------------
+627739 46 00560033.mlg LOG FILE CLOSED
+SCIENCE DATA LOGGING: science IS running
+CONSCI REQUESTED (using IRIDIUM as console)
+ASKING SCIENCE COMPUTER TO SWITCH TO COMMAND MODE via IRIDIUM
+SWITCHING TO SCIENCE COMMAND MODE over IRIDIUM
+Normal operation resumes when:
+    SciDos> QUIT              -or-
+    Lose CD (unplug freewave/hangup iridium) -or-
+    run longer than U_SCI_CMD_MAX_CONSCI_TIME(3600)s
+627748 49 Neutering the Freewave Console
+
+SciDos>SCI: Implicitly limiting total transfer to 1800 secs, representing 180 KB total size
+SCI: Enumerating and selecting files
+About to send 1 files
+Prechecking is not necessary for this invocation
+START
+**B00000000000000
+Starting zModem transfer of 00560033.tbd to/from sunfish size is 13125
+Total Bytes sent/received: 1025
+Total Bytes sent/received: 1024
+Total Bytes sent/received: 2048
+Total Bytes sent/received: 3072
+Total Bytes sent/received: 4096
+Total Bytes sent/received: 4096
+Total Bytes sent/received: 5120
+Total Bytes sent/received: 5632
+Total Bytes sent/received: 5664
+Total Bytes sent/received: 5696
+Total Bytes sent/received: 5728
+Total Bytes sent/received: 5760
+Total Bytes sent/received: 5792
+Total Bytes sent/received: 5824
+Total Bytes sent/received: 5856
+Total Bytes sent/received: 5888
+Total Bytes sent/received: 5920
+Total Bytes sent/received: 5952
+Total Bytes sent/received: 5984
+Total Bytes sent/received: 6016
+Total Bytes sent/received: 6048
+Total Bytes sent/received: 6080
+Total Bytes sent/received: 6112
+Total Bytes sent/received: 6144
+Total Bytes sent/received: 6176
+Total Bytes sent/received: 6208
+Total Bytes sent/received: 6240
+Total Bytes sent/received: 6272
+Total Bytes sent/received: 6304
+Total Bytes sent/received: 6336
+Total Bytes sent/received: 6368
+Total Bytes sent/received: 6400
+Total Bytes sent/received: 6432
+Total Bytes sent/received: 6464
+Total Bytes sent/received: 6496
+Total Bytes sent/received: 6528
+Total Bytes sent/received: 6560
+Total Bytes sent/received: 6592
+Total Bytes sent/received: 6624
+Total Bytes sent/received: 6656
+Total Bytes sent/received: 6688
+Total Bytes sent/received: 6720
+Total Bytes sent/received: 6752
+Total Bytes sent/received: 6784
+Total Bytes sent/received: 6816
+Total Bytes sent/received: 6848
+Total Bytes sent/received: 6880
+Total Bytes sent/received: 6912
+Total Bytes sent/received: 6944
+Total Bytes sent/received: 6976
+Total Bytes sent/received: 7008
+Total Bytes sent/received: 7040
+Total Bytes sent/received: 7072
+Total Bytes sent/received: 7104
+Total Bytes sent/received: 7136
+Total Bytes sent/received: 7168
+Total Bytes sent/received: 7200
+Total Bytes sent/received: 7232
+Total Bytes sent/received: 7264
+Total Bytes sent/received: 7296
+Total Bytes sent/received: 7328
+Total Bytes sent/received: 7360
+Total Bytes sent/received: 7392
+Total Bytes sent/received: 7424
+Total Bytes sent/received: 7456
+Total Bytes sent/received: 7488
+Total Bytes sent/received: 7520
+Total Bytes sent/received: 7552
+Total Bytes sent/received: 7584
+Total Bytes sent/received: 7616
+Total Bytes sent/received: 7648
+Total Bytes sent/received: 7680
+Total Bytes sent/received: 7712
+Total Bytes sent/received: 7744
+Total Bytes sent/received: 7776
+Total Bytes sent/received: 7808
+Total Bytes sent/received: 7840
+Total Bytes sent/received: 7872
+Total Bytes sent/received: 7904
+Total Bytes sent/received: 7936
+Total Bytes sent/received: 7968
+Total Bytes sent/received: 8000
+Total Bytes sent/received: 8032
+Total Bytes sent/received: 8064
+Total Bytes sent/received: 8096
+Total Bytes sent/received: 8128
+Total Bytes sent/received: 8160
+Total Bytes sent/received: 8192
+Total Bytes sent/received: 8224
+Total Bytes sent/received: 8256
+Total Bytes sent/received: 8288
+Total Bytes sent/received: 8320
+Total Bytes sent/received: 8352
+Total Bytes sent/received: 8384
+Total Bytes sent/received: 8416
+Total Bytes sent/received: 8448
+Total Bytes sent/received: 8480
+Total Bytes sent/received: 8512
+Total Bytes sent/received: 8544
+Total Bytes sent/received: 8576
+Total Bytes sent/received: 8608
+Total Bytes sent/received: 8640
+Total Bytes sent/received: 8672
+Total Bytes sent/received: 8704
+Total Bytes sent/received: 8736
+Total Bytes sent/received: 8768
+Total Bytes sent/received: 8800
+Total Bytes sent/received: 8832
+Total Bytes sent/received: 8864
+Total Bytes sent/received: 8896
+Total Bytes sent/received: 8928
+Total Bytes sent/received: 8960
+Total Bytes sent/received: 8992
+Total Bytes sent/received: 9024
+Total Bytes sent/received: 9056
+Total Bytes sent/received: 9088
+Total Bytes sent/received: 9120
+Total Bytes sent/received: 9152
+Total Bytes sent/received: 9184
+Total Bytes sent/received: 9216
+Total Bytes sent/received: 9248
+Total Bytes sent/received: 9280
+Total Bytes sent/received: 9312
+Total Bytes sent/received: 9344
+Total Bytes sent/received: 9376
+Total Bytes sent/received: 9408
+Total Bytes sent/received: 9440
+Total Bytes sent/received: 9472
+Total Bytes sent/received: 9504
+Total Bytes sent/received: 9536
+Total Bytes sent/received: 9568
+Total Bytes sent/received: 9600
+Total Bytes sent/received: 9632
+Total Bytes sent/received: 9664
+Total Bytes sent/received: 9696
+Total Bytes sent/received: 9728
+Total Bytes sent/received: 9760
+Total Bytes sent/received: 9792
+Total Bytes sent/received: 9824
+Total Bytes sent/received: 9856
+Total Bytes sent/received: 9888
+Total Bytes sent/received: 9920
+Total Bytes sent/received: 9952
+Total Bytes sent/received: 9984
+Total Bytes sent/received: 10016
+Total Bytes sent/received: 10048
+Total Bytes sent/received: 10080
+Total Bytes sent/received: 10112
+Total Bytes sent/received: 10144
+Total Bytes sent/received: 10176
+Total Bytes sent/received: 10208
+Total Bytes sent/received: 10240
+Total Bytes sent/received: 10272
+Total Bytes sent/received: 10304
+Total Bytes sent/received: 10336
+Total Bytes sent/received: 10368
+Total Bytes sent/received: 10400
+Total Bytes sent/received: 10432
+Total Bytes sent/received: 10464
+Total Bytes sent/received: 10496
+Total Bytes sent/received: 10528
+Total Bytes sent/received: 10560
+Total Bytes sent/received: 10592
+Total Bytes sent/received: 10624
+Total Bytes sent/received: 10656
+Total Bytes sent/received: 10688
+Total Bytes sent/received: 10720
+Total Bytes sent/received: 10752
+Total Bytes sent/received: 10784
+Total Bytes sent/received: 10816
+Total Bytes sent/received: 10848
+Total Bytes sent/received: 10880
+Total Bytes sent/received: 10912
+Total Bytes sent/received: 10944
+Total Bytes sent/received: 10976
+Total Bytes sent/received: 11008
+Total Bytes sent/received: 11040
+Total Bytes sent/received: 11072
+Total Bytes sent/received: 11104
+Total Bytes sent/received: 11136
+Total Bytes sent/received: 11168
+Total Bytes sent/received: 11200
+Total Bytes sent/received: 11232
+Total Bytes sent/received: 11264
+Total Bytes sent/received: 11296
+Total Bytes sent/received: 11328
+Total Bytes sent/received: 11360
+Total Bytes sent/received: 11392
+Total Bytes sent/received: 11424
+Total Bytes sent/received: 11456
+Total Bytes sent/received: 11488
+Total Bytes sent/received: 11520
+Total Bytes sent/received: 11552
+Total Bytes sent/received: 11584
+Total Bytes sent/received: 11616
+Total Bytes sent/received: 11648
+Total Bytes sent/received: 11680
+Total Bytes sent/received: 11712
+Total Bytes sent/received: 11744
+Total Bytes sent/received: 11776
+Total Bytes sent/received: 11808
+Total Bytes sent/received: 11840
+Total Bytes sent/received: 11872
+Total Bytes sent/received: 11904
+Total Bytes sent/received: 11936
+Total Bytes sent/received: 11968
+Total Bytes sent/received: 12000
+Total Bytes sent/received: 12032
+Total Bytes sent/received: 12064
+Total Bytes sent/received: 12096
+Total Bytes sent/received: 12128
+Total Bytes sent/received: 12160
+Total Bytes sent/received: 12192
+Total Bytes sent/received: 12224
+Total Bytes sent/received: 12256
+Total Bytes sent/received: 12288
+Total Bytes sent/received: 12320
+Total Bytes sent/received: 12352
+Total Bytes sent/received: 12384
+Total Bytes sent/received: 12416
+Total Bytes sent/received: 12448
+Total Bytes sent/received: 12480
+Total Bytes sent/received: 12512
+Total Bytes sent/received: 12544
+Total Bytes sent/received: 12576
+Total Bytes sent/received: 12608
+Total Bytes sent/received: 12640
+Total Bytes sent/received: 12672
+Total Bytes sent/received: 12704
+Total Bytes sent/received: 12736
+Total Bytes sent/received: 12768
+Total Bytes sent/received: 12800
+Total Bytes sent/received: 12832
+Total Bytes sent/received: 12864
+Total Bytes sent/received: 12896
+Total Bytes sent/received: 12928
+Total Bytes sent/received: 12960
+Total Bytes sent/received: 12992
+Total Bytes sent/received: 13024
+Total Bytes sent/received: 13056
+Total Bytes sent/received: 13088
+Total Bytes sent/received: 13120
+Total Bytes sent/received: 13125
+zModem transfer DONE for file 00560033.tbd
+
+SCI: Sent 1 file(s):
+00560033.tbd
+SCI: SUCCESS
+627966  0 Freewave console restored
+REVERTING FROM SCIENCE COMMAND MODE
+SCIENCE COMMAND MODE TERMINATED because:
+   Science Program QUIT (cts lowered)
+627968    GLD: Enumerating and selecting files
+GLD: No files to send
+627968    GLD: Sent 0 file(s):
+
+GLD: SUCCESS
+627981  2 00560034.mlg LOG FILE OPENED
+
+--------------------------------
+627981    behavior surface_4: SUBSTATE 7 ->7 : After data transmission, waiting for control-C to exit/resume
+
+
+
+
+Glider sunfish at surface.
+Because:pitch not commanded [behavior surface_4 start_when = 2.0]
+MissionName:regm20.mi MissionNum:sunfish-2022-110-0-34 (0056.0034)
+Vehicle Name: sunfish
+Curr Time: Fri Apr 29 03:35:12 2022 MT:  627983
+DR  Location:  5352.922 N -5029.404 E measured    341.448 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5349.213 N -5034.193 E measured    436.859 secs ago
+GPS Location:  5352.922 N -5029.404 E measured    342.121 secs ago
+   sensor:c_autoballast_state(enum)=2             578.943 secs ago
+   sensor:c_climb_bpump(X)=20                      570.78 secs ago
+   sensor:c_dive_bpump(X)=-280                    570.784 secs ago
+   sensor:c_wpt_lat(lat)=5358.78                   113471 secs ago
+   sensor:c_wpt_lon(lon)=-5027.92                  113471 secs ago
+   sensor:m_battery(volts)=14.7089626325588         0.321 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              0.481 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.296632        0.497 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=128.188468000013        0.465 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=428.765755999491         0.47 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021        8.091 secs ago
+   sensor:m_final_water_vx(m/s)=0.007871101938383      42001.6 secs ago
+   sensor:m_final_water_vy(m/s)=-0.124918417598171      42001.6 secs ago
+   sensor:m_iridium_signal_strength(nodim)=4      324.968 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5           0.218 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49990842490842        0.182 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5        0.147 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=40.4492005556263        0.503 secs ago
+   sensor:m_tot_num_inflections(nodim)=1876       570.995 secs ago
+   sensor:m_vacuum(inHg)=9.71906273504274            0.33 secs ago
+   sensor:m_water_vx(m/s)=0.023425152376025       406.865 secs ago
+   sensor:m_water_vy(m/s)=-0.048988305500037      406.868 secs ago
+   sensor:x_last_wpt_lat(lat)=5349.25              113472 secs ago
+   sensor:x_last_wpt_lon(lon)=-5046.81             113472 secs ago
+devices:(t/m/s) errs:   0/   0/   0 warn:  14/   2/   0 odd: 666/  95/   6
+ABORT HISTORY: total since reset: 2
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior surface_4 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-04-21T20:45:22
+ABORT HISTORY: last abort segment: sunfish-2022-077-0-132 (0055.0132)
+ABORT HISTORY: last abort mission: regm20.mi
+
+   Hit Control-R to RESUME the mission, i.e. dive!
+   Hit Control-C to END    the mission, i.e. GliderDos
+   Hit Control-E to extend surface time by 5 minutes.
+   Hit Control-W to get device warning reports.
+   Hit Control-F to re-read yo, goto_l, surface, sample, drift_ mafiles.
+   Hit H <n> <0:1> to Hangup and call back in <n> minutes at 0-primary 1-alternate number.
+   Hit S [-f={rf}|{irid] [-num=<n>] [-t=<s>] [filespec ...] to send log files
+   Hit ! <GliderDos cmd>  to execute <GliderDos cmd>
+   Hit Control-T to consci to science computer when comms ready:
+                                               ... communications ready for consci.
+
+Water Velocity Calculations waiting for final gps fix(ideally -243 secs)
+Waypoint: (5358.7800,-5027.9200) Range: 10984m, Bearing: 29deg, Age: 31:31h:m
+Time until diving is: 479 secs
+^R628002  8 behavior surface_4: User typed Control-R, resuming
+
+
+   I heard a Control-R
+   RESUMING MISSION
+
+628002    00560034.mlg LOG FILE CLOSED
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0347 C_FIN:0.0000
+Doing system wide housekeeping.......
+report_heap_size(): M_FREE_HEAP=250.2K(256252 bytes)
+                    M_MIN_FREE_HEAP=169.8K(173904 bytes)
+                    M_SRAM_FREE_HEAP=1395.9K(1429416 bytes)
+                    M_SRAM_MIN_FREE_HEAP=1373.7K(1406704 bytes)
+Running algorithm to free disk space if required
+Not necessary to delete any files at this time
+Scanning free space...
+Megabytes used      on c: = 544.500000
+Megabytes available on c: = 7330.500000
+Megabytes used      on w: = 0.021973
+Megabytes available on w: = 0.978027
+Writing longterm state disk file: c:/state/longterm.sta
+   f_ocean_pressure_min(volts) 0.084799
+   m_avg_climb_rate(m/s) -0.093886
+   m_avg_speed(m/s) 0.229655
+   m_avg_upward_inflection_time(sec) 80.091305
+   m_battery(volts) 14.708963
+   m_coulomb_amphr_total(amp-hrs) 428.769416
+   m_iridium_call_num(nodim) 693.000000
+   m_iridium_dialed_num(nodim) 1041.000000
+   m_lat(lat) 5352.921900
+   m_lon(lon) -5029.404500
+   m_pump_effective_num_cycles(nodim) 938.000000
+   m_tot_ballast_pumped_energy(kjoules) 0.000000
+   m_tot_horz_dist(km) 3188.362104
+   m_tot_num_inflections(nodim) 1876.000000
+   m_tot_num_thermal_valve_cmd(nodim) 2548.000000
+   m_weight_drop(bool) 0.000000
+   s_water_depth_avg(m) 200.000000
+   s_water_depth_delta(m) 0.000000
+   s_water_depth_wavelength(m) 100.000000
+   x_hover_ballast_deep(cc) 0.000000
+   x_hover_ballast_shallow(cc) 0.000000
+   x_hover_depth_deep(m) 0.000000
+   x_hover_depth_shallow(m) 0.000000
+   x_last_wpt_lat(lat) 5349.250000
+   x_last_wpt_l

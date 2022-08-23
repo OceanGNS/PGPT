@@ -1,0 +1,87 @@
+Connection Event: Carrier Detect found.177846    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Mon Jan 17 16:11:43 2022 MT:  177846
+DR  Location:  5344.675 N -4946.304 E measured    408.214 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  5337.570 N -4942.353 E measured    498.566 secs ago
+GPS Location:  5344.675 N -4946.305 E measured    408.886 secs ago
+   sensor:c_autoballast_state(enum)=2              142758 secs ago
+   sensor:c_climb_bpump(X)=70                      744.05 secs ago
+   sensor:c_dive_bpump(X)=-330                    744.054 secs ago
+   sensor:c_wpt_lat(lat)=5410.51                   177798 secs ago
+   sensor:c_wpt_lon(lon)=-4953.93                  177798 secs ago
+   sensor:m_battery(volts)=15.0270878493376        59.763 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.868 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.409912        3.884 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=68.7697519999968        3.852 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=143.481120000022        3.857 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1022        4.083 secs ago
+   sensor:m_final_water_vx(m/s)=-0.023416316175689      35561.2 secs ago
+   sensor:m_final_water_vy(m/s)=0.11641238538196      35561.2 secs ago
+   sensor:m_iridium_signal_strength(nodim)=2       36.154 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5           59.66 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49993894993895       59.624 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       59.589 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=80.0720666666636         3.89 secs ago
+   sensor:m_tot_num_inflections(nodim)=1006       614.254 secs ago
+   sensor:m_vacuum(inHg)=9.5942863980464           59.772 secs ago
+   sensor:m_water_vx(m/s)=-0.010809256246734      473.605 secs ago
+   sensor:m_water_vy(m/s)=0.135077544042831       473.608 secs ago
+   sensor:x_last_wpt_lat(lat)=5035.76              1e+308 secs ago
+   sensor:x_last_wpt_lon(lon)=-4647.95             1e+308 secs ago
+ABORT HISTORY: total since reset: 1
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior sample_8 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-01-15T14:43:47
+ABORT HISTORY: last abort segment: sunfish-2022-014-0-0 (0048.0000)
+ABORT HISTORY: last abort mission: regm22.mi
+177846    No login script found for processing.
+^R177873  9 behavior surface_4: User typed Control-R, resuming
+
+
+   I heard a Control-R
+   RESUMING MISSION
+
+177873    00490007.mlg LOG FILE CLOSED
+Doing system wide housekeeping.......
+report_heap_size(): M_FREE_HEAP=251.2K(257252 bytes)
+                    M_MIN_FREE_HEAP=169.5K(173588 bytes)
+                    M_SRAM_FREE_HEAP=1395.9K(1429416 bytes)
+                    M_SRAM_MIN_FREE_HEAP=1385.8K(1419088 bytes)
+Running algorithm to free disk space if required
+Not necessary to delete any files at this time
+Scanning free space...
+Megabytes used      on c: = 221.375000
+Megabytes available on c: = 7653.625000
+Megabytes used      on w: = 0.021973
+Megabytes available on w: = 0.978027
+Writing longterm state disk file: c:/state/longterm.sta
+   f_ocean_pressure_min(volts) 0.085546
+   m_avg_climb_rate(m/s) -0.153577
+   m_avg_speed(m/s) 0.264604
+   m_avg_upward_inflection_time(sec) 67.041617
+   m_battery(volts) 14.993603
+   m_coulomb_amphr_total(amp-hrs) 143.484904
+   m_iridium_call_num(nodim) 337.000000
+   m_iridium_dialed_num(nodim) 600.000000
+   m_lat(lat) 5344.675200
+   m_lon(lon) -4946.304500
+   m_pump_effective_num_cycles(nodim) 503.000000
+   m_tot_ballast_pumped_energy(kjoules) 0.000000
+   m_tot_horz_dist(km) 1098.651550
+   m_tot_num_inflections(nodim) 1006.000000
+   m_tot_num_thermal_valve_cmd(nodim) 1402.000000
+   m_weight_drop(bool) 0.000000
+   s_water_depth_avg(m) 200.000000
+   s_water_depth_delta(m) 0.000000
+   s_water_depth_wavelength(m) 100.000000
+   x_hover_ballast_deep(cc) 0.000000
+   x_hover_ballast_shallow(cc) 0.000000
+   x_hover_depth_deep(m) 0.000000
+   x_hover_depth_shallow(m) 0.000000
+   x_last_wpt_lat(lat) 5035.760000
+   x_last_wpt_lon(lon) -4647.950000
+Housekeeping is done
+177884 11 00490008.mlg LOG FILE OPENED
+177884    init_gps_input()
+177884    behavior surface_4: SUBSTATE 7 ->1

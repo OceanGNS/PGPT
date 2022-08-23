@@ -1,0 +1,39 @@
+Connection Event: Carrier Detect found.4038593    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Tue Jun  7 15:12:52 2022 MT: 4038593
+DR  Location:  4757.945 N -5324.308 E measured    254.886 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  4757.987 N -5324.689 E measured    351.398 secs ago
+GPS Location:  4757.945 N -5324.307 E measured    257.568 secs ago
+   sensor:c_autoballast_state(enum)=2             6494.66 secs ago
+   sensor:c_climb_bpump(X)=145                    484.491 secs ago
+   sensor:c_dive_bpump(X)=-255                    484.495 secs ago
+   sensor:c_wpt_lat(lat)=4758.26                    0.542 secs ago
+   sensor:c_wpt_lon(lon)=-5324.84                   0.546 secs ago
+   sensor:m_battery(volts)=14.5565519378669        63.884 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.829 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.319336        3.845 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=251.728016000045        3.813 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=552.305303999225        3.818 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021        0.064 secs ago
+   sensor:m_final_water_vx(m/s)=0.018065113741126      10676.2 secs ago
+   sensor:m_final_water_vy(m/s)=0.000788936914354      10676.2 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5       24.343 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5          63.831 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49990842490842       63.795 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5        63.76 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=23.2909300001077        3.851 secs ago
+   sensor:m_tot_num_inflections(nodim)=2754       484.701 secs ago
+   sensor:m_vacuum(inHg)=9.83532415140416          43.962 secs ago
+   sensor:m_water_vx(m/s)=0.005815857964419       320.171 secs ago
+   sensor:m_water_vy(m/s)=0.013436907705046       320.175 secs ago
+   sensor:x_last_wpt_lat(lat)=4755.89               0.623 secs ago
+   sensor:x_last_wpt_lon(lon)=-5326.61              0.627 secs ago
+ABORT HISTORY: total since reset: 2
+ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
+ABORT HISTORY: last abort details: layered_control(): Behavior surface_4 entered B_ERROR state 
+ABORT HISTORY: last abort time: 2022-04-21T20:45:22
+ABORT HISTORY: last abort segment: sunfish-2022-077-0-132 (0055.0132)
+ABORT HISTORY: last abort mission: regm20.mi
+4038593    No login script found for processing.
+4038597  5 behavior goto_wpt_602: SUBSTATE 2 ->3 : Waiting until we get to waypoint

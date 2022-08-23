@@ -1,0 +1,238 @@
+Connection Event: Carrier Detect found. 76885    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Wed Dec 15 15:53:19 2021 MT:   76884
+DR  Location:  4835.530 N -4914.070 E measured    1306.42 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  4837.937 N -4923.955 E measured    1408.85 secs ago
+GPS Location:  4835.530 N -4914.070 E measured    1309.11 secs ago
+   sensor:c_autoballast_state(enum)=2              1e+308 secs ago
+   sensor:c_climb_bpump(X)=87.5                    1e+308 secs ago
+   sensor:c_dive_bpump(X)=-312.5                   1e+308 secs ago
+   sensor:c_wpt_lat(lat)=4840.76                  25603.6 secs ago
+   sensor:c_wpt_lon(lon)=-4826.84                 25603.6 secs ago
+   sensor:m_battery(volts)=14.740866180486          3.741 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.901 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.45532        3.917 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=55.6671980000004        3.885 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=69.8222090000004        3.889 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021        4.244 secs ago
+   sensor:m_final_water_vx(m/s)=0.127214018168087      424.652 secs ago
+   sensor:m_final_water_vy(m/s)=-0.269316841916961      424.656 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5        36.46 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5          35.969 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.49993894993895       35.933 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5       35.898 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=90.3024709722222        3.923 secs ago
+   sensor:m_tot_num_inflections(nodim)=680        1499.94 secs ago
+   sensor:m_vacuum(inHg)=9.80224695970696            3.75 secs ago
+   sensor:m_water_vx(m/s)=0.127214018168087        424.69 secs ago
+   sensor:m_water_vy(m/s)=-0.269316841916961      424.693 secs ago
+   sensor:x_last_wpt_lat(lat)=4827.53              1e+308 secs ago
+   sensor:x_last_wpt_lon(lon)=-5243.65             1e+308 secs ago
+
+GliderDos N -1 > 76885    No login script found for processing.
+whoru
+Vehicle Name: sunfish
+GliderDos N -1 >:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0203 C_FIN:0.0000
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0203 C_FIN:0.0000
+run regm20.mi
+
+Starting Mission: regm20.mi
+timestamp: Wed Dec 15 15:53:48 2021
+load_mission(): Opening Mission file: regm20.mi
+Setting SENSOR c_science_all_on_enabled(bool) value 0.000000
+Setting SENSOR u_use_ctd_depth_for_flying(bool) value 0.000000
+Setting SENSOR u_use_current_correction(nodim) value 0.000000
+Setting SENSOR u_alt_min_depth(m) value 120.000000
+Setting SENSOR u_low_power_cycle_time(sec) value 30.000000
+Setting SENSOR u_science_low_power(sec) value 0.000000
+Setting SENSOR c_dive_bpump(x) value -212.500000
+Setting SENSOR c_climb_bpump(x) value 187.500000
+Vehicle Name: sunfish
+Curr Time: Wed Dec 15 15:53:48 2021 MT:   76913
+DR  Location:  4835.530 N -4914.070 E measured    1334.91 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  4837.937 N -4923.955 E measured    1437.33 secs ago
+GPS Location:  4835.530 N -4914.070 E measured    1337.59 secs ago
+   sensor:c_autoballast_state(enum)=2              1e+308 secs ago
+   sensor:c_climb_bpump(X)=187.5                    0.051 secs ago
+   sensor:c_dive_bpump(X)=-212.5                    0.059 secs ago
+   sensor:c_wpt_lat(lat)=4840.76                    25632 secs ago
+   sensor:c_wpt_lon(lon)=-4826.84                   25632 secs ago
+   sensor:m_battery(volts)=14.688610803725          0.221 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              0.381 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.45532        0.396 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=55.6711020000004        0.365 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=69.8261130000004        0.369 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021        2.398 secs ago
+   sensor:m_final_water_vx(m/s)=0.127214018168087       453.14 secs ago
+   sensor:m_final_water_vy(m/s)=-0.269316841916961      453.144 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5       64.948 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5           1.918 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.4998778998779        1.882 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5        1.846 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=90.3019287499999        0.402 secs ago
+   sensor:m_tot_num_inflections(nodim)=680        1528.42 secs ago
+   sensor:m_vacuum(inHg)=9.80126446886447           0.229 secs ago
+   sensor:m_water_vx(m/s)=0.127214018168087       453.178 secs ago
+   sensor:m_water_vy(m/s)=-0.269316841916961      453.181 secs ago
+   sensor:x_last_wpt_lat(lat)=4827.53              1e+308 secs ago
+   sensor:x_last_wpt_lon(lon)=-5243.65             1e+308 secs ago
+start_alldevices()
+
+PARSED iridium_phone_data for datum# 0: ===========
+   predial initialization cmds (from c:/config/iridinit.0):
+      ATE
+      AT+cbst=6,0,1
+      AT+CSQ
+   dial string: ATD0088160000577
+      from sensors:
+         C_IRIDIUM_LEAD_ZEROS
+         C_IRIDIUM_PHONE_NUM
+   Iridium login script (from c:/config/loginexp.0):   empty or non-existent
+
+PARSED iridium_phone_data for datum# 1: ===========
+   predial initialization cmds (from c:/config/iridinit.1):
+      ATE
+      AT+cbst=6,0,1
+      AT+CSQ
+   dial string: ATD0017818711614
+      from sensors:
+         C_IRIDIUM_LEAD_ZEROS_ALT
+         C_IRIDIUM_PHONE_NUM_ALT
+   Iridium login script (from c:/config/loginexp.1):   empty or non-existent
+
+PARSED iridium_phone_data for datum# 2: ===========
+   predial initialization cmds (from c:/config/iridinit.2):
+      ATE
+      AT+cbst=6,0,1
+   dial string: ATD0017818711051
+      from sensors:
+         F_IRIDIUM_LEAD_ZEROS_FACTORY
+         F_IRIDIUM_PHONE_NUM_FACTORY
+   Iridium login script (from c:/config/loginexp.2):   empty or non-existent
+Running algorithm to free disk space if required
+Not necessary to delete any files at this time
+Scanning free space...
+Megabytes used      on c: = 104.625000
+Megabytes available on c: = 7770.375000
+Megabytes used      on w: = 0.021973
+Megabytes available on w: = 0.978027
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0289 C_FIN:0.0000
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0232 C_FIN:0.0000
+ 33.23  9 db(#/min/mn/max/sd) pitch_motor 1800 -0.085 0.014 0.094 0.011 in
+ 33.23    db(#/min/mn/max/sd) pitch_motor 1800 -32 5 35 4 mV
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0289 C_FIN:0.0000
+122.17 30 SCI ERROR: science start logging failed
+pre_mission_init(): Failed to open data/log files
+timestamp: Wed Dec 15 15:55:50 2021
+Mission completed ABNORMALLY, ret = -1
+Mission end: grun_mission() regm20.mi sunfish-2021-348-0-0 (0043.0000)
+
+GliderDos A -3 >139.13 35 SCI:PROGLET house_elf begin() called
+139.13    SCI:   house_elf: Version 1.2
+139.13    SCI:PROGLET rbrctd begin() called
+139.14    SCI:PROGLET flbbcd begin() called
+139.14    SCI:   flbbcd: Version 0.0
+139.15    SCI:     flbbcd:  Will be sending following data to glider:
+139.15    SCI:           sci_flbbcd_chlor_units(ug/l)
+139.16    SCI:           sci_flbbcd_bb_units(nodim)
+139.16    SCI:           sci_flbbcd_cdom_units(ppb)
+139.17    SCI:           sci_flbbcd_chlor_sig(nodim)
+139.17    SCI:           sci_flbbcd_bb_sig(nodim)
+139.18    SCI:           sci_flbbcd_cdom_sig(nodim)
+139.18    SCI:           sci_flbbcd_chlor_ref(nodim)
+139.18    SCI:           sci_flbbcd_bb_ref(nodim)
+139.19    SCI:           sci_flbbcd_cdom_ref(nodim)
+139.19    SCI:           sci_flbbcd_therm(nodim)
+139.20    SCI:           sci_flbbcd_timestamp(timestamp)
+139.20    SCI:Bit(0) raise count is now 0.
+139.21    SCI:Bit(0) raise count is now 0.
+139.21    SCI:PROGLET oxy4 begin() called
+139.21    SCI:   oxy4: Version 0.0
+139.22    SCI:     oxy4:  Will be sending following data to glider:
+139.22    SCI:           sci_oxy4_oxygen(um)
+139.22    SCI:           sci_oxy4_saturation(%)
+139.23    SCI:           sci_oxy4_temp(degc)
+139.23    SCI:           sci_oxy4_calphase(deg)
+139.24    SCI:           sci_oxy4_tcphase(deg)
+139.24    SCI:           sci_oxy4_c1rph(deg)
+139.25    SCI:           sci_oxy4_c2rph(deg)
+139.25    SCI:           sci_oxy4_c1amp(mv)
+139.25    SCI:           sci_oxy4_c2amp(mv)
+139.26    SCI:           sci_oxy4_rawtemp(mv)
+139.26    SCI:           sci_oxy4_timestamp(timestamp)
+139.26    SCI:Bit(2) raise count is now 0.
+139.27    SCI:Bit(2) raise count is now 0.
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0232 C_FIN:0.0000
+
+GliderDos A -3 >:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0550 C_FIN:0.0000
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0318 C_FIN:0.0000
+
+GliderDos A -3 >:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0579 C_FIN:0.0000
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0261 C_FIN:0.0000
+
+GliderDos A -3 >:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0550 C_FIN:0.0000
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0289 C_FIN:0.0000
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0666 C_FIN:0.0000
+
+GliderDos A -3 >stop logging
+Parse error: Command not found
+
+GliderDos A -3 >logging stop
+
+Command error: Bad Arguments
+
+GliderDos A -3 >logging?
+Parse error: Command not found
+
+GliderDos A -3 >logging end
+
+Command error: Bad Arguments
+
+GliderDos A -3 >end logging
+Parse error: Command not found
+
+GliderDos A -3 >help logging
+
+
+logging              [on|off] ; turn on/off data logging (show state if no arg)
+
+
+
+GliderDos A -3 >logging off
+
+
+GliderDos A -3 >exit reset
+
+Preparing to exit GliderDos
+WAITING for all motors to be idle --and--
+            science power to be stable
+Motors are idle
+Writing longterm state disk file: c:/state/longterm.sta
+   f_ocean_pressure_min(volts) 0.085812
+   m_avg_climb_rate(m/s) -0.359506
+   m_avg_speed(m/s) 0.288103
+   m_avg_upward_inflection_time(sec) 77.953526
+   m_battery(volts) 14.686795
+   m_coulomb_amphr_total(amp-hrs) 69.874945
+   m_iridium_call_num(nodim) 207.000000
+   m_iridium_dialed_num(nodim) 439.000000
+   m_lat(lat) 4835.530300
+   m_lon(lon) -4914.069700
+   m_pump_effective_num_cycles(nodim) 340.000000
+   m_tot_ballast_pumped_energy(kjoules) 0.000000
+   m_tot_horz_dist(km) 326.542817
+   m_tot_num_inflections(nodim) 680.000000
+   m_tot_num_thermal_valve_cmd(nodim) 1072.000000
+   m_weight_drop(bool) 0.000000
+   s_water_depth_avg(m) 200.000000
+   s_water_depth_delta(m) 0.000000
+   s_water_depth_wavelength(m) 100.000000
+   x_hover_ballast_deep(cc) 0.000000
+   x_hover_ballast_shallow(cc) 0.000000
+   x_hover_depth_deep(m) 0.000000
+   x_hover_depth_shallow(m) 0.000000
+   x_last_wpt_lat(lat) 4827.530000
+   x_last_wpt_lon(lon) -5243.650000
+Returning from GliderDos

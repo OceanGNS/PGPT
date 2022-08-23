@@ -1,0 +1,183 @@
+Connection Event: Carrier Detect found.Connection Event: Carrier Detect lost.Connection Event: Carrier Detect found.172.45    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Sat Mar 12 23:48:20 2022 MT:     172
+DR  Location:  5349.194 N -5048.771 E measured    172.126 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid : 69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Location: 69696969.000 N 69696969.000 E measured     1e+308 secs ago
+   sensor:c_autoballast_state(enum)=0              1e+308 secs ago
+   sensor:c_climb_bpump(X)=1000                    1e+308 secs ago
+   sensor:c_dive_bpump(X)=-1000                    1e+308 secs ago
+   sensor:c_wpt_lat(lat)=0                         1e+308 secs ago
+   sensor:c_wpt_lon(lon)=0                         1e+308 secs ago
+   sensor:m_battery(volts)=14.3591721759959         3.676 secs ago
+   sensor:m_bms_battery_in_use(bool)=0              3.834 secs ago
+   sensor:m_bms_emergency_battery_voltage(volts)=12.409912         3.85 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=0.017584000000003        3.819 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=300.594872        3.823 secs ago
+   sensor:m_digifin_leakdetect_reading(nodim)=1021        0.064 secs ago
+   sensor:m_final_water_vx(m/s)=0                  1e+308 secs ago
+   sensor:m_final_water_vy(m/s)=0                  1e+308 secs ago
+   sensor:m_iridium_signal_strength(nodim)=4       28.096 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5           3.571 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.5        3.534 secs ago
+   sensor:m_leakdetect_voltage_science(volts)=2.5        3.498 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=58.2507122222222        3.855 secs ago
+   sensor:m_tot_num_inflections(nodim)=1484       172.189 secs ago
+   sensor:m_vacuum(inHg)=9.7767021978022            3.683 secs ago
+   sensor:m_water_vx(m/s)=0                        1e+308 secs ago
+   sensor:m_water_vy(m/s)=0                        1e+308 secs ago
+   sensor:x_last_wpt_lat(lat)=5353.31             172.146 secs ago
+   sensor:x_last_wpt_lon(lon)=-5038.32            172.144 secs ago
+172.57    No login script found for processing.
+^C
+Heard a Control-C, terminating the sequence
+Entering flight app shell (GliderDos prompt), msgprintf(TERM, )
+
+Vehicle Name: sunfish
+179.43 42 GliderDos: No keystroke heard for 0 seconds
+          600 seconds to go before running:SEQUENCE -resume_next
+
+GliderDos I -3 >
+
+Vehicle Name: sunfish
+180.57 43 NOTE:GPS fix is getting stale: NEVER HAD A FIX
+
+GliderDos I -3 >^C
+Parse error: Command not found
+
+GliderDos I -3 >
+
+GliderDos I -3 >:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0376 C_FIN:0.0000
+whoru
+Vehicle Name: sunfish
+GliderDos I -3 >put u_max_time_in_gliderdos
+
+Command error: Error: sensor value is invalid
+
+GliderDos I -3 >put u_max_time_in_gliderdos 3600
+
+221.92 54 sensor: u_max_time_in_gliderdos = 3600 sec
+
+GliderDos I -3 >get m_roll
+ = 0.106465 rad
+GliderDos I -3 >get m_pitch
+ = -0.005236 rad
+GliderDos I -3 >cd missions
+c:/missions
+
+GliderDos I -3 >type remg20.mi
+
+Command error: can't open source file
+
+GliderDos I -3 >cd ..
+c:/
+
+GliderDos I -3 >cd logs
+c:/logs
+
+GliderDos I -3 >:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0434 C_FIN:0.0000
+zs 00510210.sbd
+About to send 1 files
+Prechecking 1 files: hit control-C to abort
+
+total_size of prechecked files = 56476 bytes
+Choosing console...using IRIDIUM
+327.85 83 save_and_change_sensors()....
+          Changed u_use_ctd_depth_for_flying from 0 to 0
+          Changed c_science_on from 1 to 0
+327.86    save_and_change_sensors()....
+          Changed c_science_printout from 0 to 0
+Waiting for motors idle
+START
+**B00000
+Starting zModem transfer of 00510210.sbd to/from sunfish size is 56476
+Total Bytes sent/received: 1024
+Total Bytes sent/received: 2048
+Total Bytes sent/received: 3072
+Total Bytes sent/received: 4096
+Total Bytes sent/received: 5120
+Total Bytes sent/received: 6144
+Total Bytes sent/received: 7168
+Total Bytes sent/received: 8192
+Total Bytes sent/received: 9216
+Total Bytes sent/received: 10240
+Total Bytes sent/received: 11264
+Total Bytes sent/received: 12288
+Total Bytes sent/received: 13312
+Total Bytes sent/received: 14336
+Total Bytes sent/received: 15360
+Total Bytes sent/received: 16384
+Total Bytes sent/received: 17408
+Total Bytes sent/received: 18432
+Total Bytes sent/received: 19456
+Total Bytes sent/received: 20480
+Total Bytes sent/received: 21504
+Total Bytes sent/received: 22528
+Total Bytes sent/received: 23552
+Total Bytes sent/received: 24576
+Total Bytes sent/received: 25600
+Total Bytes sent/received: 26624
+Total Bytes sent/received: 27648
+Total Bytes sent/received: 28672
+Total Bytes sent/received: 29696
+Total Bytes sent/received: 30720
+Total Bytes sent/received: 31744
+Total Bytes sent/received: 32768
+Total Bytes sent/received: 33792
+Total Bytes sent/received: 34816
+Total Bytes sent/received: 35840
+Total Bytes sent/received: 36864
+Total Bytes sent/received: 37888
+Total Bytes sent/received: 38912
+Total Bytes sent/received: 39936
+Total Bytes sent/received: 40960
+Total Bytes sent/received: 41984
+Total Bytes sent/received: 43008
+Total Bytes sent/received: 44032
+Total Bytes sent/received: 45056
+Total Bytes sent/received: 46080
+Total Bytes sent/received: 47104
+Total Bytes sent/received: 48128
+Total Bytes sent/received: 49152
+Total Bytes sent/received: 50176
+Total Bytes sent/received: 51200
+Total Bytes sent/received: 52224
+Total Bytes sent/received: 53248
+Total Bytes sent/received: 54272
+Total Bytes sent/received: 55296
+Total Bytes sent/received: 56320
+Total Bytes sent/received: 56476
+zModem transfer DONE for file 00510210.sbd
+663.80    restore_sensors()....
+          Restored u_use_ctd_depth_for_flying from 0 to 0
+          Restored c_science_on from 0 to 1
+663.80    restore_sensors()....
+663.80    restore_sensors()....
+          Restored c_science_printout from 0 to 0
+Successfully sent 1 file(s)
+
+GliderDos I -3 >
+Vehicle Name: sunfish
+663.82    NOTE:GPS fix is getting stale: NEVER HAD A FIX
+
+GliderDos I -3 >Glider-Science software version match: 10.050000
+Science hardware version is 3.000000
+:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0579 C_FIN:0.0000
+zs 00510210.mlg
+About to send 1 files
+Prechecking 1 files: hit control-C to abort
+
+total_size of prechecked files = 8575193 bytes
+Choosing console...using IRIDIUM
+669.76    save_and_change_sensors()....
+          Changed u_use_ctd_depth_for_flying from 0 to 0
+          Changed c_science_on from 1 to 0
+669.77    save_and_change_sensors()....
+          Changed c_science_printout from 0 to 0
+Waiting for motors idle
+START
+**B00000000000000
+Starting zModem transfer of 00510210.mlg to/from sunfish size is 8575193
+Total Bytes sent/received: 1024
+Total Bytes sent/received: 1438

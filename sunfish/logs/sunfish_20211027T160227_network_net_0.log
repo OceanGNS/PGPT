@@ -1,0 +1,81 @@
+Connection Event: Carrier Detect found.  1131    Iridium console active and ready...
+Vehicle Name: sunfish
+Curr Time: Wed Oct 27 16:02:16 2021 MT:    1131
+DR  Location:  4724.439 N -5307.821 E measured     60.243 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  4724.297 N -5307.895 E measured    156.457 secs ago
+GPS Location:  4724.439 N -5307.821 E measured     62.275 secs ago
+   sensor:c_wpt_lat(lat)=4725.51                   1122.5 secs ago
+   sensor:c_wpt_lon(lon)=-5307.39                  1122.5 secs ago
+   sensor:m_battery(volts)=14.6007539056466         3.689 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=0.327502         3.824 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=12.380017        3.827 secs ago
+   sensor:m_final_water_vx(m/s)=0                  1e+308 secs ago
+   sensor:m_final_water_vy(m/s)=0                  1e+308 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5       47.686 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5          43.277 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.5       43.241 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=98.2805531944444        3.851 secs ago
+   sensor:m_tot_num_inflections(nodim)=72         209.842 secs ago
+   sensor:m_vacuum(inHg)=8.13790747252747          11.726 secs ago
+   sensor:m_water_vx(m/s)=0.050815243049891       125.394 secs ago
+   sensor:m_water_vy(m/s)=0.032593866085115       125.398 secs ago
+   sensor:u_use_current_correction(nodim)=0        1e+308 secs ago
+   sensor:x_last_wpt_lat(lat)=4725.98              1e+308 secs ago
+   sensor:x_last_wpt_lon(lon)=-5307.14             1e+308 secs ago
+  1131    No login script found for processing.
+
+
+
+
+Glider sunfish at surface.
+Because:pitch not commanded [behavior surface_4 start_when = 2.0]
+MissionName:regm21.mi MissionNum:sunfish-2021-299-0-0 (0032.0000)
+Vehicle Name: sunfish
+Curr Time: Wed Oct 27 16:02:19 2021 MT:    1135
+DR  Location:  4724.439 N -5307.821 E measured     63.733 secs ago
+GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
+GPS Invalid :  4724.297 N -5307.895 E measured    159.947 secs ago
+GPS Location:  4724.439 N -5307.821 E measured     65.765 secs ago
+   sensor:c_wpt_lat(lat)=4725.51                  1125.99 secs ago
+   sensor:c_wpt_lon(lon)=-5307.39                 1125.99 secs ago
+   sensor:m_battery(volts)=14.6007539056466         7.179 secs ago
+   sensor:m_coulomb_amphr(amp-hrs)=0.327502         3.206 secs ago
+   sensor:m_coulomb_amphr_total(amp-hrs)=12.380017         3.21 secs ago
+   sensor:m_final_water_vx(m/s)=0                  1e+308 secs ago
+   sensor:m_final_water_vy(m/s)=0                  1e+308 secs ago
+   sensor:m_iridium_signal_strength(nodim)=5       51.176 secs ago
+   sensor:m_leakdetect_voltage(volts)=2.5          46.767 secs ago
+   sensor:m_leakdetect_voltage_forward(volts)=2.5       46.731 secs ago
+   sensor:m_lithium_battery_relative_charge(%)=98.2805531944444        3.234 secs ago
+   sensor:m_tot_num_inflections(nodim)=72         213.331 secs ago
+   sensor:m_vacuum(inHg)=8.13790747252747          15.215 secs ago
+   sensor:m_water_vx(m/s)=0.050815243049891       128.884 secs ago
+   sensor:m_water_vy(m/s)=0.032593866085115       128.888 secs ago
+   sensor:u_use_current_correction(nodim)=0        1e+308 secs ago
+   sensor:x_last_wpt_lat(lat)=4725.98              1e+308 secs ago
+   sensor:x_last_wpt_lon(lon)=-5307.14             1e+308 secs ago
+devices:(t/m/s) errs:   0/   0/   0 warn:   0/   0/   0 odd:   2/   2/   2
+ABORT HISTORY: total since reset: 0
+
+   Hit Control-R to RESUME the mission, i.e. dive!
+   Hit Control-C to END    the mission, i.e. GliderDos
+   Hit Control-E to extend surface time by 5 minutes.
+   Hit Control-W to get device warning reports.
+   Hit Control-F to re-read yo, goto_l, surface, sample, drift_ mafiles.
+   Hit H <n> <0:1> to Hangup and call back in <n> minutes at 0-primary 1-alternate number.
+   Hit S [-f={rf}|{irid] [-num=<n>] [-t=<s>] [filespec ...] to send log files
+   Hit ! <GliderDos cmd>  to execute <GliderDos cmd>
+   Hit Control-T to consci to science computer when comms ready:
+                                               ... communications ready for consci.
+
+Water Velocity Calculations waiting for final gps fix(ideally -48 secs)
+Waypoint: (4725.5100,-5307.3900) Range: 2057m, Bearing: 36deg, Age: 0:18h:m
+Time until diving is: 412 secs
+h 0 1
+
+
+I am going to hangup the Iridium
+I will call you back in 0 minutes
+at the alternate number ( 17818711614 )
+  1156 87 disabling Iridium console...
