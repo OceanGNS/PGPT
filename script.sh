@@ -2,7 +2,7 @@ MISSIONS=$PWD/sunfish/labsea_2021/realtime
 SCRIPTS=$PWD
 
 cd ${MISSIONS}/from-glider
-mkdir ascii nc
+mkdir ascii nc 2>/dev/null
 
 ##  CONVERT BINARY TO TXT
 cd ${MISSIONS}/from-glider/raw
