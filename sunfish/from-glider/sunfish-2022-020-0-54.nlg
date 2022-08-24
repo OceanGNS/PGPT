@@ -1,8 +1,0 @@
-the8x3_filename:    00510054
-full_filename:    sunfish-2022-020-0-54
-430.00    00510054.nlg LOG FILE OPENED
-430.00    report_heap_size(): SCI_M_FREE_HEAP=210.1K(215092 bytes)
-430.00                        SCI_M_MIN_FREE_HEAP=210.1K(215092 bytes)
-430.00                        SCI_M_SRAM_FREE_HEAP=1919.0K(1965032 bytes)
-430.00                        SCI_M_SRAM_MIN_FREE_HEAP=1896.8K(1942320 bytes)
-497.00 29 00510054.nlg LOG FILE CLOSED

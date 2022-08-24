@@ -1,172 +1,0 @@
-Connection Event: Carrier Detect found.105.00    Iridium console active and ready...
-Vehicle Name: sunfish
-Curr Time: Wed Dec 15 16:04:02 2021 MT:     104
-DR  Location:  4835.530 N -4914.070 E measured    104.763 secs ago
-GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
-GPS Invalid : 69696969.000 N 69696969.000 E measured     1e+308 secs ago
-GPS Location: 69696969.000 N 69696969.000 E measured     1e+308 secs ago
-   sensor:c_autoballast_state(enum)=0              1e+308 secs ago
-   sensor:c_climb_bpump(X)=1000                    1e+308 secs ago
-   sensor:c_dive_bpump(X)=-1000                    1e+308 secs ago
-   sensor:c_wpt_lat(lat)=0                         1e+308 secs ago
-   sensor:c_wpt_lon(lon)=0                         1e+308 secs ago
-   sensor:m_battery(volts)=14.6952380799618         3.482 secs ago
-   sensor:m_bms_battery_in_use(bool)=0               3.69 secs ago
-   sensor:m_bms_emergency_battery_voltage(volts)=12.432616        3.706 secs ago
-   sensor:m_coulomb_amphr(amp-hrs)=0.010254000000003        3.675 secs ago
-   sensor:m_coulomb_amphr_total(amp-hrs)=69.885199        3.679 secs ago
-   sensor:m_digifin_leakdetect_reading(nodim)=1022        4.083 secs ago
-   sensor:m_final_water_vx(m/s)=0                  1e+308 secs ago
-   sensor:m_final_water_vy(m/s)=0                  1e+308 secs ago
-   sensor:m_iridium_signal_strength(nodim)=2        30.73 secs ago
-   sensor:m_leakdetect_voltage(volts)=2.5           3.377 secs ago
-   sensor:m_leakdetect_voltage_forward(volts)=2.49996947496948         3.34 secs ago
-   sensor:m_leakdetect_voltage_science(volts)=2.5        3.305 secs ago
-   sensor:m_lithium_battery_relative_charge(%)=90.2937223611111        3.711 secs ago
-   sensor:m_tot_num_inflections(nodim)=680        104.827 secs ago
-   sensor:m_vacuum(inHg)=9.58315150183151            3.58 secs ago
-   sensor:m_water_vx(m/s)=0                        1e+308 secs ago
-   sensor:m_water_vy(m/s)=0                        1e+308 secs ago
-   sensor:x_last_wpt_lat(lat)=4827.53             104.783 secs ago
-   sensor:x_last_wpt_lon(lon)=-5243.65            104.782 secs ago
-105.12    No login script found for processing.
-^C
-Heard a Control-C, terminating the sequence
-Entering flight app shell (GliderDos prompt), msgprintf(TERM, )
-
-Vehicle Name: sunfish
-122.36 28 GliderDos: No keystroke heard for 0 seconds
-          600 seconds to go before running:SEQUENCE -resume_next
-
-GliderDos I -3 >put u_max_time_in_gliderdos 3600
-
-143.72 34 sensor: u_max_time_in_gliderdos = 3600 sec
-
-GliderDos I -3 >:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0376 C_FIN:0.0000
-consci
-GLD: science IS running
-Choosing console...using IRIDIUM
-CONSCI REQUESTED (using IRIDIUM as console)
-
-GliderDos I -3 >ASKING SCIENCE COMPUTER TO SWITCH TO COMMAND MODE via IRIDIUM
-SWITCHING TO SCIENCE COMMAND MODE over IRIDIUM
-Normal operation resumes when:
-    SciDos> QUIT              -or-
-    Lose CD (unplug freewave/hangup iridium) -or-
-    run longer than U_SCI_CMD_MAX_CONSCI_TIME(3600)s
-152.96 37 Neutering the Freewave Console
-
-SciDos>type config/tbdlist.dat
-# tbdlist.dat
-# A small subset of a dbd file intended to be transmitted in real time.
-#
-# 2009-10-06 fnj@omegatech.hatchescreek.com  Initial.
-#
-SCI_M_PRESENT_TIME
-SCI_WATER_COND	60
-SCI_WATER_TEMP	60
-SCI_WATER_PRESSURE	60
-sci_flbbcd_chlor_units	300
-sci_flbbcd_bb_units	300
-sci_flbbcd_cdom_units	300
-SCI_OXY4_OXYGEN	120
-SCI_OXY4_SATURATION	120
-SCI_OXY4_CALPHASE	120
-
-SciDos>:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0347 C_FIN:0.0000
-:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0232 C_FIN:0.0000
-quit
-Returning from SciDos
-195.42 46 Freewave console restored
-REVERTING FROM SCIENCE COMMAND MODE
-SCIENCE COMMAND MODE TERMINATED because:
-   Science Program QUIT (cts lowered)
-
-GliderDos I -3 >197.24 47 BAD LINE from science:C"188.00    bad type character 115
-197.25    DRIVER_ODDITY:science_super:1805:BAD LINE from science:
-:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:-0.0289 C_FIN:0.0000
-
-Vehicle Name: sunfish
-212.51 50 NOTE:GPS fix is getting stale: NEVER HAD A FIX
-
-GliderDos I -3 >:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0289 C_FIN:0.0000
-run regm20.mi
-
-Starting Mission: regm20.mi
-timestamp: Wed Dec 15 16:06:48 2021
-load_mission(): Opening Mission file: regm20.mi
-Setting SENSOR c_science_all_on_enabled(bool) value 0.000000
-Setting SENSOR u_use_ctd_depth_for_flying(bool) value 0.000000
-Setting SENSOR u_use_current_correction(nodim) value 0.000000
-Setting SENSOR u_alt_min_depth(m) value 120.000000
-Setting SENSOR u_low_power_cycle_time(sec) value 30.000000
-Setting SENSOR u_science_low_power(sec) value 0.000000
-Setting SENSOR c_dive_bpump(x) value -212.500000
-Setting SENSOR c_climb_bpump(x) value 187.500000
-Vehicle Name: sunfish
-Curr Time: Wed Dec 15 16:06:48 2021 MT:     269
-DR  Location:  4835.530 N -4914.070 E measured    270.531 secs ago
-GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
-GPS Invalid : 69696969.000 N 69696969.000 E measured     1e+308 secs ago
-GPS Location: 69696969.000 N 69696969.000 E measured     1e+308 secs ago
-   sensor:c_autoballast_state(enum)=0              1e+308 secs ago
-   sensor:c_climb_bpump(X)=187.5                    0.053 secs ago
-   sensor:c_dive_bpump(X)=-212.5                     0.06 secs ago
-   sensor:c_wpt_lat(lat)=0                         1e+308 secs ago
-   sensor:c_wpt_lon(lon)=0                         1e+308 secs ago
-   sensor:m_battery(volts)=14.6481605856904          1.08 secs ago
-   sensor:m_bms_battery_in_use(bool)=0              1.239 secs ago
-   sensor:m_bms_emergency_battery_voltage(volts)=12.546144        1.255 secs ago
-   sensor:m_coulomb_amphr(amp-hrs)=0.031250000000004        1.223 secs ago
-   sensor:m_coulomb_amphr_total(amp-hrs)=69.906195        1.227 secs ago
-   sensor:m_digifin_leakdetect_reading(nodim)=1022        1.456 secs ago
-   sensor:m_final_water_vx(m/s)=0                  1e+308 secs ago
-   sensor:m_final_water_vy(m/s)=0                  1e+308 secs ago
-   sensor:m_iridium_signal_strength(nodim)=2      196.497 secs ago
-   sensor:m_leakdetect_voltage(volts)=2.5           0.975 secs ago
-   sensor:m_leakdetect_voltage_forward(volts)=2.5        0.939 secs ago
-   sensor:m_leakdetect_voltage_science(volts)=2.5        0.903 secs ago
-   sensor:m_lithium_battery_relative_charge(%)=90.29080625        1.259 secs ago
-   sensor:m_tot_num_inflections(nodim)=680        270.594 secs ago
-   sensor:m_vacuum(inHg)=9.82386175824176           1.087 secs ago
-   sensor:m_water_vx(m/s)=0                        1e+308 secs ago
-   sensor:m_water_vy(m/s)=0                        1e+308 secs ago
-   sensor:x_last_wpt_lat(lat)=4827.53              270.55 secs ago
-   sensor:x_last_wpt_lon(lon)=-5243.65            270.548 secs ago
-start_alldevices()
-
-PARSED iridium_phone_data for datum# 0: ===========
-   predial initialization cmds (from c:/config/iridinit.0):
-      ATE
-      AT+cbst=6,0,1
-      AT+CSQ
-   dial string: ATD0088160000577
-      from sensors:
-         C_IRIDIUM_LEAD_ZEROS
-         C_IRIDIUM_PHONE_NUM
-   Iridium login script (from c:/config/loginexp.0):   empty or non-existent
-
-PARSED iridium_phone_data for datum# 1: ===========
-   predial initialization cmds (from c:/config/iridinit.1):
-      ATE
-      AT+cbst=6,0,1
-      AT+CSQ
-   dial string: ATD0017818711614
-      from sensors:
-         C_IRIDIUM_LEAD_ZEROS_ALT
-         C_IRIDIUM_PHONE_NUM_ALT
-   Iridium login script (from c:/config/loginexp.1):   empty or non-existent
-
-PARSED iridium_phone_data for datum# 2: ===========
-   predial initialization cmds (from c:/config/iridinit.2):
-      ATE
-      AT+cbst=6,0,1
-   dial string: ATD0017818711051
-      from sensors:
-         F_IRIDIUM_LEAD_ZEROS_FACTORY
-         F_IRIDIUM_PHONE_NUM_FACTORY
-   Iridium login script (from c:/config/loginexp.2):   empty or non-existent
-Running algorithm to free disk space if required
-Not necessary to delete any files at this time
-Scanning free space...
-Megabyt
