@@ -3,7 +3,7 @@ import pandas as pd
 from glob import glob
 
 
-files = glob('*.txt')
+files = glob('*.ascii')
 
 data = pd.DataFrame()
 for f in files:
