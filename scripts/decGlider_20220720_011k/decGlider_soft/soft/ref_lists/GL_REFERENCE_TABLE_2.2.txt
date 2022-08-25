@@ -1,0 +1,10 @@
+point 
+sum 
+maximum 
+median 
+mid_range 
+minimum 
+mean 
+mode 
+standard_deviation 
+variance 

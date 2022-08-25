@@ -1,0 +1,1362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RULES>
+    <APPLICABLE_IF>    
+        <GLOBAL_ATTRIBUTE NAME="data_type" VALUE="EGO glider time-series data"/>
+        <GLOBAL_ATTRIBUTE NAME="format_version" VALUE="1.4"/>
+    </APPLICABLE_IF>
+
+    <MANDATORY>
+        <!-- ==================== -->
+        <!-- Mandatory dimensions -->
+        <!-- ==================== -->
+        <DIMENSION NAME="TIME"/>
+        <DIMENSION NAME="TIME_GPS"/>
+        <DIMENSION NAME="STRING256" VALUE="256"/>
+        <DIMENSION NAME="STRING128" VALUE="128"/>
+        <DIMENSION NAME="STRING64" VALUE="64"/>
+        <DIMENSION NAME="STRING32" VALUE="32"/>
+        <DIMENSION NAME="STRING16" VALUE="16"/>        
+        <DIMENSION NAME="N_SENSOR"/>
+        <DIMENSION NAME="N_PARAM"/>
+
+        <!-- =========================== -->
+        <!-- Mandatory global attributes -->
+        <!-- =========================== -->
+        
+        <!-- What -->
+        <GLOBAL_ATTRIBUTE NAME="data_type" VALUE="EGO glider time-series data"/>
+        <GLOBAL_ATTRIBUTE NAME="format_version" VALUE="1.4"/>
+        <GLOBAL_ATTRIBUTE NAME="platform_code"/>
+        <GLOBAL_ATTRIBUTE NAME="date_update" PATTERN="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?Z"/>
+        <GLOBAL_ATTRIBUTE NAME="data_mode" PATTERN="R|P|A|D|M"/>
+        <GLOBAL_ATTRIBUTE NAME="naming_authority" VALUE="EGO"/>
+        <GLOBAL_ATTRIBUTE NAME="id"/>
+
+        <!-- =================== -->
+        <!-- Mandatory variables -->
+        <!-- =================== -->
+        
+        <!-- Coordinate variables -->
+        <!-- =================== -->
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="TIME"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="double"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Epoch time"/>
+                <ATTRIBUTE NAME="standard_name" VALUE="time"/>
+                <ATTRIBUTE NAME="units" VALUE="seconds since 1970-01-01T00:00:00Z"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="9999999999"/>
+                <ATTRIBUTE NAME="valid_min" VALUE="0"/>
+                <ATTRIBUTE NAME="valid_max" VALUE="90000"/>
+                <!-- <OPTIONAL_ATTRIBUTE NAME="comment"/> -->
+                <ATTRIBUTE NAME="axis" VALUE="T"/>
+                <ATTRIBUTE NAME="ancillary_variable" VALUE="TIME_QC"/>
+                <ATTRIBUTE NAME="sdn_parameter_urn" VALUE="SDN:P01::ELTMEP01"/>
+                <ATTRIBUTE NAME="sdn_uom_urn" VALUE="SDN:P061::UTBB"/>
+                <ATTRIBUTE NAME="glider_original_parameter_name"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="LATITUDE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="double"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME" RANK="1"/>    
+                <ATTRIBUTE NAME="long_name" VALUE="Measurement latitude"/>
+                <ATTRIBUTE NAME="standard_name" VALUE="latitude"/>
+                <ATTRIBUTE NAME="units" VALUE="degree_north"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+                <ATTRIBUTE NAME="valid_min" VALUE="-90"/>
+                <ATTRIBUTE NAME="valid_max" VALUE="90"/>
+                <!-- <OPTIONAL_ATTRIBUTE NAME="comment"/> -->
+                <ATTRIBUTE NAME="axis" VALUE="Y"/>
+                <ATTRIBUTE NAME="ancillary_variable" VALUE="POSITION_QC"/>
+                <ATTRIBUTE NAME="reference" VALUE="WGS84"/>                            
+                <ATTRIBUTE NAME="coordinate_reference_frame" VALUE="urn:ogc:crs:EPSG::4326"/>    
+                <ATTRIBUTE NAME="sdn_parameter_urn" VALUE="SDN:P01::ALATZZ01"/>
+                <ATTRIBUTE NAME="sdn_uom_urn" VALUE="SDN:P061::DEGN"/>
+                <ATTRIBUTE NAME="glider_original_parameter_name"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="LONGITUDE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="double"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME" RANK="1"/>    
+                <ATTRIBUTE NAME="long_name" VALUE="Measurement longitude"/>
+                <ATTRIBUTE NAME="standard_name" VALUE="longitude"/>
+                <ATTRIBUTE NAME="units" VALUE="degree_east"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+                <ATTRIBUTE NAME="valid_min" VALUE="-180"/>
+                <ATTRIBUTE NAME="valid_max" VALUE="180"/>
+                <!-- <OPTIONAL_ATTRIBUTE NAME="comment"/> -->
+                <ATTRIBUTE NAME="axis" VALUE="X"/>                
+                <ATTRIBUTE NAME="ancillary_variable" VALUE="POSITION_QC"/>                        
+                <ATTRIBUTE NAME="reference" VALUE="WGS84"/>                            
+                <ATTRIBUTE NAME="coordinate_reference_frame" VALUE="urn:ogc:crs:EPSG::4326"/>
+                <ATTRIBUTE NAME="sdn_parameter_urn" VALUE="SDN:P01::ALONZZ01"/>
+                <ATTRIBUTE NAME="sdn_uom_urn" VALUE="SDN:P061::DEGE"/>
+                <ATTRIBUTE NAME="glider_original_parameter_name"/>
+            </MUST_VERIFY>
+        </VARIABLE>            
+        
+        <!-- QC variables -->
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME PATTERN="TIME_QC|POSITION_QC"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="byte"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Quality flag"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 2.1"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="-128"/>
+                <ATTRIBUTE NAME="flag_values" VALUE_LIST="0||1||2||3||4||5||8||9"/>
+                <ATTRIBUTE NAME="flag_meanings" VALUE="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="TIME_GPS"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="double"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME_GPS" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Epoch time of the GPS fixes"/>
+                <ATTRIBUTE NAME="standard_name" VALUE="time"/>
+                <ATTRIBUTE NAME="units" VALUE="seconds since 1970-01-01T00:00:00Z"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="9999999999"/>
+                <ATTRIBUTE NAME="valid_min" VALUE="0"/>
+                <ATTRIBUTE NAME="valid_max" VALUE="90000"/>
+                <!-- <OPTIONAL_ATTRIBUTE NAME="comment"/> -->
+                <ATTRIBUTE NAME="axis" VALUE="T"/>
+                <ATTRIBUTE NAME="ancillary_variable" VALUE="TIME_GPS_QC"/>
+                <ATTRIBUTE NAME="sdn_parameter_urn" VALUE="SDN:P01::ELTMEP01"/>
+                <ATTRIBUTE NAME="sdn_uom_urn" VALUE="SDN:P061::UTBB"/>
+                <ATTRIBUTE NAME="glider_original_parameter_name"/>
+            </MUST_VERIFY>
+        </VARIABLE>    
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="LATITUDE_GPS"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="double"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME_GPS" RANK="1"/>    
+                <ATTRIBUTE NAME="long_name" VALUE="Gps fixed latitude"/>
+                <ATTRIBUTE NAME="standard_name" VALUE="latitude"/>
+                <ATTRIBUTE NAME="units" VALUE="degree_north"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+                <ATTRIBUTE NAME="valid_min" VALUE="-90"/>
+                <ATTRIBUTE NAME="valid_max" VALUE="90"/>
+                <!-- <OPTIONAL_ATTRIBUTE NAME="comment"/> -->
+                <ATTRIBUTE NAME="axis" VALUE="Y"/>
+                <ATTRIBUTE NAME="ancillary_variable" VALUE="POSITION_GPS_QC"/>
+                <ATTRIBUTE NAME="reference" VALUE="WGS84"/>                            
+                <ATTRIBUTE NAME="coordinate_reference_frame" VALUE="urn:ogc:crs:EPSG::4326"/>    
+                <ATTRIBUTE NAME="sdn_parameter_urn" VALUE="SDN:P01::ALATZZ01"/>
+                <ATTRIBUTE NAME="sdn_uom_urn" VALUE="SDN:P061::DEGN"/>
+                <ATTRIBUTE NAME="glider_original_parameter_name"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="LONGITUDE_GPS"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="double"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME_GPS" RANK="1"/>    
+                <ATTRIBUTE NAME="long_name" VALUE="Gps fixed longitude"/>
+                <ATTRIBUTE NAME="standard_name" VALUE="longitude"/>
+                <ATTRIBUTE NAME="units" VALUE="degree_east"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+                <ATTRIBUTE NAME="valid_min" VALUE="-180"/>
+                <ATTRIBUTE NAME="valid_max" VALUE="180"/>
+                <!-- <OPTIONAL_ATTRIBUTE NAME="comment"/> -->
+                <ATTRIBUTE NAME="axis" VALUE="X"/>                
+                <ATTRIBUTE NAME="ancillary_variable" VALUE="POSITION_GPS_QC"/>
+                <ATTRIBUTE NAME="reference" VALUE="WGS84"/>                            
+                <ATTRIBUTE NAME="coordinate_reference_frame" VALUE="urn:ogc:crs:EPSG::4326"/>
+                <ATTRIBUTE NAME="sdn_parameter_urn" VALUE="SDN:P01::ALONZZ01"/>
+                <ATTRIBUTE NAME="sdn_uom_urn" VALUE="SDN:P061::DEGE"/>
+                <ATTRIBUTE NAME="glider_original_parameter_name"/>
+            </MUST_VERIFY>
+        </VARIABLE>    
+        
+        <!-- QC variables -->
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME PATTERN="TIME_GPS_QC|POSITION_GPS_QC"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="byte"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME_GPS" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Quality flag"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 2.1"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="-128"/>
+                <ATTRIBUTE NAME="valid_min" VALUE="0"/>
+                <ATTRIBUTE NAME="valid_max" VALUE="9"/>
+                <ATTRIBUTE NAME="flag_values" VALUE_LIST="0||1||2||3||4||5||8||9"/>
+                <ATTRIBUTE NAME="flag_meanings" VALUE="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <!-- PHASE variables -->
+        <!-- =============== -->
+
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="PHASE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="byte"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME" RANK="1"/>    
+                <ATTRIBUTE NAME="long_name" VALUE="Glider trajectory phase code"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 9.2"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="-128"/>
+                <ATTRIBUTE NAME="flag_values" VALUE_LIST="0||1||2||3||4||5||6"/>
+                <ATTRIBUTE NAME="flag_meanings" VALUE="surface_drift descent subsurface_drift inflexion ascent grounded inconsistent"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="PHASE_NUMBER"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="int"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME" RANK="1"/>    
+                <ATTRIBUTE NAME="long_name" VALUE="Glider trajectory phase number"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+            </MUST_VERIFY>
+        </VARIABLE>        
+        
+        <!-- Glider sensor information variables -->
+        <!-- =================================== -->
+
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="SENSOR"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_SENSOR" RANK="1"/>
+                <DIMENSION NAME="STRING32" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Name of the sensor mounted on the glider"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 25"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="SENSOR_MAKER"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_SENSOR" RANK="1"/>
+                <DIMENSION NAME="STRING256" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Name of the sensor manufacturer"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 26"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="SENSOR_MODEL"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_SENSOR" RANK="1"/>
+                <DIMENSION NAME="STRING256" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Type of the sensor"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 27"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="SENSOR_SERIAL_NO"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_SENSOR" RANK="1"/>
+                <DIMENSION NAME="STRING16" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Serial number of the sensor"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+
+        <!-- Glider parameter information variables -->
+        <!-- ====================================== -->
+
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="PARAMETER"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_PARAM" RANK="1"/>
+                <DIMENSION NAME="STRING64" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Name of parameter computed from glider measurements"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 3"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="PARAMETER_SENSOR"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_PARAM" RANK="1"/>
+                <DIMENSION NAME="STRING128" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Name of the sensor that measures this parameter"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 25"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>        
+
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="PARAMETER_DATA_MODE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="N_PARAM" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Data mode of the parameter"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 19"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>        
+
+    </MANDATORY>    
+
+    <OPTIONAL>
+    
+        <!-- =================== -->
+        <!-- Optional dimensions -->
+        <!-- =================== -->
+        <DIMENSION NAME="TIME_CURRENT"/>        
+        <DIMENSION NAME="DATE_TIME" VALUE="14"/>
+        <DIMENSION NAME="STRING4096" VALUE="4096"/>
+        <DIMENSION NAME="STRING1024" VALUE="1024"/>
+        <DIMENSION NAME="STRING8" VALUE="8"/>
+        <DIMENSION NAME="STRING4" VALUE="4"/>
+        <DIMENSION NAME="STRING2" VALUE="2"/>
+        <DIMENSION NAME="N_HISTORY"/>
+        <DIMENSION NAME="N_DERIVATION"/>        
+        <DIMENSION NAME="N_POSITIONING_SYSTEM"/>
+        <DIMENSION NAME="N_TRANS_SYSTEM"/>
+
+        <!-- ========================== -->
+        <!-- Optional global attributes -->
+        <!-- ========================== -->
+        
+        <!-- What -->
+        <GLOBAL_ATTRIBUTE NAME="wmo_platform_code"/>
+        <GLOBAL_ATTRIBUTE NAME="source" PATTERN="Shipborne observation|Glider observation"/>
+        <GLOBAL_ATTRIBUTE NAME="license" VALUE="https://creativecommons.org/licenses/by-nc/4.0/"/>
+        <GLOBAL_ATTRIBUTE NAME="history"/>
+        <GLOBAL_ATTRIBUTE NAME="quality_index" PATTERN="unknown quality|excellent|probably good|extremely suspect"/>
+        <GLOBAL_ATTRIBUTE NAME="references"/>
+        <GLOBAL_ATTRIBUTE NAME="comment"/>
+        <GLOBAL_ATTRIBUTE NAME="Conventions" VALUE="CF-1.4 EGO-1.4"/>
+        <GLOBAL_ATTRIBUTE NAME="netcdf_version"/>
+        <GLOBAL_ATTRIBUTE NAME="title"/>
+        <GLOBAL_ATTRIBUTE NAME="summary"/>
+        <GLOBAL_ATTRIBUTE NAME="abstract"/>
+        <GLOBAL_ATTRIBUTE NAME="keywords"/>
+        <GLOBAL_ATTRIBUTE NAME="cdm_data_type"/>
+                
+        <!-- Where -->
+        <GLOBAL_ATTRIBUTE NAME="area"/>
+        <GLOBAL_ATTRIBUTE NAME="geospatial_lat_min" PATTERN="-?[0-9]+(\.[0-9]+)?.?"/>
+        <GLOBAL_ATTRIBUTE NAME="geospatial_lat_max" PATTERN="-?[0-9]+(\.[0-9]+)?.?"/>
+        <GLOBAL_ATTRIBUTE NAME="geospatial_lon_min" PATTERN="-?[0-9]+(\.[0-9]+)?.?"/>
+        <GLOBAL_ATTRIBUTE NAME="geospatial_lon_max" PATTERN="-?[0-9]+(\.[0-9]+)?.?"/>
+        <GLOBAL_ATTRIBUTE NAME="geospatial_vertical_min" PATTERN="-?[0-9]+(\.[0-9]+)?.?"/>
+        <GLOBAL_ATTRIBUTE NAME="geospatial_vertical_max" PATTERN="-?[0-9]+(\.[0-9]+)?.?"/>
+        
+        <!-- When -->
+        <GLOBAL_ATTRIBUTE NAME="time_coverage_start" PATTERN="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?Z"/>
+        <GLOBAL_ATTRIBUTE NAME="time_coverage_end" PATTERN="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?Z"/>
+        
+        <!-- Who -->
+        <GLOBAL_ATTRIBUTE NAME="institution"/>
+        <GLOBAL_ATTRIBUTE NAME="institution_references"/>
+        <GLOBAL_ATTRIBUTE NAME="sdn_edmo_code"/>    
+        <GLOBAL_ATTRIBUTE NAME="authors"/>
+        <GLOBAL_ATTRIBUTE NAME="data_assembly_center"/>
+        <GLOBAL_ATTRIBUTE NAME="principal_investigator"/>
+        <GLOBAL_ATTRIBUTE NAME="principal_investigator_email"/>
+        <GLOBAL_ATTRIBUTE NAME="project_name"/>
+        <GLOBAL_ATTRIBUTE NAME="observatory"/>
+        <GLOBAL_ATTRIBUTE NAME="deployment_code"/>
+        <GLOBAL_ATTRIBUTE NAME="deployment_label"/>
+
+        <!-- How -->
+        <GLOBAL_ATTRIBUTE NAME="distribution_statement" VALUE="EGO data are published without any warranty, express or implied. The user assumes all risk arising from his/her use of EGO data. EGO data are intended to be research-quality and include estimates of data quality and accuracy, but it is possible that these estimates or the data themselves contain errors. It is the sole responsibility of the user to assess if the data are appropriate for his/her use, and to interpret the data, data quality, and data accuracy accordingly. EGO welcomes users to ask questions and report problems to the contact addresses listed in the data files or on the EGO internet page."/>
+        <GLOBAL_ATTRIBUTE NAME="doi"/>
+        <GLOBAL_ATTRIBUTE NAME="citation"/>        
+        <GLOBAL_ATTRIBUTE NAME="update_interval" PATTERN="hourly|daily|yearly|void"/>
+        <GLOBAL_ATTRIBUTE NAME="qc_manual"/>
+        
+        <!-- ================== -->
+        <!-- Optional variables -->
+        <!-- ================== -->
+
+        <!-- POSITIONING METHOD variable -->
+        <!-- =========================== -->
+
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="POSITIONING_METHOD"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="byte"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME" RANK="1"/>    
+                <ATTRIBUTE NAME="long_name" VALUE="Positioning method"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 10.2"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="-128"/>
+                <ATTRIBUTE NAME="flag_values" VALUE_LIST="0||1||2"/>
+                <ATTRIBUTE NAME="flag_meanings" VALUE="GPS Argos interpolated"/>
+            </MUST_VERIFY>
+        </VARIABLE>    
+        
+        <!-- WATER CURRENTS variables -->
+        <!-- ======================== -->
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="WATERCURRENTS_TIME"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="double"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME_CURRENT" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Epoch time of the sub-surface current estimate"/>
+                <ATTRIBUTE NAME="standard_name" VALUE="time"/>
+                <ATTRIBUTE NAME="units" VALUE="seconds since 1970-01-01T00:00:00Z"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="9999999999"/>
+                <ATTRIBUTE NAME="valid_min" VALUE="0"/>
+                <ATTRIBUTE NAME="valid_max" VALUE="90000"/>
+                <!-- <OPTIONAL_ATTRIBUTE NAME="comment"/> -->
+                <ATTRIBUTE NAME="axis" VALUE="T"/>
+                <ATTRIBUTE NAME="sdn_parameter_urn" VALUE="SDN:P01::ELTMEP01"/>
+                <ATTRIBUTE NAME="sdn_uom_urn" VALUE="SDN:P061::UTBB"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="WATERCURRENTS_LATITUDE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="double"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME_CURRENT" RANK="1"/>    
+                <ATTRIBUTE NAME="long_name" VALUE="Latitude of the sub-surface current estimate"/>
+                <ATTRIBUTE NAME="standard_name" VALUE="latitude"/>
+                <ATTRIBUTE NAME="units" VALUE="degree_north"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+                <ATTRIBUTE NAME="valid_min" VALUE="-90"/>
+                <ATTRIBUTE NAME="valid_max" VALUE="90"/>
+                <ATTRIBUTE NAME="axis" VALUE="Y"/>
+            </MUST_VERIFY>
+        </VARIABLE>        
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="WATERCURRENTS_LONGITUDE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="double"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME_CURRENT" RANK="1"/>    
+                <ATTRIBUTE NAME="long_name" VALUE="Longitude of the sub-surface current estimate"/>
+                <ATTRIBUTE NAME="standard_name" VALUE="longitude"/>
+                <ATTRIBUTE NAME="units" VALUE="degree_east"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+                <ATTRIBUTE NAME="valid_min" VALUE="-180"/>
+                <ATTRIBUTE NAME="valid_max" VALUE="180"/>
+                <ATTRIBUTE NAME="axis" VALUE="X"/>                
+            </MUST_VERIFY>
+        </VARIABLE>    
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="WATERCURRENTS_DEPTH"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="float"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME_CURRENT" RANK="1"/>    
+                <ATTRIBUTE NAME="long_name" VALUE="Depth of the sub-surface current estimate"/>
+                <ATTRIBUTE NAME="standard_name" VALUE="depth"/>
+                <ATTRIBUTE NAME="units" VALUE="m"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+            </MUST_VERIFY>
+        </VARIABLE>    
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="WATERCURRENTS_U"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="float"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME_CURRENT" RANK="1"/>    
+                <ATTRIBUTE NAME="long_name" VALUE="Eastward component of the sub-surface current estimate"/>
+                <ATTRIBUTE NAME="standard_name" VALUE="eastward_sea_water_velocity"/>
+                <ATTRIBUTE NAME="units" VALUE="cm/s"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="WATERCURRENTS_V"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="float"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="TIME_CURRENT" RANK="1"/>    
+                <ATTRIBUTE NAME="long_name" VALUE="Northward component of the sub-surface current estimate"/>
+                <ATTRIBUTE NAME="standard_name" VALUE="northward_sea_water_velocity"/>
+                <ATTRIBUTE NAME="units" VALUE="cm/s"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+            </MUST_VERIFY>
+        </VARIABLE>                
+        
+        <!-- HISTORY variables -->
+        <!-- ================= -->
+
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="HISTORY_INSTITUTION"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_HISTORY" RANK="1"/>
+                <DIMENSION NAME="STRING2" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Institution which performed action"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 4"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="HISTORY_STEP"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_HISTORY" RANK="1"/>
+                <DIMENSION NAME="STRING4" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Step in data processing"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 12"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="HISTORY_SOFTWARE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_HISTORY" RANK="1"/>
+                <DIMENSION NAME="STRING8" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Name of software which performed action"/>
+                <ATTRIBUTE NAME="conventions" VALUE="Institution dependent"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="HISTORY_SOFTWARE_RELEASE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_HISTORY" RANK="1"/>
+                <DIMENSION NAME="STRING4" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Version/release of software which performed action"/>
+                <ATTRIBUTE NAME="conventions" VALUE="Institution dependent"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="HISTORY_REFERENCE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_HISTORY" RANK="1"/>
+                <DIMENSION NAME="STRING64" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Reference of database"/>
+                <ATTRIBUTE NAME="conventions" VALUE="Institution dependent"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="HISTORY_DATE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_HISTORY" RANK="1"/>
+                <DIMENSION NAME="DATE_TIME" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Date the history record was created"/>
+                <ATTRIBUTE NAME="conventions" VALUE="YYYYMMDDHHMISS"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="HISTORY_ACTION"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_HISTORY" RANK="1"/>
+                <DIMENSION NAME="STRING64" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Action performed on data"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 7"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="HISTORY_PARAMETER"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_HISTORY" RANK="1"/>
+                <DIMENSION NAME="STRING16" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Parameter action is performed on"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 3"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="HISTORY_PREVIOUS_VALUE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="float"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="N_HISTORY" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Parameter or flag previous value before action"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999."/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="HISTORY_START_TIME_INDEX"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="int"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="N_HISTORY" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Start time index action applied on"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="HISTORY_STOP_TIME_INDEX"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="int"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="N_HISTORY" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Stop time index action applied on"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="HISTORY_QCTEST"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_HISTORY" RANK="1"/>
+                <DIMENSION NAME="STRING16" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Documentation of tests performed, tests failed (in hex form)"/>
+                <ATTRIBUTE NAME="conventions" VALUE="Write tests performed when ACTION=QCP$; tests failed when ACTION=QCF$"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <!-- Glider characteristic variables -->
+        <!-- =============================== -->
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="PLATFORM_FAMILY"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING256" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Category of instrument"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 22"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="PLATFORM_TYPE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING32" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Type of glider"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 23"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="PLATFORM_MAKER"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING256" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Name of the manufacturer"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 24"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>        
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="GLIDER_SERIAL_NO"/>
+            </IDENTIFY>
+            <MUST_VERIFY>    
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING16" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Serial number of the glider"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="GLIDER_OWNER"/>
+            </IDENTIFY>
+            <MUST_VERIFY>    
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING64" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Glider owner"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="OPERATING_INSTITUTION"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING64" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Operating institution of the glider"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="WMO_INST_TYPE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING4" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Coded instrument type"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 8"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="POSITIONING_SYSTEM"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_POSITIONING_SYSTEM" RANK="1"/>
+                <DIMENSION NAME="STRING8" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Positioning system"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 9.1"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="TRANS_SYSTEM"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_TRANS_SYSTEM" RANK="1"/>
+                <DIMENSION NAME="STRING16" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Telecommunication system used"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 10.1"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="TRANS_SYSTEM_ID"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_TRANS_SYSTEM" RANK="1"/>
+                <DIMENSION NAME="STRING32" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Program identifier used by the transmission system"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="TRANS_FREQUENCY"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_TRANS_SYSTEM" RANK="1"/>
+                <DIMENSION NAME="STRING16" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Frequency of transmission from the glider"/>
+                <ATTRIBUTE NAME="units" VALUE="hertz"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="BATTERY_TYPE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING64" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Type of battery packs in the glider"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="BATTERY_PACKS"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING64" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Configuration of battery packs in the glider"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="SPECIAL_FEATURES"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING1024" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Extra features of the glider (algorithms, compressee, pump change etc.)"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>        
+
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="FIRMWARE_VERSION_NAVIGATION"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING16" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Firmware version of the navigation controller board"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="FIRMWARE_VERSION_SCIENCE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING16" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Firmware version of the scientific sensors controller board"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="GLIDER_MANUAL_VERSION"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING16" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Manual version of the glider"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="ANOMALY"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING256" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Describe any anomalies or problems the glider may have had"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="CUSTOMIZATION"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING1024" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Glider customization, i.e. (institution and modifications)"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DAC_FORMAT_ID"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING16" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Format number used by the DAC to describe the data format type for each glider"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+            
+        <!-- Glider deployment information variables -->
+        <!-- ======================================= -->
+
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DEPLOYMENT_START_DATE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="DATE_TIME" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Date (UTC) of the deployment"/>
+                <ATTRIBUTE NAME="conventions" VALUE="YYYYMMDDHHMISS"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DEPLOYMENT_START_LATITUDE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="double"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Latitude of the glider when deployed"/>
+                <ATTRIBUTE NAME="units" VALUE="degree_north"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+                <ATTRIBUTE NAME="valid_min" VALUE="-90"/>
+                <ATTRIBUTE NAME="valid_max" VALUE="90"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DEPLOYMENT_START_LONGITUDE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="double"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Longitude of the glider when deployed"/>
+                <ATTRIBUTE NAME="units" VALUE="degree_east"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+                <ATTRIBUTE NAME="valid_min" VALUE="-180"/>
+                <ATTRIBUTE NAME="valid_max" VALUE="180"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DEPLOYMENT_START_QC"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="byte"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Quality on DEPLOYMENT_START date, time and location"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 2.1"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="-128"/>
+                <ATTRIBUTE NAME="flag_values" VALUE_LIST="0||1||2||3||4||5||8||9"/>
+                <ATTRIBUTE NAME="flag_meanings" VALUE="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DEPLOYMENT_PLATFORM"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING32" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Identifier of the deployment platform"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DEPLOYMENT_CRUISE_ID"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING32" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Identifier of the cruise that deployed the glider"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DEPLOYMENT_REFERENCE_STATION_ID"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING256" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Identifier of stations used to verify the parameter measurements"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DEPLOYMENT_END_DATE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="DATE_TIME" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Date (UTC) of the glider recovery"/>
+                <ATTRIBUTE NAME="conventions" VALUE="YYYYMMDDHHMISS"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DEPLOYMENT_END_LATITUDE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="double"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Latitude of the glider recovery"/>
+                <ATTRIBUTE NAME="units" VALUE="degree_north"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+                <ATTRIBUTE NAME="valid_min" VALUE="-90"/>
+                <ATTRIBUTE NAME="valid_max" VALUE="90"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DEPLOYMENT_END_LONGITUDE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="double"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Longitude of the glider recovery"/>
+                <ATTRIBUTE NAME="units" VALUE="degree_east"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="99999"/>
+                <ATTRIBUTE NAME="valid_min" VALUE="-180"/>
+                <ATTRIBUTE NAME="valid_max" VALUE="180"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DEPLOYMENT_END_QC"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="byte"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Quality on DEPLOYMENT_END date, time and location"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 2.1"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE="-128"/>
+                <ATTRIBUTE NAME="flag_values" VALUE_LIST="0||1||2||3||4||5||8||9"/>
+                <ATTRIBUTE NAME="flag_meanings" VALUE="no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value"/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DEPLOYMENT_END_STATUS"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Status of the end of mission of the glider"/>
+                <ATTRIBUTE NAME="conventions" VALUE="R: retrieved, L: lost"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DEPLOYMENT_OPERATOR"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="1"/>
+                <DIMENSION NAME="STRING256" RANK="1"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Name of the person in charge of the glider deployment"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+
+        <!-- Glider sensor information variables -->
+        <!-- =================================== -->
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="SENSOR_MOUNT"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_SENSOR" RANK="1"/>
+                <DIMENSION NAME="STRING64" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Sensor mounting characteristics"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 20"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="SENSOR_ORIENTATION"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_SENSOR" RANK="1"/>
+                <DIMENSION NAME="STRING16" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Sensor orientation characteristics"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 21"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+
+        <!-- Glider parameter information variables -->
+        <!-- ====================================== -->
+
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="PARAMETER_UNITS"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_PARAM" RANK="1"/>
+                <DIMENSION NAME="STRING32" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Units of accuracy and resolution of the parameter"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="PARAMETER_ACCURACY"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_PARAM" RANK="1"/>
+                <DIMENSION NAME="STRING32" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Accuracy of the parameter"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="PARAMETER_RESOLUTION"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="2"/>
+                <DIMENSION NAME="N_PARAM" RANK="1"/>
+                <DIMENSION NAME="STRING32" RANK="2"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Resolution of the parameter"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+
+        <!-- Glider parameter derivation and calibration information variables -->
+        <!-- ================================================================= -->
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DERIVATION_PARAMETER"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="3"/>
+                <DIMENSION NAME="N_DERIVATION" RANK="1"/>
+                <DIMENSION NAME="N_PARAM" RANK="2"/>
+                <DIMENSION NAME="STRING64" RANK="3"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Name of parameter with derivation or calibration information"/>
+                <ATTRIBUTE NAME="conventions" VALUE="EGO reference table 3"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DERIVATION_EQUATION"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="3"/>
+                <DIMENSION NAME="N_DERIVATION" RANK="1"/>
+                <DIMENSION NAME="N_PARAM" RANK="2"/>
+                <DIMENSION NAME="STRING4096" RANK="3"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Derivation or calibration equation for this parameter"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DERIVATION_COEFFICIENT"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="3"/>
+                <DIMENSION NAME="N_DERIVATION" RANK="1"/>
+                <DIMENSION NAME="N_PARAM" RANK="2"/>
+                <DIMENSION NAME="STRING4096" RANK="3"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Derivation or calibration coefficients for this equation"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DERIVATION_COMMENT"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="3"/>
+                <DIMENSION NAME="N_DERIVATION" RANK="1"/>
+                <DIMENSION NAME="N_PARAM" RANK="2"/>
+                <DIMENSION NAME="STRING4096" RANK="3"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Comment applying to this parameter derivation or calibration"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>
+        
+        <VARIABLE>
+            <IDENTIFY>
+                <NAME VALUE="DERIVATION_DATE"/>
+            </IDENTIFY>
+            <MUST_VERIFY>
+                <TYPE VALUE="char"/>
+                <DIMENSION_COUNT VALUE="3"/>
+                <DIMENSION NAME="N_DERIVATION" RANK="1"/>
+                <DIMENSION NAME="N_PARAM" RANK="2"/>
+                <DIMENSION NAME="DATE_TIME" RANK="3"/>
+                <ATTRIBUTE NAME="long_name" VALUE="Date (UTC) of derivation or calibration"/>
+                <ATTRIBUTE NAME="conventions" VALUE="YYYYMMDDHHMISS"/>
+                <ATTRIBUTE NAME="_FillValue" VALUE=" "/>
+            </MUST_VERIFY>
+        </VARIABLE>                
+
+        <!--  <PARAM>, <PARAM>_QC, <PARAM>_ADJUSTED, <PARAM>_ADJUSTED_QC and <PARAM>_ADJUSTED_ERROR variables -->
+        <!-- ================================================================================================ -->
+
+        <!-- GENERATED PARAMETER LIST START -->
+        <TEMPLATE_PARAMETERS>
+        <!-- GENERATED PARAMETER LIST END -->
+
+    </OPTIONAL>
+
+</RULES>

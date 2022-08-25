@@ -1,0 +1,727 @@
+{
+    "EGO_format_version": "1.3",
+
+	"global_attributes" : {
+		"data_type"					    : "EGO glider time-series data",
+		"format_version"				: "1.3",
+        "date_update"                   : "",
+		"source"						: "Glider observation",
+		"history"					    : "",
+		"data_mode"					    : "R",
+		"quality_index"					: "unknown quality",
+		"references"					: "http://www.ego-network.org/",
+		"Conventions"					: "CF-1.4 EGO-1.3",
+		"netcdf_version"				: "3.6",
+		"naming_authority"			    : "EGO",
+		"id"							: "",
+		"cdm_data_type"					: "Trajectory",
+		"geospatial_lat_min"			: "",
+		"geospatial_lat_max"			: "",
+		"geospatial_lon_min"			: "",
+		"geospatial_lon_max"			: "",
+		"geospatial_vertical_min"	    : "",
+		"geospatial_vertical_max"	    : "",
+		"time_coverage_start"		    : "",
+		"time_coverage_end"			    : "",
+		"distribution_statement"		: "Follows CLIVAR (Climate Varibility and Predictability) standards, cf. http://www.clivar.org/data/data_policy.php. Data available free of charge. User assumes all risk for use of data. User must display citation in any publication or product using data. User must contact PI prior to any commercial use of data.",
+		"citation"						: "These data were collected and made freely available by the EGO project and the national programs that contribute to it.",
+		"qc_manual"						: "http://doi.org/10.13155/51485"
+	},
+
+	"glider_characteristics" : [
+		{
+			"variable_name" 	: "glider_characteristics_data.PLATFORM_FAMILY",
+			"ego_variable_name"	: "PLATFORM_FAMILY",
+			"dim" 				: "STRING256",
+			"typeof" 			: "char",
+
+			"long_name"			: "Category of instrument",
+			"conventions"		: "EGO reference table 22",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.PLATFORM_TYPE",
+			"ego_variable_name"	: "PLATFORM_TYPE",
+			"dim" 				: "STRING32",
+			"typeof" 			: "char",
+
+			"long_name"			: "Type of glider",
+			"conventions"		: "EGO reference table 23",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.PLATFORM_MAKER",
+			"ego_variable_name"	: "PLATFORM_MAKER",
+			"dim" 				: "STRING256",
+			"typeof" 			: "char",
+
+			"long_name"			: "Name of the manufacturer",
+			"conventions"		: "EGO reference table 24",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.GLIDER_SERIAL_NO",
+			"ego_variable_name"	: "GLIDER_SERIAL_NO",
+			"dim" 				: "STRING16",
+			"typeof" 			: "char",
+
+			"long_name"			: "Serial number of the glider",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.GLIDER_OWNER",
+			"ego_variable_name"	: "GLIDER_OWNER",
+			"dim" 				: "STRING64",
+			"typeof" 			: "char",
+
+			"long_name"			: "Glider owner",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.OPERATING_INSTITUTION",
+			"ego_variable_name"	: "OPERATING_INSTITUTION",
+			"dim" 				: "STRING64",
+			"typeof" 			: "char",
+
+			"long_name"			: "Operating institution of the glider",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.WMO_INST_TYPE",
+			"ego_variable_name"	: "WMO_INST_TYPE",
+			"dim" 				: "STRING4",
+			"typeof" 			: "char",
+
+			"long_name"			: "Coded instrument type",
+			"conventions"		: "EGO reference table 8",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.POSITIONING_SYSTEM",
+			"ego_variable_name"	: "POSITIONING_SYSTEM",
+			"dim" 				: ["N_POSITIONING_SYSTEM", "STRING8"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Positioning system",
+			"conventions"		: "EGO reference table 9.1",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.TRANS_SYSTEM",
+			"ego_variable_name"	: "TRANS_SYSTEM",
+			"dim" 				: ["N_TRANS_SYSTEM", "STRING16"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Telecommunication system used",
+			"conventions"		: "EGO reference table 10.1",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.TRANS_SYSTEM_ID",
+			"ego_variable_name"	: "TRANS_SYSTEM_ID",
+			"dim" 				: ["N_TRANS_SYSTEM", "STRING32"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Program identifier used by the transmission system",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.TRANS_FREQUENCY",
+			"ego_variable_name"	: "TRANS_FREQUENCY",
+			"dim" 				: ["N_TRANS_SYSTEM", "STRING16"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Frequency of transmission from the glider",
+			"units"				: "hertz",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.BATTERY_TYPE",
+			"ego_variable_name"	: "BATTERY_TYPE",
+			"dim" 				: "STRING64",
+			"typeof" 			: "char",
+
+			"long_name"			: "Type of battery packs in the glider",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.BATTERY_PACKS",
+			"ego_variable_name"	: "BATTERY_PACKS",
+			"dim" 				: "STRING64",
+			"typeof" 			: "char",
+
+			"long_name"			: "Configuration of battery packs in the glider",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.SPECIAL_FEATURES",
+			"ego_variable_name"	: "SPECIAL_FEATURES",
+			"dim" 				: "STRING1024",
+			"typeof" 			: "char",
+
+			"long_name"			: "Extra features of the glider (algorithms, compressee, pump change etc.)",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.FIRMWARE_VERSION_NAVIGATION",
+			"ego_variable_name"	: "FIRMWARE_VERSION_NAVIGATION",
+			"dim" 				: "STRING16",
+			"typeof" 			: "char",
+
+			"long_name"			: "Firmware version of the navigation controller board",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.FIRMWARE_VERSION_SCIENCE",
+			"ego_variable_name"	: "FIRMWARE_VERSION_SCIENCE",
+			"dim" 				: "STRING16",
+			"typeof" 			: "char",
+
+			"long_name"			: "Firmware version of the scientific sensors controller board",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.GLIDER_MANUAL_VERSION",
+			"ego_variable_name"	: "GLIDER_MANUAL_VERSION",
+			"dim" 				: "STRING16",
+			"typeof" 			: "char",
+
+			"long_name"			: "Manual version of the glider",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.ANOMALY",
+			"ego_variable_name"	: "ANOMALY",
+			"dim" 				: "STRING256",
+			"typeof" 			: "char",
+
+			"long_name"			: "Describe any anomalies or problems the glider may have had",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.CUSTOMIZATION",
+			"ego_variable_name"	: "CUSTOMIZATION",
+			"dim" 				: "STRING1024",
+			"typeof" 			: "char",
+
+			"long_name"			: "Glider customization, i.e. (institution and modifications)",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_characteristics_data.DAC_FORMAT_ID",
+			"ego_variable_name"	: "DAC_FORMAT_ID",
+			"dim" 				: "STRING16",
+			"typeof" 			: "char",
+
+			"long_name"			: "Format number used by the DAC to describe the data format type for each glider",
+			"FillValue"			: " "
+		}
+	],
+	
+	"glider_deployment" : [
+		{
+			"variable_name" 	: "glider_deployment_data.DEPLOYMENT_START_DATE",
+			"ego_variable_name"	: "DEPLOYMENT_START_DATE",
+			"dim" 				: "DATE_TIME",
+			"typeof" 			: "char",
+
+			"long_name"			: "Date (UTC) of the deployment",
+			"conventions"		: "YYYYMMDDHHMISS",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_deployment_data.DEPLOYMENT_START_LATITUDE",
+			"ego_variable_name"	: "DEPLOYMENT_START_LATITUDE",
+			"dim" 				: "",
+			"typeof" 			: "double",
+
+			"long_name"			: "Latitude of the glider when deployed",
+			"units"				: "degree_north",
+			"FillValue"			: 99999,
+			"valid_min" 		: -90,
+			"valid_max" 		: 90
+		},
+		{
+			"variable_name" 	: "glider_deployment_data.DEPLOYMENT_START_LONGITUDE",
+			"ego_variable_name"	: "DEPLOYMENT_START_LONGITUDE",
+			"dim" 				: "",
+			"typeof" 			: "double",
+
+			"long_name"			: "Longitude of the glider when deployed",
+			"units"				: "degree_east",
+			"FillValue"			: 99999,
+			"valid_min" 		: -180,
+			"valid_max" 		: 180
+		},
+		{
+			"variable_name" 	: "glider_deployment_data.DEPLOYMENT_START_QC",
+			"ego_variable_name"	: "DEPLOYMENT_START_QC",
+			"dim" 				: "",
+			"typeof" 			: "byte",
+
+			"long_name"			: "Quality on DEPLOYMENT_START date, time and location",
+			"conventions"		: "EGO reference table 2.1",
+			"FillValue"			: -128,
+			"flag_values" 		: [0, 1, 2, 3, 4, 5, 8, 9],
+			"flag_meanings" 	: "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value"
+		},
+		{
+			"variable_name" 	: "glider_deployment_data.DEPLOYMENT_PLATFORM",
+			"ego_variable_name"	: "DEPLOYMENT_PLATFORM",
+			"dim" 				: "STRING32",
+			"typeof" 			: "char",
+
+			"long_name"			: "Identifier of the deployment platform",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_deployment_data.DEPLOYMENT_CRUISE_ID",
+			"ego_variable_name"	: "DEPLOYMENT_CRUISE_ID",
+			"dim" 				: "STRING32",
+			"typeof" 			: "char",
+
+			"long_name"			: "Identifier of the cruise that deployed the glider",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_deployment_data.DEPLOYMENT_REFERENCE_STATION_ID",
+			"ego_variable_name"	: "DEPLOYMENT_REFERENCE_STATION_ID",
+			"dim" 				: "STRING256",
+			"typeof" 			: "char",
+
+			"long_name"			: "Identifier of stations used to verify the parameter measurements",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_deployment_data.DEPLOYMENT_END_DATE",
+			"ego_variable_name"	: "DEPLOYMENT_END_DATE",
+			"dim" 				: "DATE_TIME",
+			"typeof" 			: "char",
+
+			"long_name"			: "Date (UTC) of the glider recovery",
+			"conventions"		: "YYYYMMDDHHMISS",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_deployment_data.DEPLOYMENT_END_LATITUDE",
+			"ego_variable_name"	: "DEPLOYMENT_END_LATITUDE",
+			"dim" 				: "",
+			"typeof" 			: "double",
+
+			"long_name"			: "Latitude of the glider recovery",
+			"units"				: "degree_north",
+			"FillValue"			: 99999,
+			"valid_min" 		: -90,
+			"valid_max" 		: 90
+		},
+		{
+			"variable_name" 	: "glider_deployment_data.DEPLOYMENT_END_LONGITUDE",
+			"ego_variable_name"	: "DEPLOYMENT_END_LONGITUDE",
+			"dim" 				: "",
+			"typeof" 			: "double",
+
+			"long_name"			: "Longitude of the glider recovery",
+			"units"				: "degree_east",
+			"FillValue"			: 99999,
+			"valid_min" 		: -180,
+			"valid_max" 		: 180
+		},
+		{
+			"variable_name" 	: "glider_deployment_data.DEPLOYMENT_END_QC",
+			"ego_variable_name"	: "DEPLOYMENT_END_QC",
+			"dim" 				: "",
+			"typeof" 			: "byte",
+
+			"long_name"			: "Quality on DEPLOYMENT_END date, time and location",
+			"conventions"		: "EGO reference table 2.1",
+			"FillValue"			: -128,
+			"flag_values" 		: [0, 1, 2, 3, 4, 5, 8, 9],
+			"flag_meanings" 	: "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value"
+		},
+		{
+			"variable_name" 	: "glider_deployment_data.DEPLOYMENT_END_STATUS",
+			"ego_variable_name"	: "DEPLOYMENT_END_STATUS",
+			"dim" 				: "",
+			"typeof" 			: "char",
+
+			"long_name"			: "Status of the end of mission of the glider",
+			"conventions"		: "R: retrieved, L: lost",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_deployment_data.DEPLOYMENT_OPERATOR",
+			"ego_variable_name"	: "DEPLOYMENT_OPERATOR",
+			"dim" 				: "STRING256",
+			"typeof" 			: "char",
+
+			"long_name"			: "Name of the person in charge of the glider deployment",
+			"FillValue"			: " "
+		}
+	],	
+	
+	"glider_sensor" : [
+		{
+			"variable_name" 	: "glider_sensor_data.SENSOR",
+			"ego_variable_name"	: "SENSOR",
+			"dim" 				: ["N_SENSOR", "STRING32"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Name of the sensor mounted on the glider",
+			"conventions"		: "EGO reference table 25",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_sensor_data.SENSOR_MAKER",
+			"ego_variable_name"	: "SENSOR_MAKER",
+			"dim" 				: ["N_SENSOR", "STRING256"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Name of the sensor manufacturer",
+			"conventions"		: "EGO reference table 26",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_sensor_data.SENSOR_MODEL",
+			"ego_variable_name"	: "SENSOR_MODEL",
+			"dim" 				: ["N_SENSOR", "STRING256"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Type of the sensor",
+			"conventions"		: "EGO reference table 27",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_sensor_data.SENSOR_SERIAL_NO",
+			"ego_variable_name"	: "SENSOR_SERIAL_NO",
+			"dim" 				: ["N_SENSOR", "STRING16"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Serial number of the sensor",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_sensor_data.SENSOR_MOUNT",
+			"ego_variable_name"	: "SENSOR_MOUNT",
+			"dim" 				: ["N_SENSOR", "STRING64"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Sensor mounting characteristics",
+			"conventions"		: "EGO reference table 20",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_sensor_data.SENSOR_ORIENTATION",
+			"ego_variable_name"	: "SENSOR_ORIENTATION",
+			"dim" 				: ["N_SENSOR", "STRING16"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Sensor orientation characteristics",
+			"conventions"		: "EGO reference table 21",
+			"FillValue"			: " "
+		}
+	],	
+		
+	"glider_parameter" : [
+		{
+			"variable_name" 	: "glider_parameter_data.PARAMETER",
+			"ego_variable_name"	: "PARAMETER",
+			"dim" 				: ["N_PARAM", "STRING64"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Name of parameter computed from glider measurements",
+			"conventions"		: "EGO reference table 3",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_parameter_data.PARAMETER_SENSOR",
+			"ego_variable_name"	: "PARAMETER_SENSOR",
+			"dim" 				: ["N_PARAM", "STRING128"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Name of the sensor that measures this parameter",
+			"conventions"		: "EGO reference table 25",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_parameter_data.PARAMETER_DATA_MODE",
+			"ego_variable_name"	: "PARAMETER_DATA_MODE",
+			"dim" 				: "N_PARAM",
+			"typeof" 			: "char",
+
+			"long_name"			: "Data mode of the parameter",
+			"conventions"		: "EGO reference table 19",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_parameter_data.PARAMETER_UNITS",
+			"ego_variable_name"	: "PARAMETER_UNITS",
+			"dim" 				: ["N_PARAM", "STRING32"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Units of accuracy and resolution of the parameter",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_parameter_data.PARAMETER_ACCURACY",
+			"ego_variable_name"	: "PARAMETER_ACCURACY",
+			"dim" 				: ["N_PARAM", "STRING32"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Accuracy of the parameter",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_parameter_data.PARAMETER_RESOLUTION",
+			"ego_variable_name"	: "PARAMETER_RESOLUTION",
+			"dim" 				: ["N_PARAM", "STRING32"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Resolution of the parameter",
+			"FillValue"			: " "
+		}
+	],
+	
+	"parameter_att" : {
+		"DM_indicator"	: "",
+		"coordinates"	: "TIME LATITUDE LONGITUDE PRES"
+	},
+	
+	"parameter_qc" : [
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "_QC",
+			"dim" 				: "TIME",
+			"typeof" 			: "byte",
+
+			"long_name"			: "Quality flag",
+			"conventions"		: "EGO reference table 2.1",
+			"FillValue"			: -128,
+			"valid_min"			: 0,
+			"valid_max"			: 9,
+			"flag_values" 		: [0, 1, 2, 3, 4, 5, 8, 9],
+			"flag_meanings" 	: "no_qc_performed good_data probably_good_data bad_data_that_are_potentially_correctable bad_data value_changed interpolated_value missing_value"
+		}
+	],
+	
+	"parameter_adjusted_error" : [
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "_ADJUSTED_ERROR",
+			"dim" 				: "TIME",
+			"typeof" 			: "float",
+
+			"long_name"			: "Contains the error on the adjusted values as determined by the delayed mode QC process",
+			"FillValue"			: "",
+			"units" 			: ""
+		}
+	],
+	
+	"glider_parameter_derivation" : [
+		{
+			"variable_name" 	: "glider_parameter_derivation_data.DERIVATION_PARAMETER",
+			"ego_variable_name"	: "DERIVATION_PARAMETER",
+			"dim" 				: ["N_DERIVATION", "N_PARAM", "STRING64"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Name of parameter with derivation or calibration information",
+			"conventions"		: "EGO reference table 3",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_parameter_derivation_data.DERIVATION_EQUATION",
+			"ego_variable_name"	: "DERIVATION_EQUATION",
+			"dim" 				: ["N_DERIVATION", "N_PARAM", "STRING4096"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Derivation or calibration equation for this parameter",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_parameter_derivation_data.DERIVATION_COEFFICIENT",
+			"ego_variable_name"	: "DERIVATION_COEFFICIENT",
+			"dim" 				: ["N_DERIVATION", "N_PARAM", "STRING4096"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Derivation or calibration coefficients for this equation",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_parameter_derivation_data.DERIVATION_COMMENT",
+			"ego_variable_name"	: "DERIVATION_COMMENT",
+			"dim" 				: ["N_DERIVATION", "N_PARAM", "STRING4096"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Comment applying to this parameter derivation or calibration",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "glider_parameter_derivation_data.DERIVATION_DATE",
+			"ego_variable_name"	: "DERIVATION_DATE",
+			"dim" 				: ["N_DERIVATION", "N_PARAM", "DATE_TIME"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Date (UTC) of derivation or calibration",
+			"conventions"		: "YYYYMMDDHHMISS",
+			"FillValue"			: " "
+		}
+	],
+	
+	"phase_management" : [
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "PHASE",
+			"dim" 				: "TIME",
+			"typeof" 			: "byte",
+
+			"long_name"			: "Glider trajectory phase code",
+			"conventions"		: "EGO reference table 9.2",
+			"FillValue"			: -128,
+			"flag_values" 		: [0, 1, 2, 3, 4, 5, 6],
+			"flag_meanings" 	: "surface_drift descent subsurface_drift inflexion ascent grounded inconsistent"
+		},
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "PHASE_NUMBER",
+			"dim" 				: "TIME",
+			"typeof" 			: "int",
+
+			"long_name"			: "Glider trajectory phase number",
+			"FillValue"			: 99999
+		}
+	],
+	
+	"positioning_method" : [
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "POSITIONING_METHOD",
+			"dim" 				: "TIME",
+			"typeof" 			: "byte",
+
+			"long_name"			: "Positioning method",
+			"conventions"		: "EGO reference table 10.2",
+			"FillValue"			: -128,
+			"flag_values" 		: [0, 1, 2],
+			"flag_meanings" 	: "GPS Argos interpolated"
+		}
+	],
+
+	"history" : [
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "HISTORY_INSTITUTION",
+			"dim" 				: ["N_HISTORY", "STRING2"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Institution which performed action",
+			"conventions"		: "EGO reference table 4",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "HISTORY_STEP",
+			"dim" 				: ["N_HISTORY", "STRING4"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Step in data processing",
+			"conventions"		: "EGO reference table 12",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "HISTORY_SOFTWARE",
+			"dim" 				: ["N_HISTORY", "STRING8"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Name of software which performed action",
+			"conventions"		: "Institution dependent",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "HISTORY_SOFTWARE_RELEASE",
+			"dim" 				: ["N_HISTORY", "STRING4"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Version/release of software which performed action",
+			"conventions"		: "Institution dependent",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "HISTORY_REFERENCE",
+			"dim" 				: ["N_HISTORY", "STRING64"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Reference of database",
+			"conventions"		: "Institution dependent",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "HISTORY_DATE",
+			"dim" 				: ["N_HISTORY", "DATE_TIME"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Date the history record was created",
+			"conventions"		: "YYYYMMDDHHMISS",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "HISTORY_ACTION",
+			"dim" 				: ["N_HISTORY", "STRING64"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Action performed on data",
+			"conventions"		: "EGO reference table 7",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "HISTORY_PARAMETER",
+			"dim" 				: ["N_HISTORY", "STRING16"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Parameter action is performed on",
+			"conventions"		: "EGO reference table 3",
+			"FillValue"			: " "
+		},
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "HISTORY_PREVIOUS_VALUE",
+			"dim" 				: "N_HISTORY",
+			"typeof" 			: "float",
+
+			"long_name"			: "Parameter or flag previous value before action",
+			"FillValue"			: 99999
+		},
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "HISTORY_START_TIME_INDEX",
+			"dim" 				: "N_HISTORY",
+			"typeof" 			: "int",
+
+			"long_name"			: "Start time index action applied on",
+			"FillValue"			: 99999
+		},
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "HISTORY_STOP_TIME_INDEX",
+			"dim" 				: "N_HISTORY",
+			"typeof" 			: "int",
+
+			"long_name"			: "Stop time index action applied on",
+			"FillValue"			: 99999
+		},
+		{
+			"variable_name" 	: "",
+			"ego_variable_name"	: "HISTORY_QCTEST",
+			"dim" 				: ["N_HISTORY", "STRING16"],
+			"typeof" 			: "char",
+
+			"long_name"			: "Documentation of tests performed, tests failed (in hex form)",
+			"conventions"		: "Write tests performed when ACTION=QCP$; tests failed when ACTION=QCF$",
+			"FillValue"			: " "
+		}
+	]	
+}

@@ -1,0 +1,95 @@
+Order	parameter name	long_name	cf_standard_name	unit	valid_min	valid_max	core/bio/intermediate core/intermediate bio	sdn_parameter_urn	sdn_uom_urn	Fillvalue	Data Type
+1	CNDC	Electrical conductivity	sea_water_electrical_conductivity	mhos/m	0	8.5	c	SDN:P01::CNDCST01	SDN:P06::UECA	99999	float
+2	PRES	Sea water pressure, equals 0 at sea-level	sea_water_pressure	decibar	0	12000	c	SDN:P01::PRESPR01	SDN:P06::UPDB	99999	float
+3	PSAL	Practical salinity	sea_water_salinity	psu	2	41	c	SDN:P01::PSALST01	SDN:P06::UUUU	99999	float
+4	TEMP	Sea temperature in-situ ITS-90 scale	sea_water_temperature	degree_Celsius	-2.5	40	c	SDN:P01::TEMPST01	SDN:P06::UPAA	99999	float
+5	DOXY	Dissolved oxygen	moles_of_oxygen_per_unit_mass_in_sea_water	micromole/kg	-5	600	b	SDN:P01::DOXMZZXX	SDN:P06::KGUM	99999	float
+6	TEMP_DOXY	Sea temperature from oxygen sensor ITS-90 scale	temperature_of_sensor_for_oxygen_in_sea_water	degree_Celsius	-2	40	ib	SDN:P01::OXYTAAOP	SDN:P06::UPAA	99999	float
+7	TEMP_VOLTAGE_DOXY	Thermistor voltage reported by oxygen sensor	-	volt	-	-	ib	SDN:P01::TCNTOPTT	SDN:P06::UVLT	99999	float
+8	VOLTAGE_DOXY	Voltage reported by oxygen sensor	-	volt	0	100	ib	SDN:P01::OXYOCPVL	SDN:P06::UVLT	99999	float
+9	FREQUENCY_DOXY	Frequency reported by oxygen sensor	-	hertz	0	25000	ib	SDN:P01::OXYOCPFR	SDN:P06::UTHZ	99999	float
+10	COUNT_DOXY	Count reported by oxygen sensor	-	count	-	-	ib	SDN:P01::OXYOOPCT	SDN:P06::UUUU	99999	float
+11	BPHASE_DOXY	Uncalibrated phase shift reported by oxygen sensor	-	degree	10	70	ib	SDN:P01::OXYCPHAB	SDN:P06::UAAA	99999	float
+12	DPHASE_DOXY	Calibrated phase shift reported by oxygen sensor	-	degree	10	70	ib	SDN:P01::OXYCPHAC	SDN:P06::UAAA	99999	float
+13	TPHASE_DOXY	Uncalibrated phase shift reported by oxygen sensor	-	degree	10	70	ib	SDN:P01::OXYCPHTC	SDN:P06::UAAA	99999	float
+14	C1PHASE_DOXY	Uncalibrated phase shift reported by oxygen sensor	-	degree	10	70	ib	SDN:P01::OXYCPHAB	SDN:P06::UAAA	99999	float
+15	C2PHASE_DOXY	Uncalibrated phase shift reported by oxygen sensor	-	degree	0	15	ib	SDN:P01::OXYCPHAR	SDN:P06::UAAA	99999	float
+16	MOLAR_DOXY	Uncompensated (pressure and salinity) oxygen concentration reported by the oxygen sensor	mole_concentration_of_dissolved_molecular_oxygen_in_sea_water	micromole/l	0	650	ib	SDN:P01::DOXYMMOP	SDN:P06::MMPL	99999	float
+17	PHASE_DELAY_DOXY	Phase delay reported by oxygen sensor	-	microsecond	0	99999	ib	SDN:P01::OXYCPH01	SDN:P06::USEC	99999	float
+18	MLPL_DOXY	Oxygen concentration reported by the oxygen sensor	-	ml/l	0	650	ib	SDN:P01::DOXYZZXX	SDN:P06::UMLL	99999	float
+19	NB_SAMPLE_CTD	Number of samples in each pressure bin for the CTD	-	dimensionless	-	-	ic	SDN:P01::NUMVALES	SDN:P06::UUUU	99999	float
+20	NB_SAMPLE_SFET	Number of samples in each pressure bin for the SFET	-	dimensionless	-	-	ib	SDN:P01::NUMVALES	SDN:P06::UUUU	99999	float
+22	RPHASE_DOXY	Uncalibrated red phase shift reported by oxygen sensor	-	degree	10	70	ib	SDN:P01::OXYCPHAR	SDN:P06::UAAA	99999	float
+23	TEMP_COUNT_DOXY	Count which is expressive of uncalibrated temperature value reported by oxygen sensor	-	count	-	-	ib		SDN:P06::UUUU	99999	float
+24	LED_FLASHING_COUNT_DOXY	Number of times oxygen sensor flashing to measure oxygen	-	count	-	-	ib		SDN:P06::UUUU	99999	double
+25	PPOX_DOXY	Partial pressure of oxygen	-	millibar	-5	5000	ib	SDN:P01::PPOXZZ01	SDN:P06::UPBB	99999	float
+26	BETA_BACKSCATTERING	Total angle specific volume from backscattering sensor at x nanometers	-	count	-	-	ib	SDN:P01::NVLTOBS1	SDN:P06::UUUU	99999	float
+27	BETA_BACKSCATTERING470	Total angle specific volume from backscattering sensor at 470 nanometers	-	count	-	-	ib	SDN:P01::NVLTOBS1	SDN:P06::UUUU	99999	float
+28	BETA_BACKSCATTERING532	Total angle specific volume from backscattering sensor at 532 nanometers	-	count	-	-	ib	SDN:P01::NVLTOBS1	SDN:P06::UUUU	99999	float
+29	BETA_BACKSCATTERING700	Total angle specific volume from backscattering sensor at 700 nanometers	-	count	-	-	ib	SDN:P01::NVLTOBS1	SDN:P06::UUUU	99999	float
+30	FLUORESCENCE_CHLA	Chlorophyll-A signal from fluorescence sensor	-	count	-	-	ib	SDN:P01::FCNTRW01	SDN:P06::UUUU	99999	float
+31	TEMP_CPU_CHLA	Thermistor signal from backscattering sensor	-	count	-	-	ib	SDN:P01::TCNTICPU	SDN:P06::UUUU	99999	float
+32	FLUORESCENCE_CDOM	Raw fluorescence from coloured dissolved organic matter sensor	-	count	-	-	ib	SDN:P01::FLUOCDOM	SDN:P06::UUUU	99999	float
+33	SIDE_SCATTERING_TURBIDITY	Turbidity signal from side scattering sensor	-	count	-	-	ib	SDN:P01::NCNTTUR1	SDN:P06::UUUU	99999	float
+34	TRANSMITTANCE_PARTICLE_BEAM_ATTENUATION	Beam attenuation from transmissometer sensor at x nanometers	-	count	-	-	ib	SDN:P01::NCNTATT1	SDN:P06::UUUU	99999	float
+35	TRANSMITTANCE_PARTICLE_BEAM_ATTENUATION660	Beam attenuation from transmissometer sensor at 660 nanometers	-	count	-	-	ib	SDN:P01::NCNTATT1	SDN:P06::UUUU	99999	float
+36	BBP	Particle backscattering at x nanometers	-	m-1	-	-	b	SDN:P01::BSXXXVSF	SDN:P06::PMSR	99999	float
+37	BBP470	Particle backscattering at 470 nanometers	-	m-1	-	-	b	SDN:P01::BB117B01	SDN:P06::PMSR	99999	float
+38	BBP532	Particle backscattering at 532 nanometers	-	m-1	-	-	b	SDN:P01::BB117G01	SDN:P06::PMSR	99999	float
+39	BBP700	Particle backscattering at 700 nanometers	-	m-1	-	-	b	SDN:P01::BB117NIR	SDN:P06::PMSR	99999	float
+40	TURBIDITY	Sea water turbidity	sea_water_turbidity	ntu	-	-	b	SDN:P01::TURBXXXX	SDN:P06::USTU	99999	float
+41	CP	Particle beam attenuation at x nanometers	-	m-1	-	-	b	SDN:P01::ATTNZZ01	SDN:P06::UPRM	99999	float
+42	CP660	Particle beam attenuation at 660 nanometers	-	m-1	-	-	b	SDN:P01::ATT650AC	SDN:P06::UPRM	99999	float
+43	CHLA	Chlorophyll-A	mass_concentration_of_chlorophyll_a_in_sea_water	mg/m3	-	-	b	SDN:P01::CPHLPR01	SDN:P06::UMMC	99999	float
+44	CDOM	Concentration of coloured dissolved organic matter in sea water	-	ppb	-	-	b	SDN:P01::CDOMZZ01	SDN:P06::UPPB	99999	float
+45	UV_INTENSITY_NITRATE	Intensity of ultra violet flux from nitrate sensor	-	count	-	-	ib	SDN:P01::UVINZZ01	SDN:P06::UUUU	99999	float
+46	UV_INTENSITY_DARK_NITRATE	Intensity of ultra violet flux dark measurement from nitrate sensor	-	count	-	-	ib	SDN:P01::UVDAZZ01	SDN:P06::UUUU	99999	float
+47	UV_INTENSITY_DARK_SEAWATER_NITRATE	Intensity of ultra-violet flux dark sea water from nitrate sensor	-	count	-	-	ib	SDN:P01::UVSDZZ01	SDN:P06::UUUU	99999	float
+48	NITRATE	Nitrate	moles_of_nitrate_per_unit_mass_in_sea_water	micromole/kg	-	-	b	SDN:P01::MDMAP005	SDN:P06::KGUM	99999	float
+49	BISULFIDE	Bisulfide	-	micromole/kg	-	-	b	SDN:P01::H2SXZZ01	SDN:P06::KGUM	99999	float
+50	MOLAR_NITRATE	Nitrate	-	micromole/l	-	-	ib	SDN:P01::NTRZMC01	SDN:P06::UPOX	99999	float
+51	FIT_ERROR_NITRATE	Nitrate fit error	-	dimensionless	-	-	ib	SDN:P01::NTFEZZ01	SDN:P06::UUUU	99999	float
+52	TEMP_NITRATE	Internal temperature of the SUNA sensor	-	degree_Celsius	-	-	ib			99999	float
+53	TEMP_SPECTROPHOTOMETER_NITRATE	Temperature of the spectrometer	-	degree_Celsius	-	-	ib			99999	float
+54	HUMIDITY_NITRATE	Relative humidity inside the SUNA sensor (If > 50% There is a leak)	-	percent	0	100	ib			99999	float
+55	VRS_PH	Voltage difference between reference and source from pH sensor	-	volt	-	-	ib	SDN:P01::PVLTGC01	SDN:P06::UVLT	99999	float
+56	TEMP_PH	Sea temperature from pH sensor	-	degree_Celsius	-2	40	ib			99999	float
+57	IB_PH	Base current of pH sensor	-	nanoampere	-	-	ib			99999	float
+58	VK_PH	Counter electrode voltage of pH sensor	-	volt	-	-	ib			99999	float
+59	IK_PH	Counter electrode current of pH sensor	-	nanoampere	-	-	ib			99999	float
+60	PH_IN_SITU_TOTAL	pH	sea_water_ph_reported_on_total_scale	dimensionless	-	-	b	SDN:P01::PHMASSXX	SDN:P06::UUPH	99999	float
+61	PH_IN_SITU_FREE	pH	-	dimensionless	-	-	ib	SDN:P01::PHFRWCAL	SDN:P06::UUPH	99999	float
+62	PH_IN_SITU_SEAWATER	pH	-	dimensionless	-	-	ib	SDN:P01::PHSWWCAL	SDN:P06::UUPH	99999	float
+63	RAW_DOWNWELLING_IRRADIANCE	Raw downwelling irradiance at x nanometers	-	count	-	-	ib	SDN:P01::DWIRXXZZ	SDN:P06::UUUU	99999	float
+64	RAW_DOWNWELLING_IRRADIANCE380	Raw downwelling irradiance at 380 nanometers	-	count	-	-	ib	SDN:P01::DWIRXXZZ	SDN:P06::UUUU	99999	float
+65	RAW_DOWNWELLING_IRRADIANCE412	Raw downwelling irradiance at 412 nanometers	-	count	-	-	ib	SDN:P01::DWIRXXZZ	SDN:P06::UUUU	99999	float
+66	RAW_DOWNWELLING_IRRADIANCE443	Raw downwelling irradiance at 443 nanometers	-	count	-	-	ib	SDN:P01::DWIRXXZZ	SDN:P06::UUUU	99999	float
+67	RAW_DOWNWELLING_IRRADIANCE490	Raw downwelling irradiance at 490 nanometers	-	count	-	-	ib	SDN:P01::DWIRXXZZ	SDN:P06::UUUU	99999	float
+68	RAW_DOWNWELLING_IRRADIANCE555	Raw downwelling irradiance at 555 nanometers	-	count	-	-	ib	SDN:P01::DWIRXXZZ	SDN:P06::UUUU	99999	float
+69	RAW_DOWNWELLING_IRRADIANCE670	Raw downwelling irradiance at 670 nanometers	-	count	-	-	ib	SDN:P01::DWIRXXZZ	SDN:P06::UUUU	99999	float
+70	DOWN_IRRADIANCE	Downwelling irradiance at x nanometers	-	W/m^2/nm	-	-	b	SDN:P01::DWIRXXED	SDN:P06::UWNM	99999	float
+71	DOWN_IRRADIANCE380	Downwelling irradiance at 380 nanometers	-	W/m^2/nm	-	-	b	SDN:P01::RXUD380E	SDN:P06::UWNM	99999	float
+72	DOWN_IRRADIANCE412	Downwelling irradiance at 412 nanometers	-	W/m^2/nm	-	-	b	SDN:P01::RXUD412E	SDN:P06::UWNM	99999	float
+73	DOWN_IRRADIANCE443	Downwelling irradiance at 443 nanometers	-	W/m^2/nm	-	-	b	SDN:P01::RXUD443E	SDN:P06::UWNM	99999	float
+74	DOWN_IRRADIANCE490	Downwelling irradiance at 490 nanometers	-	W/m^2/nm	-	-	b	SDN:P01::RXUD490E	SDN:P06::UWNM	99999	float
+75	DOWN_IRRADIANCE555	Downwelling irradiance at 555 nanometers	-	W/m^2/nm	-	-	b	SDN:P01::RXUD555E	SDN:P06::UWNM	99999	float
+76	DOWN_IRRADIANCE670	Downwelling irradiance at 670 nanometers	-	W/m^2/nm	-	-	b	SDN:P01::RXUD670E	SDN:P06::UWNM	99999	float
+77	RAW_UPWELLING_RADIANCE	Raw upwelling radiance at x nanometers	-	count	-	-	ib	SDN:P01::UPRAXXZZ	SDN:P06::UUUU	99999	float
+78	RAW_UPWELLING_RADIANCE412	Raw upwelling radiance at 412 nanometers	-	count	-	-	ib	SDN:P01::UPRAXXZZ	SDN:P06::UUUU	99999	float
+79	RAW_UPWELLING_RADIANCE443	Raw upwelling radiance at 443 nanometers	-	count	-	-	ib	SDN:P01::UPRAXXZZ	SDN:P06::UUUU	99999	float
+80	RAW_UPWELLING_RADIANCE490	Raw upwelling radiance at 490 nanometers	-	count	-	-	ib	SDN:P01::UPRAXXZZ	SDN:P06::UUUU	99999	float
+81	RAW_UPWELLING_RADIANCE555	Raw upwelling radiance at 555 nanometers	-	count	-	-	ib	SDN:P01::UPRAXXZZ	SDN:P06::UUUU	99999	float
+82	UP_RADIANCE	Upwelling radiance at x nanometers	upwelling_radiance_in_sea_water	W/m^2/nm/sr	-	-	b	UPRAXXED	SDN:P06::UWNS	99999	float
+83	UP_RADIANCE412	Upwelling radiance at 412 nanometers	upwelling_radiance_in_sea_water	W/m^2/nm/sr	-	-	b	SDN:P01::RXUU412L	SDN:P06::UWNS	99999	float
+84	UP_RADIANCE443	Upwelling radiance at 443 nanometers	upwelling_radiance_in_sea_water	W/m^2/nm/sr	-	-	b	SDN:P01::RXUU443L	SDN:P06::UWNS	99999	float
+85	UP_RADIANCE490	Upwelling radiance at 490 nanometers	upwelling_radiance_in_sea_water	W/m^2/nm/sr	-	-	b	SDN:P01::RXUU490L	SDN:P06::UWNS	99999	float
+86	UP_RADIANCE555	Upwelling radiance at 555 nanometers	upwelling_radiance_in_sea_water	W/m^2/nm/sr	-	-	b	SDN:P01::RXUU555L	SDN:P06::UWNS	99999	float
+87	RAW_DOWNWELLING_PAR	Raw downwelling photosynthetic available radiation	-	count	-	-	ib	SDN:P01::DWIRRXZZ	SDN:P06::UUUU	99999	float
+88	DOWNWELLING_PAR	Downwelling photosynthetic available radiation	downwelling_photosynthetic_photon_flux_in_sea_water	microMoleQuanta/m^2/sec	-	-	b	SDN:P01::DWIRRXUD	SDN:P06::UMES	99999	float
+89	TILT	Inclination of the float axis in respect to the local vertical	-	degree	-	-	ib			99999	float
+90	MTIME	Fractional day of the individual measurement relative to JULD of the station	-	days	-3.	3	ib			999999	double
+91	TEMP_CNDC	Internal temperature of the conductivity cell	-	degree_Celsius	-2	40	ic			99999	float
+92	CHLA_FLUORESCENCE	Chlorophyll fluorescence with factory calibration	-	ru	-0.2	100	b			999999	float
+93	BBP650	Particle backscattering at 650 nanometers	-	m-1	-	-	b	SDN:P01::BB117R02	SDN:P06::PMSR	99999	float
+94	BBP880	Particle backscattering at 880 nanometers	-	m-1	-	-	b	SDN:P01::BB117IIR	SDN:P06::PMSR	99999	float
+95	DOWN_IRRADIANCE532	Downwelling irradiance at 532 nanometers	-	W/m^2/nm	-	-	b	SDN:P01::RXUD532E	SDN:P06::UWNM	99999	float

@@ -1,0 +1,26 @@
+JPR on 20/12/2017
+
+1-Hide unused columns, keep only:
+Order
+parameter name
+long_name
+cf_standard_name
+unit
+valid_min
+valid_max
+core/bio/intermediate
+sdn_parameter_urn
+sdn_uom_urn
+Fillvalue
+Data Type
+
+2-Fill empty cells with "-"
+
+3-Replace CR by " "
+
+4-Remove "f" in columns:
+valid_min
+valid_max
+Fillvalue
+
+5-Copy/paste data from .xls to .txt files
