@@ -1,0 +1,20 @@
+dbd_label: DBD_ASC(dinkum_binary_data_ascii)file
+encoding_ver: 2
+num_ascii_tags: 14
+all_sensors: 0
+filename: sunfish-2021-294-2-3
+the8x3_filename: 00290003
+filename_extension: tbd
+filename_label: sunfish-2021-294-2-3-tbd(00290003)
+mission_name: regm20.mi
+fileopen_time: Fri_Oct_22_14:43:42_2021
+sensors_per_cycle: 18
+num_label_lines: 3
+num_segments: 1
+segment_filename_0: sunfish-2021-294-2-3
+sci_flbbcd_bb_ref sci_flbbcd_bb_sig sci_flbbcd_bb_units sci_flbbcd_cdom_ref sci_flbbcd_cdom_sig sci_flbbcd_cdom_units sci_flbbcd_chlor_ref sci_flbbcd_chlor_sig sci_flbbcd_chlor_units sci_flbbcd_therm sci_m_present_secs_into_mission sci_m_present_time sci_oxy4_oxygen sci_oxy4_saturation sci_oxy4_temp sci_water_cond sci_water_pressure sci_water_temp 
+nodim nodim nodim nodim nodim ppb nodim nodim ug/l nodim sec timestamp um % degc s/m bar degc 
+4 4 4 4 4 4 4 4 4 4 4 8 4 4 4 4 4 4 
+NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN 2217.25 1634913827.759 NaN NaN NaN 0 0 0 
+NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN 2227.25 1634913837.759 0 0 0 NaN NaN NaN 
+0 0 0 0 0 0 0 0 0 0 2237.25 1634913847.759 NaN NaN NaN NaN NaN NaN 

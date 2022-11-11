@@ -1,0 +1,29 @@
+dbd_label: DBD_ASC(dinkum_binary_data_ascii)file
+encoding_ver: 2
+num_ascii_tags: 14
+all_sensors: 0
+filename: sunfish-2022-020-0-89
+the8x3_filename: 00510089
+filename_extension: tbd
+filename_label: sunfish-2022-020-0-89-tbd(00510089)
+mission_name: regm20.mi
+fileopen_time: Mon_Feb__7_21:59:28_2022
+sensors_per_cycle: 10
+num_label_lines: 3
+num_segments: 1
+segment_filename_0: sunfish-2022-020-0-89
+sci_flbbcd_bb_units sci_flbbcd_cdom_units sci_flbbcd_chlor_units sci_m_present_time sci_oxy4_calphase sci_oxy4_oxygen sci_oxy4_saturation sci_water_cond sci_water_pressure sci_water_temp 
+nodim ppb ug/l timestamp deg um % s/m bar degc 
+4 4 4 8 4 4 4 4 4 4 
+0.0024154 1.6272 0.2628 1644271169.368 NaN NaN NaN 3.16558 0.02926 3.5088 
+NaN NaN NaN 1644271211.369 33.462 363.129 87.484 NaN NaN NaN 
+NaN NaN NaN 1644271230.369 NaN NaN NaN 3.16452 0.04389 3.4984 
+NaN NaN NaN 1644271291.369 NaN NaN NaN 3.16316 0.03386 3.5082 
+NaN NaN NaN 1644271332.369 33.362 366.312 88.214 NaN NaN NaN 
+NaN NaN NaN 1644271352.369 NaN NaN NaN 3.17251 0.03653 3.502 
+NaN NaN NaN 1644271413.369 NaN NaN NaN 3.17295 0.04356 3.5027 
+NaN NaN NaN 1644271453.369 33.432 364.033 87.698 NaN NaN NaN 
+0.00387224 5.424 0.2701 1644271470.369 NaN NaN NaN NaN NaN NaN 
+NaN NaN NaN 1644271474.369 NaN NaN NaN 3.16889 0.03797 3.5007 
+NaN NaN NaN 1644271535.369 NaN NaN NaN 3.16421 0.03281 3.5041 
+NaN NaN NaN 1644271574.369 33.442 364.423 87.694 NaN NaN NaN 

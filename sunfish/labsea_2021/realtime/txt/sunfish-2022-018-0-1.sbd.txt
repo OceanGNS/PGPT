@@ -1,0 +1,21 @@
+dbd_label: DBD_ASC(dinkum_binary_data_ascii)file
+encoding_ver: 2
+num_ascii_tags: 14
+all_sensors: 0
+filename: sunfish-2022-018-0-1
+the8x3_filename: 00500001
+filename_extension: sbd
+filename_label: sunfish-2022-018-0-1-sbd(00500001)
+mission_name: regm20.mi
+fileopen_time: Thu_Jan_20_07:05:51_2022
+sensors_per_cycle: 32
+num_label_lines: 3
+num_segments: 1
+segment_filename_0: sunfish-2022-018-0-1
+c_battpos c_de_oil_vol c_fin c_heading c_pitch c_wpt_lat c_wpt_lon m_altitude m_avg_climb_rate m_avg_dive_rate m_battery m_battpos m_depth m_de_oil_vol m_fin m_final_water_vx m_final_water_vy m_gps_lat m_gps_lon m_heading m_lat m_lon m_pitch m_present_time m_pressure m_raw_altitude m_roll m_science_on m_vacuum m_water_vx m_water_vy x_low_power_status 
+in cc rad rad rad lat lon m m/s m/s volts in m cc rad m/s m/s lat lon rad lat lon rad timestamp bar m rad bool inHg m/s m/s nodim 
+4 4 4 4 4 8 8 4 4 4 4 4 4 4 4 4 4 8 8 4 8 8 4 8 4 4 4 1 4 4 4 4 
+NaN 70 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN 0.177408 71.5157 NaN NaN NaN NaN NaN NaN 5419.15500017537 -5000.28559999561 NaN 1642662345.613 0.0177408 NaN NaN 1 9.64276 NaN NaN 5 
+NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN 0.199243 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN 1642662442.526 0.0199243 NaN NaN NaN NaN NaN NaN NaN 
+0.9 NaN 0 NaN NaN NaN NaN NaN NaN NaN 14.82 0.923737 NaN NaN 0 NaN NaN NaN NaN NaN NaN NaN NaN 1642662454.538 NaN NaN NaN NaN NaN NaN NaN NaN 
+NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN 0.133739 NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN 1642662533.519 0.0133739 NaN NaN NaN NaN NaN NaN NaN 
