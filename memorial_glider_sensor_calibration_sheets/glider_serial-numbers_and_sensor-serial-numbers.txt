@@ -1,0 +1,10 @@
+Glider Serial / Glider Name / Glider Type      /  WMO Number / CTD Type   / CTD SN   / Optode         / Optode SN
+Unit_047      / Narwhal     / Slocum G1 200m   /  6801508    / SBE CP41   / 058      /                /
+Unit_334      / Unit_334    / Slocum G2 200m   /  6801670    / SBE GPCTD  / 9028     / Aanderaa 4831  / 333 
+Unit_354      / Pearldiver  / Slocum G2 1000m  /  6801735    / SBE GPCTD  / 9033     / Aanderaa 4831  / 124   
+Unit_473      / Unit_473    / Slocum G2 1000m  /  6801736    / SBE GPCTD  / 9177     / Aanderaa 4831  /    
+Unit_805      / Sunfish     / Slocum G3s 1000m /  6801509    / RBR CTD    / 203790   / Aanderaa 4831  / 673   
+Unit_806      / Migaloo     / Slocum G3s 1000m /  6801521    / RBR CTD    / 203788   / Aanderaa 4831F / 980   
+Unit_969      / Echo        / Slocum G3s 350m  /  6801522    / RBR CTD    / 207968   / Aanderaa 4831  / 951     
+Unit_970      / Batray      / Slocum G3s 350m  /  6801529    / RBR CTD    / 207969   / Aanderaa 4831  / 961
+Unit_971      / Barnacle    / Slocum G3s 350m  /  6801548    / RBR CTD    / 207975   / Aanderaa 4831  / 958

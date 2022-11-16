@@ -1,0 +1,12 @@
+type = "Aanderaa Optode 4831 Coefficients"; 
+foil_coefficient_type = "SVU Formula";
+salinity_setting = 0.f;
+sensor_serial = "333"
+calibration_date = "2018-08-20Thh:mm:ss";
+C6 = 2.700790E-03.f;
+C5 = 1.322386E-04.f;
+C4 = 2.280163E-06.f;
+C3 = 6.247601E-02.f;
+C2 = 2.579336E-05.f;
+C1 =-1.455265E-02.f;
+C0 = 1.195024E-03.f;
