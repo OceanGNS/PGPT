@@ -1,6 +1,6 @@
 glider=sunfish
-MISSION=$PWD/${glider}/labsea_2021/realtime
-SCRIPTS=$PWD/scripts
+MISSION=$PWD/glider_data/${glider}/sunfish_20211203/realtime
+SCRIPTS=$PWD/glider_processing_scripts
 
 cd ${MISSION}/
 mkdir txt nc 2>/dev/null
@@ -8,11 +8,11 @@ mkdir txt nc 2>/dev/null
 ##  CONVERT BINARY TO TXT
 cd ${MISSION}/raw
 ln -s ../cache .
-for f in ${glider}*bd; do
-    if [[ ! -e ../txt/$f.txt ]]; then
-        ${SCRIPTS}/bd2ascii $f >../txt/$f.txt
-    fi
-done
+#for f in ${glider}*bd; do
+#    if [[ ! -e ../txt/$f.txt ]]; then
+#        ${SCRIPTS}/bd2ascii $f >../txt/$f.txt
+#    fi
+#done
 rm cache
 
 
@@ -32,13 +32,13 @@ python3 ${SCRIPTS}/ncTimeseries.py realtime st
 
 ###################  DELAYED  ###################
 ##  CONVERT TO NC
-cd ${MISSION}/txt
-for f in $(ls ${glider}*.[de]bd.txt | sed 's/\..bd\.txt//' | sort -u); do
-    if [[ ! -e ../nc/$f.nc ]]; then
-        python3 ${SCRIPTS}/delayed2nc.py $f
-    fi
-done
+#cd ${MISSION}/txt
+#for f in $(ls ${glider}*.[de]bd.txt | sed 's/\..bd\.txt//' | sort -u); do
+#    if [[ ! -e ../nc/$f.nc ]]; then
+#        python3 ${SCRIPTS}/delayed2nc.py $f
+#    fi
+#done
 
 ##  CREATE 1 NC FILE FOR THE WHOLE MISSION
-cd ${MISSION}/txt
-python3 ${SCRIPTS}/ncTimeseries.py delayed de
+#cd ${MISSION}/txt
+#python3 ${SCRIPTS}/ncTimeseries.py delayed de

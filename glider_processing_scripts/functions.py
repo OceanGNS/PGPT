@@ -59,28 +59,44 @@ def rad2deg(x):
 
 ##  Compensate the oxygen data from sci_oxy4_oxygen from "fresh" to "salty"
 def O2freshtosal(O2fresh,T,S):
-    # apply salinity correction to "freshwater" oxygen concentration / umol/l
-    # part of optcalc-toolbox
-    # H. Bittig, IFM-GEOMAR
-    # 31.03.2011
 
-    a1 = -0.00624097
+    #define constants
+    a1 =-0.00624097
     a2 = 0.00693498
     a3 = 0.00690358
     a4 = 0.00429155
     a5 = 3.11680e-7
-    sca_T = scaledT(T)
-    O2sal =  O2fresh * np.exp(S * ( a1 - a2 * sca_T-  a3 * sca_T^2 - a4 * sca_T^3) - a5 * S^2 )
+
+    # interpolate nans in oxygen index
+    not_nan = ~np.isnan(O2fresh)
+    xp = not_nan.ravel().nonzero()[0]
+    fp = O2fresh[not_nan]
+    x  = np.isnan(O2fresh).ravel().nonzero()[0]
+
+    O2fresh[np.isnan(O2fresh)] = np.interp(x, xp, fp)
+    sca_T = np.log((298.15 - T)/(273.15 + T)) 
+    O2sal =  O2fresh*np.exp(S*(a1 - a2*sca_T -  a3*sca_T**2 - a4*sca_T**3) - a5*S**2)
     return O2sal
 
 
-def scaledT(T):
-    # calculate scaled temperature
-    # part of optcalc-toolbox
-    # H. Bittig, IFM-GEOMAR
-    # 31.03.2011
+## Range Check
+def range_check(var,var_min,var_max):
 
-    return np.log( (298.15 - T)/(273.15 + T) ) 
+    var_check = var   
+
+    # get rid of outliers above var_max
+    id = var>var_max
+    var_check[id]=np.nan
+    
+    # get rid of outliers below var_min
+    id = var<var_min
+    var_check[id]=np.nan
+
+    # get rid of value exactly "0"
+    id = np.where(var_check==0)[0]
+    var_check[id]=np.nan
+
+    return var_check
 
 
 
