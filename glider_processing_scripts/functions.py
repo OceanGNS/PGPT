@@ -2,7 +2,7 @@ import numpy as np
 
 ## Should use the TEOS10 library for calculating practical salinity
 
-## PSS-78 Algorithm to compute salinity? 
+## PSS-78 Algorithm to compute salinity?
 def salinity(C,t,p):
 
     # Define constants
@@ -30,7 +30,7 @@ def salinity(C,t,p):
     e1 = 2.070e-5
     e2 = -6.370e-10
     e3 = 3.989e-15
-    k = 0.0162	
+    k = 0.0162
 
     p = 10*p  ##  dBar
     C = 10*C  ##  mS/cm
@@ -74,7 +74,8 @@ def O2freshtosal(O2fresh,T,S):
     x  = np.isnan(O2fresh).ravel().nonzero()[0]
 
     O2fresh[np.isnan(O2fresh)] = np.interp(x, xp, fp)
-    sca_T = np.log((298.15 - T)/(273.15 + T)) 
+    
+    sca_T = np.log((298.15 - T)/(273.15 + T))
     O2sal =  O2fresh*np.exp(S*(a1 - a2*sca_T -  a3*sca_T**2 - a4*sca_T**3) - a5*S**2)
     return O2sal
 
@@ -82,7 +83,7 @@ def O2freshtosal(O2fresh,T,S):
 ## Range Check
 def range_check(var,var_min,var_max):
 
-    var_check = var   
+    var_check = var
 
     # get rid of outliers above var_max
     id = var>var_max
@@ -97,6 +98,13 @@ def range_check(var,var_min,var_max):
     var_check[id]=np.nan
 
     return var_check
+
+
+## Long lat Correction
+    
+
+
+
 
 
 
