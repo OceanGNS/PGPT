@@ -86,7 +86,7 @@ ap = 1
 # print(latcDD)
 
 for i in range(len(i_start)):
-	a = i_start[i] + np.argwhere(~np.isnan( lon[np.arange(i_start[i],i_mid[i])] ))-1
+	a = i_start[i] + np.argwhere(~np.isnan( lon[np.arange(i_start[i],i_mid[i])] ))
 	ap = np.vstack((ap, a))
 	ti = timestamp[a] - timestamp[a[0]]
 	loncDD = np.vstack((loncDD.reshape(-1,1) ,(DM2D(lon[a]) + ti*vlonDD[i]).reshape(-1,1)  ))
