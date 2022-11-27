@@ -2,7 +2,7 @@
 ## Filled by hand or from database
 
 ## Decide processing mode (profile | trajectory)
-featureType         = "trajectory" ; # OR CAN BE PROFILE!!!! 
+processingMode         = "realtime" ; # OR Delayed
 
 ## Background Information
 deployment_name       = "sunfish-20221203T1233" ; # could be automatic from SFMC or create using the deployment date
