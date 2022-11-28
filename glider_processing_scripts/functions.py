@@ -101,6 +101,66 @@ def range_check(var,var_min,var_max):
 
 
 ## Long lat Correction
+def correctDR(lon,lat,timestamp,x_dr_state,gps_lon,gps_lat):
+# Correction for glider dead reckoned locations when underwater
+# using the gps and drift at surface state (approximate currents)
+# Inputs:
+#     m_lon (NMEA format)
+#     m_lat (NMEA format)
+#     m_present_time (unix)
+#     x_dr_state (glider dive state variable)
+#     m_gps_lon (NMEA format)
+#     m_gps_lat  (NMEA format)
+#
+# Output
+#    corr_lon, corr_lat (corrected m_lon, m_lat in decimal degrees)
+
+    i_si     = np.argwhere( np.diff (x_dr_state**2)!=0)
+    i_start = np.argwhere(np.diff( x_dr_state[i_si]**2, n=2,axis=0 )==18)
+    i_start = i_si[i_start[:,0]]
+    i_start = i_start[:,0]
+    
+    # print(np.isnan(lon[i_start[1]]))
+    for ki in range(len(i_start) ):
+        while np.isnan(lon[i_start[ki] ] ) :
+            i_start[ki] = i_start[ki] +1
+  
+    # gps location at surface
+    # transition x_dr_state from 2->3
+    i_end  = np.argwhere(np.diff(x_dr_state**2,n=1,axis=0)==5)
+    i_end  = i_end[:,0]-1
+    for ki in range(len(i_end)):
+        while (np.isnan(lon[i_end[ki]]) and np.isnan(gps_lon[i_end[ki]] ) ) :
+            i_end[ki] = i_end[ki] +1
+
+
+    # DR location after surfacing
+    # transition from 1->2
+    i_mid = np.argwhere(np.diff(x_dr_state**2,n=1,axis=0)==3)
+    i_mid = i_mid[:,0]
+    for ki in range(len(i_mid)):
+	    while np.isnan(DM2D(lon[i_mid[ki]] ) ):
+		    i_mid[ki] = i_mid[ki] -1
+
+    t_start = timestamp[i_start]
+    lon_dif=DM2D(lon[i_end]) - DM2D(lon[i_mid])
+    lat_dif =DM2D(lat[i_end]) - DM2D(lat[ i_mid])
+    t_dif=timestamp[i_mid]-timestamp[i_start]
+    vlonDD = lon_dif / t_dif
+    vlatDD  = lat_dif / t_dif
+    loncDD = DM2D(lon[0, ])
+    latcDD  = DM2D(lat[0, ])
+
+    ap = 0
+    for i in range(len(i_start)):
+    	idtemp=np.arange(i_start[i],i_mid[i]+1)
+    	a = i_start[i] + np.argwhere(~np.isnan(lon[idtemp]))
+    	ap = np.vstack((ap, a))
+    	ti = timestamp[a] - timestamp[a[0]]
+    	loncDD = np.vstack((loncDD.reshape(-1,1) ,(DM2D(lon[a]) +   ti*vlonDD[i]).reshape(-1,1)  ))
+    	latcDD  = np.vstack((latcDD.reshape(-1,1)  ,(DM2D(lat[a] ) + ti*vlatDD[i] ).reshape(-1,1)  ))
+    
+    return loncDD,latcDD
     
 
 

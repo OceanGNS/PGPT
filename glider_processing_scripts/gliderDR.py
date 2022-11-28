@@ -27,6 +27,7 @@ x  = np.isnan(x_dr_state).ravel().nonzero()[0]
 # dead reckoning dive location
 # lat/lon index for transition of x_dr_state from 4->1
 x_dr_state = x_dr_state
+
 i_si     = np.argwhere( np.diff (x_dr_state**2)!=0)
 i_start = np.argwhere(np.diff( x_dr_state[i_si]**2, n=2,axis=0 )==18)
 i_start = i_si[i_start[:,0]]
@@ -38,16 +39,12 @@ for ki in range(len(i_start) ):
   
 # gps location at surface
 # transition x_dr_state from 2->3
-
-
 i_end  = np.argwhere(np.diff(x_dr_state**2,n=1,axis=0)==5)
 i_end  = i_end[:,0]-1
 for ki in range(len(i_end)):
     while (np.isnan(lon[i_end[ki]]) and np.isnan(gps_lon[i_end[ki]] ) ) :
         i_end[ki] = i_end[ki] +1
-            
-            
-            
+
 
 # DR location after surfacing
 # transition from 1->2
@@ -56,7 +53,6 @@ i_mid = i_mid[:,0]
 for ki in range(len(i_mid)):
 	while np.isnan(DM2D(lon[i_mid[ki]] ) ):
 		i_mid[ki] = i_mid[ki] -1
-
 
 
 t_start = timestamp[i_start]
