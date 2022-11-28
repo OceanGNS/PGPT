@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from glob import glob
 import sys
-from functions import salinity,DM2D,rad2deg,O2freshtosal,range_check
+from functions import salinity,DM2D,rad2deg,O2freshtosal,range_check,correctDR
 
 
 mode = sys.argv[1]
@@ -29,7 +29,7 @@ data = data.sort_values(by=['timestamp'])
 
 ## DO SOME BASIC RANGE CHECKING SCIENCE SENSORS
 
-if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()): 
+if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()):
     data['sci_water_cond'] = range_check(data['sci_water_cond'],0.01,4)
     data['sci_water_temp'] = range_check(data['sci_water_temp'],-2,25)
     data['sci_water_pressure'] = range_check(data['sci_water_pressure'],-2,1200)
@@ -41,12 +41,15 @@ if('sci_oxy4_oxygen' in data.keys()):
 if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()):
     data['salinity'] = salinity(data['sci_water_cond'], data['sci_water_temp'], data['sci_water_pressure'])
 
-
 ## COMPENSATE OXYGEN FOR SALINITY EFFECTS
 if('sci_oxy4_oxygen' in data.keys() and 'sci_water_temp' in data.keys() and 'salinity' in data.keys()):
     data['oxygen_concentration'] = O2freshtosal(data['sci_oxy4_oxygen'], data['sci_water_temp'], data['salinity'])
 
-    
+## CORRECT LONGITUDE LATITUDE FOR DEAD RECKONING ERRORS
+# need to do an interpolation using "Nearest" of "x_dr_state" before proceeding
+if( 'x_dr_state' in data.keys() and 'm_gps_lat' in data.keys() and 'm_lat' in data.keys() and 'm_lon' in data.keys() and 'm_gps_lon' in data.keys()):
+    data['cor_lon'],data['cor_lat']=correctDR(data('m_lon'),data('m_lat'),data('timestamp'),data('x_dr_state'),data('m_gps_lon'),data('m_gps_lat'))
+
 ##  CONVERT DM 2 D.D
 for col in ['c_wpt_lat', 'c_wpt_lon', 'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']:
     if(col in data.keys()):
@@ -56,7 +59,7 @@ for col in ['c_wpt_lat', 'c_wpt_lon', 'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'
 for col in ['c_fin', 'c_heading', 'c_pitch', 'm_fin',  'm_heading',  'm_pitch','m_roll']:
     if(col in data.keys()):
         data[col] = rad2deg(data[col])
-        
+  
 ##  Convert & Save as netCDF
 if(len(data)>0):
     nc = data.set_index(['timestamp']).to_xarray()
