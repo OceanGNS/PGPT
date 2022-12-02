@@ -10,12 +10,16 @@ mkdir txt nc nc_ioos 2>/dev/null
 
 ##  CONVERT BINARY TO TXT
 cd ${MISSION}/raw
+
+## NEED TO RENAME THE FILES
+${SCRIPTS}/rename_dbd_files *.*bd /
+
 ln -s ../cache .
-#for f in ${glider}*bd; do
-#    if [[ ! -e ../txt/$f.txt ]]; then
-#        ${SCRIPTS}/bd2ascii $f >../txt/$f.txt
-#    fi
-#done
+for f in ${glider}*bd; do
+    if [[ ! -e ../txt/$f.txt ]]; then
+        ${SCRIPTS}/bd2ascii $f >../txt/$f.txt
+    fi
+done
 rm cache
 
 ###################  REALTIME  ###################
