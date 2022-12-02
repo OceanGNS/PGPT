@@ -1,12 +1,9 @@
 m_present_time
-m_present_secs_into_mission
 m_water_vx
 m_water_vy
 m_depth
-m_depth_rate
 m_pitch
 c_pitch
-m_speed
 m_ballast_pumped
 c_ballast_pumped
 m_battpos
@@ -22,8 +19,6 @@ m_leak
 m_altitude
 m_raw_altitude
 m_raw_altitude_rejected
-m_altimeter_voltage
-m_altitude_rate
 m_altimeter_status
 m_lat
 m_lon
@@ -53,12 +48,7 @@ m_water_delta_vx
 m_water_delta_vy
 m_depth_state
 cc_depth_state_mode
-x_fin_deadband
-x_battpos_deadband
-x_ballast_pumped_deadband
-u_angle_of_attack
 m_coulomb_amphr 
-m_coulomb_amphr_raw
 m_coulomb_amphr_total
 m_coulomb_current
 m_coulomb_current_raw

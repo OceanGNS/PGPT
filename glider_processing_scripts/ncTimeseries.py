@@ -41,24 +41,29 @@ if('sci_oxy4_oxygen' in data.keys()):
 if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()):
     data['salinity'] = salinity(data['sci_water_cond'], data['sci_water_temp'], data['sci_water_pressure'])
 
-## COMPENSATE OXYGEN FOR SALINITY EFFECTS
-if('sci_oxy4_oxygen' in data.keys() and 'sci_water_temp' in data.keys() and 'salinity' in data.keys()):
-    data['oxygen_concentration'] = O2freshtosal(data['sci_oxy4_oxygen'], data['sci_water_temp'], data['salinity'])
-
-## CORRECT LONGITUDE LATITUDE FOR DEAD RECKONING ERRORS
-# need to do an interpolation using "Nearest" of "x_dr_state" before proceeding
-if( 'x_dr_state' in data.keys() and 'm_gps_lat' in data.keys() and 'm_lat' in data.keys() and 'm_lon' in data.keys() and 'm_gps_lon' in data.keys()):
-    data['cor_lon'],data['cor_lat']=correctDR(data('m_lon'),data('m_lat'),data('timestamp'),data('x_dr_state'),data('m_gps_lon'),data('m_gps_lat'))
 
 ##  CONVERT DM 2 D.D
 for col in ['c_wpt_lat', 'c_wpt_lon', 'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']:
     if(col in data.keys()):
         data[col] = DM2D(data[col])
-
+        
 ##  CONVERT RADIAN 2 DEGREE
 for col in ['c_fin', 'c_heading', 'c_pitch', 'm_fin',  'm_heading',  'm_pitch','m_roll']:
     if(col in data.keys()):
         data[col] = rad2deg(data[col])
+
+## COMPENSATE OXYGEN FOR SALINITY EFFECTS
+#if('sci_oxy4_oxygen' in data.keys() and 'sci_water_temp' in data.keys() and 'salinity' in data.keys()):
+    #data['oxygen_concentration'] = O2freshtosal(data['sci_oxy4_oxygen'], data['sci_water_temp'], data['salinity'])
+
+
+
+## CORRECT LONGITUDE LATITUDE FOR DEAD RECKONING ERRORS
+# need to do an interpolation using "Nearest" of "x_dr_state" before proceeding
+#if( 'x_dr_state' in data.keys() and 'm_gps_lat' in data.keys() and 'm_lat' in data.keys() and 'm_lon' in data.keys() and 'm_gps_lon' in data.keys()):
+    #data['cor_lon'],data['cor_lat']=correctDR(data('m_lon'),data('m_lat'),data('timestamp'),data('x_dr_state'),data('m_gps_lon'),data('m_gps_lat'))
+
+
   
 ##  Convert & Save as netCDF
 if(len(data)>0):
