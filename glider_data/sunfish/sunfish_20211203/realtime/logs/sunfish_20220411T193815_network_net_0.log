@@ -1,8 +1,0 @@
-Connection Event: Carrier Detect found.1995048    Iridium console active and ready...
-Vehicle Name: sunfish
-Curr Time: Mon Apr 11 19:38:04 2022 MT: 1995048
-DR  Location:  5355.887 N -5029.569 E measured     100.47 secs ago
-GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
-GPS Invalid :  5353.709 N -5035.402 E measured    195.978 secs ago
-GPS Location:  5355.887 N -5029.569 E measured    101.145 secs ago
-   sensor:c_autoballast_state(enum)=2            

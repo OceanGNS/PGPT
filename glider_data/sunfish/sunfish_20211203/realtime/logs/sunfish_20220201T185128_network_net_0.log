@@ -1,82 +1,0 @@
-Connection Event: Carrier Detect found.969679    Iridium console active and ready...
-Vehicle Name: sunfish
-Curr Time: Tue Feb  1 18:51:20 2022 MT:  969679
-DR  Location:  5400.649 N -5021.445 E measured    234.448 secs ago
-GPS TooFar:   69696969.000 N 69696969.000 E measured     1e+308 secs ago
-GPS Invalid :  5404.051 N -5012.808 E measured    325.865 secs ago
-GPS Location:  5400.649 N -5021.445 E measured    235.132 secs ago
-   sensor:c_autoballast_state(enum)=2             78263.6 secs ago
-   sensor:c_climb_bpump(X)=45                     612.049 secs ago
-   sensor:c_dive_bpump(X)=-305                    612.052 secs ago
-   sensor:c_wpt_lat(lat)=5357.53                    19391 secs ago
-   sensor:c_wpt_lon(lon)=-5030.75                   19391 secs ago
-   sensor:m_battery(volts)=15.0050857797828        31.487 secs ago
-   sensor:m_bms_battery_in_use(bool)=0              3.838 secs ago
-   sensor:m_bms_emergency_battery_voltage(volts)=12.387448        3.854 secs ago
-   sensor:m_coulomb_amphr(amp-hrs)=111.217260000008        3.822 secs ago
-   sensor:m_coulomb_amphr_total(amp-hrs)=185.928628000023        3.826 secs ago
-   sensor:m_digifin_leakdetect_reading(nodim)=1018        0.064 secs ago
-   sensor:m_final_water_vx(m/s)=-0.033013394917424      39112.4 secs ago
-   sensor:m_final_water_vy(m/s)=-0.008360512054162      39112.4 secs ago
-   sensor:m_iridium_signal_strength(nodim)=4       26.741 secs ago
-   sensor:m_leakdetect_voltage(volts)=2.5          31.384 secs ago
-   sensor:m_leakdetect_voltage_forward(volts)=2.49990842490842       31.348 secs ago
-   sensor:m_leakdetect_voltage_science(volts)=2.5       31.313 secs ago
-   sensor:m_lithium_battery_relative_charge(%)=74.1765794444413         3.86 secs ago
-   sensor:m_tot_num_inflections(nodim)=1146       464.441 secs ago
-   sensor:m_vacuum(inHg)=9.63260354090354          31.496 secs ago
-   sensor:m_water_vx(m/s)=-0.048672557974309      299.868 secs ago
-   sensor:m_water_vy(m/s)=-0.019570460815322      299.871 secs ago
-   sensor:x_last_wpt_lat(lat)=5401.39             19391.1 secs ago
-   sensor:x_last_wpt_lon(lon)=-5020.57            19391.1 secs ago
-ABORT HISTORY: total since reset: 1
-ABORT HISTORY: last abort cause: MS_ABORT_BEH_ERROR
-ABORT HISTORY: last abort details: layered_control(): Behavior sample_8 entered B_ERROR state 
-ABORT HISTORY: last abort time: 2022-01-15T14:43:47
-ABORT HISTORY: last abort segment: sunfish-2022-014-0-0 (0048.0000)
-ABORT HISTORY: last abort mission: regm22.mi
-969679    No login script found for processing.
-:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0318 C_FIN:0.0000
-^EExtending surface time by 5 minutes
-s -num=2 *.nlg
-
---------------------------------
-969709 30 00510054.mlg LOG FILE CLOSED
-SCIENCE DATA LOGGING: science IS running
-CONSCI REQUESTED (using IRIDIUM as console)
-ASKING SCIENCE COMPUTER TO SWITCH TO COMMAND MODE via IRIDIUM
-SWITCHING TO SCIENCE COMMAND MODE over IRIDIUM
-Normal operation resumes when:
-    SciDos> QUIT              -or-
-    Lose CD (unplug freewave/hangup iridium) -or-
-    run longer than U_SCI_CMD_MAX_CONSCI_TIME(3600)s
-969717 33 Neutering the Freewave Console
-
-SciDos>SCI: Implicitly limiting total transfer to 1800 secs, representing 180 KB total size
-SCI: Enumerating and selecting files
-About to send 2 files
-Prechecking is not necessary for this invocation
-START
-**B00000000000000
-Starting zModem transfer of 00510054.nlg to/from sunfish size is 437
-Total Bytes sent/received: 437
-zModem transfer DONE for file 00510054.nlg
-
-Starting zModem transfer of 00510053.nlg to/from sunfish size is 1501
-Total Bytes sent/received: 1024
-Total Bytes sent/received: 1501
-zModem transfer DONE for file 00510053.nlg
-.
-SCI: Sent 2 file(s):
-00510054.nlg  00510053.nlg
-SCI: SUCCESS
-969743 39 Freewave console restored
-REVERTING FROM SCIENCE COMMAND MODE
-SCIENCE COMMAND MODE TERMINATED because:
-   Science Program QUIT (cts lowered)
-969745    GLD: Enumerating and selecting files
-GLD: No files to send
-969745    GLD: Sent 0 file(s):
-
-GLD: SUCCESS
-:OOD:digifin_mgr_ctrl:OUT OF DEADBAND: M_FIN:0.0289 C_FIN:0.0000
