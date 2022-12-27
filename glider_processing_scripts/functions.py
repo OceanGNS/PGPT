@@ -130,6 +130,7 @@ def correctDR(lon, lat, timestamp, x_dr_state, gps_lon, gps_lat):
         while np.isnan(lon[i_start[ki]]):
             i_start[ki] = i_start[ki] + 1
 
+    #T Fill nan's with previous value
     x_dr_state = x_dr_state.fillna(method='ffill')
 
     # gps location at surface
@@ -157,26 +158,26 @@ def correctDR(lon, lat, timestamp, x_dr_state, gps_lon, gps_lat):
     vlatDD = lat_dif / t_dif
 
 
-loncDD = np.array(())
-latcDD = np.array(())
+    loncDD = np.array(())
+    latcDD = np.array(())
 
-#T What is "ap" used for?
-# ap = 0
-for i in range(len(i_start)):
-    #T Again, why i_start and i_mid, rather than i_mid and i_end?  Below we're using
-    #T vlonDD & vlatDD, which are calculated based on i_end & i-mid.
-    #T I think there should be 2 loops.  One to cover i_start:i_mid, and on for the
-    #T i_mid:i_end interval.
-    idtemp = np.arange(i_start[i], i_mid[i] + 1)
-    a = (i_start[i] + np.argwhere((~np.isnan(lon[idtemp])).to_numpy())).flatten()
     #T What is "ap" used for?
-    # ap = np.vstack((ap, a))
-    ti = timestamp[a] - timestamp[a[0]]
-    print(a.shape)
-    loncDD = np.hstack(
-        (loncDD, (lon[a] + ti * vlonDD[i]).to_numpy()))
-    latcDD = np.hstack(
-        (latcDD, (lat[a] + ti * vlatDD[i]).to_numpy()))
+    # ap = 0
+    for i in range(len(i_start)):
+        #T Again, why i_start and i_mid, rather than i_mid and i_end?  Below we're using
+        #T vlonDD & vlatDD, which are calculated based on i_end & i-mid.
+        #T I think there should be 2 loops.  One to cover i_start:i_mid, and on for the
+        #T i_mid:i_end interval.
+        idtemp = np.arange(i_start[i], i_mid[i] + 1)
+        a = (i_start[i] + np.argwhere((~np.isnan(lon[idtemp])).to_numpy())).flatten()
+        #T What is "ap" used for?
+        # ap = np.vstack((ap, a))
+        ti = timestamp[a] - timestamp[a[0]]
+        print(a.shape)
+        loncDD = np.hstack(
+            (loncDD, (lon[a] + ti * vlonDD[i]).to_numpy()))
+        latcDD = np.hstack(
+            (latcDD, (lat[a] + ti * vlatDD[i]).to_numpy()))
 
     # NEED TO USE PADDING OF NANS
 
