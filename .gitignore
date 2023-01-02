@@ -1,3 +1,2 @@
-#*.nc
-#*.ascii
+*.nc
 *.DS_store

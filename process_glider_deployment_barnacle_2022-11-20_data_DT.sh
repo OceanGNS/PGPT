@@ -8,14 +8,14 @@ mkdir txt nc 2>/dev/null
 ##  CONVERT BINARY TO TXT
 cd ${MISSION}/raw
 
-## NEED TO REAN
+## NEED TO RENAME THE 0000000.*BD to glider_XXX_XXX_XX.*.bd format
 ${SCRIPTS}/rename_dbd_files *.*bd /
 
 ln -s ../cache .
 for f in ${glider}*bd; do
     if [[ ! -e ../txt/$f.txt ]]; then
     	echo $f
-    	
+
         ${SCRIPTS}/bd2ascii $f >../txt/$f.txt
     fi
 done

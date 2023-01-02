@@ -58,14 +58,12 @@ if('sci_oxy4_oxygen' in data.keys() and 'sci_water_temp' in data.keys() and 'sal
     data['oxygen_concentration'] = O2freshtosal(data['sci_oxy4_oxygen'], data['sci_water_temp'], data['salinity'])
 
 
-
 ## CORRECT LONGITUDE LATITUDE FOR DEAD RECKONING ERRORS
 # need to do an interpolation using "Nearest" of "x_dr_state" before proceeding
 if( 'x_dr_state' in data.keys() and 'm_gps_lat' in data.keys() and 'm_lat' in data.keys() and 'm_lon' in data.keys() and 'm_gps_lon' in data.keys()):
-    data['cor_lon'],data['cor_lat'] = correctDR(data['m_lon'],data['m_lat'],data['timestamp'],data['x_dr_state'],data['m_gps_lon'],data['m_gps_lat'])
+    data['lon_corrected'],data['lat_corrected'] = correctDR(data['m_lon'],data['m_lat'],data['timestamp'],data['x_dr_state'],data['m_gps_lon'],data['m_gps_lat'])
 
 
-  
 ##  Convert & Save as netCDF
 if(len(data)>0):
     nc = data.set_index(['timestamp']).to_xarray()

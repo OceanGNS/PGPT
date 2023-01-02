@@ -4,46 +4,9 @@ import gsw
 
 ## PSS-78 Algorithm to compute salinity
 def salinity(C, t, p):
-
     p = 10 * p  ##  dBar
     C = 10 * C  ##  mS/cm
     SP = gsw.SP_from_C(C, t, p)
-
-    # Define constants
-    #a0 = 0.0080
-    #a1 = -0.1692
-    #a2 = 25.3851
-    #a3 = 14.0941
-    #a4 = -7.0261
-    #a5 = 2.7081
-    #b0 = 0.0005
-    #b1 = -0.0056
-    #b2 = -0.0066
-    #b3 = -0.0375
-    #b4 = 0.0636
-    #b5 = -0.0144
-    #c0 = 0.6766097
-    #c1 = 2.00564e-2
-    #c2 = 1.104259e-4
-    #c3 = -6.9698e-7
-    #c4 = 1.0031e-9
-    #d1 = 3.426e-2
-    #d2 = 4.464e-4
-    #d3 = 4.215e-1
-    #d4 = -3.107e-3
-    #e1 = 2.070e-5
-    #e2 = -6.370e-10
-    #e3 = 3.989e-15
-    #k = 0.0162
-
-    #t68 = t*1.00024
-    #ft68 = (t68 - 15)/(1 + k*(t68 - 15))
-    #R = 0.023302418791070513*C
-    #rt_lc = c0 + (c1 + (c2 + (c3 + c4*t68)*t68)*t68)*t68
-    #Rp = 1 + (p*(e1 + e2*p + e3*p*p))/(1 + d1*t68 + d2*t68*t68 + (d3 + d4*t68)*R)
-    #Rt = R/(Rp*rt_lc)
-    #Rtx = np.sqrt(Rt)
-    #SP = a0 + (a1 + (a2 + (a3 + (a4 + a5*Rtx)*Rtx)*Rtx)*Rtx)*Rtx + ft68*(b0 + (b1 + (b2 + (b3 + (b4 + b5*Rtx)*Rtx)*Rtx)*Rtx)*Rtx)
     return SP
 
 
@@ -79,8 +42,7 @@ def O2freshtosal(O2fresh, T, S):
     O2fresh[np.isnan(O2fresh)] = np.interp(x, xp, fp)
 
     sca_T = np.log((298.15 - T) / (273.15 + T))
-    O2sal = O2fresh * np.exp(
-        S * (a1 - a2 * sca_T - a3 * sca_T**2 - a4 * sca_T**3) - a5 * S**2)
+    O2sal = O2fresh * np.exp(S * (a1 - a2 * sca_T - a3 * sca_T**2 - a4 * sca_T**3) - a5 * S**2)
     return O2sal
 
 
@@ -118,6 +80,7 @@ def correctDR(lon, lat, timestamp, x_dr_state, gps_lon, gps_lat):
     #
     # Output
     #    corr_lon, corr_lat (corrected m_lon, m_lat in decimal degrees)
+    # HAS LOGICAL ERROR IN THE CODE! ITS NOT CLEAR WHAT THE ISSUE IS
 
     i_si = np.argwhere(np.diff(x_dr_state**2) != 0)
     i_start = np.argwhere(
@@ -132,7 +95,7 @@ def correctDR(lon, lat, timestamp, x_dr_state, gps_lon, gps_lat):
 
     #T Fill nan's with previous value
     x_dr_state = x_dr_state.fillna(method='ffill')
-
+    
     # gps location at surface
     # transition x_dr_state from 2->3
     i_end = np.argwhere(np.diff(x_dr_state**2, n=1, axis=0) == 5)
@@ -152,33 +115,44 @@ def correctDR(lon, lat, timestamp, x_dr_state, gps_lon, gps_lat):
     # t_start = timestamp[i_start]
     lon_dif = lon[i_end].to_numpy() - lon[i_mid].to_numpy()
     lat_dif = lat[i_end].to_numpy() - lat[i_mid].to_numpy()
-    #T Originally "t_dif=timestamp[i_mid]-timestamp[i_start]".  Why time difference between mid and start?
+    
+    #Why time difference between mid and start?
     t_dif = timestamp[i_end].to_numpy() - timestamp[i_mid].to_numpy()
+    # Taimaz, we may need to change it back to original code as this change broke the results in the example :(
+    #t_dif = timestamp[i_mid].to_numpy() - timestamp[i_start].to_numpy()
+    
     vlonDD = lon_dif / t_dif
     vlatDD = lat_dif / t_dif
 
-
+    # we need to initialize loncDD and latcDD
     loncDD = np.array(())
     latcDD = np.array(())
 
-    #T What is "ap" used for?
-    # ap = 0
+    # ap is the index for the "good" positions used for later padding of values
+    ap = np.array(())
+    
     for i in range(len(i_start)):
+        
         #T Again, why i_start and i_mid, rather than i_mid and i_end?  Below we're using
         #T vlonDD & vlatDD, which are calculated based on i_end & i-mid.
         #T I think there should be 2 loops.  One to cover i_start:i_mid, and on for the
         #T i_mid:i_end interval.
         idtemp = np.arange(i_start[i], i_mid[i] + 1)
         a = (i_start[i] + np.argwhere((~np.isnan(lon[idtemp])).to_numpy())).flatten()
-        #T What is "ap" used for?
-        # ap = np.vstack((ap, a))
+
+        # This index is used to introduce "nan's" for padding to match array size to original array
+        ap = np.hstack((ap, a))
+        
         ti = timestamp[a] - timestamp[a[0]]
-        print(a.shape)
         loncDD = np.hstack(
             (loncDD, (lon[a] + ti * vlonDD[i]).to_numpy()))
         latcDD = np.hstack(
             (latcDD, (lat[a] + ti * vlatDD[i]).to_numpy()))
 
-    # NEED TO USE PADDING OF NANS
+    # use ap to pad vectors to original input size of lon,lat
+    loncDDs = lon*np.nan
+    latcDDs = lon*np.nan
 
-    return loncDD, latcDD
+    loncDDs[ap]=loncDD
+    latcDDs[ap]=latcDD
+    return loncDDs,latcDDs
