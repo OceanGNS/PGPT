@@ -80,7 +80,10 @@ def correctDR(lon, lat, timestamp, x_dr_state, gps_lon, gps_lat):
     #
     # Output
     #    corr_lon, corr_lat (corrected m_lon, m_lat in decimal degrees)
-    # HAS LOGICAL ERROR IN THE CODE! ITS NOT CLEAR WHAT THE ISSUE IS
+    # Jan 3, 2023 - working version
+    
+    #T Fill nan's with previous value
+    x_dr_state = x_dr_state.fillna(method='ffill')
 
     i_si = np.argwhere(np.diff(x_dr_state**2) != 0)
     i_start = np.argwhere(
@@ -92,10 +95,7 @@ def correctDR(lon, lat, timestamp, x_dr_state, gps_lon, gps_lat):
     for ki in range(len(i_start)):
         while np.isnan(lon[i_start[ki]]):
             i_start[ki] = i_start[ki] + 1
-
-    #T Fill nan's with previous value
-    x_dr_state = x_dr_state.fillna(method='ffill')
-    
+        
     # gps location at surface
     # transition x_dr_state from 2->3
     i_end = np.argwhere(np.diff(x_dr_state**2, n=1, axis=0) == 5)
@@ -117,9 +117,9 @@ def correctDR(lon, lat, timestamp, x_dr_state, gps_lon, gps_lat):
     lat_dif = lat[i_end].to_numpy() - lat[i_mid].to_numpy()
     
     #Why time difference between mid and start?
-    t_dif = timestamp[i_end].to_numpy() - timestamp[i_mid].to_numpy()
+    # t_dif = timestamp[i_end].to_numpy() - timestamp[i_mid].to_numpy()
     # Taimaz, we may need to change it back to original code as this change broke the results in the example :(
-    #t_dif = timestamp[i_mid].to_numpy() - timestamp[i_start].to_numpy()
+    t_dif = timestamp[i_mid].to_numpy() - timestamp[i_start].to_numpy()
     
     vlonDD = lon_dif / t_dif
     vlatDD = lat_dif / t_dif

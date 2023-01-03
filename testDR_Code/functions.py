@@ -81,6 +81,9 @@ def correctDR(lon, lat, timestamp, x_dr_state, gps_lon, gps_lat):
     # Output
     #    corr_lon, corr_lat (corrected m_lon, m_lat in decimal degrees)
 
+    #T Fill nan's with previous value
+    x_dr_state = x_dr_state.fillna(method='ffill')
+
     i_si = np.argwhere(np.diff(x_dr_state**2) != 0)
     i_start = np.argwhere(
         np.diff(x_dr_state[i_si[:, 0]]**2, n=2, axis=0) == 18)
@@ -91,9 +94,6 @@ def correctDR(lon, lat, timestamp, x_dr_state, gps_lon, gps_lat):
     for ki in range(len(i_start)):
         while np.isnan(lon[i_start[ki]]):
             i_start[ki] = i_start[ki] + 1
-
-    #T Fill nan's with previous value
-    x_dr_state = x_dr_state.fillna(method='ffill')
 
     # gps location at surface
     # transition x_dr_state from 2->3
