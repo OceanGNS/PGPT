@@ -16,7 +16,7 @@ This toolbox seperately supports both `realtime` (while glider is deployed) and 
 	- [x] Apply salinity compensation to "sci_oxy4_oxygen" variable if salinity and oxygen are present in the data
 	- [x] Convert NMEA positions to "dd.dd" format
 	- [x] Convert variables from radians to degrees
-	- [ ] Apply a correction for longitude/latitude dead reckoning
+	- [x] Apply a correction for longitude/latitude dead reckoning
 	- [ ] Calculate the profile number for easy splitting of glider dives into profiles from the timeseries plot
 	- [ ] Identify the types of sensors present (optode, ctd) and store relevant sensor coefficients as variables in the profile and timeseries
 - [ ] During processing read metadata from a prepared text file and understand whether to run `realtime` or `delayed` mode processing
@@ -53,7 +53,7 @@ For the naming convention we will replicate these files. For fields like the typ
 
 ## MAC USERS
 
-This code uses Linux "date" function. Download the coreutils library  `brew install coreutils ; echo "alias date=gdate" >> ~/.bash_profile` 
+This code uses Linux "date" function. Download the coreutils library  `brew install coreutils ; echo "alias date=gdate" >> ~/.bash_profile`
 
 					
 
