@@ -1,6 +1,9 @@
 m_present_time
 m_water_vx
 m_water_vy
+m_water_depth
+m_de_oil_vol
+c_de_oil_vol
 m_depth
 m_pitch
 c_pitch
