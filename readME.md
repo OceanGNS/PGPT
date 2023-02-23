@@ -10,7 +10,7 @@ This toolbox seperately supports both `realtime` (while glider is deployed) and 
 
 - [x] Delayed mode: filter and convert `[*.d/e]bd` files into `[*.nc]` profiles and merge into a `[*.nc]` timeseries file
 - [x] Realtime mode: convert `[*.s/t]bd` files into `[*.nc]` profiles and merge into a `[*.nc]` timeseries file
-- [ ] Processing features:
+- [x] Processing features:
 	- [x] Preserve glider variables with original names under dimension [timestamp]
 	- [x] Calculate salinity
 	- [x] Apply salinity compensation to "sci_oxy4_oxygen" variable if salinity and oxygen are present in the data
@@ -18,14 +18,9 @@ This toolbox seperately supports both `realtime` (while glider is deployed) and 
 	- [x] Convert variables from radians to degrees
 	- [x] Apply a correction for longitude/latitude dead reckoning
 	- [ ] Calculate the profile number for easy splitting of glider dives into profiles from the timeseries plot
-	- [ ] Identify the types of sensors present (optode, ctd) and store relevant sensor coefficients as variables in the profile and timeseries
-- [ ] During processing read metadata from a prepared text file and understand whether to run `realtime` or `delayed` mode processing
-- [ ] Use naming convention of IOOS or EGO decoder for certain required variable names (time, lon,lat,temperature, salinity, oxygen, optical channels ...)
-- [ ] Provide an option to switch between IOOS and EGO format
-- [ ] Apply QC flagging and checks for the EGO/Quartod format variables (spike test, flatline test, gradient test, etc ...) and set QC flags (=1, 2, 3, 4)
-- [ ] Produce diagnostic plots:
-	- [ ] From the timeseries file `realtime` or `delayed` mode, show science data sensors (CTD, oxygen, optics) and when data was collected as sensor plot
-	- [ ] Produce a 2D colour plot for the science data as a function of profile number
+- [ ] During processing add metadata information from a prepared text file to provide complete record of glider data following US IOOS standards
+- [ ] Associate sensors (optode, ctd) and store relevant sensor coefficients as variables in the profile and timeseries for metadata information
+- [ ] Use naming convention of IOOS  decoder for certain required variable names (time, lon,lat,temperature, salinity, oxygen, optical channels ...) to discover data files in GTS and ERDAP
  
 ## How it works
 
