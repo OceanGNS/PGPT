@@ -82,7 +82,7 @@ function [profile_index, profile_direction] = findProfiles(varargin)
 %    if the introduced depth inversion and the lapse between the segments
 %    are not significant according to the specified thresholds.
 %
-%    Invalid samples (NaN) in input are ignored. In output, they are marked as 
+%    Invalid samples (NaN) in input are ignored. In output, they are marked as
 %    belonging to the previous profile, and with the direction of the previous
 %    sample.
 %
@@ -199,8 +199,14 @@ function [profile_index, profile_direction] = findProfiles(varargin)
   valid_index = find(~(isnan(depth(:)) | isnan(stamp(:))));
   sdy = sign(diff(depth(valid_index)));
   depth_peak = true(size(valid_index));
+  
+  
   depth_peak(2:end-1) = diff(sdy) ~= 0;
+  
+  
   depth_peak_index = valid_index(depth_peak);
+  
+  
   sgmt_frst = stamp(depth_peak_index(1:end-1));
   sgmt_last = stamp(depth_peak_index(2:end));
   sgmt_strt = depth(depth_peak_index(1:end-1));
