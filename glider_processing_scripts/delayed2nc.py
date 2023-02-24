@@ -3,8 +3,12 @@ import pandas as pd
 import sys
 import os.path
 from functions import salinity,DM2D,rad2deg,O2freshtosal,range_check
+from addAttrs import attr
+
 
 fileName = sys.argv[1]
+GLIDERS_DB = sys.argv[2]
+ATTRS = sys.argv[3]
 
 ########  DBD
 dbdFile = '%s.dbd.txt' % fileName
@@ -20,7 +24,7 @@ else:
 ########  EBD
 ebdFile = '%s.ebd.txt' % fileName
 if(os.path.isfile(ebdFile)):
-    ebdData = pd.read_csv(ebdFile,delimiter=' ',skiprows=np.append(np.arange(14),[15,16]))
+    ebdData = pd.read_csv(ebdFile, delimiter=' ',skiprows=np.append(np.arange(14),[15,16]))
     ebdData = ebdData.rename(columns={"sci_m_present_time":"timestamp"})
 else:
     ebdData = pd.DataFrame()
@@ -42,7 +46,7 @@ if('sci_oxy4_oxygen' in data.keys()):
 ##  CALCULATE SALINITY
 if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()):
     data['salinity'] = salinity(data['sci_water_cond'], data['sci_water_temp'], data['sci_water_pressure'])
-    
+
 ##  CONVERT DM 2 D.D
 for col in ['c_wpt_lat', 'c_wpt_lon', 'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']:
     if(col in data.keys()):
@@ -59,7 +63,22 @@ if('sci_oxy4_oxygen' in data.keys() and 'sci_water_temp' in data.keys() and 'sal
     data['oxygen_concentration'] = O2freshtosal(data['sci_oxy4_oxygen'], data['sci_water_temp'], data['salinity'])
 
 
+##  ADDITIONAL VARIABLES FOR CIOOS
+data['time'] = data['timestamp']
+data['latitude'] = data['m_gps_lat']
+data['longitude'] = data['m_gps_lon']
+data['pressure'] = 10*data['sci_water_pressure']
+data['depth'] = data['m_depth']
+data['sea_water_temperature'] = data['sci_water_temp']
+data['sea_water_electrical_conductivity'] = data['sci_water_cond']
+data['sea_water_salinity'] = data['salinity']
+data['eastward_sea_water_velocity'] = data['m_final_water_vx']
+data['northward_sea_water_velocity'] = data['m_final_water_vy']
+
+
+
 ##  Convert & Save as netCDF
 if(len(data)>0):
     nc = data.set_index(['timestamp']).to_xarray()
+    attr(fileName, nc, GLIDERS_DB, ATTRS, 'delayed')
     nc.to_netcdf('../nc/%s_delayed.nc' % (fileName))

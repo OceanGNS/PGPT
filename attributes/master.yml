@@ -1,0 +1,47 @@
+# You can add or remove any of these fields
+# Any field left as blank will be automatically ignored
+
+general:
+  deploymentDateTime: "2023-01-23T01:23:45Z" # Fill by hand for now
+  acknowledgment: "THANK YOU ALL"
+  comment: "SOME COMMENTS"
+  contributor_name: "PERSON1, PERSON2, PERSON3"
+  contributor_role: "Principal Investigator,Glider Pilot,Glider Pilot,Technician,Data Management"
+  creator_institution: "UNIVERSITY"
+  creator_name: "PERSON1"
+  creator_email: "SOME.ONE@ABC.XYZ"
+  creator_type: "person"
+  creator_url: "https://mungliders.com/"
+  institution: "Memorial University"
+  program: "MUN"
+  project: "PROJECT NAME"
+  processing_level: "Delayed-mode/recovered raw Slocum glider dataset from the native data file format. No quality control provided."
+  publisher_email: "SOME.ONE.ELSE@ABC.XYZ"
+  publisher_institution: "Memorial University"
+  summary: "SOMETHING"
+sensors:
+  instrument: "In Situ/Laboratory Instruments > Profilers/Sounders > CTD"
+  oxygen_sensor_type: "Aanderaa 4831"
+  oxygen_sensor_serial_number: "673"
+  ctd_type: "RBR Legato"
+  ctd_serial_number: "203790"
+  optical_sensor_type: "FLBBCD-SLC"
+  optical_sensor_serial_number: "5765"
+geospatial:
+  geospatial_bounds_crs: "EPSG:4326"
+  geospatial_bounds_vertical_crs: "EPSG:5831"
+  geospatial_lat_resolution: "0.00001 degree"
+  geospatial_lat_units: "degree_north"
+  geospatial_lon_resolution: "0.00001 degree"
+  geospatial_lon_units: "degree_east"
+  geospatial_vertical_positive: "down"
+  geospatial_vertical_resolution: ""
+  geospatial_vertical_units: "EPSG:5831"
+others:
+  product_version: "1.0"
+  standard_name_vocabulary: "CF Standard Name Table v27"
+  geospatial_verical_resolution: "0"
+  time_coverage_resolution: ""
+  ncei_template_version: "NCEI_NetCDF_Trajectory_Template_v2.0"
+  license: "This data may be redistributed without restriction. Data provided as is with no expressed or implied assurance of quality assurance or quality control"
+  references: "https://ioos.noaa.gov/wp-content/uploads/2015/10/Manual-for-QC-of-Glider-Data_05_09_16.pdf"
