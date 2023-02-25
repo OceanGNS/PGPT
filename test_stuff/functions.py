@@ -1,31 +1,44 @@
 import numpy as np
 import gsw
 
+#######################################
+############# salinity.py #################
+#######################################
 
-## PSS-78 Algorithm to compute salinity
 def salinity(C, t, p):
+    # Algorithm to compute salinity using GSW toolbox
+    # TEOS Toolbox <https://www.teos-10.org/software.htm>
     p = 10 * p  ##  dBar
     C = 10 * C  ##  mS/cm
     SP = gsw.SP_from_C(C, t, p)
     return SP
 
 
-##  Convert Degree-Minute to Decimal Degree
+#######################################
+############# dm2dd ####################
+#######################################
+
 def DM2D(x):
+    # Convert Degree-Minute to Decimal Degree
     deg = np.trunc(x / 100)
     minute = x - 100 * deg
     decimal = minute / 60
     return deg + decimal
 
 
-##  Convert radian to degree
+#######################################
+########### rad2deg ####################
+#######################################
+
 def rad2deg(x):
     return x * 180 / np.pi
 
+#######################################
+####### Oxygen Compensation #############
+#######################################
 
-##  Compensate the oxygen data from sci_oxy4_oxygen from "fresh" to "salty"
 def O2freshtosal(O2fresh, T, S):
-
+    #  Compensate the oxygen data from sci_oxy4_oxygen from "fresh" to "salty"
     #define constants
     a1 = -0.00624097
     a2 = 0.00693498
@@ -46,7 +59,9 @@ def O2freshtosal(O2fresh, T, S):
     return O2sal
 
 
-## Range Check
+#######################################
+############# Range Check ##############
+#######################################
 def range_check(var, var_min, var_max):
 
     var_check = var
@@ -65,8 +80,85 @@ def range_check(var, var_min, var_max):
 
     return var_check
 
-## Identify Profiles
+
+
+
+#######################################
+############## Find Profiles ##############
+#######################################
+
 def findProfiles(stamp,depth,**kwargs):
+    # Code is a modified version from MATLAB code provided inside SOCIB toolbox
+    #  <http://www.socib.es>
+    #
+    # findProfiles  Identify individual profiles and compute vertical direction from depth sequence.
+    #
+    #  Syntax:
+    #   profile_index, profile_direction = findProfiles(stamp, depth,**kwargs)
+    #    identify upcast and downcast profiles in depth (or pressure) vector DEPTH,
+    #    with optional timestamps in vector STAMP, and computes a vector of profile
+    #    indices PROFILE_INDEX and a vector of vertical direction PROFILE_DIRECTION.
+    #    STAMP, DEPTH, PROFILE_DIRECTION and PROFILE_INDEX are the same length N,
+    #    and if STAMP is not specified, it is assumed to be the sample index [1:N].
+    #    PROFILE_DIRECTION entries may be 1 (down), 0 (flat), -1 (up).
+    #    PROFILE_INDEX entries associate each sample with the number of the profile
+    #    it belongs to. Samples in the middle of a profile are flagged with a whole
+    #    number, starting at 1 and increased by 1 every time a new cast is detected,
+    #    while samples between profiles are flagged with an offset of 0.5.
+    #    See note on identification algorithm below.
+    #
+    #    **kwargs with field names as option keys and field values as option values:
+    #      STALL: maximum range of a stalled segment (in the same units as DEPTH).
+    #        Only intervals of constant vertical direction spanning a depth range
+    #        not less than the given value are considered valid cast segments.
+    #        Shorter intervals are considered stalled segments inside or between
+    #        casts.
+    #        Default value: 0 (all segments are valid cast segments)
+    #      SHAKE: maximum duration of a shake segment (in the same units as STAMP).
+    #        Only intervals of constant vertical direction with duration
+    #        not less than the given value are considered valid cast segments.
+    #        Briefer intervals are considered shake segments inside or between
+    #        casts.
+    #        Default value: 0 (all segments are valid cast segments)
+    #      INVERSION: maximum depth inversion between cast segments of a profile.
+    #        Consecutive valid cast segments with the same direction are joined
+    #        together in the same profile if the range of the introduced depth
+    #        inversion, if any, is less than the given value.
+    #        Default value: 0 (never join cast segments)
+    #      INTERRUPT: maximum time separation between cast segments of a profile.
+    #        Consecutive valid cast segments with the same direction are joined
+    #        together in the same profile if the duration of the lapse (sequence of
+    #        stalled segments or shakes between them) is less than the given value.
+    #        When STAMP is not specified, the duration will be the number of samples
+    #        between them.
+    #        Default value: 0 (never join cast segments)
+    #      LENGTH: minimum length of a profile.
+    #        A sequence of joined cast segments will be considered a valid profile
+    #        only if the total spanned depth is greater or equal than the given.
+    #        value.
+    #        Default value: 0 (all profiles are valid)
+    #      PERIOD: minimum duration of a profile.
+    #        A sequence of joined cast segments will be considered a valid profile
+    #        only if the total duration is greater or equal than the given value.
+    #        Default value: 0 (all profiles are valid)
+    #
+    #  Notes:
+    #    Profiles are identified as sequences of cast segments with the same
+    #    vertical direction, allowing for stalled or shake segments in between.
+    #    Vertical segments are intervals of constant vertical direction,
+    #    and are delimited by the changes of vertical direction computed
+    #    as the sign of forward differences of the depth sequence.
+    #    A segment is considered stalled if it is to short in depth,
+    #    or a shake if it is to short in time. Otherwise it is a cast segment.
+    #    Consecutive cast segments with the same direction are joined together
+    #    if the introduced depth inversion and the lapse between the segments
+    #    are not significant according to the specified thresholds.
+    #
+    #    Invalid samples (NaN) in input are ignored. In output, they are marked as
+    #    belonging to the previous profile, and with the direction of the previous
+    #    sample.
+    
+    # CODE BEGINS
     
     # check ensure shape of input vectors
     #N = np.size(depth)
@@ -145,8 +237,10 @@ def findProfiles(stamp,depth,**kwargs):
           
     return profile_index, profile_direction
     
-    
-## Long lat Correction
+#######################################
+########## Long lat Correction #############
+#######################################
+
 def correctDR(lon, lat, timestamp, x_dr_state, gps_lon, gps_lat):
     # Correction for glider dead reckoned locations when underwater
     # using the gps and drift at surface state (approximate currents)
