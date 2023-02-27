@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from glob import glob
 import sys
-from functions import salinity,DM2D,rad2deg,O2freshtosal,range_check,correctDR
+from functions import c2salinity,p2depth,dm2d,rad2deg,O2freshtosal,range_check,correctDR,findProfiles
 
 
 mode = sys.argv[1]
@@ -37,15 +37,16 @@ if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_
 if('sci_oxy4_oxygen' in data.keys()):
     data['sci_oxy4_oxygen'] = range_check(data['sci_oxy4_oxygen'],50,500)
 
-##  CALCULATE SALINITY
+##  CALCULATE SALINITY FROM CONDUCTIVITY
 if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()):
-    data['salinity'] = salinity(data['sci_water_cond'], data['sci_water_temp'], data['sci_water_pressure'])
+    data['salinity'] = c2salinity(data['sci_water_cond'], data['sci_water_temp'], data['sci_water_pressure'])
 
+## CALCULATE DEPTH FROM CTD PRESSURE SENSOR ("sci_water_pressure")
 
 ##  CONVERT DM 2 D.D
 for col in ['c_wpt_lat', 'c_wpt_lon', 'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']:
     if(col in data.keys()):
-        data[col] = DM2D(data[col])
+        data[col] = dm2d(data[col])
 
 ##  CONVERT RADIAN 2 DEGREE
 for col in ['c_fin', 'c_heading', 'c_pitch', 'm_fin',  'm_heading',  'm_pitch','m_roll']:
@@ -59,9 +60,14 @@ if('sci_oxy4_oxygen' in data.keys() and 'sci_water_temp' in data.keys() and 'sal
 
 
 ## CORRECT LONGITUDE LATITUDE FOR DEAD RECKONING ERRORS
-# need to do an interpolation using "Nearest" of "x_dr_state" before proceeding
 if( 'x_dr_state' in data.keys() and 'm_gps_lat' in data.keys() and 'm_lat' in data.keys() and 'm_lon' in data.keys() and 'm_gps_lon' in data.keys()):
     data['lon_corrected'],data['lat_corrected'] = correctDR(data['m_lon'],data['m_lat'],data['timestamp'],data['x_dr_state'],data['m_gps_lon'],data['m_gps_lat'])
+
+
+
+## CALCULATE PROFILE INDEX AND DIRECTION
+#if('depth' in data.keys()):
+#    data['profile_index'],data['profile_direction'] = findProfiles(data['timestamp'],data['depth'],stall=10)
 
 
 ##  Convert & Save as netCDF

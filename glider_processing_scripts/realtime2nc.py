@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import sys
 import os.path
-from functions import salinity,DM2D,rad2deg,O2freshtosal,range_check
+from functions import c2salinity,p2depth,dm2d,rad2deg,O2freshtosal,range_check
 
 
 fileName = sys.argv[1]
@@ -43,12 +43,12 @@ if('sci_oxy4_oxygen' in data.keys()):
 
 ##  CALCULATE SALINITY
 if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()):
-    data['salinity'] = salinity(data['sci_water_cond'], data['sci_water_temp'], data['sci_water_pressure'])
+    data['salinity'] = c2salinity(data['sci_water_cond'], data['sci_water_temp'], data['sci_water_pressure'])
 
 ##  CONVERT DM 2 D.D
 for col in ['c_wpt_lat', 'c_wpt_lon', 'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']:
     if(col in data.keys()):
-        data[col] = DM2D(data[col])
+        data[col] = dm2d(data[col])
 
 ##  CONVERT RADIAN 2 DEGREE
 for col in ['c_fin', 'c_heading', 'c_pitch', 'm_fin',  'm_heading',  'm_pitch','m_roll']:
