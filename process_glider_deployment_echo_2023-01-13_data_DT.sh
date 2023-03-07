@@ -11,6 +11,12 @@ mkdir txt nc 2>/dev/null
 ##  CONVERT BINARY TO TXT
 cd ${MISSION}/raw
 
+##  DECOMPRESS FILES IF NEEDED
+for f in *.?cd; do
+    ${SCRIPTS}/compexp x $f `echo $f | sed 's/cd$/bd/'`
+    # rm $f  ##  Uncomment if don't want to keep compressed files
+done
+
 ## NEED TO RENAME THE 0000000.*BD to glider_XXX_XXX_XX.*.bd format
 ${SCRIPTS}/rename_dbd_files *.*bd /
 
