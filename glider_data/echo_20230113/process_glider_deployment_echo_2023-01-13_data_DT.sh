@@ -1,7 +1,8 @@
 glider=echo
 MISSION=$PWD/delayed
-SCRIPTS=$PWD/../glider_processing_scripts
-GLIDERS_DB=$PWD/../glider_reference_information/glider_serial-numbers_and_sensor-serial-numbers.csv
+PARENTDIR=$(builtin cd $MISSION/../../../; pwd)
+SCRIPTS=$PARENTDIR/glider_processing_scripts
+GLIDERS_DB=$PARENTDIR/glider_reference_information/glider_serial-numbers_and_sensor-serial-numbers.csv
 ATTR=$PWD/metadata.yml
 
 
