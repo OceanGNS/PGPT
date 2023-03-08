@@ -17,7 +17,7 @@ This toolbox seperately supports both `realtime` (while glider is deployed) and 
 	- [x] Convert NMEA positions to "dd.dd" format
 	- [x] Convert variables from radians to degrees
 	- [x] Apply a correction for longitude/latitude dead reckoning
-	- [ ] Calculate the profile number for easy splitting of glider dives into profiles from the timeseries plot
+	- [x] Calculate the profile number for easy splitting of glider dives into profiles from the timeseries plot
 - [ ] During processing add metadata information from a prepared text file to provide complete record of glider data following US IOOS standards
 - [ ] Associate sensors (optode, ctd) and store relevant sensor coefficients as variables in the profile and timeseries for metadata information
 - [ ] Use naming convention of IOOS  decoder for certain required variable names (time, lon,lat,temperature, salinity, oxygen, optical channels ...) to discover data files in GTS and ERDAP

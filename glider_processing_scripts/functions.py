@@ -181,6 +181,9 @@ def findProfiles(stamp,depth,**kwargs):
     #depth.shape = (N,)
     #stamp.shape = (N,)
     
+    depth = np.array(depth)
+    stamp=np.array(stamp)
+    
     # define optional parameters
     options_list = {
         "length": 0,
@@ -194,7 +197,7 @@ def findProfiles(stamp,depth,**kwargs):
         if i in kwargs:
             options_list[i]=kwargs[i]
             
-    print(options_list)
+    #print(options_list)
     
     depth= depth.flatten()
     stamp= stamp.flatten()

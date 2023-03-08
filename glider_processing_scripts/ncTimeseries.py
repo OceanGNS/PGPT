@@ -24,7 +24,6 @@ for f in files:
         print('Processed %s' % f)
     except:
         print('Ignore %s' % f)
-
 data = data.sort_values(by=['timestamp']).reset_index(drop=True)
 
 ## DO SOME BASIC RANGE CHECKING SCIENCE SENSORS
@@ -42,6 +41,8 @@ if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_
     data['salinity'] = c2salinity(data['sci_water_cond'], data['sci_water_temp'], data['sci_water_pressure'])
 
 ## CALCULATE DEPTH FROM CTD PRESSURE SENSOR ("sci_water_pressure")
+if('sci_water_pressure' in data.keys()):
+    data['sci_water_depth'] = p2depth(data['sci_water_pressure']*10)
 
 ##  CONVERT DM 2 D.D
 for col in ['c_wpt_lat', 'c_wpt_lon', 'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']:
@@ -64,10 +65,10 @@ if( 'x_dr_state' in data.keys() and 'm_gps_lat' in data.keys() and 'm_lat' in da
     data['lon_corrected'],data['lat_corrected'] = correctDR(data['m_lon'],data['m_lat'],data['timestamp'],data['x_dr_state'],data['m_gps_lon'],data['m_gps_lat'])
 
 
-
 ## CALCULATE PROFILE INDEX AND DIRECTION
-#if('depth' in data.keys()):
-#    data['profile_index'],data['profile_direction'] = findProfiles(data['timestamp'],data['depth'],stall=10)
+if('m_depth' in data.keys()):
+    data2 = data.interpolate(limit=20)
+    data['profile_index'],data['profile_direction'] = findProfiles(data2['timestamp'],data2['m_depth'],stall=20)
 
 
 ##  Convert & Save as netCDF
