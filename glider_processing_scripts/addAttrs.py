@@ -22,8 +22,8 @@ def attr(fileName, nc, GLIDERS_DB, ATTRS, processingMode):
     lonMax = np.nanmax(nc.variables['m_lon'][:])
     latMin = np.nanmin(nc.variables['m_lat'][:])
     latMax = np.nanmax(nc.variables['m_lat'][:])
-    depthMin = np.nanmin(nc.variables['m_depth'][:])
-    depthMax = np.nanmax(nc.variables['m_depth'][:])
+    depthMin = np.nanmin(nc.variables['sci_water_depth'][:])
+    depthMax = np.nanmax(nc.variables['sci_water_depth'][:])
     startTime = datetime.fromtimestamp(float(nc.variables['timestamp'][:][0]))
     endTime = datetime.fromtimestamp(float(nc.variables['timestamp'][:][-1]))
     # DURATION

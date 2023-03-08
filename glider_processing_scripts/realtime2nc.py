@@ -45,6 +45,10 @@ if('sci_oxy4_oxygen' in data.keys()):
 if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()):
     data['salinity'] = c2salinity(data['sci_water_cond'], data['sci_water_temp'], data['sci_water_pressure'])
 
+## CALCULATE DEPTH FROM CTD PRESSURE SENSOR ("sci_water_pressure")
+if('sci_water_pressure' in data.keys()):
+    data['sci_water_depth'] = p2depth(data['sci_water_pressure']*10)
+
 ##  CONVERT DM 2 D.D
 for col in ['c_wpt_lat', 'c_wpt_lon', 'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']:
     if(col in data.keys()):
