@@ -1,6 +1,6 @@
 # Slocum Glider Python Processing Toolbox
 
-This is a minimal glider processing toolbox using the Python language, to go from Slocum glider raw data files to self describing `*.nc` files, that pass  [compliance checking](https://compliance.ioos.us/index.html "compliance checking") with the US Integrated Ocean Observing System (US-IOOS) Glider Data Aquisition Centre (GDAC). The `*.nc` files from this toolbox should pass requirements to be ingested into the Global Telecomunications System (GTS) for further use in models. We follow the US IOOS guidelines for file format and structure of glider data layed and provide an option for European Glider Observatory (EGO) format and ingestion into the Coriolis GDAC.
+This is a minimal glider processing toolbox using the Python language, to go from Slocum glider raw data files to self describing `*.nc` files, that pass  [compliance checking](https://compliance.ioos.us/index.html "compliance checking") with the US Integrated Ocean Observing System (US-IOOS) Glider Data Aquisition Centre (GDAC). The `*.nc` files from this toolbox should pass requirements to be ingested into the Global Telecomunications System (GTS) for further use in models. We follow the US IOOS guidelines for file format and structure of glider data.
 
 The intent of this toolbox is to produce a clean data set from raw glider data for sharing with data centres and for further careful scientific post-processing (expert processing), by preserving the original data resolution and associated metadata. This toolbox does not do enhanced checks for data Quality Control (QC).
 
@@ -24,26 +24,14 @@ This toolbox seperately supports both `realtime` (while glider is deployed) and 
  
 ## How it works
 
-Modify and copy the attached example `*deployment_info*.txt` and `process_deployment*.sh` scripts for either realtime or delayed mode processing.
-Be sure to update the metadata form in the `*.txt` file so that the toolbox uses the right information for metadata association.
+Modify and copy the attached data example `*deployment_info*.yml` and `process_deployment*.sh` scripts for either realtime or delayed mode processing.
+Be sure to update the metadata form in the `*.yml` file so that the toolbox uses the right information for metadata association.
 
 Upload glider data to the glider_data directory, using the example format or change the paths to point to the glider data location.
 
 ## Sharing results
 
-Once the toolbox runs or if it runs every day for realtime data, the user can set a shell script to ndownload new data (for example from SFMC) and upload the data to an FTP server or a GDAC.
-
-
-## OLD INFOS
-
-for the metadata included in each file I attached a trajectory file and a profile file.
-
-- `ru32_2017_172_3_0_sf_dbd.nc`
-- `crate_20200213T090614Z_dbd.nc`
-
-
-
-For the naming convention we will replicate these files. For fields like the type of ctd installed and things like that we will need to have a small internal glider database to automatically assosciate the wmo id with the right glider.
+Once the toolbox runs or if it runs every day for realtime data, the user can set a shell script to download new data (for example from SFMC) and upload the data to an FTP server or a GDAC.
 
 
 ## MAC USERS
