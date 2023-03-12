@@ -1,6 +1,38 @@
 # You can add or remove any of these fields
 # Any field left as blank will be automatically ignored
 
+# -------------------------------------     MISSING  ATTRIBUTES
+#Global Attributes
+# geospatial_bounds not present
+# history not present
+# keywords_vocabulary not present
+# naming_authority not present
+# time_coverage_resolution is empty or completely whitespace
+
+#geospatial_lat_extents_match
+# Could not find lat variable to test extent of geospatial_lat_min/max, see CF-1.6 spec chapter 4.1
+
+#geospatial_lon_extents_match
+# Could not find lon variable to test extent of geospatial_lon_min/max, see CF-1.6 spec chapter 4.2
+
+#geospatial_vertical_extents_match
+#Could not find vertical variable to test extent of geospatial_vertical_min/geospatial_vertical_max, see CF-1.6 spec chapter 4.3
+
+#time_coverage_extents_match
+#Could not find time variable to test extent of time_coverage_start/time_coverage_end, see CF-1.6 spec #chapter 4.4
+
+
+#                                   Suggested
+#--------------------------------------------------------------------------------
+#Global Attributes
+#* date_modified not present
+#* date_issued not present
+#* geospatial_vertical_resolution is empty or completely whitespace
+#* publisher_name not present
+#* publisher_url not present
+
+
+
 general:
   deploymentDateTime: "2023-01-13T01:23:45Z" # Fill by hand for now
   acknowledgment: "These data where collected through funding provided by the Ocean Frontier Institute at Memorial University."
@@ -19,14 +51,24 @@ general:
   publisher_email: "taimaz.bahadory@mun.ca"
   publisher_institution: "Memorial University"
   summary: "Hydrophone glider system deployment data"
+  
 sensors:
   instrument: "In Situ/Laboratory Instruments > Profilers/Sounders > CTD"
   oxygen_sensor_type: "Aanderaa 4831"
   oxygen_sensor_serial_number: "951"
   ctd_type: "RBR Legato 6"
   ctd_serial_number: "207968"
+  oxygen_sensor_SVU_coefficient_0: 2.79543E-03
+  oxygen_sensor_SVU_coefficient_1: 1.18071E-04
+  oxygen_sensor_SVU_coefficient_2: 2.34446E-06
+  oxygen_sensor_SVU_coefficient_3: 1.47304E02
+  oxygen_sensor_SVU_coefficient_4: -2.10486E-01
+  oxygen_sensor_SVU_coefficient_5: -3.39037E01
+  oxygen_sensor_SVU_coefficient_6: 2.93287E00
+  oxygen_sensor_calibration_date: "FEB-17-2021"
 #  optical_sensor_type: "FLBBCD-SLC"
 #  optical_sensor_serial_number: "5765"
+
 geospatial:
   geospatial_bounds_crs: "EPSG:4326"
   geospatial_bounds_vertical_crs: "EPSG:5831"
@@ -37,6 +79,7 @@ geospatial:
   geospatial_vertical_positive: "down"
   geospatial_vertical_resolution: ""
   geospatial_vertical_units: "EPSG:5831"
+  
 others:
   product_version: "1.0"
   standard_name_vocabulary: "CF Standard Name Table v27"
