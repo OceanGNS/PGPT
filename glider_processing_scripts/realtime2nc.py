@@ -5,7 +5,8 @@ import numpy as np
 import pandas as pd
 import sys
 import os.path
-from functions import c2salinity,p2depth,dm2d,rad2deg,O2freshtosal,range_check
+from functions import c2salinity,stp2ct_density,p2depth,dm2d,rad2deg,O2freshtosal,range_check
+from addAttrs import attr
 
 
 fileName = sys.argv[1]
@@ -27,27 +28,13 @@ else:
     tbdData = pd.DataFrame()
 
 
+## MERGE RECORDS
 data = pd.concat([sbdData, tbdData], ignore_index=True, sort=True)
 data = data.sort_values(by=['timestamp'])
 
-## DO SOME BASIC RANGE CHECKING SCIENCE SENSORS
+## INTERPOLATION OF DATA TO REDUCE GAPS
+data = data.interpolate(limit=20) # limit is arbitrary but it helps
 
-if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()):
-    data['sci_water_cond'] = range_check(data['sci_water_cond'],0.01,4)
-    data['sci_water_temp'] = range_check(data['sci_water_temp'],-2,25)
-    data['sci_water_pressure'] = range_check(data['sci_water_pressure'],-2,1200)
-
-if('sci_oxy4_oxygen' in data.keys()):
-    data['sci_oxy4_oxygen'] = range_check(data['sci_oxy4_oxygen'],50,500)
-
-
-##  CALCULATE SALINITY
-if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()):
-    data['salinity'] = c2salinity(data['sci_water_cond'], data['sci_water_temp'], data['sci_water_pressure'])
-
-## CALCULATE DEPTH FROM CTD PRESSURE SENSOR ("sci_water_pressure")
-if('sci_water_pressure' in data.keys()):
-    data['sci_water_depth'] = p2depth(data['sci_water_pressure']*10)
 
 ##  CONVERT DM 2 D.D
 for col in ['c_wpt_lat', 'c_wpt_lon', 'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']:
@@ -55,14 +42,55 @@ for col in ['c_wpt_lat', 'c_wpt_lon', 'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'
         data[col] = dm2d(data[col])
 
 ##  CONVERT RADIAN 2 DEGREE
-for col in ['c_fin', 'c_heading', 'c_pitch', 'm_fin',  'm_heading',  'm_pitch','m_roll']:
+for col in ['c_fin', 'c_heading', 'c_pitch', 'm_fin',  'm_heading',  'm_pitch',  'm_roll']:
     if(col in data.keys()):
         data[col] = rad2deg(data[col])
+        
+## SET PRESSURE BAR TO DBAR
+if('sci_water_pressure' in data.keys()):
+    data['sci_water_pressure'] = data['sci_water_pressure']*10
+        
+## DO SOME BASIC RANGE CHECKING ON SENSORS
+if('m_gps_lon' in data.keys() and 'm_gps_lat' in data.keys() and 'm_lon' in data.keys() and 'm_lat' in data.keys()):
+    data['m_gps_lat'] = range_check(data['sci_water_cond'],-90,90)
+    data['m_gps_lon'] = range_check(data['sci_water_temp'],-180,180)
+    data['m_lon'] = range_check(data['sci_water_pressure'],-180,180)
+    data['m_lat'] = range_check(data['sci_water_pressure'],-90,90)
+
+if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()):
+    data['sci_water_cond'] = range_check(data['sci_water_cond'],0.01,4)
+    data['sci_water_temp'] = range_check(data['sci_water_temp'],-2,25)
+    data['sci_water_pressure'] = range_check(data['sci_water_pressure'],-2,1200)
+
+if('sci_oxy4_oxygen' in data.keys()):
+    data['sci_oxy4_oxygen'] = range_check(data['sci_oxy4_oxygen'],5,500)
+
+
+## CALCULATE DEPTH FROM CTD PRESSURE SENSOR ("sci_water_pressure")
+if('sci_water_pressure' in data.keys()):
+    data['sci_water_depth'] = p2depth(data['sci_water_pressure'])
+
+##  CALCULATE SALINITY AND DENSITY
+if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()):
+    data['salinity'],data['absolute_salinity'] = c2salinity(data['sci_water_cond'], data['sci_water_temp'], data['sci_water_pressure'],data['m_gps_lat'],data['m_gps_lon'])
+    data['conservative_temperature'],data['density']=stp2ct_density(data['absolute_salinity'],data['sci_water_temp'],data['sci_water_pressure'])
 
 ## COMPENSATE OXYGEN FOR SALINITY EFFECTS
 nanChk = np.any(~np.isnan(data['sci_oxy4_oxygen']))
 if('sci_oxy4_oxygen' in data.keys() and 'sci_water_temp' in data.keys() and 'salinity' in data.keys() and nanChk):
     data['oxygen_concentration'] = O2freshtosal(data['sci_oxy4_oxygen'], data['sci_water_temp'], data['salinity'])
+
+
+##  VARIABLE NAMING FOR US IOOS
+data['time'] = data['timestamp']
+data['latitude'] = data['m_gps_lat']
+data['longitude'] = data['m_gps_lon']
+data['pressure'] = data['sci_water_pressure']
+data['depth'] = data['m_depth']
+data['temperature'] = data['sci_water_temp']
+data['conductivity'] = data['sci_water_cond']
+data['eastward_sea_water_velocity'] = data['m_final_water_vx']
+data['northward_sea_water_velocity'] = data['m_final_water_vy']
 
 
 ##  Convert & Save as netCDF

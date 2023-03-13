@@ -2,16 +2,27 @@ import numpy as np
 import gsw
 
 #######################################
-############# salinity.py #################
+############# c2salinity #################
 #######################################
 
-def c2salinity(C, t, p):
+def c2salinity(C, t, p,lon,lat):
     # Algorithm to compute salinity using GSW toolbox
     # TEOS Toolbox <https://www.teos-10.org/software.htm>
-    p = 10 * p  ##  dBar
     C = 10 * C  ##  mS/cm
     SP = gsw.SP_from_C(C, t, p)
-    return SP
+    SA = gsw.SA_from_SP(SP,p,lon,lat)
+    return SP, SA
+    
+#######################################
+############# stp2density ################
+#######################################
+
+def stp2ct_density(SA, t, p):
+    # Algorithm to compute salinity using GSW toolbox
+    # TEOS Toolbox <https://www.teos-10.org/software.htm>
+    CT = gsw.gsw.CT_from_t(SA, t, p)
+    rho = gsw.rho(SA, CT, p)
+    return CT, rho
 
 #######################################
 ############# p2depth ##################
