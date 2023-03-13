@@ -52,10 +52,10 @@ if('sci_water_pressure' in data.keys()):
         
 ## DO SOME BASIC RANGE CHECKING ON SENSORS
 if('m_gps_lon' in data.keys() and 'm_gps_lat' in data.keys() and 'm_lon' in data.keys() and 'm_lat' in data.keys()):
-    data['m_gps_lat'] = range_check(data['sci_water_cond'],-90,90)
-    data['m_gps_lon'] = range_check(data['sci_water_temp'],-180,180)
-    data['m_lon'] = range_check(data['sci_water_pressure'],-180,180)
-    data['m_lat'] = range_check(data['sci_water_pressure'],-90,90)
+    data['m_gps_lat'] = range_check(data['m_gps_lat'],-90,90)
+    data['m_gps_lon'] = range_check(data['m_gps_lon'],-180,180)
+    data['m_lon'] = range_check(data['m_lon'],-180,180)
+    data['m_lat'] = range_check(data['m_lat'],-90,90)
 
 if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()):
     data['sci_water_cond'] = range_check(data['sci_water_cond'],0.01,4)
@@ -72,13 +72,13 @@ if('sci_water_pressure' in data.keys()):
 
 ##  CALCULATE SALINITY AND DENSITY
 if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()):
-    data['salinity'],data['absolute_salinity'] = c2salinity(data['sci_water_cond'], data['sci_water_temp'], data['sci_water_pressure'],data['m_gps_lat'],data['m_gps_lon'])
+    data['practical_salinity'],data['absolute_salinity'] = c2salinity(data['sci_water_cond'], data['sci_water_temp'], data['sci_water_pressure'],data['m_gps_lat'],data['m_gps_lon'])
     data['conservative_temperature'],data['density']=stp2ct_density(data['absolute_salinity'],data['sci_water_temp'],data['sci_water_pressure'])
 
 ## COMPENSATE OXYGEN FOR SALINITY EFFECTS
 nanChk = np.any(~np.isnan(data['sci_oxy4_oxygen']))
-if('sci_oxy4_oxygen' in data.keys() and 'sci_water_temp' in data.keys() and 'salinity' in data.keys() and nanChk):
-    data['oxygen_concentration'] = O2freshtosal(data['sci_oxy4_oxygen'], data['sci_water_temp'], data['salinity'])
+if('sci_oxy4_oxygen' in data.keys() and 'sci_water_temp' in data.keys() and 'practical_salinity' in data.keys() and nanChk):
+    data['oxygen_concentration'] = O2freshtosal(data['sci_oxy4_oxygen'], data['sci_water_temp'], data['practical_salinity'])
 
 
 ##  VARIABLE NAMING FOR US IOOS

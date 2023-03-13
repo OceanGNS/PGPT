@@ -24,7 +24,9 @@
 "conductivity"				,	"sea_water_electrical_conductivity"							,	"S m-1"				,	"ambient seawater conductivity measured by glider CTD sensor sci_water_cond"
 "temperature"				,	"sea_water_temperature"											,	"degree_C"			,	"ambient seawater temperature measured by glider CTD sensor sci_water_temp"
 "salinity"						,	"sea_water_practical_salinity"										,	"PSU"					,	"practical salinity computed from conductivity, temperature and pressure using the Gibbs-SeaWater (GSW) Oceanographic toolbox {https://www.teos-10.org/software.htm}"
-"density"						,	"sea_water_density"													,	"kg m-3"				,	"in-situ seawater density calculated from salinity, temperature and pressure using the Gibbs-SeaWater (GSW) Oceanographic toolbox {https://www.teos-10.org/software.htm}"
+"density"						,	"sea_water_density"													,	"kg m-3"				,	"in-situ seawater density calculated from absolute salinity, conservative temperature and pressure using the Gibbs-SeaWater (GSW) Oceanographic toolbox {https://www.teos-10.org/software.htm}"
+"absolute_salinity"		,	"sea_water_absolute_salinity"										,	"g kg-1"				,	"in-situ seawater absolute salinity calculated from practical salinity, conservative temperature and pressure using the Gibbs-SeaWater (GSW) Oceanographic toolbox {https://www.teos-10.org/software.htm}"
+"conservative_temperature"	,	"sea_water_conservative_temperature"			,	"degree_C"				,	"in-situ seawater conservative temperature calculated from practical salinity, conservative temperature and pressure using the Gibbs-SeaWater (GSW) Oceanographic toolbox {https://www.teos-10.org/software.htm}"
 "oxygen_sensor_temperature"	,	"temperature_of_sensor_for_oxygen_in_sea_water"	,	"degree_C"	, "temperature of oxygen sensor used to compute oxygen concentration duplicated from sci_oxy4_temperature"
 "oxygen_concentration"				,	"mole_concentration_of_dissolved_molecular_oxygen_in_sea_water"	,	"micro-mol L",	"oxygen concentration measured by glider sensor from sci_oxy4_oxygen, compensated for salinity using code from Henry Bittig."
 

@@ -8,9 +8,23 @@ import gsw
 def c2salinity(C, t, p,lon,lat):
     # Algorithm to compute salinity using GSW toolbox
     # TEOS Toolbox <https://www.teos-10.org/software.htm>
+    # Deal with array
+    C = np.array(C)
+    t=np.array(t)
+    p = np.array(p)
+    lon=np.array(lon)
+    lat=np.array(lat)
+    
     C = 10 * C  ##  mS/cm
+    
+    
+    #lon = np.nanmedian(lon)
+    #lat = np.nanmedian(lat)
+    #print(lat,lon)
+    
     SP = gsw.SP_from_C(C, t, p)
     SA = gsw.SA_from_SP(SP,p,lon,lat)
+    
     return SP, SA
     
 #######################################
@@ -20,7 +34,7 @@ def c2salinity(C, t, p,lon,lat):
 def stp2ct_density(SA, t, p):
     # Algorithm to compute salinity using GSW toolbox
     # TEOS Toolbox <https://www.teos-10.org/software.htm>
-    CT = gsw.gsw.CT_from_t(SA, t, p)
+    CT = gsw.CT_from_t(SA, t, p)
     rho = gsw.rho(SA, CT, p)
     return CT, rho
 
