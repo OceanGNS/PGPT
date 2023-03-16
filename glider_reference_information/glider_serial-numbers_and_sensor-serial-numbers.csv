@@ -1,5 +1,5 @@
 glider_name,glider_serial,glider_type,WMO,CTD_type,CTD_SN,optode,optode_SN
-narwhal,Unit_047,Slocum G1 200m,6801508,SBE CP41,058,,
+narwhal,Unit_047,Slocum G1 200m,6801508,SBE 41 CTD,058,,
 unit_334,Unit_334,Slocum G2 200m,6801670,SBE GPCTD,9028,Aanderaa 4831,333 
 pearldiver,Unit_354,Slocum G2 1000m,6801735,SBE GPCTD,9033,Aanderaa 4831,124   
 unit_473,Unit_473,Slocum G2 1000m,6801736,SBE GPCTD,9177,Aanderaa 4831,    
