@@ -84,15 +84,23 @@ if('sci_oxy4_oxygen' in data.keys() and 'sci_water_temp' in data.keys() and 'pra
 
 ##  VARIABLE NAMING FOR US IOOS
 data['time'] = data['timestamp']
-data['latitude'] = data['m_gps_lat']
-data['longitude'] = data['m_gps_lon']
+data['lat'] = data['m_gps_lat']
+data['lon'] = data['m_gps_lon']
 data['pressure'] = data['sci_water_pressure']
 data['depth'] = data['m_depth']
 data['temperature'] = data['sci_water_temp']
 data['conductivity'] = data['sci_water_cond']
-data['eastward_sea_water_velocity'] = data['m_final_water_vx']
-data['northward_sea_water_velocity'] = data['m_final_water_vy']
+data['u'] = data['m_final_water_vx']
+data['v'] = data['m_final_water_vy']
+# data['profile_id'] = data['profile_index']
+data['profile_time'] = data['time']
+data['profile_lat'] = data['lat']
+data['profile_lon'] = data['lon']
+data['time_uv'] = data['time']
+data['lat_uv'] = data['lat']
+data['lon_uv'] = data['lon']
 
+# data['platform'] = 0
 
 
 ##  Convert & Save as netCDF

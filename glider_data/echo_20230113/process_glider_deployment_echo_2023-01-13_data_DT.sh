@@ -3,7 +3,8 @@ MISSION=$PWD/delayed
 PARENTDIR=$(builtin cd $MISSION/../../../; pwd)
 SCRIPTS=$PARENTDIR/glider_processing_scripts
 GLIDERS_DB=$PARENTDIR/glider_reference_information/glider_serial-numbers_and_sensor-serial-numbers.csv
-ATTR=$PWD/metadata.yml
+# ATTR=$PWD/metadata.yml
+ATTR=$PWD/master.yml
 
 
 cd ${MISSION}/
