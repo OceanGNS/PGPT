@@ -1,9 +1,7 @@
 # You can add or remove any of these fields
 # The variables have to comply with CF conventions where applicable:
 # https://cfconventions.org/Data/cf-standard-names/current/build/cf-standard-name-table.html
-
 global:
-  # GENERAL
   deployment_datetime: "2023-01-23T01:23:45Z" # Fill by hand for now
   acknowledgment: "ACKNOWLEDGEMENT"
   comment: "COMMENTS"

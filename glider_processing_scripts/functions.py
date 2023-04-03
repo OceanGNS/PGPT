@@ -15,15 +15,13 @@ def c2salinity(C, t, p,lon,lat):
     lon=np.array(lon)
     lat=np.array(lat)
     
-    C = 10 * C  ##  mS/cm
-    
-    
-    #lon = np.nanmedian(lon)
-    #lat = np.nanmedian(lat)
-    #print(lat,lon)
-    
-    SP = gsw.SP_from_C(C, t, p)
-    SA = gsw.SA_from_SP(SP,p,lon,lat)
+    if np.any(~np.isnan(C) ):
+        C = 10 * C  ##  mS/cm
+        SP = gsw.SP_from_C(C, t, p)
+        SA = gsw.SA_from_SP(SP,p,lon,lat)
+    else:
+        SP = np.nan*p
+        SA = np.nan*p
     
     return SP, SA
     
@@ -86,17 +84,19 @@ def O2freshtosal(O2fresh, T, S):
     a3 = 0.00690358
     a4 = 0.00429155
     a5 = 3.11680e-7
+    
+    if np.any(~np.isnan(O2fresh) ):
+        # interpolate nans in oxygen index
+        not_nan = ~np.isnan(O2fresh)
+        xp = not_nan.ravel().nonzero()[0]
+        fp = O2fresh[not_nan]
+        x = np.isnan(O2fresh).ravel().nonzero()[0]
+        O2fresh[np.isnan(O2fresh)] = np.interp(x, xp, fp)
+        sca_T = np.log((298.15 - T) / (273.15 + T))
+        O2sal = O2fresh * np.exp(S * (a1 - a2 * sca_T - a3 * sca_T**2 - a4 * sca_T**3) - a5 * S**2)
+    else:
+        O2sal=O2fresh*np.nan
 
-    # interpolate nans in oxygen index
-    not_nan = ~np.isnan(O2fresh)
-    xp = not_nan.ravel().nonzero()[0]
-    fp = O2fresh[not_nan]
-    x = np.isnan(O2fresh).ravel().nonzero()[0]
-
-    O2fresh[np.isnan(O2fresh)] = np.interp(x, xp, fp)
-
-    sca_T = np.log((298.15 - T) / (273.15 + T))
-    O2sal = O2fresh * np.exp(S * (a1 - a2 * sca_T - a3 * sca_T**2 - a4 * sca_T**3) - a5 * S**2)
     return O2sal
 
 

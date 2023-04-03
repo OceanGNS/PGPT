@@ -62,8 +62,8 @@ for f in $(ls ${glider}*.[de]bd.txt | sed 's/\..bd\.txt//' | sort -u); do
         python3 ${SCRIPTS}/delayed2nc.py $f ${GLIDERS_DB} ${ATTR}
     fi
 done
-rm filter.csv functions.py addAttrs.py GDAC_IOOS_ENCODER.yml master.yml
 
+rm dbd_filter.csv functions.py addAttrs.py GDAC_IOOS_ENCODER.yml
 #################################################
 ##  No attributes in the nc timeseries file
 #################################################

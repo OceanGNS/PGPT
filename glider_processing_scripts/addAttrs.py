@@ -6,27 +6,26 @@ import yaml
 
 
 def attr(fileName, nc, GLIDERS_DB, ATTRS,ENCODER, processingMode):
+
     ##  READ GLIDERS DATABASE
     gliders = pd.read_csv(GLIDERS_DB)
     
     ##  READ ATTRIBUTES
     with open(ATTRS, 'r') as f:
         attrs = yaml.safe_load(f)
-        
     with open(ENCODER,'r') as f:
-        cfnl= yaml.safe_load(f)
-        
-    attrs = cfnl.update(attrs)
-    now = datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
-
+        CFL= yaml.safe_load(f)
+    # Merge dictionaries from master yaml and IOOS Decoder
+    attrs = attrs | CFL
     #####################  AUTO CALCULATE  #####################
     ##  FROM NC FILE
+    now = datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
     gliderName = fileName.split('-')[0]  ##  eg sunfish (all small letters)
     dataType = 'profile'
-    lonMin = np.nanmin(nc.variables['longitude'][:])
-    lonMax = np.nanmax(nc.variables['longitude'][:])
-    latMin = np.nanmin(nc.variables['latitude'][:])
-    latMax = np.nanmax(nc.variables['latitude'][:])
+    lonMin = np.nanmin(nc.variables['lon'][:])
+    lonMax = np.nanmax(nc.variables['lon'][:])
+    latMin = np.nanmin(nc.variables['lat'][:])
+    latMax = np.nanmax(nc.variables['lat'][:])
     depthMin = np.nanmin(nc.variables['depth'][:])
     depthMax = np.nanmax(nc.variables['depth'][:])
     startTime = datetime.fromtimestamp(float(nc.variables['time'][:][0]))

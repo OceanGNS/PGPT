@@ -5,6 +5,9 @@ import os.path
 from functions import c2salinity,stp2ct_density,p2depth,dm2d,rad2deg,O2freshtosal,range_check
 from addAttrs import attr
 
+from warnings import simplefilter
+simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
+
 fileName = sys.argv[1]
 GLIDERS_DB = sys.argv[2]
 ATTRS = sys.argv[3]
@@ -78,45 +81,46 @@ if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_
     data['conservative_temperature'],data['sea_water_density']=stp2ct_density(data['absolute_salinity'],data['sci_water_temp'],data['sci_water_pressure'])
 
 ## COMPENSATE OXYGEN FOR SALINITY EFFECTS
-nanChk = np.any(~np.isnan(data['sci_oxy4_oxygen']))
-if('sci_oxy4_oxygen' in data.keys() and 'sci_water_temp' in data.keys() and 'practical_salinity' in data.keys() and nanChk):
+if('sci_oxy4_oxygen' in data.keys() and 'sci_water_temp' in data.keys() and 'practical_salinity' in data.keys()):
     data['oxygen_concentration'] = O2freshtosal(data['sci_oxy4_oxygen'], data['sci_water_temp'], data['practical_salinity'])
 
-raw_data = data
-data = pd.DataFrame()
 
 ## VARIABLE NAMING FOR US IOOS GLIDERDAC 3.0
-data['time'] = raw_data['time']
-data['latitude'] = raw_data['m_gps_lat']
-data['longitude'] = raw_data['m_gps_lon']
-data['pressure'] = raw_data['sci_water_pressure']
-data['depth'] = raw_data['sci_water_depth']
-data['u'] = raw_data['m_final_water_vx']
-data['v'] = raw_data['m_final_water_vy']
+glider_data = data # new data frame for the raw variables
+data = []
+data = pd.DataFrame() # reset
 
-# data['profile_id'] = data['profile_index']
+data['time'] = glider_data['time']
+data['lat'] = glider_data['m_gps_lat']
+data['lon'] = glider_data['m_gps_lon']
+data['pressure'] = glider_data['sci_water_pressure']
+data['depth'] = glider_data['sci_water_depth']
+data['u'] = glider_data['m_final_water_vx']
+data['v'] = glider_data['m_final_water_vy']
+
 data['profile_time'] = data['time'] # midprofile
-data['profile_lat'] = data['latitude'] # midprofile
-data['profile_lon'] = data['longitude'] # midprofile
+data['profile_lat'] = data['lat'] # midprofile
+data['profile_lon'] = data['lon'] # midprofile
 data['time_uv'] = data['time']
-data['lat_uv'] = data['latitude']
-data['lon_uv'] = data['longitude']
+data['lat_uv'] = data['lat']
+data['lon_uv'] = data['lon']
 
 ## CTD VARIABLES
-data['conductivity'] = raw_data['sci_water_cond']
-data['salinity'] = raw_data['practical_salinity']
-data['density'] = raw_data['sea_water_density']
-data['temperature'] = raw_data['sci_water_temp']
+data['conductivity'] = glider_data['sci_water_cond']
+data['salinity'] = glider_data['practical_salinity']
+data['density'] = glider_data['sea_water_density']
+data['temperature'] = glider_data['sci_water_temp']
 
 ## OXYGEN SENSOR
-data['oxygen_sensor_temperature'] = raw_data['sci_oxy4_temp']
-data['oxygen_concentration'] = raw_data['oxygen_concentration']
-
-print(data.keys())
-# data['platform'] = 0
+if('oxygen_concentration' in glider_data.keys() and 'sci_water_temp' in glider_data.keys()):
+    data['oxygen_sensor_temperature'] = glider_data['sci_oxy4_temp']
+    data['oxygen_concentration'] = glider_data['oxygen_concentration']
 
 ##  Convert & Save as netCDF
+# Preserve original data in additional group
 if(len(data)>0):
     nc = data.set_index(['time']).to_xarray()
     attr(fileName, nc, GLIDERS_DB, ATTRS,'GDAC_IOOS_ENCODER.yml', 'delayed')
     nc.to_netcdf('../nc/%s_delayed.nc' % (fileName))
+    gliderData = glider_data.set_index(['time']).to_xarray()
+    gliderData.to_netcdf('../nc/%s_delayed.nc' % (fileName), group="glider_record",mode="a")

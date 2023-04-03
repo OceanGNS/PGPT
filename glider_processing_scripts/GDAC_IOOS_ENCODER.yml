@@ -1,5 +1,5 @@
 ###############################
-# US IOOS GLIDER DAC 3.0 ENCODER
+# US IOOS GLIDER DAC 3.0 ENCODER -> PLEASE PUT THESE INTO A NEW FILE
 CFnamelist:
   time:
     standard_name: "time"
@@ -8,6 +8,17 @@ CFnamelist:
     calendar: "gregorian"
     observation_type: "measured"
     comment: "glider time record seconds since 1970. Time is merged time between glider flight and science computers"
+    valid_max: "** COMMAND:np.nanmax(nc['time'].data)"
+    valid_min: "** COMMAND:np.nanmin(nc['time'].data)"
+  time_uv:
+    standard_name: "time"
+    long_name: "Depth-Averaged Time"
+    units: "seconds since 1970-01-01T00:00:00Z"
+    calendar: "gregorian"
+    observation_type: "measured"
+    comment: "glider time record seconds since 1970. Time is merged time between glider flight and science computers"
+    valid_max: "** COMMAND:np.nanmax(nc['time_uv'].data)"
+    valid_min: "** COMMAND:np.nanmin(nc['time_uv'].data)"
   lat:
     standard_name: "latitude"
     long_name: "latitude"
@@ -18,7 +29,7 @@ CFnamelist:
     observation_type: "measured"
     platform: "platform"
     reference: "WGS84"
-    valid_max: "** COMMAND:np.nanmax(nc['lati'].data)"
+    valid_max: "** COMMAND:np.nanmax(nc['lat'].data)"
     valid_min: "** COMMAND:np.nanmin(nc['lat'].data)"
   lon:
     standard_name: "longitude"
@@ -112,16 +123,6 @@ CFnamelist:
     reference: ""
     valid_max: "** COMMAND:np.nanmax(nc['lon_uv'].data)"
     valid_min: "** COMMAND:np.nanmin(nc['lat_uv'].data)"
-  # profile_index:
-  #   standard_name: "profile_index"
-  #   long_name: "glider_dive_profile_index"
-  #   units: ""
-  #   comment: "profile index computed from glider CTD depth to extract profiles for identifying valid profiles in the glider record, based on the SOCIB toolbox. The output has integers for valid profiles (dive or climb) and fractions denote in-between dive states or hovering states"
-  # profile_direction:
-  #   standard_name: "profile_direction"
-  #   long_name: "glider_dive_profile_direction"
-  #   units: " "
-  #   comment: "profile direction indicating dive (-1) or climb (+1)"
   v:
     standard_name: "northward_sea_water_velocity"
     long_name: "northward_sea_water_velocity"
@@ -208,8 +209,22 @@ CFnamelist:
     long_name: "temperature_of_sensor_for_oxygen_in_sea_water"
     units: "degree_C"
     comment: "temperature of oxygen sensor used to compute oxygen concentration duplicated from sci_oxy4_temperature"
+    ancillary_variables: "sci_oxy4_temp"
+    observation_type: "measured"
+    platform: "platform"
+    precision: "** COMMAND:np.nanmedian(np.diff(nc['oxygen_sensor_temperature'].data))"
+    resolution: "** COMMAND:np.nanmedian(np.diff(nc['time'].data[~np.isnan(nc['oxygen_sensor_temperature'])]))"
+    valid_max: "** COMMAND:np.nanmax(nc['oxygen_sensor_temperature'].data)"
+    valid_min: "** COMMAND:np.nanmin(nc['oxygen_sensor_temperature'].data)"
   oxygen_concentration:
-    standard_name: "oxygen_concentration"
+    standard_name: "mole_concentration_of_dissolved_molecular_oxygen_in_sea_water"
     long_name: "mole_concentration_of_dissolved_molecular_oxygen_in_sea_water"
     units: "micro-mol L"
     comment: "oxygen concentration measured by glider sensor from sci_oxy4_oxygen, compensated for salinity using code from Henry Bittig."
+    ancillary_variables: "sci_oxy4_oxygen"
+    observation_type: "calculated"
+    platform: "platform"
+    precision: "** COMMAND:np.nanmedian(np.diff(nc['oxygen_concentration'].data))"
+    resolution: "** COMMAND:np.nanmedian(np.diff(nc['time'].data[~np.isnan(nc['oxygen_concentration'])]))"
+    valid_max: "** COMMAND:np.nanmax(nc['oxygen_concentration'].data)"
+    valid_min: "** COMMAND:np.nanmin(nc['oxygen_concentration'].data)"
