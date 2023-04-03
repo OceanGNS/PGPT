@@ -17,14 +17,14 @@ for f in files:
         tmpData = pd.read_csv(f,delimiter=' ',skiprows=np.append(np.arange(14),[15,16]))
         if("m_present_time" in tmpData.keys()):
             tmpData = tmpData.filter(filter, axis='columns')
-            tmpData = tmpData.rename(columns={"m_present_time":"timestamp"})
+            tmpData = tmpData.rename(columns={"m_present_time":"time"})
         if("sci_m_present_time" in tmpData.keys()):
-            tmpData = tmpData.rename(columns={"sci_m_present_time":"timestamp"})
+            tmpData = tmpData.rename(columns={"sci_m_present_time":"time"})
         data = pd.concat([data, tmpData], ignore_index=True, sort=True)
         print('Processed %s' % f)
     except:
         print('Ignore %s' % f)
-data = data.sort_values(by=['timestamp']).reset_index(drop=True)
+data = data.sort_values(by=['time']).reset_index(drop=True)
 
 ## TAIMAZ should we read in the *.nc files here?? I think that would be cleaner!
 
@@ -77,17 +77,17 @@ if('sci_oxy4_oxygen' in data.keys() and 'sci_water_temp' in data.keys() and 'pra
 
 ## CORRECT LONGITUDE LATITUDE FOR DEAD RECKONING ERRORS
 if( 'x_dr_state' in data.keys() and 'm_gps_lat' in data.keys() and 'm_lat' in data.keys() and 'm_lon' in data.keys() and 'm_gps_lon' in data.keys()):
-    data['lon_corrected'],data['lat_corrected'] = correctDR(data['m_lon'],data['m_lat'],data['timestamp'],data['x_dr_state'],data['m_gps_lon'],data['m_gps_lat'])
+    data['lon_corrected'],data['lat_corrected'] = correctDR(data['m_lon'],data['m_lat'],data['time'],data['x_dr_state'],data['m_gps_lon'],data['m_gps_lat'])
 
 
 ## CALCULATE PROFILE INDEX AND DIRECTION
 if('m_depth' in data.keys()):
     data2 = data.interpolate(limit=20)
-    data['profile_index'],data['profile_direction'] = findProfiles(data2['timestamp'],data2['m_depth'],stall=20)
+    data['profile_index'],data['profile_direction'] = findProfiles(data2['time'],data2['m_depth'],stall=20)
 
 
 ##  VARIABLE NAMING FOR US IOOS
-data['time'] = data['timestamp']
+#data['time'] = data['timestamp']
 data['latitude'] = data['lon_corrected']
 data['longitude'] = data['lat_corrected']
 data['pressure'] = data['sci_water_pressure']
@@ -101,5 +101,5 @@ data['northward_sea_water_velocity'] = data['m_final_water_vy']
 
 ##  Convert & Save as netCDF
 if(len(data)>0):
-    nc = data.set_index(['timestamp']).to_xarray()
+    nc = data.set_index(['time']).to_xarray()
     nc.to_netcdf('../nc/%s_timeseries.nc' % mode)

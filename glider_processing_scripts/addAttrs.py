@@ -5,28 +5,32 @@ import math
 import yaml
 
 
-def attr(fileName, nc, GLIDERS_DB, ATTRS, processingMode):
+def attr(fileName, nc, GLIDERS_DB, ATTRS,ENCODER, processingMode):
     ##  READ GLIDERS DATABASE
     gliders = pd.read_csv(GLIDERS_DB)
     
     ##  READ ATTRIBUTES
     with open(ATTRS, 'r') as f:
         attrs = yaml.safe_load(f)
-
+        
+    with open(ENCODER,'r') as f:
+        cfnl= yaml.safe_load(f)
+        
+    attrs = cfnl.update(attrs)
     now = datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
 
     #####################  AUTO CALCULATE  #####################
     ##  FROM NC FILE
     gliderName = fileName.split('-')[0]  ##  eg sunfish (all small letters)
     dataType = 'profile'
-    lonMin = np.nanmin(nc.variables['m_lon'][:])
-    lonMax = np.nanmax(nc.variables['m_lon'][:])
-    latMin = np.nanmin(nc.variables['m_lat'][:])
-    latMax = np.nanmax(nc.variables['m_lat'][:])
-    depthMin = np.nanmin(nc.variables['sci_water_depth'][:])
-    depthMax = np.nanmax(nc.variables['sci_water_depth'][:])
-    startTime = datetime.fromtimestamp(float(nc.variables['timestamp'][:][0]))
-    endTime = datetime.fromtimestamp(float(nc.variables['timestamp'][:][-1]))
+    lonMin = np.nanmin(nc.variables['longitude'][:])
+    lonMax = np.nanmax(nc.variables['longitude'][:])
+    latMin = np.nanmin(nc.variables['latitude'][:])
+    latMax = np.nanmax(nc.variables['latitude'][:])
+    depthMin = np.nanmin(nc.variables['depth'][:])
+    depthMax = np.nanmax(nc.variables['depth'][:])
+    startTime = datetime.fromtimestamp(float(nc.variables['time'][:][0]))
+    endTime = datetime.fromtimestamp(float(nc.variables['time'][:][-1]))
     # DURATION
     durationDays = math.floor((endTime-startTime).seconds / (24*3600))
     durationHours = math.floor(((endTime-startTime).seconds - 24*3600*durationDays)/3600)
@@ -96,9 +100,11 @@ def attr(fileName, nc, GLIDERS_DB, ATTRS, processingMode):
         if("standard_name" not in nc[var].attrs.keys()):
             nc[var].attrs['standard_name'] = var
             nc[var].attrs['long_name'] = var
-            nc[var].attrs['units'] = ''
-            nc[var].attrs['comment'] = ''
-
+            nc[var].attrs['units'] = ' '
+            nc[var].attrs['comment'] = ' '
+            nc[var].attrs['observation_type'] = ' '
+            nc[var].attrs['accuracy'] = ' '
+            nc[var].attrs['platform'] = 'platform'
 
     nc['platform'] = 0
     nc['platform'].attrs = {

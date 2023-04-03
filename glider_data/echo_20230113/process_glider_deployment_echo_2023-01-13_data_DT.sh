@@ -30,7 +30,7 @@ for f in ${glider}*bd; do
         sed -i 's/ $//' ../txt/$f.txt  ##  Remove empty space from the end of each line (pandas doesn't like them)
     fi
 done
-# rm cache
+rm cache
 
 #################################################
 ##  WE NEED SOMETHING TO SWITCH IN THE SCRIPT?
@@ -53,6 +53,8 @@ done
 cd ${MISSION}/txt
 ln -s ${SCRIPTS}/functions.py
 ln -s ${SCRIPTS}/addAttrs.py
+ln -s ${SCRIPTS}/dbd_filter.csv
+ln -s ${SCRIPTS}/GDAC_IOOS_ENCODER.yml
 # ln -s ${GLIDERS_DB}
 
 for f in $(ls ${glider}*.[de]bd.txt | sed 's/\..bd\.txt//' | sort -u); do
@@ -60,10 +62,11 @@ for f in $(ls ${glider}*.[de]bd.txt | sed 's/\..bd\.txt//' | sort -u); do
         python3 ${SCRIPTS}/delayed2nc.py $f ${GLIDERS_DB} ${ATTR}
     fi
 done
+rm filter.csv functions.py addAttrs.py GDAC_IOOS_ENCODER.yml master.yml
 
 #################################################
 ##  No attributes in the nc timeseries file
 #################################################
 ##  CREATE 1 NC FILE FOR THE WHOLE MISSION
-cd ${MISSION}/txt
-python3 ${SCRIPTS}/ncTimeseries.py delayed de
+#cd ${MISSION}/txt
+#python3 ${SCRIPTS}/ncTimeseries.py delayed de
