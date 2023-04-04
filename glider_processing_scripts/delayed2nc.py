@@ -5,8 +5,14 @@ import os.path
 from functions import c2salinity,stp2ct_density,p2depth,dm2d,rad2deg,O2freshtosal,range_check
 from addAttrs import attr
 
-from warnings import simplefilter
-simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
+
+## REMOVE ANNOYING WARNINGS FOR EMPTY ARRAYS 
+import warnings
+warnings.simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
+#warnings.filterwarnings(action='ignore', message='All-NaN slice encountered')
+warnings.simplefilter("ignore", category=RuntimeWarning)
+
+
 
 fileName = sys.argv[1]
 GLIDERS_DB = sys.argv[2]
@@ -40,7 +46,7 @@ data = pd.concat([dbdData, ebdData], ignore_index=True, sort=True)
 data = data.sort_values(by=['time'])
 
 ## INTERPOLATION OF DATA TO REDUCE GAPS
-data = data.interpolate(limit=20) # limit is arbitrary but it helps
+#data = data.interpolate(limit=20) # limit is arbitrary but it helps
 
 ##  CONVERT DM 2 D.D
 for col in ['c_wpt_lat', 'c_wpt_lon', 'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']:
@@ -90,22 +96,26 @@ glider_data = data # new data frame for the raw variables
 data = []
 data = pd.DataFrame() # reset
 
+# basic info
 data['time'] = glider_data['time']
 data['lat'] = glider_data['m_gps_lat']
 data['lon'] = glider_data['m_gps_lon']
-data['pressure'] = glider_data['sci_water_pressure']
-data['depth'] = glider_data['sci_water_depth']
+
+ # profile has to be midprofile - so take average
+data['profile_time'] = np.nanmean(data['time'])
+data['profile_lat'] = np.nanmean(data['lat'])
+data['profile_lon'] = np.nanmean(data['lon'])
+
+# U, V variables are copies
 data['u'] = glider_data['m_final_water_vx']
 data['v'] = glider_data['m_final_water_vy']
-
-data['profile_time'] = data['time'] # has to be midprofile
-data['profile_lat'] = data['lat'] # has to be midprofile
-data['profile_lon'] = data['lon'] # has to be midprofile - so take average
 data['time_uv'] = data['time']
 data['lat_uv'] = data['lat']
 data['lon_uv'] = data['lon']
 
 ## CTD VARIABLES
+data['pressure'] = glider_data['sci_water_pressure']
+data['depth'] = glider_data['sci_water_depth']
 data['conductivity'] = glider_data['sci_water_cond']
 data['salinity'] = glider_data['practical_salinity']
 data['density'] = glider_data['sea_water_density']
