@@ -1,2 +1,4 @@
 *.nc
 *.DS_store
+*.idea
+*.gitignore
