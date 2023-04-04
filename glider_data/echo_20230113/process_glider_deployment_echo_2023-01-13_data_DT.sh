@@ -32,6 +32,25 @@ for f in ${glider}*bd; do
 done
 rm cache
 
+## DELAYED MODE
+
+##  CONVERT TO NC
+cd ${MISSION}/txt
+ln -s ${SCRIPTS}/functions.py
+ln -s ${SCRIPTS}/addAttrs.py
+ln -s ${SCRIPTS}/dbd_filter.csv
+ln -s ${SCRIPTS}/GDAC_IOOS_ENCODER.yml
+# ln -s ${GLIDERS_DB}
+
+for f in $(ls ${glider}*.[de]bd.txt | sed 's/\..bd\.txt//' | sort -u); do
+    if [[ ! -e ../nc/$f.nc ]]; then
+        python3 ${SCRIPTS}/delayed2nc.py $f ${GLIDERS_DB} ${ATTR}
+    fi
+done
+
+rm dbd_filter.csv functions.py addAttrs.py GDAC_IOOS_ENCODER.yml
+
+
 #################################################
 ##  WE NEED SOMETHING TO SWITCH IN THE SCRIPT?
 ###################  REALTIME  ###################
@@ -48,22 +67,6 @@ rm cache
 #python3 ${SCRIPTS}/ncTimeseries.py realtime st
 
 
-###################  DELAYED  ###################
-##  CONVERT TO NC
-cd ${MISSION}/txt
-ln -s ${SCRIPTS}/functions.py
-ln -s ${SCRIPTS}/addAttrs.py
-ln -s ${SCRIPTS}/dbd_filter.csv
-ln -s ${SCRIPTS}/GDAC_IOOS_ENCODER.yml
-# ln -s ${GLIDERS_DB}
-
-for f in $(ls ${glider}*.[de]bd.txt | sed 's/\..bd\.txt//' | sort -u); do
-    if [[ ! -e ../nc/$f.nc ]]; then
-        python3 ${SCRIPTS}/delayed2nc.py $f ${GLIDERS_DB} ${ATTR}
-    fi
-done
-
-rm dbd_filter.csv functions.py addAttrs.py GDAC_IOOS_ENCODER.yml
 #################################################
 ##  No attributes in the nc timeseries file
 #################################################

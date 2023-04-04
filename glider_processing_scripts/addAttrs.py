@@ -7,16 +7,17 @@ import yaml
 
 def attr(fileName, nc, GLIDERS_DB, ATTRS,ENCODER, processingMode):
 
-    ##  READ GLIDERS DATABASE
-    gliders = pd.read_csv(GLIDERS_DB)
     
-    ##  READ ATTRIBUTES
+    
+    ##  READ ATTRIBUTES AND VARIABLE NAMING RULES (DECODER)
     with open(ATTRS, 'r') as f:
         attrs = yaml.safe_load(f)
     with open(ENCODER,'r') as f:
         CFL= yaml.safe_load(f)
     # Merge dictionaries from master yaml and IOOS Decoder
     attrs = attrs | CFL
+    
+    
     #####################  AUTO CALCULATE  #####################
     ##  FROM NC FILE
     now = datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
@@ -30,6 +31,7 @@ def attr(fileName, nc, GLIDERS_DB, ATTRS,ENCODER, processingMode):
     depthMax = np.nanmax(nc.variables['depth'][:])
     startTime = datetime.fromtimestamp(float(nc.variables['time'][:][0]))
     endTime = datetime.fromtimestamp(float(nc.variables['time'][:][-1]))
+    
     # DURATION
     durationDays = math.floor((endTime-startTime).seconds / (24*3600))
     durationHours = math.floor(((endTime-startTime).seconds - 24*3600*durationDays)/3600)
@@ -43,18 +45,22 @@ def attr(fileName, nc, GLIDERS_DB, ATTRS,ENCODER, processingMode):
     if(durationMinutes>0):
         duration += "%dM" % durationMinutes
     duration += "%dS" % durationSeconds
+    
     ##  FROM PREVIOUS DEPLOYMENTS
     deploymentID = 33 # SHOULD CALCULATED AUTOMATICALLY
+    
     ##  FROM DATABASE
-    glider = gliders.loc[gliders['glider_name'] == gliderName]
-    gliderSerialID = glider['glider_serial'].to_numpy()[0]
-    platformType = glider['glider_type'].to_numpy()[0]
-    WMOid = glider['WMO'].to_numpy()[0]
-
+    gliderDB = pd.read_csv(GLIDERS_DB)
+    glider = gliderDB.loc[gliderDB['glider_name'] == gliderName]
+    gliderSerialID = gliderDB['glider_serial'].to_numpy()[0]
+    platformType = gliderDB['glider_type'].to_numpy()[0]
+    WMOid = gliderDB['WMO'].to_numpy()[0]
+    
     #####################  ADD ATTRIBUTES  #####################
     ##  USER INPUT
     for key in attrs['global'].keys():
         nc.attrs[key] = attrs['global'][key]
+    
     ##  CALCULATED
     deploymentDateTime = attrs['global']['deployment_datetime']  ##  SHOULD BE CALCULATED AUTOMATICALLY
     nc.attrs['processing_mode'] = processingMode

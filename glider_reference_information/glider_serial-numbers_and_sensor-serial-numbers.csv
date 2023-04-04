@@ -1,10 +1,10 @@
 glider_name,glider_serial,glider_type,WMO,CTD_type,CTD_SN,optode,optode_SN
-narwhal,Unit_047,Slocum Glider,6801508,SBE 41,058,,
-unit_334,Unit_334,Slocum Glider,6801670,SBE 41CP GPCTD,9028,Aanderaa 4831,333 
-pearldiver,Unit_354,Slocum Glider,6801735,SBE 41CP GPCTD,9033,Aanderaa 4831,124   
-unit_473,Unit_473,Slocum Glider,6801736,SBE 41CP GPCTD,9177,Aanderaa 4831,    
-sunfish,Unit_805,Slocum Glider,6801509,RBR Legato 6,203790,Aanderaa 4831,673   
-migaloo,Unit_806,Slocum Glider,6801521,RBR Legato 6,203788,Aanderaa 4831F,980   
-echo,Unit_969,Slocum Glider,6801522,RBR Legato 6,207968,Aanderaa 4831,951     
-batray,Unit_970,Slocum Glider,6801529,RBR Legato 6,207969,Aanderaa 4831,961
-barnacle,Unit_971,Slocum Glider,6801548,RBR Legato 6,207975,Aanderaa 4831,958
+narwhal,47,Slocum Glider,6801508,SBE 41,58,,
+unit_334,334,Slocum Glider,6801670,SBE 41CP GPCTD,9028,Aanderaa 4831,333
+pearldiver,354,Slocum Glider,6801735,SBE 41CP GPCTD,9033,Aanderaa 4831,124
+unit_473,473,Slocum Glider,6801736,SBE 41CP GPCTD,9177,Aanderaa 4831,990
+sunfish,805,Slocum Glider,6801509,RBR Legato 6,203790,Aanderaa 4831,673
+migaloo,806,Slocum Glider,6801521,RBR Legato 6,203788,Aanderaa 4831F,980
+echo,969,Slocum Glider,6801522,RBR Legato 6,207968,Aanderaa 4831,951
+batray,970,Slocum Glider,6801529,RBR Legato 6,207969,Aanderaa 4831,961
+barnacle,971,Slocum Glider,6801548,RBR Legato 6,207975,Aanderaa 4831,958

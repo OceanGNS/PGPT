@@ -69,16 +69,7 @@ sensors:
 #  optical_sensor_type: "FLBBCD-SLC"
 #  optical_sensor_serial_number: "5765"
 
-geospatial:
-  geospatial_bounds_crs: "EPSG:4326"
-  geospatial_bounds_vertical_crs: "EPSG:5831"
-  geospatial_lat_resolution: "0.00001 degree"
-  geospatial_lat_units: "degree_north"
-  geospatial_lon_resolution: "0.00001 degree"
-  geospatial_lon_units: "degree_east"
-  geospatial_vertical_positive: "down"
-  geospatial_vertical_resolution: ""
-  geospatial_vertical_units: "EPSG:5831"
+
   
 others:
   product_version: "1.0"

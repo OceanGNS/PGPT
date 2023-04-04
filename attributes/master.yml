@@ -33,11 +33,11 @@ global:
   # SENSORS
   instrument: "In Situ/Laboratory Instruments > Profilers/Sounders > CTD"
   oxygen_sensor_type: "Aanderaa 4831"
-  oxygen_sensor_serial_number: "673"
+  oxygen_sensor_serial_number: "FROM_DATA_BASE"
   ctd_type: "RBR Legato"
-  ctd_serial_number: "203790"
-  optical_sensor_type: "FLBBCD-SLC"
-  optical_sensor_serial_number: "5765"
+  ctd_serial_number: "FROM_DATA_BASE"
+  #optical_sensor_type: "FLBBCD-SLC"
+  #optical_sensor_serial_number: "5765"
 
   # GEOSPATIAL
   geospatial_bounds_crs: "EPSG:4326"

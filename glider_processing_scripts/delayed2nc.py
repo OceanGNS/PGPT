@@ -98,9 +98,9 @@ data['depth'] = glider_data['sci_water_depth']
 data['u'] = glider_data['m_final_water_vx']
 data['v'] = glider_data['m_final_water_vy']
 
-data['profile_time'] = data['time'] # midprofile
-data['profile_lat'] = data['lat'] # midprofile
-data['profile_lon'] = data['lon'] # midprofile
+data['profile_time'] = data['time'] # has to be midprofile
+data['profile_lat'] = data['lat'] # has to be midprofile
+data['profile_lon'] = data['lon'] # has to be midprofile - so take average
 data['time_uv'] = data['time']
 data['lat_uv'] = data['lat']
 data['lon_uv'] = data['lon']
