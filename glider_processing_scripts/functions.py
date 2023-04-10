@@ -2,9 +2,6 @@ import numpy as np
 import pandas as pd
 import gsw
 
-#######################################
-############# c2salinity #################
-#######################################
 def c2salinity(conductivity: np.ndarray, temperature: np.ndarray, pressure: np.ndarray, longitude: np.ndarray, latitude: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
 	"""
 	Calculate practical salinity and absolute salinity from conductivity, temperature, and pressure using the GSW library.
@@ -31,10 +28,7 @@ def c2salinity(conductivity: np.ndarray, temperature: np.ndarray, pressure: np.n
 	# Compute absolute salinity and return both salinity arrays
 	absolute_salinity = gsw.SA_from_SP(practical_salinity, pressure, longitude, latitude)
 	return practical_salinity, absolute_salinity
-	
-#######################################
-############# stp2density ################
-#######################################
+
 def stp2ct_density(SA: np.ndarray, t: np.ndarray, p: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
 	"""
 	Calculate conservative temperature and sea water density from salinity, temperature, and pressure using the GSW toolbox.
@@ -55,10 +49,6 @@ def stp2ct_density(SA: np.ndarray, t: np.ndarray, p: np.ndarray) -> tuple[np.nda
 	rho = gsw.rho(SA, CT, p)
 	return CT, rho
 
-
-#######################################
-############# p2depth ##################
-#######################################
 def p2depth(p: np.ndarray):
 	"""
 	Calculate the depth in meters from the sea water pressure in dbar.
@@ -81,10 +71,6 @@ def p2depth(p: np.ndarray):
 
 	return depth
 
-
-#######################################
-############# dm2dd ####################
-#######################################
 def dm2d(x):
 	"""
 	Converts degree-minute to decimal degree.
@@ -97,9 +83,6 @@ def dm2d(x):
 	"""
 	return np.trunc(x / 100) + (x % 100) / 60
 
-#######################################
-####### Oxygen Compensation #############
-#######################################
 def O2freshtosal(O2fresh: np.ndarray, T: np.ndarray, S: np.ndarray) -> np.ndarray:
 	"""
 	Compensate oxygen data from "fresh" to "salty" using temperature and salinity.
@@ -139,10 +122,6 @@ def O2freshtosal(O2fresh: np.ndarray, T: np.ndarray, S: np.ndarray) -> np.ndarra
 		O2sal = np.full_like(O2fresh, np.nan)
 
 	return O2sal
-
-#######################################
-############## Find Profiles ##############
-#######################################
 
 def findProfiles(stamp: np.ndarray,depth: np.ndarray,**kwargs) -> tuple[np.ndarray, np.ndarray]:
 	"""
@@ -211,9 +190,6 @@ def findProfiles(stamp: np.ndarray,depth: np.ndarray,**kwargs) -> tuple[np.ndarr
 	return profile_index, profile_direction
 
 
-#######################################
-########## Long lat Correction #############
-#######################################
 def correct_dead_reckoning(glider_lon, glider_lat, glider_timestamp, dive_state, gps_lon, gps_lat) -> tuple[np.ndarray, np.ndarray]:
 	"""
 	Corrects glider dead reckoned locations when underwater

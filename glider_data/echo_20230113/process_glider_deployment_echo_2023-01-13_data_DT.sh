@@ -1,75 +1,71 @@
-glider=echo
-MISSION=$PWD/delayed
-PARENTDIR=$(builtin cd $MISSION/../../../; pwd)
-SCRIPTS=$PARENTDIR/glider_processing_scripts
-GLIDERS_DB=$PARENTDIR/glider_reference_information/glider_serial-numbers_and_sensor-serial-numbers.csv
-# ATTR=$PWD/metadata.yml
-ATTR=$PWD/master.yml
+#!/bin/bash
 
+# Set variables
+glider="echo"
+mission_dir="$PWD/delayed"
+parent_dir=$(builtin cd "$mission_dir/../../../"; pwd)
+scripts_dir="$parent_dir/glider_processing_scripts"
+gliders_db="$parent_dir/glider_reference_information/glider_serial-numbers_and_sensor-serial-numbers.csv"
+metadata_file="$PWD/master.yml"
 
-cd ${MISSION}/
-mkdir txt nc 2>/dev/null
+# Create directories
+cd "${mission_dir}/"
+mkdir -p txt nc
 
-##  CONVERT BINARY TO TXT
-cd ${MISSION}/raw
+# Set raw directory
+raw_dir="${mission_dir}/raw"
+cd "$raw_dir"
 
-##  DECOMPRESS FILES IF NEEDED
-for f in *.?cd; do
-    ${SCRIPTS}/compexp x $f `echo $f | sed 's/cd$/bd/'`
-    # rm $f  ##  Uncomment if don't want to keep compressed files
-done
+# Decompress files
+decompress_files() {
+  for f in *.?cd; do
+    ${scripts_dir}/compexp x "$f" "$(echo $f | sed 's/cd$/bd/')"
+    # rm "$f"  ## Uncomment if you don't want to keep compressed files
+  done
+}
 
-## NEED TO RENAME THE 0000000.*BD to glider_XXX_XXX_XX.*.bd format
-${SCRIPTS}/rename_dbd_files *.*bd /
+# Rename files
+rename_files() {
+  ${scripts_dir}/rename_dbd_files *.*bd /
+}
 
-ln -s ../cache .
-for f in ${glider}*bd; do
+# Convert binary to text
+convert_binary_to_text() {
+  ln -s ../cache .
+  for f in ${glider}*bd; do
     if [[ ! -e ../txt/$f.txt ]]; then
-    	echo $f
-        ${SCRIPTS}/bd2ascii $f > ../txt/$f.txt
-        sed -i 's/ $//' ../txt/$f.txt  ##  Remove empty space from the end of each line (pandas doesn't like them)
+      echo "$f"
+      ${scripts_dir}/bd2ascii "$f" > ../txt/$f.txt
+      sed -i 's/ $//' ../txt/$f.txt  ## Remove empty space from the end of each line (pandas doesn't like them)
     fi
-done
-rm cache
+  done
+  rm cache
+}
 
-## DELAYED MODE
-
-##  CONVERT TO NC
-cd ${MISSION}/txt
-ln -s ${SCRIPTS}/functions.py
-ln -s ${SCRIPTS}/addAttrs.py
-ln -s ${SCRIPTS}/dbd_filter.csv
-ln -s ${SCRIPTS}/GDAC_IOOS_ENCODER.yml
-# ln -s ${GLIDERS_DB}
-
-for f in $(ls ${glider}*.[de]bd.txt | sed 's/\..bd\.txt//' | sort -u); do
+# Convert to NetCDF
+convert_to_netcdf() {
+  cd "${mission_dir}/txt"
+  ln -s ${scripts_dir}/functions.py
+  ln -s ${scripts_dir}/addAttrs.py
+  ln -s ${scripts_dir}/dbd_filter.csv
+  ln -s ${scripts_dir}/GDAC_IOOS_ENCODER.yml
+  
+  for f in $(ls ${glider}*.[de]bd.txt | sed 's/\..bd\.txt//' | sort -u); do
     if [[ ! -e ../nc/$f.nc ]]; then
-        python3 ${SCRIPTS}/NEW_delayed2nc.py $f ${GLIDERS_DB} ${ATTR}
+      python3 ${scripts_dir}/delayed2nc.py $f ${gliders_db} ${metadata_file}
     fi
-done
+  done
+  
+  rm dbd_filter.csv functions.py addAttrs.py GDAC_IOOS_ENCODER.yml
+}
 
-rm dbd_filter.csv functions.py addAttrs.py GDAC_IOOS_ENCODER.yml
+# Main function
+main() {
+  decompress_files
+  rename_files
+  convert_binary_to_text
+  convert_to_netcdf
+}
 
-
-#################################################
-##  WE NEED SOMETHING TO SWITCH IN THE SCRIPT?
-###################  REALTIME  ###################
-##  CONVERT TO NC
-#cd ${MISSION}/txt
-#for f in $(ls ${glider}*.[st]bd.txt | sed 's/\..bd\.txt//' | sort -u); do
-#    if [[ ! -e ../nc/$f.nc ]]; then
-#        python3 ${SCRIPTS}/realtime2nc.py $f
-#    fi
-#done
-
-##  CREATE 1 NC FILE FOR THE WHOLE MISSION
-#cd ${MISSION}/txt
-#python3 ${SCRIPTS}/ncTimeseries.py realtime st
-
-
-#################################################
-##  No attributes in the nc timeseries file
-#################################################
-##  CREATE 1 NC FILE FOR THE WHOLE MISSION
-#cd ${MISSION}/txt
-#python3 ${SCRIPTS}/ncTimeseries.py delayed de
+# Run main function
+main
