@@ -77,10 +77,10 @@ def process_and_save_data(data, filename, gliders_db, attrs):
 
 def save_netcdf(data, glider_data, filename, gliders_db, attrs):
 	if not data.empty:
-		nc = data.set_index('time').to_xarray()
-		attr(filename, nc, gliders_db, attrs, 'GDAC_IOOS_ENCODER.yml', 'delayed')
+		data = data.set_index('time').to_xarray()
+		attr(filename, data, gliders_db, attrs, 'GDAC_IOOS_ENCODER.yml', 'delayed')
 		output_path = f'../nc/{filename}_delayed.nc'
-		nc.to_netcdf(output_path)
+		data.to_netcdf(output_path)
 		glider_data_nc = glider_data.set_index('time').to_xarray()
 		glider_data_nc.to_netcdf(output_path, group="glider_record", mode="a")
 	
