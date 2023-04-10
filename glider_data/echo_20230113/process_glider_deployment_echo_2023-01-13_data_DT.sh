@@ -44,7 +44,7 @@ ln -s ${SCRIPTS}/GDAC_IOOS_ENCODER.yml
 
 for f in $(ls ${glider}*.[de]bd.txt | sed 's/\..bd\.txt//' | sort -u); do
     if [[ ! -e ../nc/$f.nc ]]; then
-        python3 ${SCRIPTS}/delayed2nc.py $f ${GLIDERS_DB} ${ATTR}
+        python3 ${SCRIPTS}/NEW_delayed2nc.py $f ${GLIDERS_DB} ${ATTR}
     fi
 done
 

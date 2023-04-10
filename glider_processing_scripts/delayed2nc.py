@@ -2,11 +2,11 @@ import numpy as np
 import pandas as pd
 import sys
 import os.path
-from functions import c2salinity,stp2ct_density,p2depth,dm2d,rad2deg,O2freshtosal,range_check
+from functions import c2salinity,stp2ct_density,p2depth,dm2d,O2freshtosal
 from addAttrs import attr
 
 
-## REMOVE ANNOYING WARNINGS FOR EMPTY ARRAYS 
+## REMOVE ANNOYING WARNINGS FOR EMPTY ARRAYS
 import warnings
 warnings.simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 #warnings.filterwarnings(action='ignore', message='All-NaN slice encountered')
@@ -56,26 +56,24 @@ for col in ['c_wpt_lat', 'c_wpt_lon', 'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'
 ##  CONVERT RADIAN 2 DEGREE
 for col in ['c_fin', 'c_heading', 'c_pitch', 'm_fin',  'm_heading',  'm_pitch',  'm_roll']:
     if(col in data.keys()):
-        data[col] = rad2deg(data[col])
+        data[col] = np.degrees(data[col])
 
 ## SET PRESSURE BAR TO DBAR
 if('sci_water_pressure' in data.keys()):
     data['sci_water_pressure'] = data['sci_water_pressure']*10
-        
+
+def update_columns(data, cols, func):
+		data.update({col: func(data[col]) for col in cols if col in data.keys()})
+
 ## DO SOME BASIC RANGE CHECKING ON SENSORS
-if('m_gps_lon' in data.keys() and 'm_gps_lat' in data.keys() and 'm_lon' in data.keys() and 'm_lat' in data.keys()):
-    data['m_gps_lat'] = range_check(data['m_gps_lat'],-90,90)
-    data['m_gps_lon'] = range_check(data['m_gps_lon'],-180,180)
-    data['m_lon'] = range_check(data['m_lon'],-180,180)
-    data['m_lat'] = range_check(data['m_lat'],-90,90)
+if all(k in data for k in ['m_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']):
+	data.update({k: np.clip(data[k], *r) for k, r in zip(['m_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'], [(-90, 90), (-180, 180)] * 2)})
 
-if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_water_pressure' in data.keys()):
-    data['sci_water_cond'] = range_check(data['sci_water_cond'],0.01,4)
-    data['sci_water_temp'] = range_check(data['sci_water_temp'],-2,25)
-    data['sci_water_pressure'] = range_check(data['sci_water_pressure'],-2,1200)
+if all(k in data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure']):
+	data.update({k: np.clip(data[k], *r) for k, r in zip(['sci_water_cond', 'sci_water_temp', 'sci_water_pressure'], [(0.01, 4), (-2, 25), (-2, 1200)])})
 
-if('sci_oxy4_oxygen' in data.keys()):
-    data['sci_oxy4_oxygen'] = range_check(data['sci_oxy4_oxygen'],5,500)
+if 'sci_oxy4_oxygen' in data:
+	data['sci_oxy4_oxygen'] = np.clip(data['sci_oxy4_oxygen'], 5, 500)
 
 ## CALCULATE DEPTH FROM CTD PRESSURE SENSOR ("sci_water_pressure")
 if('sci_water_pressure' in data.keys()):
@@ -88,7 +86,7 @@ if('sci_water_cond' in data.keys() and 'sci_water_temp' in data.keys() and 'sci_
 
 ## COMPENSATE OXYGEN FOR SALINITY EFFECTS
 if('sci_oxy4_oxygen' in data.keys() and 'sci_water_temp' in data.keys() and 'practical_salinity' in data.keys()):
-    data['oxygen_concentration'] = O2freshtosal(data['sci_oxy4_oxygen'], data['sci_water_temp'], data['practical_salinity'])
+    data['oxygen_concentration'] = O2freshtosal(data['sci_oxy4_oxygen'].to_numpy(), data['sci_water_temp'].to_numpy(), data['practical_salinity'].to_numpy())
 
 
 ## VARIABLE NAMING FOR US IOOS GLIDERDAC 3.0
