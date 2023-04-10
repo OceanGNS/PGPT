@@ -15,6 +15,7 @@ mkdir -p txt nc
 
 # Set raw directory
 raw_dir="${mission_dir}/raw"
+cd "${raw_dir}/"
 
 # Decompress files
 decompress_files() {
@@ -30,27 +31,27 @@ rename_files() {
 }
 
 convert_binary_to_text() {
-  # Check if cache file exists
-  if [[ ! -e ../cache ]]; then
-    touch ../cache
+  # Check if cache directory exists
+  if [[ ! -d ../cache ]]; then
+    mkdir ../cache
   fi
   
-  # Create symbolic link
-  ln -sf ../cache .
+  # Create symbolic link if it doesn't exist
+  if [[ ! -L cache ]]; then
+    ln -nsf ${mission_dir}/cache .
+  fi
   
   for f in ${glider}*bd; do
     if [[ ! -e ../txt/$f.txt ]]; then
       echo "$f"
-      ${scripts_dir}/bd2ascii "$f" > ../txt/$f.txt
-      sed -i 's/ $//' ../txt/$f.txt  ## Remove empty space from the end of each line (pandas doesn't like them)
+      "${scripts_dir}/bd2ascii" "$f" > "../txt/$f.txt"
+      sed -i "s/ $//" "../txt/$f.txt"  ## Remove empty space from the end of each line (pandas doesn't like them)
     fi
   done
   
   # Remove symbolic link
   rm cache
 }
-
-
 
 # Convert to NetCDF
 convert_to_netcdf() {

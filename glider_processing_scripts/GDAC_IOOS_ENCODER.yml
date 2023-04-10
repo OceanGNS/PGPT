@@ -1,5 +1,8 @@
 ###############################
 # US IOOS GLIDER DAC 3.0 ENCODER -> PLEASE PUT THESE INTO A NEW FILE
+#%YAML 1.2
+#%TAG ! tag:mungliders.com,2023:
+---
 CFnamelist:
   time:
     standard_name: "time"
@@ -111,7 +114,7 @@ CFnamelist:
     comment: "Longitude corresponding to the mid-point of the profile"
     observation_type: "measured"
     platform: "platform"
-    reference: ""
+    reference: "WGS84"
     valid_max: "** COMMAND:np.nanmax(data['lon_uv'].data)"
     valid_min: "** COMMAND:np.nanmin(data['lat_uv'].data)"
   lat_uv:
@@ -121,7 +124,7 @@ CFnamelist:
     comment: "Longitude corresponding to the mid-point of the profile"
     observation_type: "measured"
     platform: "platform"
-    reference: ""
+    reference: "WGS84"
     valid_max: "** COMMAND:np.nanmax(data['lon_uv'].data)"
     valid_min: "** COMMAND:np.nanmin(data['lat_uv'].data)"
   v:
