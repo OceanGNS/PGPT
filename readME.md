@@ -6,7 +6,12 @@ The intent of this toolbox is to produce a clean data set from raw glider data f
 
 This toolbox seperately supports both `realtime` (while glider is deployed) and `delayed` data mode (after glider is recovered). The user can tell the toolbox which mode to use. The processing levels in both modes are the same, but `delayed` mode will contain the complete dataset while `realtime` may not.
 
-## Wish list and completed features:
+## ISSUES
+- no trajectory file
+- some metadata fields not properly updated or calculated
+- some compliance issues remain
+
+## Features
 
 - [x] Delayed mode: filter and convert `[*.d/e]bd` files into `[*.nc]` profiles and merge into a `[*.nc]` timeseries file
 - [x] Realtime mode: convert `[*.s/t]bd` files into `[*.nc]` profiles and merge into a `[*.nc]` timeseries file
@@ -18,9 +23,8 @@ This toolbox seperately supports both `realtime` (while glider is deployed) and 
 	- [x] Convert variables from radians to degrees
 	- [x] Apply a correction for longitude/latitude dead reckoning
 	- [x] Calculate the profile number for easy splitting of glider dives into profiles from the timeseries plot
-- [ ] During processing add metadata information from a prepared text file to provide complete record of glider data following US IOOS standards
-- [ ] Associate sensors (optode, ctd) and store relevant sensor coefficients as variables in the profile and timeseries for metadata information
-- [ ] Use naming convention of IOOS  decoder for certain required variable names (time, lon,lat,temperature, salinity, oxygen, optical channels ...) to discover data files in GTS and ERDAP
+- [x] During processing add metadata information from a prepared text file to provide complete record of glider data following US IOOS standards
+- [x] Use naming convention of IOOS  decoder for certain required variable names (time, lon,lat,temperature, salinity, oxygen, optical channels ...) to discover data files in GTS and ERDAP
  
 ## How it works
 
