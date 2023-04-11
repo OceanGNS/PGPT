@@ -4,12 +4,11 @@ import csv
 import numpy as np
 import pandas as pd
 from functions import c2salinity, stp2ct_density, p2depth, dm2d, O2freshtosal
-from addAttrs import attr
+from attributes import attr
 
 ## REMOVE ANNOYING WARNINGS FOR EMPTY ARRAYS
 import warnings
 warnings.simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
-#warnings.filterwarnings(action='ignore', message='All-NaN slice encountered')
 warnings.simplefilter("ignore", category=RuntimeWarning)
 
 def read_bd_data(filename, var_filter):
@@ -61,16 +60,31 @@ def process_and_save_data(data, filename, gliders_db, attrs):
 	data['profile_time'], data['profile_lat'], data['profile_lon'] = data['time'].mean(), data['lat'].mean(), data['lon'].mean()
 	data['u'], data['v'], data['time_uv'], data['lat_uv'], data['lon_uv'] = glider_data['m_final_water_vx'], glider_data['m_final_water_vy'], data['time'], data['lat'], data['lon']
 	
+	# CTD sensor
 	if all(k in glider_data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure']):
 		data['salinity'], data['absolute_salinity'] = c2salinity(glider_data['sci_water_cond'].to_numpy(), glider_data['sci_water_temp'].to_numpy(), glider_data['sci_water_pressure'].to_numpy(), glider_data['m_gps_lon'].to_numpy(), glider_data['m_gps_lat'].to_numpy())
 		data['conservative_temperature'], data['density'] = stp2ct_density(data['absolute_salinity'].to_numpy(), glider_data['sci_water_temp'].to_numpy(), glider_data['sci_water_pressure'].to_numpy())
 		data['conductivity'], data['temperature'], data['depth'], data['pressure'] = glider_data['sci_water_cond'], glider_data['sci_water_temp'], glider_data['sci_water_depth'], glider_data['sci_water_pressure']
 	
+	# oxygen sensor
 	if all(k in glider_data.keys() for k in ['sci_oxy4_oxygen', 'sci_water_temp', 'sci_water_pressure']):
 		data['oxygen_concentration'] = O2freshtosal(glider_data['sci_oxy4_oxygen'].to_numpy(), glider_data['sci_water_temp'].to_numpy(), data['salinity'].to_numpy())
 	
 	if 'sci_oxy4_temp' in glider_data:
 		data['oxygen_sensor_temperature'] = glider_data['sci_oxy4_temp']
+	
+	# optical sensors (if present)
+	chlorophyll_list = ['sci_flbbrh_chlor_units', 'sci_flbbcd_chlor_units', 'sci_flbb_chlor_units', 'sci_flntu_chlor_units']
+	for k in chlorophyll_list:
+	    if k in glider_data:
+	        data['chlorophyll_a'] = glider_data[k]
+	        break
+	
+	cdom_list = ['sci_fl3slo_cdom_unit', 'sci_fl3sloV2_cdom_units', 'sci_flbbcd_cdom_units', 'sci_fl2PeCdom_cdom_units']
+	for k in cdom_list:
+	    if k in glider_data:
+	        data['cdom'] = glider_data[k]
+	        break
 	
 	# convert & save glider *.bd files to *.nc files
 	save_netcdf(data, glider_data, filename, gliders_db, attrs)
@@ -78,7 +92,7 @@ def process_and_save_data(data, filename, gliders_db, attrs):
 def save_netcdf(data, glider_data, filename, gliders_db, attrs):
 	if not data.empty:
 		data = data.set_index('time').to_xarray()
-		attr(filename, data, gliders_db, attrs, 'GDAC_IOOS_ENCODER.yml', 'delayed')
+		attr(filename, data, gliders_db, attrs,'glider_dac_3.0_conventions.yml', 'delayed')
 		output_path = f'../nc/{filename}_delayed.nc'
 		data.to_netcdf(output_path)
 		glider_data_nc = glider_data.set_index('time').to_xarray()
@@ -107,5 +121,6 @@ if __name__ == "__main__":
 	parser.add_argument('filename', help='name of the input file')
 	parser.add_argument('gliders_db', help='name of the GLIDERS database')
 	parser.add_argument('attrs', help='name of the attributes file')
+	parser.add_argument('processing_mode',help='processing mode')
 	args = parser.parse_args()
 	main(args)

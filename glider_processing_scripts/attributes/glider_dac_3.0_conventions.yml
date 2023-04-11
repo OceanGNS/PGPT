@@ -94,8 +94,6 @@ CFnamelist:
     platform: "platform"
     reference: "WGS84"
     coordinate_reference_frame: "urn:ogc:crs:EPSG::4326"
-#    valid_max: "** COMMAND:np.nanmax(data['profile_lat'].data)"
-#    valid_min: "** COMMAND:np.nanmin(data['profile_lat'].data)"
   profile_lon:
     standard_name: "longitude"
     units: "degrees_east"
@@ -105,8 +103,6 @@ CFnamelist:
     platform: "platform"
     reference: "WGS84"
     coordinate_reference_frame: "urn:ogc:crs:EPSG::4326"
-#    valid_max: "** COMMAND:np.nanmax(data['profile_lon'].data)"
-#    valid_min: "** COMMAND:np.nanmin(data['profile_lat'].data)"
   lon_uv:
     standard_name: "longitude"
     units: "degrees_east"
@@ -179,11 +175,24 @@ CFnamelist:
     valid_max: "** COMMAND:np.nanmax(data['temperature'])"
     valid_min: "** COMMAND:np.nanmin(data['temperature'])"
     comment: "ambient seawater temperature measured by glider CTD sensor sci_water_temp"
+  conservative_temperature:
+    standard_name: "sea_water_conservative_temperature"
+    long_name: "sea_water_conservative_temperature"
+    units: "degrees_C"
+    accuracy: "0.001"
+    ancillary_variables: "sci_water_temp absolute_salinity"
+    instrument: "instrument_ctd"
+    observation_type: "calculated"
+    platform: "platform"
+    precision: "** COMMAND:np.nanmedian(np.diff(data['conservative_temperature'].data))"
+    resolution: "** COMMAND:np.nanmedian(np.diff(data['time'].data[~np.isnan(data['conservative_temperature'])]))"
+    valid_max: "** COMMAND:np.nanmax(data['conservative_temperature'])"
+    valid_min: "** COMMAND:np.nanmin(data['conservative_temperature'])"
+    comment: "Conservative Temperature is defined the specific potential enthalpy (which has the standard name sea_water_specific_potential_enthalpy) divided by a fixed value of the specific heat capacity of sea water, namely cp_0 = 3991.86795711963 J kg-1 K-1 (TEOS10)."
   salinity:
     standard_name: "sea_water_practical_salinity"
     long_name: "sea_water_practical_salinity"
     units: "PSU"
-    comment: "practical salinity computed from conductivity, temperature and pressure using the Gibbs-SeaWater (GSW) Oceanographic toolbox (https://www.teos-10.org/software.htm)"
     platform: "platform"
     instrument: "instrument_ctd"
     observation_type: "calculated"
@@ -193,6 +202,21 @@ CFnamelist:
     resolution: "** COMMAND:np.nanmedian(np.diff(data['time'].data[~np.isnan(data['salinity'])]))"
     valid_max: "** COMMAND:np.nanmax(data['salinity'].data)"
     valid_min: "** COMMAND:np.nanmin(data['salinity'].data)"
+    comment: "practical salinity computed from conductivity, temperature and pressure using the Gibbs-SeaWater (GSW) Oceanographic toolbox (https://www.teos-10.org/software.htm)"
+  absolute_salinity:
+    standard_name: "sea_water_absolute_salinity"
+    long_name: "absolute_salinity_of_sea_water"
+    units: "g kg-1"
+    platform: "platform"
+    instrument: "instrument_ctd"
+    observation_type: "calculated"
+    accuracy: "0.01"
+    ancillary_variables: "    "
+    precision: "** COMMAND:np.nanmedian(np.diff(data['absolute_salinity'].data))"
+    resolution: "** COMMAND:np.nanmedian(np.diff(data['time'].data[~np.isnan(data['absolute_salinity'])]))"
+    valid_max: "** COMMAND:np.nanmax(data['absolute_salinity'].data)"
+    valid_min: "** COMMAND:np.nanmin(data['absolute_salinity'].data)"
+    comment: "Absolute Salinity, S_A, is defined as the mass fraction of dissolved material in sea water. Absolute Salinity incorporates the spatial variations in the composition of sea water (TEOS-10)."
   density:
     standard_name: "sea_water_density"
     long_name: "sea_water_density"
@@ -232,3 +256,35 @@ CFnamelist:
     resolution: "** COMMAND:np.nanmedian(np.diff(data['time'].data[~np.isnan(data['oxygen_concentration'])]))"
     valid_max: "** COMMAND:np.nanmax(data['oxygen_concentration'].data)"
     valid_min: "** COMMAND:np.nanmin(data['oxygen_concentration'].data)"
+## OPTICAL SENSORS
+  chlorophyll_a:
+    standard_name: "mass_concentration_of_chlorophyll_in_sea_water"
+    long_name: "mass_concentration_of_chlorophyll_in_sea_water"
+    units: "kg m-3"
+    ancillary_variables: "    "
+    observation_type: "measured"
+    platform: "platform"
+    precision: "** COMMAND:np.nanmedian(np.diff(data['chlorophyll_a'].data))"
+    resolution: "** COMMAND:np.nanmedian(np.diff(data['time'].data[~np.isnan(data['chlorophyll_a'])]))"
+    valid_max: "** COMMAND:np.nanmax(data['chlorophyll_a'].data)"
+    valid_min: "** COMMAND:np.nanmin(data['chlorophyll_a'].data)"
+    comment: "Mass concentration means mass per unit volume and are several different forms of chlorophyll that occur naturally. All contain a chlorin ring (chemical formula C20H16N4) which gives the green pigment and a side chain whose structure varies. The naturally occurring forms of chlorophyll contain between 35 and 55 carbon atoms. Chlorophyll-a is the most commonly occurring form of natural chlorophyll. The chemical formula of chlorophyll-a is C55H72O5N4Mg."
+  cdom:
+    standard_name: "concentration_of_colored_dissolved_organic_matter_in_sea_water_expressed_as_equivalent_mass_fraction_of_quinine_sulfate_dihydrate"
+    long_name: "concentration_of_colored_dissolved_organic_matter_in_sea_water_expressed_as_equivalent_mass_fraction_of_quinine_sulfate_dihydrate"
+    units: "1"
+    ancillary_variables: "    "
+    observation_type: "measured"
+    platform: "platform"
+    precision: "** COMMAND:np.nanmedian(np.diff(data['cdom'].data))"
+    resolution: "** COMMAND:np.nanmedian(np.diff(data['time'].data[~np.isnan(data['cdom'])]))"
+    valid_max: "** COMMAND:np.nanmax(data['cdom'].data)"
+    valid_min: "** COMMAND:np.nanmin(data['cdom'].data)"
+    comment: "The quantity with standard name concentration_of_colored_dissolved_organic_matter_in_sea_water_expressed_as_equivalent_mass_fraction_of_quinine_sulfate_dihydrate is also commonly known as Chromophoric Dissolved Organic Matter (CDOM). CDOM plays an important role in the carbon cycling and biogeochemistry of coastal waters. It occurs naturally in aquatic environments primarily as a result of tannins released from decaying plant and animal matter, which can enter coastal areas in river run-off containing organic materials leached from soils. When present in high concentrations, it imparts a brown or yellowish color to water. Its presence can negatively impact fish populations by reducing dissolved oxygen concentrations to harmful levels and by releasing nutrients and metals that contaminate the water. Increased understanding of the role of CDOM will further our ability to manage and protect coastal ecosystems. Sensors are commonly calibrated against a 100 parts per billion (ppb) quinine sulfate dihydrate solution, a fluorescent reference standard commonly used with CDOM sensors. CDOM sensors therefore report in QSDE (quinine sulfate dihydrate equivalents). It is important to note, however, that CDOM concentrations in QSDE are not necessarily equivalent to the in situ CDOM concentrations in ppb."
+  
+    
+    
+    
+
+
+  

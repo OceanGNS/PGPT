@@ -20,14 +20,14 @@ cd "${raw_dir}/"
 # Decompress files
 decompress_files() {
   for f in *.?cd; do
-    ${scripts_dir}/compexp x "$f" "$(echo $f | sed 's/cd$/bd/')"
+    ${scripts_dir}/bin/compexp x "$f" "$(echo $f | sed 's/cd$/bd/')"
     # rm "$f"  ## Uncomment if you don't want to keep compressed files
   done
 }
 
 # Rename files
 rename_files() {
-  ${scripts_dir}/rename_dbd_files *.*bd /
+  ${scripts_dir}/bin/rename_dbd_files *.*bd /
 }
 
 convert_binary_to_text() {
@@ -44,7 +44,7 @@ convert_binary_to_text() {
   for f in ${glider}*bd; do
     if [[ ! -e ../txt/$f.txt ]]; then
       echo "$f"
-      "${scripts_dir}/bd2ascii" "$f" > "../txt/$f.txt"
+      "${scripts_dir}/bin/bd2ascii" "$f" > "../txt/$f.txt"
       sed -i "s/ $//" "../txt/$f.txt"  ## Remove empty space from the end of each line (pandas doesn't like them)
     fi
   done
@@ -57,17 +57,17 @@ convert_binary_to_text() {
 convert_to_netcdf() {
   cd "${mission_dir}/txt"
   ln -s ${scripts_dir}/functions.py
-  ln -s ${scripts_dir}/addAttrs.py
-  ln -s ${scripts_dir}/dbd_filter.csv
-  ln -s ${scripts_dir}/GDAC_IOOS_ENCODER.yml
+  ln -s ${scripts_dir}/attributes.py
+  ln -s ${scripts_dir}/bin/dbd_filter.csv
+  ln -s ${scripts_dir}/attributes/glider_dac_3.0_conventions.yml
   
   for f in $(ls ${glider}*.[de]bd.txt | sed 's/\..bd\.txt//' | sort -u); do
     if [[ ! -e ../nc/$f.nc ]]; then
-      python3 ${scripts_dir}/delayed2nc.py $f ${gliders_db} ${metadata_file}
+      python3 ${scripts_dir}/asc2profile.py $f ${gliders_db} ${metadata_file} ${processing_mode}
     fi
   done
   
-  rm dbd_filter.csv functions.py addAttrs.py GDAC_IOOS_ENCODER.yml
+  rm dbd_filter.csv functions.py attributes.py glider_dac_3.0_conventions.yml
 }
 
 # Main function
