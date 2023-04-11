@@ -32,7 +32,7 @@ def read_var_filter():
 	with open('dbd_filter.csv', 'r') as fid:
 		return next(csv.reader(fid, delimiter=','))
 	
-def process_and_save_data(data, filename, gliders_db, attrs):
+def process_and_save_data(data, filename, gliders_db, metadata_source, processing_mode):
 	def update_columns(data, cols, func):
 		data.update({col: func(data[col]) for col in cols if col in data.keys()})
 	
@@ -41,6 +41,9 @@ def process_and_save_data(data, filename, gliders_db, attrs):
 	
 	if 'sci_water_pressure' in data:
 		data['sci_water_pressure'] *= 10
+	
+	if 'm_pressure' in data:
+		data['m_pressure'] *= 10
 	
 	if all(k in data for k in ['m_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']):
 		data.update({k: np.clip(data[k], *r) for k, r in zip(['m_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'], [(-90, 90), (-180, 180)] * 2)})
@@ -87,20 +90,19 @@ def process_and_save_data(data, filename, gliders_db, attrs):
 	        break
 	
 	# convert & save glider *.bd files to *.nc files
-	save_netcdf(data, glider_data, filename, gliders_db, attrs)
+	encoder = 'glider_dac_3.0_conventions.yml'
+	save_netcdf(data, glider_data, filename, gliders_db, metadata_source, encoder, processing_mode)
 
-def save_netcdf(data, glider_data, filename, gliders_db, attrs):
+def save_netcdf(data, glider_data, filename, gliders_db, metadata_source, encoder, processing_mode):
 	if not data.empty:
 		data = data.set_index('time').to_xarray()
-		attr(filename, data, gliders_db, attrs,'glider_dac_3.0_conventions.yml', 'delayed')
+		attr(filename, data, gliders_db, metadata_source, encoder, processing_mode)
 		output_path = f'../nc/{filename}_delayed.nc'
 		data.to_netcdf(output_path)
 		glider_data_nc = glider_data.set_index('time').to_xarray()
 		glider_data_nc.to_netcdf(output_path, group="glider_record", mode="a")
 	
 def main(args):
-
-	
 	# Validate command-line arguments
 	if not os.path.isfile(f'{args.filename}.dbd.txt'):
 		raise FileNotFoundError(f'{file_arg} does not exist')
@@ -113,14 +115,14 @@ def main(args):
 	data = pd.concat([dbd_data, ebd_data], ignore_index=True, sort=True).sort_values(by=['time'])
 	
 	# Process and save data as netCDF
-	process_and_save_data(data, args.filename, args.gliders_db, args.attrs)
+	process_and_save_data(data, args.filename, args.gliders_db, args.metadata, args.processing_mode)
 
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument('filename', help='name of the input file')
-	parser.add_argument('gliders_db', help='name of the GLIDERS database')
-	parser.add_argument('attrs', help='name of the attributes file')
+	parser.add_argument('gliders_db', help='name of the glider database')
+	parser.add_argument('metadata', help='name of the metadata file')
 	parser.add_argument('processing_mode',help='processing mode')
 	args = parser.parse_args()
 	main(args)

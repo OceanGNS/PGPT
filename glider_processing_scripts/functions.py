@@ -1,35 +1,55 @@
 import numpy as np
 import pandas as pd
 import gsw
+from typing import Tuple
 
-def c2salinity(conductivity: np.ndarray, temperature: np.ndarray, pressure: np.ndarray, longitude: np.ndarray, latitude: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+def interpolate_nans(x: np.ndarray):
+	"""
+	Fills not a number (nan's) in arrays
+
+	Returns:
+		Array with nan's filled.
+	"""
+	x = np.copy(x)
+	not_nan = np.logical_not(np.isnan(x))
+	x[np.isnan(x)] = np.interp(np.flatnonzero(np.isnan(x)), np.flatnonzero(not_nan), x[not_nan])
+	return x
+
+def c2salinity(c: np.ndarray, t: np.ndarray, p: np.ndarray, lon: np.ndarray, lat: np.ndarray,interpolate: bool = True) -> tuple[np.ndarray, np.ndarray]:
 	"""
 	Calculate practical salinity and absolute salinity from conductivity, temperature, and pressure using the GSW library.
 	
 	Args:
-		conductivity: Conductivity in S/m.
-		temperature: Temperature in degrees Celsius.
-		pressure: Pressure in dbar.
-		longitude: Longitude in degrees east.
-		latitude: Latitude in degrees north.
+		c: Conductivity in S/m.
+		t: Temperature in degrees Celsius.
+		p: Pressure in dbar.
+		lon: Longitude in degrees east.
+		lat: Latitude in degrees north.
 	
 	Returns:
 		A tuple containing the practical salinity and absolute salinity arrays.
 	"""
-	if not (conductivity.shape == temperature.shape == pressure.shape == longitude.shape == latitude.shape):
+	if not (c.shape == t.shape == p.shape == lon.shape == lat.shape):
 		raise ValueError("All input arrays must have the same shape.")
 
 	# Convert conductivity to microS/cm
-	conductivity *= 10
-
+	c *= 10
+	
+	if interpolate:
+		p = interpolate_nans(p)
+		t = interpolate_nans(t)
+		c = interpolate_nans(c)
+		lon = interpolate_nans(lon)
+		lat = interpolate_nans(lat)
+	
 	# Compute practical salinity from conductivity
-	practical_salinity = gsw.C_from_SP(conductivity, temperature, pressure)
+	S = gsw.C_from_SP(c, t, p)
 
 	# Compute absolute salinity and return both salinity arrays
-	absolute_salinity = gsw.SA_from_SP(practical_salinity, pressure, longitude, latitude)
-	return practical_salinity, absolute_salinity
+	SA = gsw.SA_from_SP(S, p, lon, lat)
+	return S, SA
 
-def stp2ct_density(SA: np.ndarray, t: np.ndarray, p: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+def stp2ct_density(SA: np.ndarray, t: np.ndarray, p: np.ndarray, interpolate: bool = True) -> tuple[np.ndarray, np.ndarray]:
 	"""
 	Calculate conservative temperature and sea water density from salinity, temperature, and pressure using the GSW toolbox.
 	
@@ -44,32 +64,39 @@ def stp2ct_density(SA: np.ndarray, t: np.ndarray, p: np.ndarray) -> tuple[np.nda
 	"""
 	if not (SA.shape == t.shape == p.shape):
 		raise ValueError("All input arrays must have the same shape.")
+		
+	if interpolate:
+		p = interpolate_nans(p)
+		t = interpolate_nans(t)
+		SA = interpolate_nans(SA)
 	
 	CT = gsw.CT_from_t(SA, t, p)
 	rho = gsw.rho(SA, CT, p)
 	return CT, rho
 
-def p2depth(p: np.ndarray):
+def p2depth(p: np.ndarray, interpolate: bool = True) -> np.ndarray:
 	"""
 	Calculate the depth in meters from the sea water pressure in dbar.
 	
 	Args:
 		p: Sea water pressure in dbar.
+		interpolate (bool): Whether to interpolate missing values (default=False).
 	
 	Returns:
 		The depth in meters corresponding to the given pressure.
 	"""
+	if interpolate:
+		p = interpolate_nans(p)
+		
 	# Constants used in the depth calculation formula
-	g: float = 9.81  # standard value of gravity, m/s^2
-	a: float = -1.82e-15
-	b: float = 2.279e-10
-	c: float = 2.2512e-5
-	d: float = 9.72659
+	g = 9.81  # standard value of gravity, m/s^2
+	a = -1.82e-15
+	b = 2.279e-10
+	c = 2.2512e-5
+	d = 9.72659
 
 	# Calculate the depth using the given pressure and the constants
-	depth: np.ndarray = (p * (p * (p * a + b) - c) + d) / g
-
-	return depth
+	return (p * (p * (p* (p * a + b) - c) + d)) / g
 
 def dm2d(x):
 	"""
@@ -150,51 +177,62 @@ def findProfiles(stamp: np.ndarray,depth: np.ndarray,**kwargs) -> tuple[np.ndarr
 	options_list.update(kwargs)
 	
 	# Flatten input arrays
+	#stamp = stamp.to_numpy()
+	#depth = depth.to_numpy()
 	depth, stamp = depth.flatten(), stamp.flatten()
+
+	valid_index = np.argwhere(np.logical_not(np.isnan(depth)) & np.logical_not(np.isnan(stamp))).flatten()
+	valid_index = valid_index.astype(int)
 	
-	# Compute vertical direction
-	valid = np.isfinite(depth) & np.isfinite(stamp)
-	sdy = np.sign(np.diff(depth[valid]))
-	
-	# Identify depth peaks
-	depth_peak = np.diff(sdy, prepend=0, append=0) != 0
-	depth_peak_index = np.flatnonzero(depth_peak)
-	
-	# Identify cast segments
-	sgmt_frst, sgmt_last = stamp[depth_peak_index[:-1]], stamp[depth_peak_index[1:]]
-	sgmt_strt, sgmt_fnsh = depth[depth_peak_index[:-1]], depth[depth_peak_index[1:]]
-	sgmt_sinc, sgmt_vinc = sgmt_last - sgmt_frst, sgmt_fnsh - sgmt_strt
-	cast_sgmt_valid = ~(np.abs(sgmt_vinc) <= options_list["stall"]) & ~(sgmt_sinc <= options_list["shake"])
-	cast_sgmt_index = np.flatnonzero(cast_sgmt_valid)
-	cast_sgmt_lapse = sgmt_frst[cast_sgmt_index[1:]] - sgmt_last[cast_sgmt_index[:-1]]
-	cast_sgmt_space = -sgmt_vinc[cast_sgmt_index[:-1]] * (sgmt_strt[cast_sgmt_index[1:]] - sgmt_fnsh[cast_sgmt_index[:-1]])
-	cast_sgmt_dirch = np.diff(np.sign(sgmt_vinc[cast_sgmt_index]))
-	cast_sgmt_bound = ~((cast_sgmt_dirch == 0) & (cast_sgmt_lapse <= options_list["interrupt"]) & (cast_sgmt_space <= options_list["inversion"]))
-	cast_head_index = depth_peak_index[cast_sgmt_index[1:][cast_sgmt_bound]]
-	cast_tail_index = depth_peak_index[cast_sgmt_index[:-1][cast_sgmt_bound]] + 1
-	
-	# Identify valid casts
+	sdy = np.sign(np.diff(depth[valid_index], n=1, axis=0))
+	depth_peak = np.ones(np.size(valid_index), dtype=bool)
+	depth_peak[1:len(depth_peak) - 1,] = np.diff(sdy, n=1, axis=0) != 0
+	depth_peak_index = valid_index[depth_peak]
+	sgmt_frst = stamp[depth_peak_index[0:len(depth_peak_index) - 1,]]
+	sgmt_last = stamp[depth_peak_index[1:,]]
+	sgmt_strt = depth[depth_peak_index[0:len(depth_peak_index) - 1,]]
+	sgmt_fnsh = depth[depth_peak_index[1:,]]
+	sgmt_sinc = sgmt_last - sgmt_frst
+	sgmt_vinc = sgmt_fnsh - sgmt_strt
+	sgmt_vdir = np.sign(sgmt_vinc)
+
+	cast_sgmt_valid = np.logical_not(np.logical_or(np.abs(sgmt_vinc) <= options_list["stall"], sgmt_sinc <= options_list["shake"]))
+	cast_sgmt_index = np.argwhere(cast_sgmt_valid).flatten()
+	cast_sgmt_lapse = sgmt_frst[cast_sgmt_index[1:]] - sgmt_last[cast_sgmt_index[0:len(cast_sgmt_index) - 1]]
+	cast_sgmt_space = -np.abs(sgmt_vdir[cast_sgmt_index[0:len(cast_sgmt_index) - 1]] * (sgmt_strt[cast_sgmt_index[1:]] - sgmt_fnsh[cast_sgmt_index[0:len(cast_sgmt_index) - 1]]))
+	cast_sgmt_dirch = np.diff(sgmt_vdir[cast_sgmt_index], n=1, axis=0)
+	cast_sgmt_bound = np.logical_not((cast_sgmt_dirch[:,] == 0) & (cast_sgmt_lapse[:,] <= options_list["interrupt"]) & (cast_sgmt_space <= options_list["inversion"]))
+	cast_sgmt_head_valid = np.ones(np.size(cast_sgmt_index), dtype=bool)
+	cast_sgmt_tail_valid = np.ones(np.size(cast_sgmt_index), dtype=bool)
+	cast_sgmt_head_valid[1:,] = cast_sgmt_bound
+	cast_sgmt_tail_valid[0:len(cast_sgmt_tail_valid) - 1,] = cast_sgmt_bound
+
+	cast_head_index = depth_peak_index[cast_sgmt_index[cast_sgmt_head_valid]]
+	cast_tail_index = depth_peak_index[cast_sgmt_index[cast_sgmt_tail_valid] + 1]
 	cast_length = np.abs(depth[cast_tail_index] - depth[cast_head_index])
 	cast_period = stamp[cast_tail_index] - stamp[cast_head_index]
-	cast_valid = ~(cast_length <= options_list["length"]) & ~(cast_period <= options_list["period"])
-	
-	# Initialize output np arrays
-	profile_index = 0.5 + np.cumsum(np.concatenate(([0], cast_valid[:-1] != cast_valid[1:], [0])))
-	profile_direction = np.full_like(depth, np.nan)
-	
-	# Compute vertical direction for each profile
-	for i in range(len(depth_peak_index) - 1):
-		start, end = depth_peak_index[i], depth_peak_index[i+1]
-		profile_direction[start:end] = sdy[i]
-	
+	cast_valid = np.logical_not(np.logical_or(cast_length <= options_list["length"], cast_period <= options_list["period"]))
+	cast_head = np.zeros(np.size(depth))
+	cast_tail = np.zeros(np.size(depth))
+	cast_head[cast_head_index[cast_valid] + 1] = 0.5
+	cast_tail[cast_tail_index[cast_valid]] = 0.5
+
+	profile_index = 0.5 + np.cumsum(cast_head + cast_tail)
+	profile_direction = np.empty((len(depth,)))
+	profile_direction[:] = np.nan
+
+	for i in range(len(valid_index) - 1):
+		i_start = valid_index[i]
+		i_end = valid_index[i + 1]
+		profile_direction[i_start:i_end] = sdy[i]
+
 	return profile_index, profile_direction
 
-
-def correct_dead_reckoning(glider_lon, glider_lat, glider_timestamp, dive_state, gps_lon, gps_lat) -> tuple[np.ndarray, np.ndarray]:
+def correct_dead_reckoning(glider_lon, glider_lat, glider_timestamp, dive_state, gps_lon, gps_lat):
 	"""
 	Corrects glider dead reckoned locations when underwater
 	using the gps and drift at surface state (approximate currents)
-	
+
 	Parameters:
 		glider_lon (pd.Series): glider longitude
 		glider_lat (pd.Series): glider latitude
@@ -202,49 +240,65 @@ def correct_dead_reckoning(glider_lon, glider_lat, glider_timestamp, dive_state,
 		dive_state (pd.Series): glider dive state variable
 		gps_lon (pd.Series): gps longitude
 		gps_lat (pd.Series): gps latitude
-	
+
 	Returns:
 		corrected_lon (pd.Series): corrected glider longitude
 		corrected_lat (pd.Series): corrected glider latitude
 	"""
 	if not (isinstance(glider_lon, pd.Series) and isinstance(glider_lat, pd.Series) and isinstance(glider_timestamp, pd.Series) and isinstance(dive_state, pd.Series) and isinstance(gps_lon, pd.Series) and isinstance(gps_lat, pd.Series)):
 		raise ValueError("lon,lat inputs must be pandas series.")
-	
+
 	# Fill NaN values with previous value
 	dive_state = dive_state.ffill()
-	
+
 	# Find the start of each dive
-	dive_starts = np.argwhere(np.diff(dive_state**2) == 17)[:,0] + 1
-	
+	dive_starts = np.argwhere(np.diff(dive_state**2) != 0).flatten()
+	dive_starts = dive_starts[np.argwhere(np.diff(dive_state[dive_starts]**2, n=2, axis=0) == 18).flatten()]
+
 	# Remove dive_starts with NaN values
-	dive_starts = dive_starts[~np.isnan(glider_lon[dive_starts])]
-	
+	for ki in range(len(dive_starts)):
+		while glider_lon[dive_starts[ki]] != glider_lon[dive_starts[ki]]:
+			dive_starts[ki] = dive_starts[ki] + 1
+
 	# Find the end of each dive
 	dive_ends = np.argwhere(np.diff(dive_state**2, n=1) == 5)[:,0] + 1
-	
+
 	# Remove dive_ends with NaN values
-	dive_ends = dive_ends[~(np.isnan(glider_lon[dive_ends]) & np.isnan(gps_lon[dive_ends]))]
-	
+	for ki in range(len(dive_ends)):
+		while (glider_lon[dive_ends[ki]] != glider_lon[dive_ends[ki]]) and (gps_lon[dive_ends[ki]] != gps_lon[dive_ends[ki]]):
+			dive_ends[ki] = dive_ends[ki] + 1
+
 	# Find the midpoint of each dive
 	dive_mids = np.argwhere(np.diff(dive_state**2, n=1) == 3)[:,0]
-	while np.isnan(glider_lon[dive_mids]):
-		dive_mids -= 1
-	
+	for ki in range(len(dive_mids)):
+		while glider_lon[dive_mids[ki]] != glider_lon[dive_mids[ki]]:
+			dive_mids[ki] = dive_mids[ki] - 1
+
 	# Calculate the velocity for longitude and latitude
-	time_diff = glider_timestamp[dive_mids] - glider_timestamp[dive_starts]
-	vlonDD = (glider_lon[dive_ends] - glider_lon[dive_mids]) / time_diff
-	vlatDD = (glider_lat[dive_ends] - glider_lat[dive_mids]) / time_diff
-	
+	time_diff = glider_timestamp[dive_mids].to_numpy() - glider_timestamp[dive_starts].to_numpy()
+	vlonDD = (glider_lon[dive_ends].to_numpy() - glider_lon[dive_mids].to_numpy()) / time_diff
+	vlatDD = (glider_lat[dive_ends].to_numpy() - glider_lat[dive_mids].to_numpy()) / time_diff
+
 	# Calculate the corrected latitude and longitude
-	good_indices = np.concatenate([np.argwhere(~np.isnan(glider_lon[i:j+1])) + i for i, j in zip(dive_starts, dive_mids)])
-	ti = glider_timestamp[good_indices] - glider_timestamp[good_indices[0]]
-	loncDD = np.concatenate([(glider_lon[i] + ti * vlonDD[n]) for n, i in enumerate(dive_starts)])
-	latcDD = np.concatenate([(glider_lat[i] + ti * vlatDD[n]) for n, i in enumerate(dive_starts)])
+	loncDD = np.array(())
+	latcDD = np.array(())
+	ap = np.array(())
 	
+	for i in range(len(dive_starts)):
+		idtemp = np.arange(dive_starts[i], dive_mids[i] + 1)
+		a = (dive_starts[i] + np.argwhere((~glider_lon[idtemp].isna()).to_numpy())).flatten()
+
+		# This index is used to introduce "nan's" for padding to match array size to the original array
+		ap = np.hstack((ap, a))
+
+		ti = (glider_timestamp[a] - glider_timestamp[a[0]]).to_numpy()  # Changed this line
+		loncDD = np.hstack((loncDD, (glider_lon[a].to_numpy() + ti * vlonDD[i])))
+		latcDD = np.hstack((latcDD, (glider_lat[a].to_numpy() + ti * vlatDD[i])))
+
 	# Initialize the output arrays and fill them with the corrected values
-	corrected_lon = np.full_like(glider_lon, np.nan)
-	corrected_lat = np.full_like(glider_lat, np.nan)
-	corrected_lon[good_indices] = loncDD
-	corrected_lat[good_indices] = latcDD
-	
+	corrected_lon = glider_lon * np.nan
+	corrected_lat = glider_lat * np.nan
+	corrected_lon.iloc[ap.astype(int)] = loncDD
+	corrected_lat.iloc[ap.astype(int)] = latcDD
+
 	return corrected_lon, corrected_lat

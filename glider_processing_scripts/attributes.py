@@ -1,5 +1,3 @@
-
-
 import numpy as np
 import pandas as pd
 from datetime import datetime
@@ -7,12 +5,10 @@ import math
 import yaml
 
 
-def attr(fileName, data, GLIDERS_DB, ATTRS,ENCODER, processingMode):
-
+def attr(fileName, data, GLIDERS_DB, METADATA, ENCODER, PROCESSING_MODE):
     
-    
-    ##  READ ATTRIBUTES AND VARIABLE NAMING RULES (DECODER)
-    with open(ATTRS, 'r') as f:
+    ##  READ ATTRIBUTES AND VARIABLE NAMING RULES (ENCODER)
+    with open(METADATA, 'r') as f:
         attrs = yaml.safe_load(f)
     with open(ENCODER,'r') as f:
         CFL= yaml.safe_load(f)
@@ -65,7 +61,7 @@ def attr(fileName, data, GLIDERS_DB, ATTRS,ENCODER, processingMode):
     
     ##  CALCULATED
     deploymentDateTime = attrs['global']['deployment_datetime']  ##  SHOULD BE CALCULATED AUTOMATICALLY
-    data.attrs['processing_mode'] = processingMode
+    data.attrs['processing_mode'] = PROCESSING_MODE
     data.attrs['deployment_name'] = '%s-%s' % (gliderName, deploymentDateTime)
     data.attrs['deployment_id'] = deploymentID
     data.attrs['instrument_id'] = gliderName
