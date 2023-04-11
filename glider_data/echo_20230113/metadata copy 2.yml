@@ -1,7 +1,5 @@
 # The variables have to comply with CF conventions where applicable:
 # https://cfconventions.org/Data/cf-standard-names/current/build/cf-standard-name-table.html
-
-## INSTRUMENT SPECIFIC INPUTS
 instrument_ctd:
   _FillValue: -999
   serial_number: "207968"
@@ -14,9 +12,8 @@ instrument_ctd:
   platform: "platform"
   type: "platform"
 
-## PLATFORM SPECIFIC INPUTS
 global:
-  deployment_datetime: "2023-01-13T12:23:45Z" # Fill by hand for now
+  deployment_datetime: "2023-01-23T01:23:45Z" # Fill by hand for now
   acknowledgment: "These data where collected through funding provided by the Ocean Frontier Institute at Memorial University."
   comment: "Slocum glider underwater vehicle data"
   contributor_name: "Lorenzo Moro, Nicolai von Oppeln-Bronikowski, Sarik Shaikh-Upadhye, Taimaz Bahadory"
@@ -56,7 +53,8 @@ global:
   geospatial_vertical_units: "EPSG:5831"
   sea_name: "North Atlantic Ocean"
   
-  ## THESE SHOULD NOT CHANGE
+  ## THESE SHOULD NOT CHANGE 
+  program: "MUN_GLIDERS"
   naming_authority: "US-IOOS"
   processing_level: "realtime-mode/ or recovered raw Slocum glider dataset from the native data file format. No quality control provided."
   publisher_email: "taimaz.bahadory@mun.ca"
@@ -80,4 +78,6 @@ global:
   license: "This data may be redistributed without restriction. Data provided as is with no expressed or implied assurance of quality assurance or quality control"
   references: "https://ioos.noaa.gov/wp-content/uploads/2015/10/Manual-for-QC-of-Glider-Data_05_09_16.pdf"
   format_version: "1.0.0"
+
+
 
