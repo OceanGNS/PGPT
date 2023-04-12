@@ -170,17 +170,20 @@ def findProfiles(stamp: np.ndarray,depth: np.ndarray,**kwargs) -> tuple[np.ndarr
 		profile_direction (np.ndarray): A 1D array of vertical directions.
 	"""
 	if not (isinstance(stamp, np.ndarray) and isinstance(depth, np.ndarray)):
-		raise ValueError("stamp and depth must be numpy arrays.")
-	
-	# Set default parameter values
-	options_list = { "length": 0, "period": 0, "inversion": 0, "interrupt": 0, "stall": 0, "shake": 0 }
-	options_list.update(kwargs)
+		stamp = stamp.to_numpy()
+		depth = depth.to_numpy()
 	
 	# Flatten input arrays
-	#stamp = stamp.to_numpy()
-	#depth = depth.to_numpy()
 	depth, stamp = depth.flatten(), stamp.flatten()
-
+	
+	# Check if the stamp is a datetime object and convert to elapsed seconds if necessary
+	if np.issubdtype(stamp.dtype, np.datetime64):
+		stamp = (stamp - stamp[0]).astype('timedelta64[s]').astype(float)
+	
+	# Set default parameter values (did not set type np.timedelta64(0, 'ns') )
+	options_list = { "length": 0, "period": 0, "inversion": 0, "interrupt": 0, "stall": 0, "shake": 0}
+	options_list.update(kwargs)
+	
 	valid_index = np.argwhere(np.logical_not(np.isnan(depth)) & np.logical_not(np.isnan(stamp))).flatten()
 	valid_index = valid_index.astype(int)
 	
