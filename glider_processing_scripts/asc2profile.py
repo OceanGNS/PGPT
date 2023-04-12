@@ -49,10 +49,10 @@ def process_and_save_data(data, filename, gliders_db, metadata_source, processin
 		data.update({k: np.clip(data[k], *r) for k, r in zip(['m_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'], [(-90, 90), (-180, 180)] * 2)})
 
 	if all(k in data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure']):
-		data.update({k: np.clip(data[k], *r) for k, r in zip(['sci_water_cond', 'sci_water_temp', 'sci_water_pressure'], [(0.01, 4), (-2, 25), (-2, 1200)])})
+		data.update({k: np.clip(data[k], *r) for k, r in zip(['sci_water_cond', 'sci_water_temp', 'sci_water_pressure'], [(0.01, 5), (-2, 25), (-2, 1200)])})
 	
 	if 'sci_oxy4_oxygen' in data:
-		data['sci_oxy4_oxygen'] = np.clip(data['sci_oxy4_oxygen'], 5, 500)
+		data['sci_oxy4_oxygen'] = np.clip(data['sci_oxy4_oxygen'], 0.01, 500)
 	
 	if 'sci_water_pressure' in data:
 		data['sci_water_depth'] = p2depth(data['sci_water_pressure'])
@@ -68,6 +68,9 @@ def process_and_save_data(data, filename, gliders_db, metadata_source, processin
 		data['salinity'], data['absolute_salinity'] = c2salinity(glider_data['sci_water_cond'].to_numpy(), glider_data['sci_water_temp'].to_numpy(), glider_data['sci_water_pressure'].to_numpy(), glider_data['m_gps_lon'].to_numpy(), glider_data['m_gps_lat'].to_numpy())
 		data['conservative_temperature'], data['density'] = stp2ct_density(data['absolute_salinity'].to_numpy(), glider_data['sci_water_temp'].to_numpy(), glider_data['sci_water_pressure'].to_numpy())
 		data['conductivity'], data['temperature'], data['depth'], data['pressure'] = glider_data['sci_water_cond'], glider_data['sci_water_temp'], glider_data['sci_water_depth'], glider_data['sci_water_pressure']
+		
+	# CTD sensor QC
+	# ---> WE CAN ADD QUALITY CONTROL FUNCTION CALLS HERE
 	
 	# oxygen sensor
 	if all(k in glider_data.keys() for k in ['sci_oxy4_oxygen', 'sci_water_temp', 'sci_water_pressure']):
