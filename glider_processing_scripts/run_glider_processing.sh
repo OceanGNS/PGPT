@@ -61,13 +61,18 @@ convert_to_netcdf() {
   ln -s ${scripts_dir}/bin/dbd_filter.csv
   ln -s ${scripts_dir}/attributes/glider_dac_3.0_conventions.yml
   
+  # Create *.nc profile files
   for f in $(ls ${glider}*.[de]bd.txt | sed 's/\..bd\.txt//' | sort -u); do
     if [[ ! -e ../nc/$f.nc ]]; then
       python3 ${scripts_dir}/asc2profile.py $f ${gliders_db} ${metadata_file} ${processing_mode}
     fi
   done
   
-  rm dbd_filter.csv functions.py attributes.py glider_dac_3.0_conventions.yml
+  # Create trajectory file
+  python3 ${scripts_dir}/profile2traj.py "${mission_dir}/nc/" ${processing_mode} ${gliders_db} ${metadata_file}
+  
+  # Remove the linked files from the "${mission_dir}/txt" directory
+  rm "${mission_dir}/txt/dbd_filter.csv" "${mission_dir}/txt/functions.py" "${mission_dir}/txt/attributes.py" "${mission_dir}/txt/glider_dac_3.0_conventions.yml"
 }
 
 # Main function

@@ -4,7 +4,7 @@ import csv
 import numpy as np
 import pandas as pd
 from functions import c2salinity, stp2ct_density, p2depth, dm2d, O2freshtosal
-from attributes import attr
+from attributes import save_netcdf
 
 ## REMOVE ANNOYING WARNINGS FOR EMPTY ARRAYS
 import warnings
@@ -32,7 +32,7 @@ def read_var_filter():
 	with open('dbd_filter.csv', 'r') as fid:
 		return next(csv.reader(fid, delimiter=','))
 	
-def process_and_save_data(data, filename, gliders_db, metadata_source, processing_mode):
+def process_data(data, filename, gliders_db, metadata_source, processing_mode):
 	def update_columns(data, cols, func):
 		data.update({col: func(data[col]) for col in cols if col in data.keys()})
 	
@@ -92,18 +92,16 @@ def process_and_save_data(data, filename, gliders_db, metadata_source, processin
 	        data['cdom'] = glider_data[k]
 	        break
 	
-	# convert & save glider *.bd files to *.nc files
+	# Attribute encoder settings and data type setting
 	encoder = 'glider_dac_3.0_conventions.yml'
-	save_netcdf(data, glider_data, filename, gliders_db, metadata_source, encoder, processing_mode)
-
-def save_netcdf(data, glider_data, filename, gliders_db, metadata_source, encoder, processing_mode):
-	if not data.empty:
-		data = data.set_index('time').to_xarray()
-		attr(filename, data, gliders_db, metadata_source, encoder, processing_mode)
-		output_path = f'../nc/{filename}_delayed.nc'
-		data.to_netcdf(output_path)
-		glider_data_nc = glider_data.set_index('time').to_xarray()
-		glider_data_nc.to_netcdf(output_path, group="glider_record", mode="a")
+	data_type = 'profile'
+	
+	# The path and filename handling is not very robust -> should be improved!!!
+	nc_path = f'../nc/'
+	filename = filename+'_delayed.nc'
+	
+	# convert & save glider *.bd files to *.nc files
+	save_netcdf(filename,nc_path,data, glider_data, gliders_db, metadata_source, encoder, processing_mode, data_type)
 	
 def main(args):
 	# Validate command-line arguments
@@ -118,7 +116,7 @@ def main(args):
 	data = pd.concat([dbd_data, ebd_data], ignore_index=True, sort=True).sort_values(by=['time'])
 	
 	# Process and save data as netCDF
-	process_and_save_data(data, args.filename, args.gliders_db, args.metadata, args.processing_mode)
+	process_data(data, args.filename, args.gliders_db, args.metadata, args.processing_mode)
 
 
 if __name__ == "__main__":
