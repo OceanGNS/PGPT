@@ -5,7 +5,7 @@ glider="echo"
 
 # specify processing mode
 # this should be used to pick between delayed and realtime mode settings (*[s/t]bd vs *[d/e]bd)
-processing_mode="delayed"
+processing_mode="delayed" # or "realtime"
 
 # set path variables
 mission_dir="$PWD/${processing_mode}"

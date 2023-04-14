@@ -3,36 +3,34 @@ import pandas as pd
 from datetime import datetime
 import math
 import yaml
+import netCDF4 as nc4
+import os
 
-
-def attr(fileName, data, GLIDERS_DB, METADATA, ENCODER, PROCESSING_MODE, DATA_TYPE):
+def data_attributes(data, source_info):
 	"""
 	Add global and variable attributes to an xarray Dataset containing glider data.
 	
 	Args:
-	fileName (str): Name of the output NetCDF file.
 	data (xr.Dataset): xarray Dataset containing the glider data.
-	GLIDERS_DB (str): Path to the CSV file containing the glider database.
-	METADATA (str): Path to the YAML file containing metadata attributes.
-	ENCODER (str): Path to the YAML file containing IOOS encoder (variable naming rules).
-	PROCESSING_MODE (str): Processing mode of the glider data (e.g., 'real-time', 'delayed').
-	DATA_TYPE (str): Type of the glider data (e.g., 'profile', 'trajectory').
+	source_info (pd.DataFrame): Information about the Dataset and processing mode
 	
 	Note:
 	This function modifies the input xarray Dataset 'data' in-place.
 	"""
+	data = data.copy()
+	
 	##  READ ATTRIBUTES AND VARIABLE NAMING RULES (ENCODER)
-	with open(METADATA, 'r') as f:
+	with open(source_info['metadata_source'], 'r') as f:
 		attrs = yaml.safe_load(f)
-	with open(ENCODER,'r') as f:
-		CFL= yaml.safe_load(f)
+	with open(source_info['encoder'], 'r') as f:
+		cfl= yaml.safe_load(f)
 	# Merge dictionaries from master yaml and IOOS Decoder
-	attrs = attrs | CFL
+	attrs = {**attrs, **cfl}
 	
 	#####################  AUTO CALCULATE  #####################
 	##  FROM NC FILE
 	now = datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
-	gliderName = fileName.split('-')[0]  ##  eg sunfish (all small letters)
+	gliderName = source_info['filename'].split('-')[0]  ##  eg sunfish (all small letters)
 	lonMin = np.nanmin(data.variables['lon'][:])
 	lonMax = np.nanmax(data.variables['lon'][:])
 	latMin = np.nanmin(data.variables['lat'][:])
@@ -60,7 +58,7 @@ def attr(fileName, data, GLIDERS_DB, METADATA, ENCODER, PROCESSING_MODE, DATA_TY
 	deploymentID = 33 # SHOULD CALCULATED AUTOMATICALLY
 	
 	##  FROM DATABASE
-	gliderDB = pd.read_csv(GLIDERS_DB)
+	gliderDB = pd.read_csv(source_info['gliders_db'])
 	glider = gliderDB.loc[gliderDB['glider_name'] == gliderName]
 	gliderSerialID = gliderDB['glider_serial'].to_numpy()[0]
 	platformType = gliderDB['glider_type'].to_numpy()[0]
@@ -73,7 +71,24 @@ def attr(fileName, data, GLIDERS_DB, METADATA, ENCODER, PROCESSING_MODE, DATA_TY
 	
 	##  CALCULATED
 	deploymentDateTime = attrs['global']['deployment_datetime']  ##  SHOULD BE CALCULATED AUTOMATICALLY
-	data.attrs['processing_mode'] = PROCESSING_MODE
+	data.attrs['processing_mode'] = source_info['processing_mode']
+	data.attrs['cdm_data_type'] = source_info['data_type']
+	
+	if any('/' in file or '\\' in file for file in source_info['data_source']):
+		# Use os.path.basename() to get only the file names
+		file_names = [os.path.basename(file) for file in source_info['data_source']]
+		data.attrs['source'] = ', '.join(file_names)
+	else:
+		data.attrs['source'] = source_info['data_source']
+	
+	processing_levels = {
+		('realtime', 'profile'): 'Realtime raw Slocum glider profile data converted from the native data file format. No quality control provided.',
+		('realtime', 'trajectory'): 'Realtime raw Slocum glider trajectory data converted and concatenated from the native data file format. No quality control provided.',
+		('delayed', 'profile'): 'Delayed mode Slocum glider profile data converted from the native format. Limited and provisional quality control provided.',
+		('delayed', 'trajectory'): 'Delayed mode Slocum glider trajectory data converted and concatenated from the complete data set. Limited and provisional quality control provided.',
+	}
+	processing_key = (source_info['processing_mode'], source_info['data_type'])
+	data.attrs['processing_level'] = processing_levels.get(processing_key, 'Unknown processing level')
 	data.attrs['deployment_name'] = '%s-%s' % (gliderName, deploymentDateTime)
 	data.attrs['deployment_id'] = deploymentID
 	data.attrs['instrument_id'] = gliderName
@@ -81,7 +96,6 @@ def attr(fileName, data, GLIDERS_DB, METADATA, ENCODER, PROCESSING_MODE, DATA_TY
 	data.attrs['platform_type'] = platformType
 	data.attrs['wmo_id'] = WMOid
 	data.attrs['wmo_platform_code'] = WMOid
-	data.attrs['cdm_data_type'] = DATA_TYPE
 	data.attrs['geospatial_lat_min'] = latMin
 	data.attrs['geospatial_lat_max'] = latMax
 	data.attrs['geospatial_lon_min'] = lonMin
@@ -93,11 +107,11 @@ def attr(fileName, data, GLIDERS_DB, METADATA, ENCODER, PROCESSING_MODE, DATA_TY
 	data.attrs['id'] = '%s-%s' % (gliderName, deploymentDateTime)
 	data.attrs['profile_id'] = data.attrs['id']
 	data.attrs['title'] = "Slocum Glider data from glider %s" % deploymentID
-	data.attrs['source'] = "Observational Slocum glider data from source dba file XXX-YYYY-XXX-X-X-dbd(XXXXXXX)"
 	data.attrs['time_coverage_duration'] = duration
 	data.attrs['date_created'] = now
 	data.attrs['date_issued'] = now
 	data.attrs['date_modified'] = now
+	
 	
 	#####################  ADD VARIABLE ATTRIBUTES FROM THE CF NAMELIST #####################
 	for var in attrs['CFnamelist'].keys():
@@ -134,22 +148,24 @@ def attr(fileName, data, GLIDERS_DB, METADATA, ENCODER, PROCESSING_MODE, DATA_TY
 
 	data['instrument_ctd'] = 0
 	data['instrument_ctd'].attrs = attrs['instrument_ctd']
+	
+	return data
 
-def save_netcdf(fname,nc_path,data, raw_data, gliders_db, metadata_source, encoder, processing_mode, data_type):
+def save_netcdf(data, raw_data, source_info):
 	"""
 	Save processed and raw glider data to a NetCDF file.
 	
 	Args:
-	fname (str): Output filename.
-	nc_path (str): Output directory path.
 	data (pd.DataFrame): Processed glider data.
 	raw_data (pd.DataFrame): Raw glider data.
+	source_info (pd.DataFrame): Information about the data and data tags
 	"""
+	output_fn=source_info['filepath']+source_info['filename']
+	
 	if not data.empty:
-		output_fn=nc_path+fname
 		data = data.set_index('time').to_xarray()
-		attr(fname, data, gliders_db, metadata_source, encoder, processing_mode, data_type)
-		data.to_netcdf(output_fn)
+		modified_data = data_attributes(data, source_info)
+		modified_data.to_netcdf(output_fn)
 	if not raw_data.empty:
 		raw_data = raw_data.set_index('time').to_xarray()
 		raw_data.to_netcdf(output_fn, group="glider_record", mode="a")

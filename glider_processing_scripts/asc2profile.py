@@ -3,8 +3,9 @@ import os.path
 import csv
 import numpy as np
 import pandas as pd
-from functions import c2salinity, stp2ct_density, p2depth, dm2d, O2freshtosal
-from attributes import save_netcdf
+import logging
+from gliderfuncs import c2salinity, stp2ct_density, p2depth, dm2d, O2freshtosal
+from data2attr import save_netcdf
 
 ## REMOVE ANNOYING WARNINGS FOR EMPTY ARRAYS
 import warnings
@@ -32,7 +33,7 @@ def read_var_filter():
 	with open('dbd_filter.csv', 'r') as fid:
 		return next(csv.reader(fid, delimiter=','))
 	
-def process_data(data, filename, gliders_db, metadata_source, processing_mode):
+def process_data(data, source_info):
 	def update_columns(data, cols, func):
 		data.update({col: func(data[col]) for col in cols if col in data.keys()})
 	
@@ -82,48 +83,69 @@ def process_data(data, filename, gliders_db, metadata_source, processing_mode):
 	# optical sensors (if present)
 	chlorophyll_list = ['sci_flbbrh_chlor_units', 'sci_flbbcd_chlor_units', 'sci_flbb_chlor_units', 'sci_flntu_chlor_units']
 	for k in chlorophyll_list:
-	    if k in glider_data:
-	        data['chlorophyll_a'] = glider_data[k]
-	        break
+		if k in glider_data:
+			data['chlorophyll_a'] = glider_data[k]
+			break
 	
 	cdom_list = ['sci_fl3slo_cdom_unit', 'sci_fl3sloV2_cdom_units', 'sci_flbbcd_cdom_units', 'sci_fl2PeCdom_cdom_units']
 	for k in cdom_list:
-	    if k in glider_data:
-	        data['cdom'] = glider_data[k]
-	        break
-	
-	# Attribute encoder settings and data type setting
-	encoder = 'glider_dac_3.0_conventions.yml'
-	data_type = 'profile'
-	
-	# The path and filename handling is not very robust -> should be improved!!!
-	nc_path = f'../nc/'
-	filename = filename+'_delayed.nc'
+		if k in glider_data:
+			data['cdom'] = glider_data[k]
+			break
 	
 	# convert & save glider *.bd files to *.nc files
-	save_netcdf(filename,nc_path,data, glider_data, gliders_db, metadata_source, encoder, processing_mode, data_type)
+	name, ext = os.path.splitext(source_info['filename'])
+	filename, bd_ext = os.path.splitext(name)
+	source_info['filename'] = filename+'_delayed.nc'
+	source_info['filepath'] = source_info['filepath']+'/nc/'
+	save_netcdf(data, glider_data, source_info)
 	
-def main(args):
+def main(source_info):
 	# Validate command-line arguments
-	if not os.path.isfile(f'{args.filename}.dbd.txt'):
-		raise FileNotFoundError(f'{file_arg} does not exist')
+	file_types = ['dbd', 'sbd', 'tbd', 'ebd']
+	filename = source_info['filename']
+	name, ext = os.path.splitext(filename)
+	name, ebd_ext = os.path.splitext(name)
+	filename = name
+	
+	file_exists = any(os.path.isfile(f'{filename}.{file_type}.txt') for file_type in file_types)
+	if not file_exists:
+		raise FileNotFoundError(f'No matching file found for {filename} with extensions .dbd.txt, .sbd.txt, .tbd.txt, or .ebd.txt')
 	
 	var_filter = read_var_filter()
-	dbd_data = read_bd_data(f'{args.filename}.dbd.txt', var_filter)
-	ebd_data = read_bd_data(f'{args.filename}.ebd.txt', None)
+	if source_info['processing_mode'] == 'delayed':
+		flight_data = read_bd_data(f'{filename}.dbd.txt', var_filter)
+		science_data = read_bd_data(f'{filename}.ebd.txt', None)
+	elif source_info['processing_mode'] == 'realtime':
+		flight_data = read_bd_data(f'{filename}.sbd.txt', None)
+		science_data = read_bd_data(f'{filename}.tbd.txt', None)
+	else:
+		raise ValueError("Invalid processing mode. Supported modes are 'delayed_mode' and 'realtime'.")
 	
 	# Merge records and sort by time
-	data = pd.concat([dbd_data, ebd_data], ignore_index=True, sort=True).sort_values(by=['time'])
+	data = pd.concat([df for df in [flight_data, science_data] if not df.empty], ignore_index=True, sort=True).sort_values(by=['time'])
 	
 	# Process and save data as netCDF
-	process_data(data, args.filename, args.gliders_db, args.metadata, args.processing_mode)
-
+	process_data(data, source_info)
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument('filename', help='name of the input file')
+	parser.add_argument('filepath', help='path of the input file')
+	parser.add_argument('processing_mode',help='processing mode')
 	parser.add_argument('gliders_db', help='name of the glider database')
 	parser.add_argument('metadata', help='name of the metadata file')
-	parser.add_argument('processing_mode',help='processing mode')
-	args = parser.parse_args()
-	main(args)
+	arg_info = parser.parse_args()
+	
+	source_info = {
+		'encoder': 'glider_dac_3.0_conventions.yml',
+		'data_type': 'profile',
+		'gliders_db': arg_info.gliders_db,
+		'metadata_source': arg_info.metadata,
+		'processing_mode': arg_info.processing_mode,
+		'data_source': arg_info.filename,
+		'filename': arg_info.filename,
+		'filepath': arg_info.filepath
+	}
+	main(source_info)
+	
