@@ -10,10 +10,17 @@ def interpolate_nans(x: np.ndarray):
 	Returns:
 		Array with nan's filled.
 	"""
+	x[np.isclose(x, 0, atol=1e-8)] = np.nan
 	x = np.copy(x)
 	not_nan = np.logical_not(np.isnan(x))
+
+	# Check if there are any non-NaN values in the array
+	if not np.any(not_nan):
+		return x  # Return the input array if it contains only NaN values
+
 	x[np.isnan(x)] = np.interp(np.flatnonzero(np.isnan(x)), np.flatnonzero(not_nan), x[not_nan])
 	return x
+
 
 def c2salinity(c: np.ndarray, t: np.ndarray, p: np.ndarray, lon: np.ndarray, lat: np.ndarray,interpolate: bool = True) -> tuple[np.ndarray, np.ndarray]:
 	"""
