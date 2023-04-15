@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 def get_qc_options(variable_name):
 	if variable_name == 'oxygen':
@@ -21,11 +22,11 @@ def get_qc_options(variable_name):
 			'sensor_max': 40,
 			'sensor_user_min': 10,
 			'sensor_user_max': 37,
-			'spike_thrshld_low': 0.3,
-			'spike_thrshld_high': 0.9,
-			'n_dev': 3,
-			'time_dev': 25,
-			'eps': 0.005,
+			'spike_thrshld_low': 4,
+			'spike_thrshld_high': 8,
+			'n_dev': 1.5,
+			'time_dev': 0.5,
+			'eps': 1e-6,
 			'rep_cnt_fail': 5,
 			'rep_cnt_suspect': 3
 		}
@@ -38,7 +39,7 @@ def get_qc_options(variable_name):
 			'spike_thrshld_low': 3,
 			'spike_thrshld_high': 8,
 			'n_dev': 3,
-			'time_dev': 25,
+			'time_dev': 0.5,
 			'eps': 0.05,
 			'rep_cnt_fail': 5,
 			'rep_cnt_suspect': 3
@@ -52,7 +53,7 @@ def get_qc_options(variable_name):
 			'spike_thrshld_low': 3,
 			'spike_thrshld_high': 8,
 			'n_dev': 3,
-			'time_dev': 25,
+			'time_dev': 0.5,
 			'eps': 0.05,
 			'rep_cnt_fail': 5,
 			'rep_cnt_suspect': 3
@@ -123,26 +124,38 @@ def rate_of_change_test(var, time, qc_flag, n_dev=3, tim_dev=25):
 	if not isinstance(time[0], np.datetime64):
 		time = np.array(time, dtype='datetime64[ns]')
 
-	# Compute the time differences
-	time_diff = np.ediff1d(time).astype('timedelta64[s]').astype(float) / 3600
-	valid_diff = time_diff > 0
+	recent_data = []
 
-	# Compute the rate of change
-	rate_of_change = np.abs(np.diff(var)) / time_diff
-	rate_of_change[~valid_diff] = 0
+	for i in range(1, len(var)):
+		if np.isclose(var[i], 0, atol=1e-8) or np.isclose(var[i - 1], 0, atol=1e-8):
+			continue
 
-	# Compute the standard deviations and thresholds using a rolling window
-	var_series = pd.Series(var)
-	rolling_std = var_series.rolling(window=tim_dev).std(ddof=1)
-	threshold = n_dev * rolling_std
+		time_diff = (time[i] - time[i - 1]).astype('timedelta64[s]').astype(float) / 3600
 
-	# Find where the rate of change exceeds the threshold
-	exceed_threshold = rate_of_change > threshold[1:].to_numpy()
+		if time_diff <= 0:
+			continue
 
-	# Update the qc_flag array
-	qc_flag[1:][exceed_threshold] = 3
+		# Add a small positive constant to the denominator to prevent division by zero
+		rate_of_change = np.abs(var[i] - var[i - 1]) / (time_diff + 1e-8)
+
+		# Remove elements outside the tim_dev window
+		recent_data = [(t, v) for t, v in recent_data if (time[i] - t).astype('timedelta64[h]').astype(float) < tim_dev]
+
+		# Add the current data point to recent_data
+		recent_data.append((time[i - 1], var[i - 1]))
+
+		if len(recent_data) < 2:
+			continue
+
+		values = [v for t, v in recent_data]
+		sd = np.std(values, ddof=1)
+		threshold = n_dev * sd
+
+		if rate_of_change > threshold:
+			qc_flag[i] = 3
 
 	return qc_flag
+
 
 
 def flat_line_test(var, qc_flag, eps=1e-6, rep_cnt_fail=5, rep_cnt_suspect=3):
@@ -155,20 +168,19 @@ def flat_line_test(var, qc_flag, eps=1e-6, rep_cnt_fail=5, rep_cnt_suspect=3):
 	:param rep_cnt_suspect: int, number of repeated observations for a suspect flag
 	:return: array-like, the flags for each data point (1: Pass, 3: Suspect, 4: Fail)
 	"""
-	# Compute the differences between adjacent elements and compare with eps
-	abs_diff = np.abs(np.diff(var)) < eps
+	repeat_count = 0
 
-	# Identify runs of repeated values and compute their lengths
-	runs = np.split(abs_diff, np.where(~abs_diff)[0] + 1)
-	run_lengths = np.array([len(run) for run in runs if run[0]])
+	for i in range(1, len(var)):
+		if abs(var[i] - var[i-1]) < eps:
+			repeat_count += 1
+		else:
+			repeat_count = 0
 
-	# Identify the starting indices of suspect and fail runs
-	suspect_start_indices = np.where(~abs_diff)[0][np.cumsum(run_lengths)[:-1]] - run_lengths + rep_cnt_suspect - 1
-	fail_start_indices = np.where(~abs_diff)[0][np.cumsum(run_lengths)[:-1]] - run_lengths + rep_cnt_fail - 1
-
-	# Update the qc_flag array
-	qc_flag[suspect_start_indices] = 3
-	qc_flag[fail_start_indices] = 4
+		if not np.isclose(var[i], 0, atol=1e-8):
+			if repeat_count >= rep_cnt_fail - 1:
+				qc_flag[i] = 4
+			elif repeat_count >= rep_cnt_suspect - 1:
+				qc_flag[i] = 3
 
 	return qc_flag
 
