@@ -12,6 +12,7 @@ def get_qc_options(variable_name):
 			'spike_thrshld_high': 8,
 			'n_dev': 3,
 			'time_dev': 25,
+			'min_wind_size': 3,
 			'eps': 1e-6,
 			'rep_cnt_fail': 5,
 			'rep_cnt_suspect': 3
@@ -26,6 +27,7 @@ def get_qc_options(variable_name):
 			'spike_thrshld_high': 8,
 			'n_dev': 1.5,
 			'time_dev': 0.5,
+			'min_wind_size': 3,
 			'eps': 1e-6,
 			'rep_cnt_fail': 5,
 			'rep_cnt_suspect': 3
@@ -40,6 +42,7 @@ def get_qc_options(variable_name):
 			'spike_thrshld_high': 8,
 			'n_dev': 3,
 			'time_dev': 0.5,
+			'min_wind_size': 3,
 			'eps': 0.05,
 			'rep_cnt_fail': 5,
 			'rep_cnt_suspect': 3
@@ -54,6 +57,7 @@ def get_qc_options(variable_name):
 			'spike_thrshld_high': 8,
 			'n_dev': 3,
 			'time_dev': 0.5,
+			'min_wind_size': 3,
 			'eps': 0.05,
 			'rep_cnt_fail': 5,
 			'rep_cnt_suspect': 3
@@ -109,7 +113,8 @@ def spike_test(var, qc_flag, thrshld_low=4, thrshld_high=8):
 
 	return qc_flag
 
-def rate_of_change_test(var, time, qc_flag, n_dev=3, tim_dev=25):
+
+def rate_of_change_test(var, time, qc_flag, n_dev=3, tim_dev=25, min_window_size=3):
 	"""
 	Perform a Rate of Change Test on the given data array.
 
@@ -119,8 +124,6 @@ def rate_of_change_test(var, time, qc_flag, n_dev=3, tim_dev=25):
 	:param tim_dev: int, the period in hours over which the standard deviations are calculated
 	:return: array-like, the flags for each data point (1: Pass, 3: Suspect)
 	"""
-
-	# Ensure the time array is a NumPy datetime64 object
 	if not isinstance(time[0], np.datetime64):
 		time = np.array(time, dtype='datetime64[ns]')
 
@@ -135,27 +138,25 @@ def rate_of_change_test(var, time, qc_flag, n_dev=3, tim_dev=25):
 		if time_diff <= 0:
 			continue
 
-		# Add a small positive constant to the denominator to prevent division by zero
 		rate_of_change = np.abs(var[i] - var[i - 1]) / (time_diff + 1e-8)
 
-		# Remove elements outside the tim_dev window
 		recent_data = [(t, v) for t, v in recent_data if (time[i] - t).astype('timedelta64[h]').astype(float) < tim_dev]
 
-		# Add the current data point to recent_data
 		recent_data.append((time[i - 1], var[i - 1]))
 
-		if len(recent_data) < 2:
+		if len(recent_data) < min_window_size:
 			continue
 
 		values = [v for t, v in recent_data]
-		sd = np.std(values, ddof=1)
-		threshold = n_dev * sd
+		rates_of_change = np.diff(values) / np.diff([t.astype(float) for t, _ in recent_data])  # Calculate rates of change
+		mean_rate = np.mean(rates_of_change)
+		sd = np.std(rates_of_change, ddof=1)
+		threshold = mean_rate + n_dev * sd
 
 		if rate_of_change > threshold:
 			qc_flag[i] = 3
 
 	return qc_flag
-
 
 
 def flat_line_test(var, qc_flag, eps=1e-6, rep_cnt_fail=5, rep_cnt_suspect=3):
@@ -185,7 +186,7 @@ def flat_line_test(var, qc_flag, eps=1e-6, rep_cnt_fail=5, rep_cnt_suspect=3):
 	return qc_flag
 
 	
-def quartod_qc_checks(var, time, variable_name):
+def quartod_qc_checks(var, time, variable_name, qc_options=None):
 	"""
 	Performs Quality Control Checks on data following US QUARTOD Protocol and Standards
 	The function performs the following tests:
@@ -197,6 +198,7 @@ def quartod_qc_checks(var, time, variable_name):
 	:param var: array-like, the data to test
 	:param time: array-like, the time associated with the data
 	:param variable_name: string, the name of the variable being tested
+	:param qc_options: dictionary, optional, custom options for the tests
 	:return: array-like, the flags for each data point (1: Pass, 2: Not tested, 3: Suspect, 4: Fail, 9: Missing Data)
 	"""
 
@@ -209,7 +211,8 @@ def quartod_qc_checks(var, time, variable_name):
 	qc_flag[np.isnan(var)] = 9
 
 	# for different variables (e.g. salinity) there are different thresholds for the tests
-	qc_options = get_qc_options(variable_name)
+	if qc_options is None:
+		qc_options = get_qc_options(variable_name)
 
 	# test 1 - range check
 	qc_flag = range_check_test(var, qc_flag, qc_options['sensor_min'], qc_options['sensor_max'], qc_options['sensor_user_min'], qc_options['sensor_user_max'])
@@ -220,7 +223,7 @@ def quartod_qc_checks(var, time, variable_name):
 	print('done: test 2 - spike test for variable '+variable_name)
 
 	# test 3 - rate of change test
-	qc_flag = rate_of_change_test(var, time, qc_flag, qc_options['n_dev'], qc_options['time_dev'])
+	qc_flag = rate_of_change_test(var, time, qc_flag, qc_options['n_dev'], qc_options['time_dev'],qc_options['min_wind_size'])
 	print('done: test 3 - rate of change test for variable '+variable_name)
 
 	# test 4 - flat line test

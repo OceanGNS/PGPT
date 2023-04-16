@@ -1,9 +1,8 @@
+import gsw
 import numpy as np
 import pandas as pd
-import gsw
-from typing import Tuple
 
-def interpolate_nans(x: np.ndarray):
+def interpolate_nans(x, time: np.ndarray = None, tgap: int = None):
 	"""
 	Fills not a number (nan's) in arrays
 
@@ -18,83 +17,55 @@ def interpolate_nans(x: np.ndarray):
 	if not np.any(not_nan):
 		return x  # Return the input array if it contains only NaN values
 
-	x[np.isnan(x)] = np.interp(np.flatnonzero(np.isnan(x)), np.flatnonzero(not_nan), x[not_nan])
+	if time is not None:
+		if not isinstance(time[0], np.datetime64):
+			time = np.array(time, dtype='datetime64[s]')
+
+	if tgap is not None:
+		nan_indices = np.flatnonzero(np.isnan(x))
+		for idx in nan_indices:
+			if idx == 0 or idx == len(x) - 1:
+				continue
+
+			if time is not None:
+				left_time_diff = abs((time[idx] - time[idx - 1]).astype('timedelta64[s]').astype(float))
+				right_time_diff = abs((time[idx + 1] - time[idx]).astype('timedelta64[s]').astype(float))
+			else:
+				left_time_diff = 1
+				right_time_diff = 1
+
+			if left_time_diff <= tgap and right_time_diff <= tgap:
+				x[idx] = np.interp(idx, np.flatnonzero(not_nan), x[not_nan])
+
+	else:
+		x[np.isnan(x)] = np.interp(np.flatnonzero(np.isnan(x)), np.flatnonzero(not_nan), x[not_nan])
+
 	return x
 
-
-def c2salinity(c: np.ndarray, t: np.ndarray, p: np.ndarray, lon: np.ndarray, lat: np.ndarray,interpolate: bool = True) -> tuple[np.ndarray, np.ndarray]:
-	"""
-	Calculate practical salinity and absolute salinity from conductivity, temperature, and pressure using the GSW library.
-	
-	Args:
-		c: Conductivity in S/m.
-		t: Temperature in degrees Celsius.
-		p: Pressure in dbar.
-		lon: Longitude in degrees east.
-		lat: Latitude in degrees north.
-	
-	Returns:
-		A tuple containing the practical salinity and absolute salinity arrays.
-	"""
-	if not (c.shape == t.shape == p.shape == lon.shape == lat.shape):
-		raise ValueError("All input arrays must have the same shape.")
-
-	# Convert conductivity to microS/cm
-	c *= 10
-	
-	if interpolate:
-		p = interpolate_nans(p)
-		t = interpolate_nans(t)
-		c = interpolate_nans(c)
-		lon = interpolate_nans(lon)
-		lat = interpolate_nans(lat)
-	
-	# Compute practical salinity from conductivity
-	S = gsw.C_from_SP(c, t, p)
-
-	# Compute absolute salinity and return both salinity arrays
-	SA = gsw.SA_from_SP(S, p, lon, lat)
-	return S, SA
-
-def stp2ct_density(SA: np.ndarray, t: np.ndarray, p: np.ndarray, interpolate: bool = True) -> tuple[np.ndarray, np.ndarray]:
-	"""
-	Calculate conservative temperature and sea water density from salinity, temperature, and pressure using the GSW toolbox.
-	
-	Args:
-		SA (np.ndarray): Absolute salinity.
-		t (np.ndarray): Temperature in degrees Celsius.
-		p (np.ndarray): Pressure in dbar.
-	
-	Returns:
-		tuple: A tuple containing conservative temperature (CT) and sea water density (rho).
-	
-	"""
-	if not (SA.shape == t.shape == p.shape):
-		raise ValueError("All input arrays must have the same shape.")
-		
-	if interpolate:
-		p = interpolate_nans(p)
-		t = interpolate_nans(t)
-		SA = interpolate_nans(SA)
-	
-	CT = gsw.CT_from_t(SA, t, p)
-	rho = gsw.rho(SA, CT, p)
-	return CT, rho
-
-def p2depth(p: np.ndarray, interpolate: bool = True) -> np.ndarray:
+def p2depth(p: np.ndarray, time: np.ndarray = None, interpolate: bool = True, tgap: int = 20):
 	"""
 	Calculate the depth in meters from the sea water pressure in dbar.
-	
+
 	Args:
 		p: Sea water pressure in dbar.
 		interpolate (bool): Whether to interpolate missing values (default=False).
-	
+
 	Returns:
 		The depth in meters corresponding to the given pressure.
 	"""
+	
+	# Convert input arrays to ndarrays if they are not already
+	p = np.asarray(p)
+	
+	if time is not None:
+		time = np.asarray(time)
+	
 	if interpolate:
-		p = interpolate_nans(p)
-		
+		if time is not None:
+			p = interpolate_nans(p, time, tgap=tgap)
+		else:
+			p = interpolate_nans(p, tgap=tgap)
+
 	# Constants used in the depth calculation formula
 	g = 9.81  # standard value of gravity, m/s^2
 	a = -1.82e-15
@@ -105,29 +76,85 @@ def p2depth(p: np.ndarray, interpolate: bool = True) -> np.ndarray:
 	# Calculate the depth using the given pressure and the constants
 	return (p * (p * (p* (p * a + b) - c) + d)) / g
 
-def dm2d(x):
+def dm2d(x: np.ndarray):
 	"""
-	Converts degree-minute to decimal degree.
+	Converts degree-minute (NMEA stamp ddmm.mm) to decimal degree (dd.dd).
 	
 	Args:
-		x (float): Value in degree-minute format (e.g. 12345 for 12 degrees 34.5 minutes)
+		x (ndarray): Value in degree-minute format (e.g. 4453.44 for 12 degrees 34.5 minutes)
 	
 	Returns:
-		float: Value in decimal degree format (e.g. 12.575 degrees)
+		x: Value in decimal degree format (e.g. 12.575 degrees)
 	"""
 	return np.trunc(x / 100) + (x % 100) / 60
 
-def O2freshtosal(O2fresh: np.ndarray, T: np.ndarray, S: np.ndarray) -> np.ndarray:
+def deriveCTD(c, t, p, lon, lat, time=None, interpolate=False, tgap=20):
 	"""
-	Compensate oxygen data from "fresh" to "salty" using temperature and salinity.
+	Calculate practical salinity and absolute salinity from conductivity, temperature, and pressure using the GSW library.
 	
-	Parameters:
-		O2fresh (ndarray): Oxygen data in "fresh" units.
-		T (float): Temperature in degrees Celsius.
-		S (float): Salinity in Practical Salinity Units (PSU).
+	Args:
+		c: Conductivity in S/m.
+		t: Temperature in degrees Celsius.
+		p: Pressure in dbar.
+		lon: Longitude in degrees east.
+		lat: Latitude in degrees north.
+		time: Optional time array (datetime64 or Unix timestamps).
+		interpolate: Whether to interpolate missing values (default=False).
+		tgap: Time gap for interpolation (default=20).
 	
 	Returns:
-		ndarray: Oxygen data in "salty" units.
+		practical salinity, absolute salinity, conservative temperature, density
+	"""
+	# Convert input arrays to ndarrays if they are not already
+	c = np.asarray(c)
+	t = np.asarray(t)
+	p = np.asarray(p)
+	lon = np.asarray(lon)
+	lat = np.asarray(lat)
+	
+	if time is not None:
+		time = np.asarray(time)
+	
+	if not (c.shape == t.shape == p.shape):
+		raise ValueError("All input arrays must have the same shape.")
+	
+	if interpolate:
+		if time is not None:
+			p = interpolate_nans(p, time, tgap)
+			t = interpolate_nans(t, time, tgap)
+			c = interpolate_nans(c, time, tgap)
+		else:
+			p = interpolate_nans(p, tgap=tgap)
+			t = interpolate_nans(t, tgap=tgap)
+			c = interpolate_nans(c, tgap=tgap)
+
+	c *= 10
+		
+	# Compute practical salinity from conductivity
+	SP = gsw.conversions.SP_from_C(c, t, p)
+	
+	# Compute absolute salinity
+	SA = gsw.SA_from_SP(SP, p, np.nanmean(lon), np.nanmean(lat))
+	
+	# Compute conservative tempeature
+	CT =gsw.CT_from_t(SA, t, p)
+	
+	# Compute density
+	rho = gsw.rho(SA, CT, p)
+	
+	return SP, SA, CT, rho
+
+def deriveO2(O2fresh: np.ndarray, t: np.ndarray, SP: np.ndarray, time: np.ndarray = None, interpolate: bool = True, tgap: int = 20):
+	"""
+	1. Compensate raw oxygen data from "fresh" to "salty" using temperature and salinity.
+	
+	Parameters:
+		O2fresh (ndarray): Oxygen data in micro-mol / L at Salinity = 0 (provided from the sensor).
+		t (ndarray): Temperature in degrees Celsius.
+		SP (ndarray): Salinity in Practical Salinity Units (PSU).
+	
+	Returns:
+		O2sal (ndarray): Oxygen data in micro-mol / L compensated for salinity effects.
 	
 	Raises:
 		ValueError: If O2fresh is not a numpy array.
@@ -140,24 +167,30 @@ def O2freshtosal(O2fresh: np.ndarray, T: np.ndarray, S: np.ndarray) -> np.ndarra
 	a4 = 0.00429155
 	a5 = 3.11680e-7
 	
-	if not (isinstance(O2fresh, np.ndarray) and isinstance(T, np.ndarray) and isinstance(S, np.ndarray)):
-		raise ValueError("O2fresh, T and S must be a numpy array.")
+	# Convert input arrays to ndarrays if they are not already
+	t = np.asarray(t)
+	SP = np.asarray(SP)
+	O2fresh = np.asarray(O2fresh)
+	
+	if time is not None:
+		time = np.asarray(time)
 	
 	if np.any(~np.isnan(O2fresh)):
-		# interpolate nans in oxygen index
-		not_nan = ~np.isnan(O2fresh)
-		xp = not_nan.ravel().nonzero()[0]
-		fp = O2fresh[not_nan]
-		x = np.isnan(O2fresh).ravel().nonzero()[0]
-		O2fresh[np.isnan(O2fresh)] = np.interp(x, xp, fp)
-		sca_T = np.log((298.15 - T) / (273.15 + T))
-		O2sal = O2fresh * np.exp(S * (a1 - a2 * sca_T - a3 * sca_T**2 - a4 * sca_T**3) - a5 * S**2)
+		# Interpolate nans in oxygen
+		if interpolate:
+			if time is not None:
+				O2fresh = interpolate_nans(O2fresh, time, tgap=tgap)
+			else:
+				O2fresh = interpolate_nans(O2fresh, tgap=tgap)
+		
+		sca_T = np.log((298.15 - t) / (273.15 + t))
+		O2sal = O2fresh * np.exp(SP * (a1 - a2 * sca_T - a3 * sca_T**2 - a4 * sca_T**3) - a5 * SP**2)
 	else:
 		O2sal = np.full_like(O2fresh, np.nan)
 
 	return O2sal
 
-def findProfiles(stamp: np.ndarray,depth: np.ndarray,**kwargs) -> tuple[np.ndarray, np.ndarray]:
+def findProfiles(stamp: np.ndarray,depth: np.ndarray,**kwargs):
 	"""
 	Identify individual profiles and compute vertical direction from depth sequence.
 	

@@ -3,11 +3,11 @@ import os.path
 import csv
 import numpy as np
 import pandas as pd
-import logging
-from gliderfuncs import c2salinity, stp2ct_density, p2depth, dm2d, O2freshtosal
+from gliderfuncs import p2depth, dm2d, deriveCTD, deriveO2
 from data2attr import save_netcdf
+from quartod_qc import quartod_qc_checks
 
-## REMOVE ANNOYING WARNINGS FOR EMPTY ARRAYS
+# remove empty arrays and nanmean slice warnings
 import warnings
 warnings.simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 warnings.simplefilter("ignore", category=RuntimeWarning)
@@ -49,33 +49,32 @@ def process_data(data, source_info):
 	if all(k in data for k in ['m_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']):
 		data.update({k: np.clip(data[k], *r) for k, r in zip(['m_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'], [(-90, 90), (-180, 180)] * 2)})
 
+	# This should be replaced in qc checking
 	if all(k in data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure']):
-		data.update({k: np.clip(data[k], *r) for k, r in zip(['sci_water_cond', 'sci_water_temp', 'sci_water_pressure'], [(0.01, 5), (-2, 25), (-2, 1200)])})
+		data.update({k: np.clip(data[k], *r) for k, r in zip(['sci_water_cond', 'sci_water_temp', 'sci_water_pressure'], [(0.1, 5), (-1.9, 40), (-1.9, 1200)])})
 	
 	if 'sci_oxy4_oxygen' in data:
 		data['sci_oxy4_oxygen'] = np.clip(data['sci_oxy4_oxygen'], 0.01, 500)
 	
 	if 'sci_water_pressure' in data:
-		data['sci_water_depth'] = p2depth(data['sci_water_pressure'])
+		data['sci_water_depth'] = p2depth(data['sci_water_pressure'],time=data['time'],interpolate=True, tgap=20)
 	
 	glider_data = data.copy()
 	data = pd.DataFrame()
+	
+	# Store and rename variables in the "data" pd.dataframe
 	data['time'], data['lat'], data['lon'] = glider_data['time'], glider_data['m_gps_lat'], glider_data['m_gps_lon']
 	data['profile_time'], data['profile_lat'], data['profile_lon'] = data['time'].mean(), data['lat'].mean(), data['lon'].mean()
 	data['u'], data['v'], data['time_uv'], data['lat_uv'], data['lon_uv'] = glider_data['m_final_water_vx'], glider_data['m_final_water_vy'], data['time'], data['lat'], data['lon']
 	
-	# CTD sensor
+	# derive CTD sensor data
 	if all(k in glider_data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure']):
-		data['salinity'], data['absolute_salinity'] = c2salinity(glider_data['sci_water_cond'].to_numpy(), glider_data['sci_water_temp'].to_numpy(), glider_data['sci_water_pressure'].to_numpy(), glider_data['m_gps_lon'].to_numpy(), glider_data['m_gps_lat'].to_numpy())
-		data['conservative_temperature'], data['density'] = stp2ct_density(data['absolute_salinity'].to_numpy(), glider_data['sci_water_temp'].to_numpy(), glider_data['sci_water_pressure'].to_numpy())
-		data['conductivity'], data['temperature'], data['depth'], data['pressure'] = glider_data['sci_water_cond'], glider_data['sci_water_temp'], glider_data['sci_water_depth'], glider_data['sci_water_pressure']
-		
-	# CTD sensor QC
-	# ---> WE CAN ADD QUALITY CONTROL FUNCTION CALLS HERE
+		data['conductivity'],data['temperature'],data['depth'], data['pressure']=glider_data['sci_water_cond'],glider_data['sci_water_temp'],glider_data['sci_water_depth'],glider_data['sci_water_pressure']
+		data['salinity'],data['absolute_salinity'],data['conservative_temperature'],data['density']=deriveCTD(data['conductivity'],data['temperature'],data['pressure'],data['lat'],data['lat'],time=data['time'],interpolate=True, tgap=20)
 	
-	# oxygen sensor
+	# dervice oxygen sensor data
 	if all(k in glider_data.keys() for k in ['sci_oxy4_oxygen', 'sci_water_temp', 'sci_water_pressure']):
-		data['oxygen_concentration'] = O2freshtosal(glider_data['sci_oxy4_oxygen'].to_numpy(), glider_data['sci_water_temp'].to_numpy(), data['salinity'].to_numpy())
+		data['oxygen_concentration'] = deriveO2(glider_data['sci_oxy4_oxygen'], glider_data['sci_water_temp'], data['salinity'],time=data['time'],interpolate=True, tgap=20)
 	
 	if 'sci_oxy4_temp' in glider_data:
 		data['oxygen_sensor_temperature'] = glider_data['sci_oxy4_temp']
