@@ -7,7 +7,6 @@ The intent of this toolbox is to produce a clean data set from raw glider data f
 This toolbox seperately supports both `realtime` (while glider is deployed) and `delayed` data mode (after glider is recovered). The user can tell the toolbox which mode to use. The processing levels in both modes are the same, but `delayed` mode will contain the complete dataset while `realtime` may not.
 
 ## ISSUES
-- trajectory file needs to be named based on attributes in profile file
 - some metadata fields not properly updated or calculated in profile/trajectory file
 - some compliance issues remain when checking the compliance report
 - in some parts the code is clunky. Some parts can be streamlined and made general to make it easier to solve issues in the future.
