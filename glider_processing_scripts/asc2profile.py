@@ -46,15 +46,15 @@ def process_data(data, source_info):
 	if 'm_pressure' in data:
 		data['m_pressure'] *= 10
 	
+	# Basic clipping of data
 	if all(k in data for k in ['m_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']):
 		data.update({k: np.clip(data[k], *r) for k, r in zip(['m_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'], [(-90, 90), (-180, 180)] * 2)})
 
-	# This should be replaced in qc checking
 	if all(k in data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure']):
-		data.update({k: np.clip(data[k], *r) for k, r in zip(['sci_water_cond', 'sci_water_temp', 'sci_water_pressure'], [(0.1, 5), (-1.9, 40), (-1.9, 1200)])})
+		data.update({k: np.clip(data[k], *r) for k, r in zip(['sci_water_cond', 'sci_water_temp', 'sci_water_pressure'], [(0, 7), (-1.9, 40), (-1.9, 1200)])})
 	
 	if 'sci_oxy4_oxygen' in data:
-		data['sci_oxy4_oxygen'] = np.clip(data['sci_oxy4_oxygen'], 0.01, 500)
+		data['sci_oxy4_oxygen'] = np.clip(data['sci_oxy4_oxygen'], 0, 500)
 	
 	if 'sci_water_pressure' in data:
 		data['sci_water_depth'] = p2depth(data['sci_water_pressure'],time=data['time'],interpolate=True, tgap=5)
@@ -93,14 +93,11 @@ def process_data(data, source_info):
 			break
 			
 	# Quartod qc checks and with nans anywhere where the data is questionable for a rough qc
-	qc_list = ['temperature', 'salinity']
+	qc_list = ['temperature', 'salinity','pressure','conductivity','density']
 	for k in qc_list:
 		if k in data:
 			qc_variable = k + '_qc'
-			qc_flag_name = qc_variable + '_flag'
-			data[qc_variable] = data[k].copy()
-			data[qc_flag_name] = quartod_qc_checks(data[k].values, data['time'].values, k)
-			data.loc[(data[qc_flag_name] == 3) | (data[qc_flag_name] == 4) | (data[qc_flag_name] == 9), qc_variable] = np.nan
+			data[qc_variable] = quartod_qc_checks(data[k].values, data['time'].values, k)
 	
 	# convert & save glider *.bd files to *.nc files
 	name, ext = os.path.splitext(source_info['filename'])

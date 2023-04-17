@@ -32,6 +32,36 @@ def get_qc_options(variable_name):
 			'rep_cnt_fail': 5,
 			'rep_cnt_suspect': 3
 		}
+	elif variable_name == 'conductivity':
+		qc_options = {
+			'sensor_min': 0,
+			'sensor_max': 10,
+			'sensor_user_min': 0.01,
+			'sensor_user_max': 6,
+			'spike_thrshld_low': 0.3,
+			'spike_thrshld_high': 0.9,
+			'n_dev': 3,
+			'time_dev': 300/3600,
+			'min_wind_size': 10,
+			'eps': 1e-6,
+			'rep_cnt_fail': 5,
+			'rep_cnt_suspect': 3
+		}
+	elif variable_name == 'density':
+		qc_options = {
+			'sensor_min': 999,
+			'sensor_max': 1040,
+			'sensor_user_min': 1015,
+			'sensor_user_max': 1035,
+			'spike_thrshld_low': 0.3,
+			'spike_thrshld_high': 0.9,
+			'n_dev': 3,
+			'time_dev': 300/3600,
+			'min_wind_size': 10,
+			'eps': 1e-6,
+			'rep_cnt_fail': 5,
+			'rep_cnt_suspect': 3
+		}
 	elif variable_name == 'temperature':
 		qc_options = {
 			'sensor_min': -2,
@@ -175,18 +205,18 @@ def quartod_qc_checks(var, time, variable_name, qc_options=None):
 
 	# test 1 - range check
 	qc_flag = range_check_test(var, qc_flag, qc_options['sensor_min'], qc_options['sensor_max'], qc_options['sensor_user_min'], qc_options['sensor_user_max'])
-	print('done: test 1 - range check test for variable '+variable_name)
+	#print('done: test 1 - range check test for variable '+variable_name)
 
 	# test 2 - spike test
 	qc_flag = spike_test(var, qc_flag, qc_options['spike_thrshld_low'], qc_options['spike_thrshld_high'])
-	print('done: test 2 - spike test for variable '+variable_name)
+	#print('done: test 2 - spike test for variable '+variable_name)
 
 	# test 3 - rate of change test
 	qc_flag = rate_of_change_test(var, time, qc_flag, qc_options['n_dev'], qc_options['time_dev'],qc_options['min_wind_size'])
-	print('done: test 3 - rate of change test for variable '+variable_name)
+	#print('done: test 3 - rate of change test for variable '+variable_name)
 
 	# test 4 - flat line test
 	qc_flag = flat_line_test(var, qc_flag, qc_options['eps'], qc_options['rep_cnt_fail'], qc_options['rep_cnt_suspect'])
-	print('done: test 4 - flat line test for variable '+variable_name)
+	#print('done: test 4 - flat line test for variable '+variable_name)
 
 	return qc_flag
