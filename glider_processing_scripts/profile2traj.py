@@ -1,11 +1,12 @@
 import sys
 import glob
+import os.path
 import xarray as xr
 import pandas as pd
 from gliderfuncs import correct_dead_reckoning, findProfiles
 from data2attr import save_netcdf
 
-# to help with "padding" empty arrays if a glider [s/t/e/b]bd file got lost or corrupted. 
+# to help with "padding" empty arrays if a glider [s/t/e/b]bd file got lost or corrupted.
 def add_missing_variables(dataset, all_vars):
 	for var in all_vars:
 		if var not in dataset:
@@ -67,11 +68,15 @@ if __name__ == '__main__':
 	# This needs to be done automatically based on the file attributes!!!
 	filename = 'echo-trajectory_file.nc'
 	
+	pwd_dir = os.path.dirname(os.path.realpath(__file__))
+	encoder_dir = os.path.join(pwd_dir, './attributes/')
+	encoder_file = os.path.join(encoder_dir , 'glider_dac_3.0_conventions.yml')
+	
 	# Set file encoder and data type
 	source_info = {
 		'gliders_db': gliders_db,
 		'metadata_source': metadata_source,
-		'encoder': 'glider_dac_3.0_conventions.yml',
+		'encoder': encoder_file,
 		'processing_mode': processing_mode,
 		'data_type': 'trajectory',
 		'data_source': files,

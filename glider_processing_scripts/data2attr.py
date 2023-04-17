@@ -105,7 +105,6 @@ def data_attributes(data, source_info):
 	data.attrs['time_coverage_start'] = startTime.strftime('%Y-%m-%dT%H:%M:%SZ')
 	data.attrs['time_coverage_end'] = endTime.strftime('%Y-%m-%dT%H:%M:%SZ')
 	data.attrs['id'] = '%s-%s' % (gliderName, deploymentDateTime)
-	data.attrs['profile_id'] = data.attrs['id']
 	data.attrs['title'] = "Slocum Glider data from glider %s" % deploymentID
 	data.attrs['time_coverage_duration'] = duration
 	data.attrs['date_created'] = now
@@ -126,7 +125,7 @@ def data_attributes(data, source_info):
 			print('%s not present in the data file' % var)
 	##  Fill the rest of variables attributes with fillers
 	for var in data.keys():
-		if("standard_name" not in data[var].attrs.keys()):
+		if("long_name" not in data[var].attrs.keys()):
 			data[var].attrs['standard_name'] = var
 			data[var].attrs['long_name'] = var
 			data[var].attrs['units'] = ' '
@@ -149,6 +148,14 @@ def data_attributes(data, source_info):
 	data['instrument_ctd'] = 0
 	data['instrument_ctd'].attrs = attrs['instrument_ctd']
 	
+	# Specific data types wanted by IOOS
+	if any(np.isnan(data['profile_id'])):
+		data['profile_id'] = data['profile_id'].fillna(-999)
+		
+	if data['profile_id'].dtype != 'int32':
+		data['profile_id'] = data['profile_id'].astype(np.int32)
+	
+	# return data with attributes
 	return data
 
 def save_netcdf(data, raw_data, source_info):

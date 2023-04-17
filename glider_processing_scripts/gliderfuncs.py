@@ -11,7 +11,6 @@ def interpolate_nans(x, time: np.ndarray = None, tgap: int = None):
 	Returns:
 		Array with nan's filled.
 	"""
-	x[np.isclose(x, 0, atol=1e-8)] = np.nan
 	x = np.copy(x)
 	not_nan = np.logical_not(np.isnan(x))
 

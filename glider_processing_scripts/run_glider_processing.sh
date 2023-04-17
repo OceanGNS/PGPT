@@ -56,21 +56,12 @@ convert_binary_to_text() {
 # Convert to NetCDF
 convert_to_netcdf() {
   cd "${mission_dir}/txt"
-  ln -s ${scripts_dir}/bin/dbd_filter.csv
-  ln -s ${scripts_dir}/attributes/glider_dac_3.0_conventions.yml
   
-  # Create *.nc profile files    | sed 's/\..bd\.txt//'
-  for f in $(ls ${glider}*.[ds]bd.txt | sort -u); do
-    if [[ ! -e ../nc/$f.nc ]]; then
-      python3 ${scripts_dir}/asc2profile.py $f ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
-    fi
-  done
+  # Create *.nc profile files
+  python3 ${scripts_dir}/asc2profile.py ${glider} ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
   
   # Create trajectory file
   python3 ${scripts_dir}/profile2traj.py ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
-  
-  # Remove the linked files from the "${mission_dir}/txt" directory
-  rm "${mission_dir}/txt/dbd_filter.csv" "${mission_dir}/txt/glider_dac_3.0_conventions.yml"
 }
 
 # Main function

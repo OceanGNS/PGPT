@@ -85,6 +85,12 @@ CFnamelist:
     comment: "Timestamp corresponding to the mid-point of the profile"
     observation_type: "calculated"
     platform: "platform"
+  profile_id:
+    _FillValue: "-999"
+    long_name: "Profile ID"
+    comment: "Sequential profile number within the trajectory. This value is unique in each file that is part of a single trajectory/deployment."
+    valid_max: "2147483647"
+    valid_min: "1"
   profile_lat:
     standard_name: "latitude"
     units: "degrees_north"
