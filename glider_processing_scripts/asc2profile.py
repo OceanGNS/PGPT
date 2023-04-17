@@ -57,7 +57,7 @@ def process_data(data, source_info):
 		data['sci_oxy4_oxygen'] = np.clip(data['sci_oxy4_oxygen'], 0.01, 500)
 	
 	if 'sci_water_pressure' in data:
-		data['sci_water_depth'] = p2depth(data['sci_water_pressure'],time=data['time'],interpolate=True, tgap=20)
+		data['sci_water_depth'] = p2depth(data['sci_water_pressure'],time=data['time'],interpolate=True, tgap=5)
 	
 	glider_data = data.copy()
 	data = pd.DataFrame()
@@ -70,7 +70,7 @@ def process_data(data, source_info):
 	# derive CTD sensor data
 	if all(k in glider_data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure']):
 		data['conductivity'],data['temperature'],data['depth'], data['pressure']=glider_data['sci_water_cond'],glider_data['sci_water_temp'],glider_data['sci_water_depth'],glider_data['sci_water_pressure']
-		data['salinity'],data['absolute_salinity'],data['conservative_temperature'],data['density']=deriveCTD(data['conductivity'],data['temperature'],data['pressure'],data['lat'],data['lat'],time=data['time'],interpolate=True, tgap=20)
+		data['salinity'],data['absolute_salinity'],data['conservative_temperature'],data['density']=deriveCTD(data['conductivity'],data['temperature'],data['pressure'],data['lat'],data['lat'])
 	
 	# dervice oxygen sensor data
 	if all(k in glider_data.keys() for k in ['sci_oxy4_oxygen', 'sci_water_temp', 'sci_water_pressure']):
@@ -91,6 +91,16 @@ def process_data(data, source_info):
 		if k in glider_data:
 			data['cdom'] = glider_data[k]
 			break
+			
+	# Quartod qc checks and with nans anywhere where the data is questionable for a rough qc
+	qc_list = ['temperature', 'salinity']
+	for k in qc_list:
+		if k in data:
+			qc_variable = k + '_qc'
+			qc_flag_name = qc_variable + '_flag'
+			data[qc_variable] = data[k].copy()
+			data[qc_flag_name] = quartod_qc_checks(data[k].values, data['time'].values, k)
+			data.loc[(data[qc_flag_name] == 3) | (data[qc_flag_name] == 4) | (data[qc_flag_name] == 9), qc_variable] = np.nan
 	
 	# convert & save glider *.bd files to *.nc files
 	name, ext = os.path.splitext(source_info['filename'])

@@ -2,6 +2,8 @@ import gsw
 import numpy as np
 import pandas as pd
 
+import numpy as np
+
 def interpolate_nans(x, time: np.ndarray = None, tgap: int = None):
 	"""
 	Fills not a number (nan's) in arrays
@@ -21,26 +23,26 @@ def interpolate_nans(x, time: np.ndarray = None, tgap: int = None):
 		if not isinstance(time[0], np.datetime64):
 			time = np.array(time, dtype='datetime64[s]')
 
-	if tgap is not None:
-		nan_indices = np.flatnonzero(np.isnan(x))
-		for idx in nan_indices:
-			if idx == 0 or idx == len(x) - 1:
-				continue
+	nan_indices = np.flatnonzero(np.isnan(x))
 
-			if time is not None:
-				left_time_diff = abs((time[idx] - time[idx - 1]).astype('timedelta64[s]').astype(float))
-				right_time_diff = abs((time[idx + 1] - time[idx]).astype('timedelta64[s]').astype(float))
-			else:
-				left_time_diff = 1
-				right_time_diff = 1
+	for idx in nan_indices:
+		if idx == 0 or idx == len(x) - 1:
+			continue
 
-			if left_time_diff <= tgap and right_time_diff <= tgap:
-				x[idx] = np.interp(idx, np.flatnonzero(not_nan), x[not_nan])
+		if time is not None:
+			left_time_diff = abs((time[idx] - time[idx - 1]).astype('timedelta64[s]').astype(float))
+			right_time_diff = abs((time[idx + 1] - time[idx]).astype('timedelta64[s]').astype(float))
+		else:
+			left_time_diff = 1
+			right_time_diff = 1
 
-	else:
-		x[np.isnan(x)] = np.interp(np.flatnonzero(np.isnan(x)), np.flatnonzero(not_nan), x[not_nan])
+		if tgap is not None and (left_time_diff > tgap or right_time_diff > tgap):
+			continue
+
+		x[idx] = np.interp(idx, np.flatnonzero(not_nan), x[not_nan])
 
 	return x
+
 
 def p2depth(p: np.ndarray, time: np.ndarray = None, interpolate: bool = True, tgap: int = 20):
 	"""
