@@ -25,12 +25,28 @@ def process_data(data, raw_data):
 	
 if __name__ == '__main__':
 	# Take inputs from the bash script
-	nc_path, processing_mode, gliders_db, metadata_source = sys.argv[1:5]
-	nc_path = nc_path+'/nc/'
+	mission_dir, processing_mode, gliders_db, metadata_source = sys.argv[1:5]
 	
+	# Create attribute settings
+	encoder_file = os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)), './attributes/') , 'glider_dac_3.0_conventions.yml')
+	
+	# Set file encoder and data type
+	source_info = {
+		'gliders_db': gliders_db,
+		'metadata_source': metadata_source,
+		'encoder': encoder_file,
+		'processing_mode': processing_mode,
+		'data_type': 'trajectory',
+		'data_source': '',
+		'filename': '',
+		'filepath': mission_dir+'/nc/'
+	}
+	
+	print(source_info['filepath'])
 	# Load and process data
-	files = sorted(glob.glob(nc_path + '*{}*.nc'.format(processing_mode)))
+	files = sorted(glob.glob(source_info['filepath'] + '*{}*.nc'.format(processing_mode)))
 	data_list, glider_record_list = [], []
+	source_info['data_source'] = files
 	
 	# Collect all variable names from all files and all "glider_record" groups
 	all_vars, all_glider_record_vars = set(), set()
@@ -43,6 +59,9 @@ if __name__ == '__main__':
 			all_glider_record_vars.update(tmpGliderRecordData.data_vars)
 		except Exception as e:
 			print('Ignore {}. Error: {}'.format(f, e))
+	
+	source_info['filename'] = tmpData.deployment_name.split('T')[0]+'-'+source_info['processing_mode']+'_trajectory_file.nc'
+	
 	
 	for f in files:
 		try:
@@ -57,33 +76,15 @@ if __name__ == '__main__':
 			print('Processed {}'.format(f))
 		except Exception as e:
 			print('Ignore {}. Error: {}'.format(f, e))
-	
+		
 	raw_data = xr.concat(glider_record_list, dim='time').sortby('time').to_dataframe().reset_index()
 	data = xr.concat(data_list, dim='time').sortby('time').to_dataframe().reset_index()
-		
 	
+		
+
 	# Calculate profile index and correct lon/lat using the dead reckoning correction
 	data = process_data(data, raw_data)
-	
-	# This needs to be done automatically based on the file attributes!!!
-	filename = 'echo-trajectory_file.nc'
-	
-	pwd_dir = os.path.dirname(os.path.realpath(__file__))
-	encoder_dir = os.path.join(pwd_dir, './attributes/')
-	encoder_file = os.path.join(encoder_dir , 'glider_dac_3.0_conventions.yml')
-	
-	# Set file encoder and data type
-	source_info = {
-		'gliders_db': gliders_db,
-		'metadata_source': metadata_source,
-		'encoder': encoder_file,
-		'processing_mode': processing_mode,
-		'data_type': 'trajectory',
-		'data_source': files,
-		'filename': filename,
-		'filepath': nc_path
-	}
-	
+		
 	# Save trajectory file
 	save_netcdf(data, raw_data, source_info)
 
