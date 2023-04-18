@@ -15,30 +15,34 @@ import warnings
 warnings.simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 warnings.simplefilter("ignore", category=RuntimeWarning)
 
-def read_bd_data(filename, var_filter):
+def read_bd_data(filename, var_filter, ignore=False):
 	"""
 	Reads *.bd data from a given file and filters the columns based on the provided filter.
 	
 	:param filename: str, path to the file containing .bd data
 	:param var_filter: list, a list of column names to filter the data
+	:param ignore: bool, if True, the variables in the filter will be ignored, else they will be used
 	:return: pd.DataFrame, filtered data
 	"""
 	try:
 		data = pd.read_csv(filename, delimiter=' ', skiprows=[*range(14), 15, 16])
 		if var_filter is not None:
-			data = data.filter(var_filter, axis='columns')
+			if ignore:
+				data = data.drop(columns=var_filter, errors='ignore')
+			else:
+				data = data.filter(var_filter, axis='columns')
 		return data.rename(columns={'m_present_time': 'time', 'sci_m_present_time': 'time'})
 	except Exception as e:
 		logging.error(f'Error reading {filename}: {str(e)}')
 		return pd.DataFrame()  # Return an empty DataFrame in case of error
 
-def read_var_filter():
+def read_var_filter(filter_name):
 	pwd_dir = os.path.dirname(os.path.realpath(__file__))
 	filter_dir = os.path.join(pwd_dir, './bin/')
-	filter_file = os.path.join(filter_dir, 'dbd_filter.csv')
+	filter_file = os.path.join(filter_dir, filter_name)
 	
 	with open(filter_file, 'r') as fid:
-		return next(csv.reader(fid, delimiter=','))
+		return [row[0] for row in csv.reader(fid, delimiter=',')]
 
 def process_data(data, source_info):
 	def update_columns(data, cols, func):
@@ -144,15 +148,17 @@ def main(source_info):
 	if not file_exists:
 		raise FileNotFoundError(f'No matching file found for {filename} with extensions .dbd.txt, .sbd.txt, .tbd.txt, or .ebd.txt')
 	
-	var_filter = read_var_filter()
 	if source_info['processing_mode'] == 'delayed':
-		flight_data = read_bd_data(f'{filename}.dbd.txt', var_filter)
-		science_data = read_bd_data(f'{filename}.ebd.txt', None)
+		flight_var_filter = read_var_filter('dbd_filter.csv')
+		science_var_filter = read_var_filter('ebd_filter.csv')
+		flight_data = read_bd_data(f'{filename}.dbd.txt', flight_var_filter)
+		science_data = read_bd_data(f'{filename}.ebd.txt', science_var_filter, ignore=True)
 	elif source_info['processing_mode'] == 'realtime':
 		flight_data = read_bd_data(f'{filename}.sbd.txt', None)
 		science_data = read_bd_data(f'{filename}.tbd.txt', None)
 	else:
 		raise ValueError("Invalid processing mode. Supported modes are 'delayed_mode' and 'realtime'.")
+
 	
 	# Merge records and sort by time
 	data = pd.concat([df for df in [flight_data, science_data] if not df.empty], ignore_index=True, sort=True).sort_values(by=['time'])

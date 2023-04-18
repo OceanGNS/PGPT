@@ -3,6 +3,7 @@ import glob
 import os.path
 import xarray as xr
 import pandas as pd
+import numpy as np
 from gliderfuncs import correct_dead_reckoning, findProfiles
 from data2attr import save_netcdf
 
