@@ -33,7 +33,7 @@ def read_bd_data(filename, var_filter, ignore=False):
 				data = data.filter(var_filter, axis='columns')
 		return data.rename(columns={'m_present_time': 'time', 'sci_m_present_time': 'time'})
 	except Exception as e:
-		logging.error(f'Error reading {filename}: {str(e)}')
+		# logging.error(f'Error reading {filename}: {str(e)}')
 		return pd.DataFrame()  # Return an empty DataFrame in case of error
 
 def read_var_filter(filter_name):
@@ -85,9 +85,11 @@ def process_data(data, source_info):
 	data['u'], data['v'], data['time_uv'], data['lat_uv'], data['lon_uv'] = glider_data['m_final_water_vx'], glider_data['m_final_water_vy'], data['time'], data['lat'], data['lon']
 		
 	# derive CTD sensor data
-	if all(k in glider_data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure']):
+	if(all(k in glider_data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure', 'sci_water_depth'])):
 		data['conductivity'],data['temperature'],data['depth'], data['pressure']=glider_data['sci_water_cond'],glider_data['sci_water_temp'],glider_data['sci_water_depth'],glider_data['sci_water_pressure']
 		data['salinity'],data['absolute_salinity'],data['conservative_temperature'],data['density']=deriveCTD(data['conductivity'],data['temperature'],data['pressure'],data['lon'],data['lat'])
+	else:
+		return
 	
 	# dervice oxygen sensor data
 	if all(k in glider_data.keys() for k in ['sci_oxy4_oxygen', 'sci_water_temp', 'sci_water_pressure']):
@@ -132,7 +134,7 @@ def process_data(data, source_info):
 	# convert & save glider *.bd files to *.nc files
 	name, ext = os.path.splitext(source_info['filename'])
 	filename, bd_ext = os.path.splitext(name)
-	source_info['filename'] = filename+'_delayed.nc'
+	source_info['filename'] = "%s_%s.nc" % (filename,source_info['processing_mode'])
 	source_info['filepath'] = source_info['filepath']+'/nc/'
 	save_netcdf(data, glider_data, source_info)
 	
@@ -194,6 +196,7 @@ if __name__ == "__main__":
 	nc_directory = os.path.join(args.mission_dir, 'nc')
 	file_number = 1
 	for f in file_list:
+		print(f)
 		nc_filename = os.path.join(nc_directory, f"{os.path.splitext(f)[0]}.nc")
 		if not os.path.exists(nc_filename):
 			source_info = {

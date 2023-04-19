@@ -334,7 +334,8 @@ def correct_dead_reckoning(glider_lon, glider_lat, glider_timestamp, dive_state,
 
 		# This index is used to introduce "nan's" for padding to match array size to the original array
 		ap = np.hstack((ap, a))
-
+		if(len(a)==0):
+			continue
 		ti = (glider_timestamp[a] - glider_timestamp[a[0]]).to_numpy()  # Changed this line
 		loncDD = np.hstack((loncDD, (glider_lon[a].to_numpy() + ti * vlonDD[i])))
 		latcDD = np.hstack((latcDD, (glider_lat[a].to_numpy() + ti * vlatDD[i])))

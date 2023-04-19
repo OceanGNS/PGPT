@@ -43,8 +43,8 @@ if __name__ == '__main__':
 		'filepath': mission_dir+'/nc/'
 	}
 	
-	print(source_info['filepath'])
 	# Load and process data
+	print(source_info['filepath'] + '*{}*.nc'.format(processing_mode))
 	files = sorted(glob.glob(source_info['filepath'] + '*{}*.nc'.format(processing_mode)))
 	data_list, glider_record_list = [], []
 	source_info['data_source'] = files
@@ -55,7 +55,6 @@ if __name__ == '__main__':
 		try:
 			tmpData = xr.open_dataset(f, engine='netcdf4', decode_times=False)
 			all_vars.update(tmpData.data_vars)
-			
 			tmpGliderRecordData = xr.open_dataset(f, engine='netcdf4', group='glider_record', decode_times=False)
 			all_glider_record_vars.update(tmpGliderRecordData.data_vars)
 		except Exception as e:
