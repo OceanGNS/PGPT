@@ -15,6 +15,10 @@ import warnings
 warnings.simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 warnings.simplefilter("ignore", category=RuntimeWarning)
 
+def printF(*args, **kwargs):
+    kwargs["flush"] = True
+    return print(*args, **kwargs)
+
 def read_bd_data(filename, var_filter, ignore=False):
 	"""
 	Reads *.bd data from a given file and filters the columns based on the provided filter.
@@ -196,7 +200,7 @@ if __name__ == "__main__":
 	nc_directory = os.path.join(args.mission_dir, 'nc')
 	file_number = 1
 	for f in file_list:
-		print(f)
+		printF("asc2profile %s" % f)
 		nc_filename = os.path.join(nc_directory, f"{os.path.splitext(f)[0]}.nc")
 		if not os.path.exists(nc_filename):
 			source_info = {
