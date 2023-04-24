@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
 # Set variables
+
 glider="$1"
 mission_dir="$2"
-scripts_dir="$3"
-gliders_db="$4"
-metadata_file="$5"
-processing_mode="$6"
+parent_dir=$3
+scripts_dir="$4"
+gliders_db="$5"
+metadata_file="$6"
+processing_mode="$7"
 
 # Create directories
 cd "${mission_dir}/"
