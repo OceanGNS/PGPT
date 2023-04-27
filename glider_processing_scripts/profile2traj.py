@@ -7,6 +7,10 @@ import numpy as np
 from gliderfuncs import correct_dead_reckoning, findProfiles
 from data2attr import save_netcdf
 
+def printF(*args, **kwargs):
+    kwargs["flush"] = True
+    return print(*args, **kwargs)
+
 # to help with "padding" empty arrays if a glider [s/t/e/b]bd file got lost or corrupted.
 def add_missing_variables(dataset, all_vars):
 	for var in all_vars:
@@ -44,7 +48,7 @@ if __name__ == '__main__':
 	}
 	
 	# Load and process data
-	print(source_info['filepath'] + '*{}*.nc'.format(processing_mode))
+	printF(source_info['filepath'] + '*{}*.nc'.format(processing_mode))
 	files = sorted(glob.glob(source_info['filepath'] + '*{}*.nc'.format(processing_mode)))
 	data_list, glider_record_list = [], []
 	source_info['data_source'] = files
@@ -58,7 +62,7 @@ if __name__ == '__main__':
 			tmpGliderRecordData = xr.open_dataset(f, engine='netcdf4', group='glider_record', decode_times=False)
 			all_glider_record_vars.update(tmpGliderRecordData.data_vars)
 		except Exception as e:
-			print('Ignore {}. Error: {}'.format(f, e))
+			printF('Ignore {}. Error: {}'.format(f, e))
 	
 	source_info['filename'] = tmpData.deployment_name.split('T')[0]+'-'+source_info['processing_mode']+'_trajectory_file.nc'
 	
@@ -73,9 +77,9 @@ if __name__ == '__main__':
 			tmpGliderRecordData = add_missing_variables(tmpGliderRecordData, all_glider_record_vars)
 			glider_record_list.append(tmpGliderRecordData)
 			
-			print('Processed {}'.format(f))
+			printF('Processed {}'.format(f))
 		except Exception as e:
-			print('Ignore {}. Error: {}'.format(f, e))
+			printF('Ignore {}. Error: {}'.format(f, e))
 		
 	raw_data = xr.concat(glider_record_list, dim='time').sortby('time').to_dataframe().reset_index()
 	data = xr.concat(data_list, dim='time').sortby('time').to_dataframe().reset_index()
