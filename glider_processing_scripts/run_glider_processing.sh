@@ -4,10 +4,11 @@
 
 glider="$1"
 mission_dir="$2"
-scripts_dir="$3"
-gliders_db="$4"
-metadata_file="$5"
-processing_mode="$6"
+parent_dir=$3
+scripts_dir="$4"
+gliders_db="$5"
+metadata_file="$6"
+processing_mode="$7"
 
 # Create directories
 cd "${mission_dir}/"
@@ -63,7 +64,7 @@ convert_to_netcdf() {
 
   # Create *.nc profile files
   echo "##  asc2profile.py"
-  python3 ${scripts_dir}/asc2profile.py ${glider} ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
+  # python3 ${scripts_dir}/asc2profile.py ${glider} ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
 
   # Create trajectory file
   echo "##  profile2traj.py"

@@ -49,24 +49,36 @@ def read_var_filter(filter_name):
 		return [row[0] for row in csv.reader(fid, delimiter=',')]
 
 def process_data(data, source_info):
+
+	# Transform certain columns applying a function to them like "rad2deg"
 	def update_columns(data, cols, func):
 		data.update({col: func(data[col]) for col in cols if col in data.keys()})
 
 	def fill_exact_zero_with_nan(var):
+		# Ensure the array is of a float dtype before assigning NaN
+		if np.issubdtype(var.dtype, np.integer):
+			var = var.astype(float)
 		var[np.isclose(var, 0, atol=1e-7)] = np.nan
 		return var
+		
+	def get_column_or_nan(df, column_name):
+		if column_name in df.columns:
+			return df[column_name]
+		else:
+			return np.full(len(df), np.nan)
 	
+	# Get rid of "zero's" that are measurement or initialization artefacts from sensors.
 	for col in data.columns:
 		data[col] = fill_exact_zero_with_nan(data[col].values)
 	
 	update_columns(data, ['c_wpt_lat', 'c_wpt_lon', 'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'], dm2d)
 	update_columns(data, ['c_fin', 'c_heading', 'c_pitch', 'm_fin', 'm_heading', 'm_pitch', 'm_roll'], np.degrees)
 	
-	if 'sci_water_pressure' in data:
-		data['sci_water_pressure'] *= 10
-	
-	if 'm_pressure' in data:
-		data['m_pressure'] *= 10
+	# Convert bar to dbar from glider pressure sensors (flight and science)
+	columns_to_update = ['sci_water_pressure', 'm_pressure']
+	for column in columns_to_update:
+		if column in data:
+			data[column] *= 10
 	
 	# Basic clipping of data
 	if all(k in data for k in ['m_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']):
@@ -81,13 +93,25 @@ def process_data(data, source_info):
 	if 'sci_water_pressure' in data:
 		data['sci_water_depth'] = p2depth(data['sci_water_pressure'],time=data['time'],interpolate=True, tgap=5)
 	
+	# Store and rename variables in the "data" pd.dataframe
 	glider_data = data.copy()
 	data = pd.DataFrame()
 	
-	# Store and rename variables in the "data" pd.dataframe
-	data['time'], data['lat'], data['lon'] = glider_data['time'], glider_data['m_gps_lat'], glider_data['m_gps_lon']
-	data['u'], data['v'], data['time_uv'], data['lat_uv'], data['lon_uv'] = glider_data['m_final_water_vx'], glider_data['m_final_water_vy'], data['time'], data['lat'], data['lon']
-		
+	# Copy/duplicate certain names to the data frame from the glider_data frame but fill with nan if not existing
+	name_list = {
+		'time': 'time',
+		'lat': 'm_gps_lat',
+		'lon': 'm_gps_lon',
+		'u': 'm_final_water_vx',
+		'v': 'm_final_water_vy',
+		'time_uv': 'time',
+		'lat_uv': 'm_gps_lat',
+		'lon_uv': 'm_gps_lon'
+	}
+	
+	for new_col, old_col in name_list.items():
+		data[new_col] = get_column_or_nan(glider_data, old_col)
+	
 	# derive CTD sensor data
 	if(all(k in glider_data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure', 'sci_water_depth'])):
 		data['conductivity'],data['temperature'],data['depth'], data['pressure']=glider_data['sci_water_cond'],glider_data['sci_water_temp'],glider_data['sci_water_depth'],glider_data['sci_water_pressure']

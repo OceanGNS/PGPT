@@ -5,6 +5,7 @@ import math
 import yaml
 import netCDF4 as nc4
 import os
+import xarray as xr
 
 def data_attributes(data, source_info):
 	"""
@@ -159,20 +160,20 @@ def data_attributes(data, source_info):
 	return data
 
 def save_netcdf(data, raw_data, source_info):
-	"""
-	Save processed and raw glider data to a NetCDF file.
-	
-	Args:
-	data (pd.DataFrame): Processed glider data.
-	raw_data (pd.DataFrame): Raw glider data.
-	source_info (pd.DataFrame): Information about the data and data tags
-	"""
-	output_fn=source_info['filepath']+source_info['filename']
-	
+	output_fn = source_info['filepath'] + source_info['filename']
+
+	def check_variables(dataset):
+	    time_dim_size = dataset.dims['time']
+	    data_vars = {var_name: var_data for var_name, var_data in dataset.variables.items() if var_name != 'time'}
+	    reshaped_vars = {var_name: var_data if var_data.ndim == len(var_data.dims) else var_data.broadcast_like(dataset['time']).fillna(np.nan)
+	                     for var_name, var_data in data_vars.items()}
+	    return xr.Dataset(reshaped_vars, coords=dataset.coords)
+	    
 	if not data.empty:
 		data = data.set_index('time').to_xarray()
 		modified_data = data_attributes(data, source_info)
 		modified_data.to_netcdf(output_fn)
 	if not raw_data.empty:
 		raw_data = raw_data.set_index('time').to_xarray()
+		raw_data = check_variables(raw_data)
 		raw_data.to_netcdf(output_fn, group="glider_record", mode="a")
