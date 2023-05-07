@@ -163,11 +163,11 @@ def save_netcdf(data, raw_data, source_info):
 	output_fn = source_info['filepath'] + source_info['filename']
 
 	def check_variables(dataset):
-	    time_dim_size = dataset.dims['time']
-	    data_vars = {var_name: var_data for var_name, var_data in dataset.variables.items() if var_name != 'time'}
-	    reshaped_vars = {var_name: var_data if var_data.ndim == len(var_data.dims) else var_data.broadcast_like(dataset['time']).fillna(np.nan)
-	                     for var_name, var_data in data_vars.items()}
-	    return xr.Dataset(reshaped_vars, coords=dataset.coords)
+		time_dim_size = dataset.dims['time']
+		data_vars = {var_name: var_data for var_name, var_data in dataset.variables.items() if var_name != 'time'}
+		reshaped_vars = {var_name: var_data if var_data.ndim == len(var_data.dims) else var_data.broadcast_like(dataset['time']).fillna(np.nan)
+						 for var_name, var_data in data_vars.items()}
+		return xr.Dataset(reshaped_vars, coords=dataset.coords)
 	    
 	if not data.empty:
 		data = data.set_index('time').to_xarray()

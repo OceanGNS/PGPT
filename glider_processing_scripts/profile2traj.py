@@ -1,27 +1,47 @@
+import os
 import sys
 import glob
-import os.path
 import xarray as xr
+
 import pandas as pd
 import numpy as np
 from gliderfuncs import correct_dead_reckoning, findProfiles
 from data2attr import save_netcdf
 import multiprocessing
 import dask.distributed as dd
-from dask.diagnostics import ProgressBar
+
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, module="multiprocessing.resource_tracker")
 
 
 # Use distributed.Client instead of dask.distributed.Client
 # Use local_cluster instead of LocalCluster
 def create_client():
 	from dask.distributed import Client, LocalCluster
+
 	try:
 		multiprocessing.get_start_method()
 	except:
-		multiprocessing.set_start_method('forkserver', force=True)
-	# Specify the dashboard_address parameter in LocalCluster
-	cluster = LocalCluster(processes=True, n_workers=1, threads_per_worker=1, dashboard_address=':0')
-	return Client(cluster, set_as_default=True)
+		multiprocessing.set_start_method("forkserver", force=True)
+
+	cluster = LocalCluster(
+		processes=True,
+		n_workers=multiprocessing.cpu_count(),
+		threads_per_worker=2,
+		dashboard_address=":0",
+		memory_limit='4GB' # Set memory limit per worker here
+	)
+	client = Client(cluster, set_as_default=True)
+
+	# Print Dask cluster configuration/settings
+	scheduler_info = client.scheduler_info()
+	print("Dask Cluster Configuration:")
+	print(f"  Number of Workers: {len(scheduler_info['workers'])}")
+	print(f"  Threads per Worker: {next(iter(scheduler_info['workers'].values()))['nthreads']}")
+	print(f"  Memory Limit per Worker: {next(iter(scheduler_info['workers'].values()))['memory_limit']}")
+	print(f"  Dashboard Address: {client.cluster.dashboard_link}")
+
+	return client
 
 # to help with "padding" empty arrays if a glider [s/t/e/b]bd file got lost or corrupted.
 def add_missing_variables(dataset, all_vars):
@@ -36,20 +56,17 @@ def process_data(data, raw_data):
 	
 	if 'depth' in data.keys():
 		data['profile_index'], data['profile_direction'] = findProfiles(data['time'], data['depth'], stall=20, shake=200)
-	
+
 	return data
+	
+def read_in_chunks(files, chunk_size=256):
+	for i in range(0, len(files), chunk_size):
+		yield files[i:i + chunk_size]
 
 if __name__ == '__main__':
-	# Set up the multiprocessing context by calling create_client()
 	client = create_client()
-	
-	# Take inputs from the bash script
 	mission_dir, processing_mode, gliders_db, metadata_source = sys.argv[1:5]
-	
-	# Create attribute settings
 	encoder_file = os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)), './attributes/'), 'glider_dac_3.0_conventions.yml')
-	
-	# Set file encoder and data type
 	source_info = {
 		'gliders_db': gliders_db,
 		'metadata_source': metadata_source,
@@ -61,42 +78,38 @@ if __name__ == '__main__':
 		'filepath': mission_dir+'/nc/'
 	}
 
-	# Load and process data
 	print(source_info['filepath'] + '*{}*.nc'.format(processing_mode))
 	files = sorted(glob.glob(source_info['filepath'] + '*{}*.nc'.format(processing_mode)))
 	source_info['data_source'] = files
 
-	# Collect all variable names from all files and all "glider_record" groups
 	all_vars, all_glider_record_vars = set(), set()
-	for f in files:
-		try:
-			tmpData = xr.open_dataset(f, engine='netcdf4', decode_times=False)
-			all_vars.update(tmpData.data_vars)
-			tmpGliderRecordData = xr.open_dataset(f, engine='netcdf4', group='glider_record', decode_times=False)
-			all_glider_record_vars.update(tmpGliderRecordData.data_vars)
-		except Exception as e:
-			print('Ignore {}. Error: {}'.format(f, e))
+	first_file = True
 
-	source_info['filename'] = tmpData.deployment_name.split('T')[0]+'-'+source_info['processing_mode']+'_trajectory_file.nc'
+	file_chunks = read_in_chunks(files)
+	data_list, glider_data_list = [], []
+	for chunk_files in file_chunks:
+		data_chunk = xr.open_mfdataset(chunk_files, engine='netcdf4', combine='by_coords', decode_times=False, parallel=True)
+		data_chunk = add_missing_variables(data_chunk, all_vars)
+		data_chunk = data_chunk.sortby('time').to_dataframe().reset_index()
+		data_list.append(data_chunk)
 
-	# Use Dask to load and concatenate the NetCDF files
-	# Modify this part of the code to include ProgressBar
-	with ProgressBar():
-		data = xr.open_mfdataset(files, engine='netcdf4', combine='by_coords', decode_times=False, parallel=True)
-		data = add_missing_variables(data, all_vars)
-		data = data.sortby('time').to_dataframe().reset_index()
+		glider_data_chunk = xr.open_mfdataset(chunk_files, engine='netcdf4', group='glider_record', combine='by_coords', decode_times=False, parallel=True)
+		glider_data_chunk = add_missing_variables(glider_data_chunk, all_glider_record_vars)
+		glider_data_chunk = glider_data_chunk.sortby('time').to_dataframe().reset_index()
+		glider_data_list.append(glider_data_chunk)
 
-	with ProgressBar():
-		glider_data = xr.open_mfdataset(files, engine='netcdf4', group='glider_record', combine='by_coords', decode_times=False, parallel=True)
-		glider_data = add_missing_variables(glider_data, all_glider_record_vars)
-		glider_data = glider_data.sortby('time').to_dataframe().reset_index()
+		if first_file:
+			first_file_data = xr.open_dataset(chunk_files[0], engine='netcdf4', decode_times=False)
+			source_info['filename'] = first_file_data.deployment_name.split('T')[0]+'-'+source_info['processing_mode']+'_trajectory_file.nc'
+			first_file = False
 
-	# Calculate profile index and correct lon/lat using the dead reckoning correction
+	data = pd.concat(data_list)
+	glider_data = pd.concat(glider_data_list)
+
 	data = process_data(data, glider_data)
 
-	# Save trajectory file
 	save_netcdf(data, glider_data, source_info)
 
 	# Clean up any leaked semaphore objects
-	#import resource
-	#resource.setrlimit(resource.RLIMIT_NOFILE, (resource.getrlimit(resource.RLIMIT_NOFILE)[0], resource.getrlimit(resource.RLIMIT_NOFILE)[0]))
+	client.close()
+	client.shutdown()

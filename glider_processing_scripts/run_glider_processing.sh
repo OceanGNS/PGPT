@@ -46,13 +46,18 @@ convert_binary_to_text() {
     ln -nsf ${mission_dir}/cache .
   fi
 
-  for f in ${glider}*bd; do
-    if [[ ! -e ../txt/$f.txt ]]; then
-      echo "bd2ascii $f"
-      "${scripts_dir}/bin/bd2ascii" "$f" >"../txt/$f.txt"
-      sed -i "s/ $//" "../txt/$f.txt" ## Remove empty space from the end of each line (pandas doesn't like them)
-    fi
-  done
+  # Check if files are present and then convert them to ascii *.txt files
+  if [[ -n "$(ls ${glider}*bd)" ]]; then
+    for f in ${glider}*bd; do
+      if [[ ! -e ../txt/$f.txt ]]; then
+        echo "bd2ascii $f"
+        "${scripts_dir}/bin/bd2ascii" "$f" >"../txt/$f.txt"
+        sed -i "s/ $//" "../txt/$f.txt" ## Remove empty space from the end of each line (pandas doesn't like them)
+      fi
+    done
+  else
+    echo "No files found matching pattern '${glider}*bd'"
+  fi
 
   # Remove symbolic link
   rm cache
@@ -64,7 +69,7 @@ convert_to_netcdf() {
 
   # Create *.nc profile files
   echo "##  asc2profile.py"
-  # python3 ${scripts_dir}/asc2profile.py ${glider} ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
+  python3 ${scripts_dir}/asc2profile.py ${glider} ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
 
   # Create trajectory file
   echo "##  profile2traj.py"
