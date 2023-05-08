@@ -11,6 +11,7 @@ processing_mode="$6"
 
 # Create directories
 cd "${mission_dir}/"
+rm -r txt nc 2>/dev/null
 mkdir -p txt nc
 
 # Set raw directory
