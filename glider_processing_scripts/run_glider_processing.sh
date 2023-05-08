@@ -4,10 +4,11 @@
 
 glider="$1"
 mission_dir="$2"
-scripts_dir="$3"
-gliders_db="$4"
-metadata_file="$5"
-processing_mode="$6"
+parent_dir=$3
+scripts_dir="$4"
+gliders_db="$5"
+metadata_file="$6"
+processing_mode="$7"
 
 # Create directories
 cd "${mission_dir}/"
@@ -46,13 +47,18 @@ convert_binary_to_text() {
     ln -nsf ${mission_dir}/cache .
   fi
 
-  for f in ${glider}*bd; do
-    if [[ ! -e ../txt/$f.txt ]]; then
-      echo "bd2ascii $f"
-      "${scripts_dir}/bin/bd2ascii" "$f" >"../txt/$f.txt"
-      sed -i "s/ $//" "../txt/$f.txt" ## Remove empty space from the end of each line (pandas doesn't like them)
-    fi
-  done
+  # Check if files are present and then convert them to ascii *.txt files
+  if [[ -n "$(ls ${glider}*bd)" ]]; then
+    for f in ${glider}*bd; do
+      if [[ ! -e ../txt/$f.txt ]]; then
+        echo "bd2ascii $f"
+        "${scripts_dir}/bin/bd2ascii" "$f" >"../txt/$f.txt"
+        sed -i "s/ $//" "../txt/$f.txt" ## Remove empty space from the end of each line (pandas doesn't like them)
+      fi
+    done
+  else
+    echo "No files found matching pattern '${glider}*bd'"
+  fi
 
   # Remove symbolic link
   rm cache
