@@ -75,6 +75,8 @@ convert_to_netcdf() {
   # Create trajectory file
   echo "##  profile2traj.py"
   python3 ${scripts_dir}/profile2traj.py ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
+
+  rm -r ${mission_dir}/txt/dask-worker-space
 }
 
 # Main function
