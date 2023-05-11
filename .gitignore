@@ -2,6 +2,7 @@
 *.DS_store
 *.idea
 *.gitignore
+*.ipynb_checkpoints
 *.txt
 *.dbd
 *.ebd
