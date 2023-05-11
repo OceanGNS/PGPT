@@ -136,7 +136,7 @@ CFnamelist:
     platform: "platform"
     reference: "WGS84"
     valid_max: "** COMMAND:np.nanmax(data['lon_uv'].data)"
-    valid_min: "** COMMAND:np.nanmin(data['lat_uv'].data)"
+    valid_min: "** COMMAND:np.nanmin(data['lon_uv'].data)"
   lat_uv:
     standard_name: "latitude"
     units: "degrees_north"
@@ -145,7 +145,7 @@ CFnamelist:
     observation_type: "measured"
     platform: "platform"
     reference: "WGS84"
-    valid_max: "** COMMAND:np.nanmax(data['lon_uv'].data)"
+    valid_max: "** COMMAND:np.nanmax(data['lat_uv'].data)"
     valid_min: "** COMMAND:np.nanmin(data['lat_uv'].data)"
   v:
     standard_name: "northward_sea_water_velocity"

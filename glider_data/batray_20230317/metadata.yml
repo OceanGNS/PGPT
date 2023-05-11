@@ -19,8 +19,8 @@ global:
   deployment_datetime: "2023-03-17T12:23:45Z" # Fill by hand for now
   acknowledgment: "These data where collected through funding provided by the Ocean Frontier Institute at Memorial University."
   comment: "Slocum glider underwater vehicle data"
-  contributor_name: "Nicolai von Oppeln-Bronikowski, Sarik Shaikh-Upadhye, Taimaz Bahadory"
-  contributor_role: "Principal Investigator,Glider Pilot,Glider Pilot,Technician,Data Management"
+  contributor_name: "Nicolai von Oppeln-Bronikowski, Nicolai von Oppeln-Bronikowski, Sarik Shaikh-Upadhye, Taimaz Bahadory"
+  contributor_role: "Principal Investigator,Glider Pilot, Technician,Data Management"
   project: "OFI Module O"
   summary: "AD2CP glider deployed on the Scotian Shelf part of the annual OTN-led spring bloom mission"
   institution: "Memorial University"
