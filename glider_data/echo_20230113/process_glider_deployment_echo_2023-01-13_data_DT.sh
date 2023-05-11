@@ -15,4 +15,4 @@ gliders_db="$parent_dir/glider_reference_information/glider_serial-numbers_and_s
 metadata_file="$PWD/metadata.yml"
 
 # run the processing toolbox
-source ${scripts_dir}/run_glider_processing.sh "$glider" "$mission_dir" "$parent_dir" "$scripts_dir" "$gliders_db" "$metadata_file" "$processing_mode"
+source ${scripts_dir}/run_glider_processing.sh "$glider" "$mission_dir"  "$scripts_dir" "$gliders_db" "$metadata_file" "$processing_mode"

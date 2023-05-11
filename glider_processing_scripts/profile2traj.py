@@ -2,16 +2,21 @@ import os
 import sys
 import glob
 import xarray as xr
-
 import pandas as pd
 import numpy as np
+
 from gliderfuncs import correct_dead_reckoning, findProfiles
 from data2attr import save_netcdf
+
 import multiprocessing
 import dask.distributed as dd
 
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="multiprocessing.resource_tracker")
+warnings.filterwarnings("ignore", category=UserWarning, module="distributed.worker")
+
+import logging
+logging.getLogger("distributed").setLevel(logging.ERROR)
 
 
 # Use distributed.Client instead of dask.distributed.Client
@@ -78,6 +83,9 @@ if __name__ == '__main__':
 		'filepath': mission_dir+'/nc/'
 	}
 
+
+
+
 	print(source_info['filepath'] + '*{}*.nc'.format(processing_mode))
 	files = sorted(glob.glob(source_info['filepath'] + '*{}*.nc'.format(processing_mode)))
 	source_info['data_source'] = files
@@ -88,20 +96,29 @@ if __name__ == '__main__':
 	file_chunks = read_in_chunks(files)
 	data_list, glider_data_list = [], []
 	for chunk_files in file_chunks:
-		data_chunk = xr.open_mfdataset(chunk_files, engine='netcdf4', combine='by_coords', decode_times=False, parallel=True)
-		data_chunk = add_missing_variables(data_chunk, all_vars)
-		data_chunk = data_chunk.sortby('time').to_dataframe().reset_index()
-		data_list.append(data_chunk)
+		#data_chunk = xr.open_mfdataset(chunk_files, engine='netcdf4', combine='by_coords', decode_times=False, parallel=True).load()
+		with xr.open_mfdataset(chunk_files, engine='netcdf4', combine='by_coords', decode_times=False, parallel=True).load() as data_chunk:
+			data_chunk = add_missing_variables(data_chunk, all_vars)
+			data_chunk = data_chunk.sortby('time').to_dataframe().reset_index()
+			data_list.append(data_chunk)
 
-		glider_data_chunk = xr.open_mfdataset(chunk_files, engine='netcdf4', group='glider_record', combine='by_coords', decode_times=False, parallel=True)
-		glider_data_chunk = add_missing_variables(glider_data_chunk, all_glider_record_vars)
-		glider_data_chunk = glider_data_chunk.sortby('time').to_dataframe().reset_index()
-		glider_data_list.append(glider_data_chunk)
+		#glider_data_chunk = xr.open_mfdataset(chunk_files, engine='netcdf4', group='glider_record', combine='by_coords', decode_times=False, parallel=True).load()
+		with xr.open_mfdataset(chunk_files, engine='netcdf4', group='glider_record', combine='by_coords', decode_times=False, parallel=True).load() as glider_data_chunk:
+			glider_data_chunk = add_missing_variables(glider_data_chunk, all_glider_record_vars)
+			glider_data_chunk = glider_data_chunk.sortby('time').to_dataframe().reset_index()
+			glider_data_list.append(glider_data_chunk)
 
 		if first_file:
-			first_file_data = xr.open_dataset(chunk_files[0], engine='netcdf4', decode_times=False)
-			source_info['filename'] = first_file_data.deployment_name.split('T')[0]+'-'+source_info['processing_mode']+'_trajectory_file.nc'
-			first_file = False
+			with xr.open_dataset(chunk_files[0], engine='netcdf4', decode_times=False) as first_file_data:
+				source_info['filename'] = first_file_data.deployment_name.split('T')[0]+'-'+source_info['processing_mode']+'_trajectory_file.nc'
+				first_file = False
+				
+				# Delete the trajectory file if it already exists
+				output_file = os.path.join(source_info['filepath'], source_info['filename'])
+				if os.path.exists(output_file):
+					print(output_file)
+					os.remove(output_file)
+
 
 	data = pd.concat(data_list)
 	glider_data = pd.concat(glider_data_list)

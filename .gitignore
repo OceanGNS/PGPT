@@ -2,3 +2,15 @@
 *.DS_store
 *.idea
 *.gitignore
+*.txt
+*.dbd
+*.ebd
+*.sbd
+*.tbd
+*.ecd
+*.tcd
+*.scd
+*.dcd
+*.mlg
+*.mcg
+*.ncg

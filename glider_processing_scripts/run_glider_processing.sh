@@ -1,92 +1,62 @@
 #!/usr/bin/env bash
 
 # Set variables
+glider="$1"
+mission_dir="$2"
+scripts_dir="$3"
+gliders_db="$4"
+metadata_file="$5"
+processing_mode="$6"
 
-export glider="$1"
-export mission_dir="$2"
-export scripts_dir="$3"
-export gliders_db="$4"
-export metadata_file="$5"
-export processing_mode="$6"
+# Check if raw directory exists
+if [[ -d "${mission_dir}/raw" ]]; then
+    # Prepare directories
+    mkdir -p ${mission_dir}/{txt,nc,cache}
 
-# Decompress files
-decompress_files() {
-  f=$1
-  out="$(echo $f | sed 's/cd$/bd/')"
-  echo "##  DECOMPRESSING $f TO ${out}"
-  ${scripts_dir}/bin/compexp x "$f" ${out}
-  # rm "$f"  ## Uncomment if you don't want to keep compressed files
-}
-export -f decompress_files
+    cd "${mission_dir}/raw"
 
-# Rename files
-rename_files() {
-  echo "##  RENAMING DBD FILES ..."
-  ${scripts_dir}/bin/rename_dbd_files *.*bd /
-}
+    # Decompress and rename files
+    ls *.?cd | while read f; do
+        out="$(echo $f | sed 's/cd$/bd/')"
+        # Check if decompressed file already exists
+        if [[ ! -e $out ]]; then
+            echo "##  DECOMPRESSING $f TO ${out}"
+            ${scripts_dir}/bin/compexp x "$f" ${out}
+        fi
+    done
 
-convert_binary_to_text() {
-  f=$1
-  if [[ ! -e ../txt/$f.txt ]]; then
-    echo "bd2ascii $f"
-    "${scripts_dir}/bin/bd2ascii" "$f" >"../txt/$f.txt"
-    sed -i "s/ $//" "../txt/$f.txt" ## Remove empty space from the end of each line (pandas doesn't like them)
-  fi
-}
-export -f convert_binary_to_text
+    echo "##  RENAMING DBD FILES ..."
+    ${scripts_dir}/bin/rename_dbd_files *.*bd /
 
-# Convert to NetCDF
-convert_to_netcdf() {
-  # Create *.nc profile files
-  echo "##  asc2profile.py"
-  python3 ${scripts_dir}/asc2profile.py ${glider} ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
+    # Create symbolic link to cache
+    ln -sf ${mission_dir}/cache .
 
-  # Create trajectory file
-  echo "##  profile2traj.py"
-  python3 ${scripts_dir}/profile2traj.py ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
+    # Convert binary files to text
+    ls ${glider}*bd 2>/dev/null | while read f; do
+        txt_path="../txt/$f.txt"
+        if [[ ! -e $txt_path ]]; then
+            echo "bd2ascii $f"
+            "${scripts_dir}/bin/bd2ascii" "$f" >"$txt_path"
+            sed -i "s/ $//" "$txt_path"
+        fi
+    done
 
-  rm -r ${mission_dir}/txt/dask-worker-space
-}
+    rm ${mission_dir}/raw/cache
+fi
 
-# Main function
-main() {
-  # Create directories
-  cd ${mission_dir}
-  rm -r txt nc 2>/dev/null
-  mkdir -p txt nc
+# Check if txt directory exists
+if [[ -d "${mission_dir}/txt" ]]; then
+    cd "${mission_dir}/txt"
 
-  ##  DECOMPRESS RAW FILES
-  cd "${mission_dir}/raw"
-  ls *.?cd | parallel "decompress_files {}"
+    # Check if any files in nc directory have been modified in the last day
+    if [[ -z $(find "${mission_dir}/nc" -mtime 0) ]]; then
+        # Convert to NetCDF
+        echo "##  asc2profile.py"
+        python3 ${scripts_dir}/asc2profile.py ${glider} ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
+    fi
 
-  ##  RENAME RAW FILES
-  cd "${mission_dir}/raw"
-  rename_files
+    echo "##  profile2traj.py"
+    python3 ${scripts_dir}/profile2traj.py ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
 
-  ## Check if cache directory exists
-  if [[ ! -e ../cache ]]; then
-    mkdir ../cache
-  fi
-
-  ## Create symbolic link if it doesn't exist
-  if [[ ! -L cache ]]; then
-    ln -nsf ${mission_dir}/cache .
-  fi
-  cd ${mission_dir}/raw
-  ln -s ${mission_dir}/cache . 2>/dev/null
-
-  ## Check if files are present and then convert them to ascii *.txt files
-  if [[ -n "$(ls ${glider}*bd)" ]]; then
-    ls ${glider}*bd | parallel "convert_binary_to_text {}"
-  else
-    echo "No files found matching pattern '${glider}*bd'"
-  fi
-  rm ${mission_dir}/raw/cache
-
-  # ASCII -> NC
-  cd "${mission_dir}/txt"
-  convert_to_netcdf
-}
-
-# Run main function
-main
+    rm -r ${mission_dir}/txt/dask-worker-space
+fi

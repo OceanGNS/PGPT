@@ -4,9 +4,9 @@
 ## INSTRUMENT SPECIFIC INPUTS
 instrument_ctd:
   _FillValue: -999
-  serial_number: "207968"
+  serial_number: "207969"
   long_name: "RBR Glider Payload CTD"
-  calibration_date: "YYYY-mm-ddTHH:MM:SSZ"
+  calibration_date: "2021-08-18T00:00:00Z"
   calibration_report: ""
   comment: "unpumped CTD" # pumped (Seabird CTD) || unpumped (RBR Legato 6)
   factory_calibrated: "YYYY-mm-ddTHH:MM:SSZ"
@@ -16,28 +16,34 @@ instrument_ctd:
 
 ## PLATFORM SPECIFIC INPUTS
 global:
-  deployment_datetime: "2023-01-13T12:23:45Z" # Fill by hand for now
+  deployment_datetime: "2023-03-17T12:23:45Z" # Fill by hand for now
   acknowledgment: "These data where collected through funding provided by the Ocean Frontier Institute at Memorial University."
   comment: "Slocum glider underwater vehicle data"
-  contributor_name: "Adam Comeau, Nicolai von Oppeln-Bronikowski, Sarik Shaikh-Upadhye, Taimaz Bahadory"
+  contributor_name: "Nicolai von Oppeln-Bronikowski, Sarik Shaikh-Upadhye, Taimaz Bahadory"
   contributor_role: "Principal Investigator,Glider Pilot,Glider Pilot,Technician,Data Management"
   project: "OFI Module O"
   summary: "AD2CP glider deployed on the Scotian Shelf part of the annual OTN-led spring bloom mission"
   institution: "Memorial University"
   
-  # SENSORS
+  # SENSOR STATEMENT TAKE FROM IOOS GDAC3.0
   instrument: "In Situ/Laboratory Instruments > Profilers/Sounders > CTD"
+  
+  # OXYGEN SENSOR
   oxygen_sensor_type: "Aanderaa 4831"
   oxygen_sensor_serial_number: "961"
-  oxygen_sensor_SVU_coefficient_0: 2.79543E-03
-  oxygen_sensor_SVU_coefficient_1: 1.18071E-04
-  oxygen_sensor_SVU_coefficient_2: 2.34446E-06
-  oxygen_sensor_SVU_coefficient_3: 1.47304E02
-  oxygen_sensor_SVU_coefficient_4: -2.10486E-01
-  oxygen_sensor_SVU_coefficient_5: -3.39037E01
-  oxygen_sensor_SVU_coefficient_6: 2.93287E00
+  oxygen_sensor_SVU_coefficient_0: 2.74988E-03
+  oxygen_sensor_SVU_coefficient_1: 1.13980E-04
+  oxygen_sensor_SVU_coefficient_2: 2.55480E-06
+  oxygen_sensor_SVU_coefficient_3: 1.00392E02
+  oxygen_sensor_SVU_coefficient_4: -1.38412E-01
+  oxygen_sensor_SVU_coefficient_5: -2.27002E01
+  oxygen_sensor_SVU_coefficient_6: 2.01418E00
   oxygen_sensor_calibration_date: "FEB-17-2021"
   
+  # OTHER SENSORS
+  ad2cp_sensor_type: "Nortek 1MHz AD2CP Nortek DVL"
+  ad2cp_sensor_serial_number: "102878"
+  ad2cp_sensor_calibration_date: "AUG-13-2021"
   
   ## THESE NEED TO BE CALCULATED OR MODIFIED BY THE CODE
   history: "HISTORY" # every time gets modified or called, the log should be appended here.
