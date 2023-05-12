@@ -33,6 +33,21 @@ Be sure to update the metadata form in the `*.yml` file so that the toolbox uses
 
 Upload glider data to the glider_data directory, using the example format or change the paths to point to the glider data location.
 
+## What the resulting data looks like
+
+Once the toolbox has run the results are found in `*.nc` directory with individual profile files of the format `glider_name+file_nameXXXX+processing_mode.nc` and a trajectory file that combines all the profiles.
+
+The data can easily be plotted as shown in the `check_data.ipynb` document in the `doc_example` folder for the batray glider deployment in 2023.
+
+An example of the raw temperature data is shown here:
+
+![Glider Temperature CTD data with profile index and dates overlaid. Note that the dates are for 2023](./doc_example/delayed_temperature.png)
+
+We have implemented a Slocum glider dead-reckoning correction based on post drift analysis. This improves the positional representation underwater beyond just linear interpolation of the GPS positions. An example is shown here:
+
+![Glider Track with GPS points and corrected underwater positions](./doc_example/delayed_track.png)
+
+
 ## Sharing results
 
 Once the toolbox runs or if it runs every day for realtime data, the user can set a shell script to download new data (for example from SFMC) and upload the data to an FTP server or a GDAC.
