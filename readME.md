@@ -35,15 +35,13 @@ Upload glider data to the glider_data directory, using the example format or cha
 
 ## What the resulting data looks like
 
-Once the toolbox has run the results are found in `*.nc` directory with individual profile files of the format `glider_name+file_nameXXXX+processing_mode.nc` and a trajectory file that combines all the profiles.
+Once the toolbox has run the results are found in `*.nc` directory with individual profile files of the format `glider_name+file_nameXXXX+processing_mode.nc` and a trajectory file that combines all the profiles. The data can easily be plotted as shown in the [check_data.ipynb](./doc_example/check_batray20230317_data.ipynb) document in the [doc_example](./doc_example/) for the batray glider deployment in 2023.
 
-The data can easily be plotted as shown in the [check_data.ipynb](./doc_example/check_data.ipynb) document in the [doc_example](./doc_example/) for the batray glider deployment in 2023.
-
-An example of the raw temperature data is shown here:
+An example of the raw temperature data is shown here. Shown are individual profile index delineating the glider dive profiles and time scale at the top axis. The glider went out towards the shelf edge and flew back completing two sections across the Scotian Shelf.
 
 ![Glider Temperature CTD data with profile index and dates overlaid. Note that the dates are for 2023](./doc_example/delayed_temperature.png)
 
-We have implemented a Slocum glider dead-reckoning correction based on post drift analysis. This improves the positional representation underwater beyond just linear interpolation of the GPS positions. An example is shown here:
+The next plot shows the glider track and GPS surfacing positions. We have implemented a Slocum glider dead-reckoning correction based on post drift analysis. This improves the positional representation underwater beyond just linear interpolation of the GPS positions.
 
 ![Glider Track with GPS points and corrected underwater positions](./doc_example/delayed_track.png)
 
