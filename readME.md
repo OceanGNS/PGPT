@@ -35,7 +35,7 @@ Upload glider data to the glider_data directory, using the example format or cha
 
 ## What the resulting data looks like
 
-Once the toolbox has run the results are found in `*.nc` directory with individual profile files of the format `glider_name+file_nameXXXX+processing_mode.nc` and a trajectory file that combines all the profiles. The data can easily be plotted as shown in the [check_data.ipynb](./doc_example/check_batray20230317_data.ipynb) document in the [doc_example](./doc_example/) for the batray glider deployment in 2023.
+Once the toolbox has run the results are found in `*.nc` directory with individual profile files of the format `glider_name+file_nameXXXX+processing_mode.nc` and a trajectory file that combines all the profiles. The data can easily be plotted as shown in the [python notebook](./doc_example/check_batray_20230317_data.ipynb) document in the [doc_example](./doc_example/) for the batray glider deployment in 2023.
 
 An example of the raw temperature data is shown here. Shown are individual profile index delineating the glider dive profiles and time scale at the top axis. The glider went out towards the shelf edge and flew back completing two sections across the Scotian Shelf.
 
