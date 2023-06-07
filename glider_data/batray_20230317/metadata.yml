@@ -10,7 +10,7 @@ instrument_ctd:
   calibration_report: ""
   comment: "unpumped CTD" # pumped (Seabird CTD) || unpumped (RBR Legato 6)
   factory_calibrated: "YYYY-mm-ddTHH:MM:SSZ"
-  make_model: "RBR Legato 6"
+  make_model: "RBR Legato 3"
   platform: "platform"
   type: "platform"
 

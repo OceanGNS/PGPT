@@ -82,12 +82,14 @@ def dm2d(x: np.ndarray):
 	Converts degree-minute (NMEA stamp ddmm.mm) to decimal degree (dd.dd).
 	
 	Args:
-		x (ndarray): Value in degree-minute format (e.g. 4453.44 for 12 degrees 34.5 minutes)
+		x (ndarray): Value in degree-minute format (e.g. 4453.44 for 44 degrees 53.44 minutes)
 	
 	Returns:
-		x: Value in decimal degree format (e.g. 12.575 degrees)
+		x: Value in decimal degree format (e.g. 44.889 degrees)
 	"""
-	return np.trunc(x / 100) + (x % 100) / 60
+	sign = np.sign(x)
+	x = np.abs(x)
+	return sign * (np.trunc(x / 100) + (x % 100) / 60)
 
 def deriveCTD(c, t, p, lon, lat, time=None, interpolate=False, tgap=20):
 	"""
