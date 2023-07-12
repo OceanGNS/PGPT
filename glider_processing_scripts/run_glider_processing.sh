@@ -10,18 +10,13 @@ processing_mode="$6"
 
 # Check if raw directory exists
 if [[ -d "${mission_dir}/raw" ]]; then
-<<<<<<< HEAD
     # Prepare directories
     mkdir -p ${mission_dir}/{txt,nc}
-=======
-	# Prepare directories
-	mkdir -p ${mission_dir}/{txt,nc,cache}
->>>>>>> 6ce7ad76845ebb51e2cd941693b2271b2ae1b1c2
 
 	cd "${mission_dir}/raw"
 
 	# Decompress and rename files
-	ls *.?cd | while read f; do
+	ls *.?[cC][dD] | while read f; do
 		out="$(echo $f | sed 's/cd$/bd/')"
 		# Check if decompressed file already exists
 		if [[ ! -e $out ]]; then
@@ -30,13 +25,8 @@ if [[ -d "${mission_dir}/raw" ]]; then
 		fi
 	done
 
-<<<<<<< HEAD
     echo "##  RENAMING DBD FILES ..."
     ${scripts_dir}/bin/rename_dbd_files *.*[bB][dD] /
-=======
-	echo "##  RENAMING DBD FILES ..."
-	${scripts_dir}/bin/rename_dbd_files *.*bd /
->>>>>>> 6ce7ad76845ebb51e2cd941693b2271b2ae1b1c2
 
 	# Create symbolic link to cache
 	ln -sf ${mission_dir}/cache .
@@ -58,7 +48,6 @@ fi
 if [[ -d "${mission_dir}/txt" ]]; then
 	cd "${mission_dir}/txt"
 
-<<<<<<< HEAD
 	# REMOVE EMPTY FILES
 	find . -empty -delete
 	
@@ -68,14 +57,6 @@ if [[ -d "${mission_dir}/txt" ]]; then
         echo "##  asc2profile.py"
         python3 ${scripts_dir}/asc2profile.py ${glider} ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
     fi
-=======
-   # Check if any files in nc directory have been modified in the last day
-	if [[ -z $(find "${mission_dir}/nc" -mtime 0) ]]; then
-		# Convert to NetCDF
-		echo "##  asc2profile.py"
-		python3 ${scripts_dir}/asc2profile.py ${glider} ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
-	fi
->>>>>>> 6ce7ad76845ebb51e2cd941693b2271b2ae1b1c2
 
 	echo "##  profile2traj.py"
 	python3 ${scripts_dir}/profile2traj.py ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}

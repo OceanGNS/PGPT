@@ -223,6 +223,7 @@ if __name__ == "__main__":
 	file_list = sorted(glob.glob(f'{args.glider}*.[ds]bd.txt'))
 	nc_directory = os.path.join(args.mission_dir, 'nc')
 	file_number = 1
+	print(file_list)
 	for f in file_list:
 		printF("asc2profile %s" % f)
 		nc_filename = os.path.join(nc_directory, f"{os.path.splitext(f)[0]}.nc")
