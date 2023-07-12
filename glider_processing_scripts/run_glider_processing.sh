@@ -11,7 +11,7 @@ processing_mode="$6"
 # Check if raw directory exists
 if [[ -d "${mission_dir}/raw" ]]; then
     # Prepare directories
-    mkdir -p ${mission_dir}/{txt,nc,cache}
+    mkdir -p ${mission_dir}/{txt,nc}
 
     cd "${mission_dir}/raw"
 
@@ -26,7 +26,7 @@ if [[ -d "${mission_dir}/raw" ]]; then
     done
 
     echo "##  RENAMING DBD FILES ..."
-    ${scripts_dir}/bin/rename_dbd_files *.*bd /
+    ${scripts_dir}/bin/rename_dbd_files *.*[bB][dD] /
 
     # Create symbolic link to cache
     ln -sf ${mission_dir}/cache .
@@ -48,6 +48,9 @@ fi
 if [[ -d "${mission_dir}/txt" ]]; then
     cd "${mission_dir}/txt"
 
+	# REMOVE EMPTY FILES
+	find . -empty -delete
+	
     # Check if any files in nc directory have been modified in the last day
     if [[ -z $(find "${mission_dir}/nc" -mtime 0) ]]; then
         # Convert to NetCDF
