@@ -84,8 +84,6 @@ if __name__ == '__main__':
 	}
 
 
-
-
 	print(source_info['filepath'] + '*{}*.nc'.format(processing_mode))
 	files = sorted(glob.glob(source_info['filepath'] + '*{}*.nc'.format(processing_mode)))
 	source_info['data_source'] = files
@@ -96,14 +94,14 @@ if __name__ == '__main__':
 	file_chunks = read_in_chunks(files)
 	data_list, glider_data_list = [], []
 	for chunk_files in file_chunks:
-		#data_chunk = xr.open_mfdataset(chunk_files, engine='netcdf4', combine='by_coords', decode_times=False, parallel=True).load()
-		with xr.open_mfdataset(chunk_files, engine='netcdf4', combine='by_coords', decode_times=False, parallel=True).load() as data_chunk:
+		#with xr.open_mfdataset(chunk_files, engine='netcdf4', combine='by_coords', decode_times=False, parallel=True).load() as data_chunk:
+		with xr.open_mfdataset(chunk_files, engine='netcdf4', combine='nested', concat_dim='time', decode_times=False, parallel=True).load() as data_chunk:
 			data_chunk = add_missing_variables(data_chunk, all_vars)
 			data_chunk = data_chunk.sortby('time').to_dataframe().reset_index()
 			data_list.append(data_chunk)
 
-		#glider_data_chunk = xr.open_mfdataset(chunk_files, engine='netcdf4', group='glider_record', combine='by_coords', decode_times=False, parallel=True).load()
-		with xr.open_mfdataset(chunk_files, engine='netcdf4', group='glider_record', combine='by_coords', decode_times=False, parallel=True).load() as glider_data_chunk:
+		#with xr.open_mfdataset(chunk_files, engine='netcdf4', group='glider_record', combine='by_coords', decode_times=False, parallel=True).load() as glider_data_chunk:
+		with xr.open_mfdataset(chunk_files, engine='netcdf4', group='glider_record', combine='nested',concat_dim='time', decode_times=False, parallel=True).load() as glider_data_chunk:
 			glider_data_chunk = add_missing_variables(glider_data_chunk, all_glider_record_vars)
 			glider_data_chunk = glider_data_chunk.sortby('time').to_dataframe().reset_index()
 			glider_data_list.append(glider_data_chunk)
