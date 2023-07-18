@@ -91,7 +91,6 @@ if __name__ == '__main__':
 	all_vars, all_glider_record_vars = set(), set() #T  This is empty, and remains empty throught the whole process!
 	first_file = True
 	#
-	# file_chunks = read_in_chunks(files)
 	data_list, glider_data_list = [], []
 	chunk_size = 256
 	file_chunks = [files[i*chunk_size:(i+1)*chunk_size] for i in range(math.ceil(len(files)/chunk_size))]
