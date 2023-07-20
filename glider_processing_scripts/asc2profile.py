@@ -5,6 +5,8 @@ import glob
 import numpy as np
 import pandas as pd
 import math
+import multiprocessing
+
 from gliderfuncs import p2depth, dm2d, deriveCTD, deriveO2, findProfiles
 from data2attr import save_netcdf
 from quartod_qc import quartod_qc_checks
@@ -223,12 +225,12 @@ if __name__ == "__main__":
 	file_list = sorted(glob.glob(f'{args.glider}*.[ds]bd.txt'))
 	nc_directory = os.path.join(args.mission_dir, 'nc')
 	file_number = 1
-	print(file_list)
+	source_infos = []
 	for f in file_list:
 		printF("asc2profile %s" % f)
 		nc_filename = os.path.join(nc_directory, f"{os.path.splitext(f)[0]}.nc")
 		if not os.path.exists(nc_filename):
-			source_info = {
+			source_infos.append({
 				'encoder': encoder_file,
 				'data_type': 'profile',
 				'gliders_db': args.gliders_db,
@@ -238,6 +240,9 @@ if __name__ == "__main__":
 				'filename': f,
 				'filepath': args.mission_dir,
 				'file_number': file_number
-			}
-			main(source_info)
-			file_number = file_number + 1
+			})
+		#
+		file_number = file_number + 1
+	#
+	with multiprocessing.Pool() as p:
+		p.map(main, source_infos)
