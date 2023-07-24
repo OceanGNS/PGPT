@@ -68,7 +68,7 @@ if [[ -d "${mission_dir}/txt" ]]; then
 	mkdir ${mission_dir}/nc/ignored
 	for f in *.nc; do
 		i=$(ncdump $f | grep "time =" | head -1 | awk '{print $3}')
-		if [[ $i -le 1 ]]; then mv $f ignored; fi
+		if [[ $i -le 1 ]]; then mv -v $f ignored; fi
 	done
 
 	echo "##  profile2traj.py"

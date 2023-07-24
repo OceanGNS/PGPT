@@ -298,16 +298,21 @@ def correct_dead_reckoning(glider_lon, glider_lat, glider_timestamp, dive_state,
 	dive_state = dive_state.ffill()
 
 	# Find the start of each dive
-	dive_starts = np.argwhere(np.diff(dive_state**2) != 0).flatten()
-	dive_starts = dive_starts[np.argwhere(np.diff(dive_state[dive_starts]**2, n=2, axis=0) == 18).flatten()]
-
+	# dive_starts = np.argwhere(np.diff(dive_state**2) != 0).flatten()
+	# dive_starts = dive_starts[np.argwhere(np.diff(dive_state[dive_starts]**2, n=2, axis=0) == 18).flatten()]
+	dive_starts = np.argwhere(np.diff(dive_state) < 0).flatten()
+ 
 	# Remove dive_starts with NaN values
 	for ki in range(len(dive_starts)):
 		while glider_lon[dive_starts[ki]] != glider_lon[dive_starts[ki]]:
 			dive_starts[ki] = dive_starts[ki] + 1
 
 	# Find the end of each dive
-	dive_ends = np.argwhere(np.diff(dive_state**2, n=1) == 5)[:,0] + 1
+	diff = np.diff(dive_state**2, n=1)
+	diff_12 = diff==3  ##T dive_state change from 1 to 2
+	diff_13 = diff==8  ##T dive_state change from 1 to 3
+	diff_14 = diff==15  ##T dive_state change from 1 to 4
+	dive_ends = np.argwhere(np.bitwise_or(diff_12,diff_13,diff_14)).flatten()
 
 	# Remove dive_ends with NaN values
 	for ki in range(len(dive_ends)):
@@ -321,6 +326,9 @@ def correct_dead_reckoning(glider_lon, glider_lat, glider_timestamp, dive_state,
 			dive_mids[ki] = dive_mids[ki] - 1
 
 	# Calculate the velocity for longitude and latitude
+	# print(dive_starts,dive_starts.shape)
+	# print(dive_mids,dive_mids.shape)
+	# print(dive_ends,dive_ends.shape)
 	time_diff = glider_timestamp[dive_mids].to_numpy() - glider_timestamp[dive_starts].to_numpy()
 	vlonDD = (glider_lon[dive_ends].to_numpy() - glider_lon[dive_mids].to_numpy()) / time_diff
 	vlatDD = (glider_lat[dive_ends].to_numpy() - glider_lat[dive_mids].to_numpy()) / time_diff
@@ -333,7 +341,7 @@ def correct_dead_reckoning(glider_lon, glider_lat, glider_timestamp, dive_state,
 	for i in range(len(dive_starts)):
 		idtemp = np.arange(dive_starts[i], dive_mids[i] + 1)
 		a = (dive_starts[i] + np.argwhere((~glider_lon[idtemp].isna()).to_numpy())).flatten()
-
+		#
 		# This index is used to introduce "nan's" for padding to match array size to the original array
 		ap = np.hstack((ap, a))
 		if(len(a)==0):
