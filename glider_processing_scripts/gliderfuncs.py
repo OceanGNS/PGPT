@@ -131,10 +131,10 @@ def deriveCTD(c, t, p, lon, lat, time=None, interpolate=False, tgap=20):
 			t = interpolate_nans(t, tgap=tgap)
 			c = interpolate_nans(c, tgap=tgap)
 
-	c *= 10
+	# c *= 10
 		
 	# Compute practical salinity from conductivity
-	SP = gsw.conversions.SP_from_C(c, t, p)
+	SP = gsw.conversions.SP_from_C(c*10, t, p)
 	
 	# Compute absolute salinity
 	SA = gsw.SA_from_SP(SP, p, np.nanmean(lon), np.nanmean(lat))

@@ -232,12 +232,12 @@ if __name__ == "__main__":
 			source_infos.append({
 				'encoder': encoder_file,
 				'data_type': 'profile',
-				'gliders_db': '/home/taimaz/gliderFilesProcessing/glider_reference_information/glider_serial-numbers_and_sensor-serial-numbers.csv', ## args.gliders_db,
-				'metadata_source': '/home/taimaz/server/public/missions/64cbd1f30f1a926a6d82abe9/metadata.yml', ## args.metadata_file,
-				'processing_mode': 'realtime', ## args.processing_mode,
+				'gliders_db': args.gliders_db,
+				'metadata_source': args.metadata_file,
+				'processing_mode': args.processing_mode,
 				'data_source': f,
 				'filename': f,
-				'filepath': '/home/taimaz/server/public/missions/64cbd1f30f1a926a6d82abe9/realtime', ## args.mission_dir,
+				'filepath': args.mission_dir,
 				'file_number': file_number
 			})
 		#
@@ -250,7 +250,7 @@ if __name__ == "__main__":
 	allData = pd.concat([df[0] for df in all if df!=None], ignore_index=True, sort=True).sort_values(by=['time'])
 	allGliderData = pd.concat([df[1] for df in all if df!=None], ignore_index=True, sort=True).sort_values(by=['time'])
 	#
-	if 'x_dr_state' in allGliderData.keys() and all(key in allGliderData.keys() for key in ['m_gps_lon', 'm_gps_lat', 'm_lat', 'm_lon']):
+	if 'x_dr_state' in allGliderData.keys() and np.all([key in allGliderData.keys() for key in ['m_gps_lon', 'm_gps_lat', 'm_lat', 'm_lon']]):
 		allData['lon_qc'], allData['lat_qc'] = correct_dead_reckoning(allGliderData['m_lon'], allGliderData['m_lat'], allGliderData['time'], allGliderData['x_dr_state'], allGliderData['m_gps_lon'], allGliderData['m_gps_lat'])
 	#
 	if 'depth' in allData.keys():
