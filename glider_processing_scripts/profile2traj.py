@@ -86,6 +86,7 @@ if __name__ == '__main__':
 	}
 	#
 	files = sorted(glob.glob(source_info['filepath'] + '*{}*.nc'.format(processing_mode)))
+	files = list(filter(lambda x: 'trajectory' not in x, files))
 	source_info['data_source'] = files
 	#
 	all_vars, all_glider_record_vars = set(), set() #T  This is empty, and remains empty throught the whole process!
@@ -109,7 +110,7 @@ if __name__ == '__main__':
 		#
 		if first_file:
 			with xr.open_dataset(chunk_files[0], engine='netcdf4', decode_times=False) as first_file_data:
-				source_info['filename'] = first_file_data.deployment_name.split('T')[0]+'-'+source_info['processing_mode']+'_trajectory_file.nc'
+				source_info['filename'] = "unit_334_realtime_trajectory.nc" # first_file_data.deployment_name.split('T')[0]+'-'+source_info['processing_mode']+'_trajectory_file.nc'
 				first_file = False
 				#
 				# Delete the trajectory file if it already exists

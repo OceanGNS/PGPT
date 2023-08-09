@@ -298,21 +298,22 @@ def correct_dead_reckoning(glider_lon, glider_lat, glider_timestamp, dive_state,
 	dive_state = dive_state.ffill()
 
 	# Find the start of each dive
-	# dive_starts = np.argwhere(np.diff(dive_state**2) != 0).flatten()
-	# dive_starts = dive_starts[np.argwhere(np.diff(dive_state[dive_starts]**2, n=2, axis=0) == 18).flatten()]
-	dive_starts = np.argwhere(np.diff(dive_state) < 0).flatten()
+	dive_starts = np.argwhere(np.diff(dive_state**2) != 0).flatten()
+	dive_starts = dive_starts[np.argwhere(np.diff(dive_state[dive_starts]**2, n=2, axis=0) == 18).flatten()]
+	# dive_starts = np.argwhere(np.diff(dive_state) < 0).flatten()
  
 	# Remove dive_starts with NaN values
 	for ki in range(len(dive_starts)):
 		while glider_lon[dive_starts[ki]] != glider_lon[dive_starts[ki]]:
 			dive_starts[ki] = dive_starts[ki] + 1
 
-	# Find the end of each dive
-	diff = np.diff(dive_state**2, n=1)
-	diff_12 = diff==3  ##T dive_state change from 1 to 2
-	diff_13 = diff==8  ##T dive_state change from 1 to 3
-	diff_14 = diff==15  ##T dive_state change from 1 to 4
-	dive_ends = np.argwhere(np.bitwise_or(diff_12,diff_13,diff_14)).flatten()
+	# Find the end of each dive (dive_state 2 > 3)
+	dive_ends = np.argwhere(np.diff(dive_state**2, n=1) == 5)[:,0] + 1 # 
+	# diff = np.diff(dive_state**2, n=1)
+	# diff_12 = diff==3  ##T dive_state change from 1 to 2
+	# diff_13 = diff==8  ##T dive_state change from 1 to 3
+	# diff_14 = diff==15  ##T dive_state change from 1 to 4
+	# dive_ends = np.argwhere(diff_12+diff_13+diff_14).flatten()
 
 	# Remove dive_ends with NaN values
 	for ki in range(len(dive_ends)):
@@ -320,11 +321,13 @@ def correct_dead_reckoning(glider_lon, glider_lat, glider_timestamp, dive_state,
 			dive_ends[ki] = dive_ends[ki] + 1
 
 	# Find the midpoint of each dive
-	dive_mids = np.argwhere(np.diff(dive_state**2, n=1) == 3)[:,0]
+	dive_mids = np.argwhere(np.diff(dive_state**2, n=1) == 3)[:,0]  #T Doesn't always work.  There are cases with dive_state going 1 > 4 > 1.
+
 	for ki in range(len(dive_mids)):
 		while glider_lon[dive_mids[ki]] != glider_lon[dive_mids[ki]]:
 			dive_mids[ki] = dive_mids[ki] - 1
 
+	print(dive_starts.shape,dive_mids.shape,dive_ends.shape)
 	# Calculate the velocity for longitude and latitude
 	# print(dive_starts,dive_starts.shape)
 	# print(dive_mids,dive_mids.shape)

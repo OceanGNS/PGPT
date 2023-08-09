@@ -7,7 +7,7 @@ import pandas as pd
 import math
 import multiprocessing
 
-from gliderfuncs import p2depth, dm2d, deriveCTD, deriveO2, findProfiles, correct_dead_reckoning
+from gliderfuncs import p2depth, dm2d, deriveCTD, deriveO2, findProfiles
 from data2attr import save_netcdf
 from quartod_qc import quartod_qc_checks
 
@@ -46,58 +46,59 @@ def read_var_filter(filter_name):
 	pwd_dir = os.path.dirname(os.path.realpath(__file__))
 	filter_dir = os.path.join(pwd_dir, './bin/')
 	filter_file = os.path.join(filter_dir, filter_name)
-	#
+	
 	with open(filter_file, 'r') as fid:
 		return [row[0] for row in csv.reader(fid, delimiter=',')]
 
 def process_data(data, source_info):
+
 	# Transform certain columns applying a function to them like "rad2deg"
 	def update_columns(data, cols, func):
 		data.update({col: func(data[col]) for col in cols if col in data.keys()})
-	#
+
 	def fill_exact_zero_with_nan(var):
 		# Ensure the array is of a float dtype before assigning NaN
-		# if np.issubdtype(var.dtype, np.integer):
-		var = var.astype(float)
+		if np.issubdtype(var.dtype, np.integer):
+			var = var.astype(float)
 		var[np.isclose(var, 0, atol=1e-7)] = np.nan
 		return var
-	#	
+		
 	def get_column_or_nan(df, column_name):
 		if column_name in df.columns:
 			return df[column_name]
 		else:
 			return np.full(len(df), np.nan)
-	#
+	
 	# Get rid of "zero's" that are measurement or initialization artefacts from sensors.
 	for col in data.columns:
 		data[col] = fill_exact_zero_with_nan(data[col].values)
-	#
+	
 	update_columns(data, ['c_wpt_lat', 'c_wpt_lon', 'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'], dm2d)
 	update_columns(data, ['c_fin', 'c_heading', 'c_pitch', 'm_fin', 'm_heading', 'm_pitch', 'm_roll'], np.degrees)
-	#
+	
 	# Convert bar to dbar from glider pressure sensors (flight and science)
 	columns_to_update = ['sci_water_pressure', 'm_pressure']
 	for column in columns_to_update:
 		if column in data:
 			data[column] *= 10
-	#
+	
 	# Basic clipping of data
-	if np.all([k in data for k in ['m_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']]):
+	if all(k in data for k in ['m_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon']):
 		data.update({k: np.clip(data[k], *r) for k, r in zip(['m_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'], [(-90, 90), (-180, 180)] * 2)})
-	#
-	if np.all([k in data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure']]):
+
+	if all(k in data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure']):
 		data.update({k: np.clip(data[k], *r) for k, r in zip(['sci_water_cond', 'sci_water_temp', 'sci_water_pressure'], [(0, 7), (-1.9, 40), (-1.9, 1200)])})
-	#
+	
 	if 'sci_oxy4_oxygen' in data:
 		data['sci_oxy4_oxygen'] = np.clip(data['sci_oxy4_oxygen'], 0, 500)
-	#
+	
 	if 'sci_water_pressure' in data:
 		data['sci_water_depth'] = p2depth(data['sci_water_pressure'],time=data['time'],interpolate=True, tgap=5)
-	#
+	
 	# Store and rename variables in the "data" pd.dataframe
 	glider_data = data.copy()
 	data = pd.DataFrame()
-	#
+	
 	# Copy/duplicate certain names to the data frame from the glider_data frame but fill with nan if not existing
 	name_list = {
 		'time': 'time',
@@ -109,44 +110,44 @@ def process_data(data, source_info):
 		'lat_uv': 'm_gps_lat',
 		'lon_uv': 'm_gps_lon'
 	}
-	#
+	
 	for new_col, old_col in name_list.items():
 		data[new_col] = get_column_or_nan(glider_data, old_col)
-	#
+	
 	# derive CTD sensor data
-	if(np.all([k in glider_data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure', 'sci_water_depth']])):
+	if(all(k in glider_data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure', 'sci_water_depth'])):
 		data['conductivity'],data['temperature'],data['depth'], data['pressure']=glider_data['sci_water_cond'],glider_data['sci_water_temp'],glider_data['sci_water_depth'],glider_data['sci_water_pressure']
 		data['salinity'],data['absolute_salinity'],data['conservative_temperature'],data['density']=deriveCTD(data['conductivity'],data['temperature'],data['pressure'],data['lon'],data['lat'])
 	else:
 		return
-	#
-	# derive oxygen sensor data
-	if np.all([k in glider_data.keys() for k in ['sci_oxy4_oxygen', 'sci_water_temp', 'sci_water_pressure']]):
+	
+	# dervice oxygen sensor data
+	if all(k in glider_data.keys() for k in ['sci_oxy4_oxygen', 'sci_water_temp', 'sci_water_pressure']):
 		data['oxygen_concentration'] = deriveO2(glider_data['sci_oxy4_oxygen'], glider_data['sci_water_temp'], data['salinity'],time=data['time'],interpolate=True, tgap=20)
-	#
+	
 	if 'sci_oxy4_temp' in glider_data:
 		data['oxygen_sensor_temperature'] = glider_data['sci_oxy4_temp']
-	#
+	
 	# optical sensors (if present)
 	chlorophyll_list = ['sci_flbbrh_chlor_units', 'sci_flbbcd_chlor_units', 'sci_flbb_chlor_units', 'sci_flntu_chlor_units']
 	for k in chlorophyll_list:
 		if k in glider_data:
 			data['chlorophyll_a'] = glider_data[k]
 			break
-	#
+	
 	cdom_list = ['sci_fl3slo_cdom_unit', 'sci_fl3sloV2_cdom_units', 'sci_flbbcd_cdom_units', 'sci_fl2PeCdom_cdom_units']
 	for k in cdom_list:
 		if k in glider_data:
 			data['cdom'] = glider_data[k]
 			break
-	#		
+			
 	# Quartod qc checks and with nans anywhere where the data is questionable for a rough qc
 	qc_list = ['temperature', 'salinity','pressure','conductivity','density']
 	for k in qc_list:
 		if k in data:
 			qc_variable = k + '_qc'
 			data[qc_variable] = quartod_qc_checks(data[k].values, data['time'].values, k)
-	#
+	
 	# Create profile id, profile_time, profile_lon and profile_lat variable
 	data = data.assign(profile_time=np.nan, profile_lat=np.nan, profile_lon=np.nan, profile_id=np.nan)
 	prof_idx, prof_dir = findProfiles(data['time'], data['depth'], stall=20, shake=200)
@@ -159,15 +160,14 @@ def process_data(data, source_info):
 			data.loc[idx, 'profile_lat'] = data.loc[idx, 'lat'].mean()
 			data.loc[idx, 'profile_lon'] = data.loc[idx, 'lon'].mean()
 			data.loc[idx, 'profile_id'] = prof_idx[idx]+source_info['file_number']
-	#
+
 	# convert & save glider *.bd files to *.nc files
 	name, ext = os.path.splitext(source_info['filename'])
 	filename, bd_ext = os.path.splitext(name)
 	source_info['filename'] = "%s_%s.nc" % (filename,source_info['processing_mode'])
 	source_info['filepath'] = source_info['filepath']+'/nc/'
-	save_netcdf(data, glider_data, source_info['filepath'] + source_info['filename'])
-	return data,glider_data
-
+	save_netcdf(data, glider_data, source_info)
+	
 def main(source_info):
 	# Validate command-line arguments
 	file_types = ['dbd', 'sbd', 'tbd', 'ebd']
@@ -175,11 +175,11 @@ def main(source_info):
 	name, ext = os.path.splitext(filename)
 	name, ebd_ext = os.path.splitext(name)
 	filename = name
-	#
+	
 	file_exists = any(os.path.isfile(f'{filename}.{file_type}.txt') for file_type in file_types)
 	if not file_exists:
 		raise FileNotFoundError(f'No matching file found for {filename} with extensions .dbd.txt, .sbd.txt, .tbd.txt, or .ebd.txt')
-	#
+	
 	if source_info['processing_mode'] == 'delayed':
 		flight_var_filter = read_var_filter('dbd_filter.csv')
 		science_var_filter = read_var_filter('ebd_filter.csv')
@@ -190,24 +190,24 @@ def main(source_info):
 		science_data = read_bd_data(f'{filename}.tbd.txt', None)
 	else:
 		raise ValueError("Invalid processing mode. Supported modes are 'delayed_mode' and 'realtime'.")
-	#
+
+	
 	# Merge records and sort by time
-	data = pd.concat([df for df in [flight_data, science_data]], ignore_index=True, sort=True).sort_values(by=['time'])
-	if(data.empty):
-		return
-	#
+	data = pd.concat([df for df in [flight_data, science_data] if not df.empty], ignore_index=True, sort=True).sort_values(by=['time'])
+	
 	# Check if the time values are monotonically increasing
 	time_diff = np.diff(data['time'].values)
 	if not np.all(time_diff > 0):
 		print("Warning: Time values are not monotonically increasing. Correcting the time values.")
+		
 		# Correct the time values to make them monotonically increasing
 		correction = np.where(time_diff <= 0, -time_diff + 1e-6, 0)
 		corrected_time = data['time'].values.copy()
 		corrected_time[1:] += np.cumsum(correction)
 		data['time'] = corrected_time
-	#
+
 	# Process and save data as netCDF
-	return process_data(data, source_info)
+	process_data(data, source_info)
 	
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
@@ -222,7 +222,7 @@ if __name__ == "__main__":
 	encoder_dir = os.path.join(pwd_dir, './attributes/')
 	encoder_file = os.path.join(encoder_dir , 'glider_dac_3.0_conventions.yml')
 
-	file_list = sorted(glob.glob(f'{args.glider}*.[dt]bd.txt'))
+	file_list = sorted(glob.glob(f'{args.glider}*.[ds]bd.txt'))
 	nc_directory = os.path.join(args.mission_dir, 'nc')
 	file_number = 1
 	source_infos = []
@@ -232,29 +232,16 @@ if __name__ == "__main__":
 			source_infos.append({
 				'encoder': encoder_file,
 				'data_type': 'profile',
-				'gliders_db': '/home/taimaz/gliderFilesProcessing/glider_reference_information/glider_serial-numbers_and_sensor-serial-numbers.csv', ## args.gliders_db,
-				'metadata_source': '/home/taimaz/server/public/missions/64cbd1f30f1a926a6d82abe9/metadata.yml', ## args.metadata_file,
-				'processing_mode': 'realtime', ## args.processing_mode,
+				'gliders_db': args.gliders_db,
+				'metadata_source': args.metadata_file,
+				'processing_mode': args.processing_mode,
 				'data_source': f,
 				'filename': f,
-				'filepath': '/home/taimaz/server/public/missions/64cbd1f30f1a926a6d82abe9/realtime', ## args.mission_dir,
+				'filepath': args.mission_dir,
 				'file_number': file_number
 			})
 		#
 		file_number = file_number + 1
 	#
 	with multiprocessing.Pool() as p:
-		all = p.map(main, source_infos)
-	#
-	##  TRAJECTORY
-	allData = pd.concat([df[0] for df in all if df!=None], ignore_index=True, sort=True).sort_values(by=['time'])
-	allGliderData = pd.concat([df[1] for df in all if df!=None], ignore_index=True, sort=True).sort_values(by=['time'])
-	#
-	if 'x_dr_state' in allGliderData.keys() and all(key in allGliderData.keys() for key in ['m_gps_lon', 'm_gps_lat', 'm_lat', 'm_lon']):
-		allData['lon_qc'], allData['lat_qc'] = correct_dead_reckoning(allGliderData['m_lon'], allGliderData['m_lat'], allGliderData['time'], allGliderData['x_dr_state'], allGliderData['m_gps_lon'], allGliderData['m_gps_lat'])
-	#
-	if 'depth' in allData.keys():
-		allData['profile_index'], allData['profile_direction'] = findProfiles(allData['time'], allData['depth'], stall=20, shake=200)
-	#
-	print("%s/%s_%s_trajectory.nc" % (source_infos[0]['filepath'], args.glider, args.processing_mode))
-	save_netcdf(allData, allGliderData, "%s/nc/%s_%s_trajectory.nc" % (source_infos[0]['filepath'], args.glider, args.processing_mode))
+		p.map(main, source_infos)

@@ -29,7 +29,7 @@ if [[ -d "${mission_dir}/raw" ]]; then
 	${scripts_dir}/bin/rename_dbd_files *.*[bB][dD] /
 
 	# Create symbolic link to cache
-	ln -sf ${mission_dir}/cache .
+	ln -sf ../../cache .
 
 	# Convert binary files to text
 	function dbd2asc {
@@ -57,22 +57,28 @@ if [[ -d "${mission_dir}/txt" ]]; then
 	find . -empty -delete
 
 	# Check if any files in nc directory have been modified in the last day
-	if [[ -z $(find "${mission_dir}/nc" -mtime 0) ]]; then
+	# if [[ -z $(find "${mission_dir}/nc" -mtime 0) ]]; then
+	
+	##T  Check if there is an NC file older than a TXT file
+	newestTXTfile=$(ls -ltr ${mission_dir}/txt | tail -1 | awk '{print $6,$7,$8}' | xargs -I{} date -d {} +%s)
+	newestNCfile=$(ls -ltr ${mission_dir}/nc | tail -1 | awk '{print $6,$7,$8}' | xargs -I{} date -d {} +%s)
+	if [[ ${newestTXTfile} -gt ${newestNCfile} ]]; then
 		# Convert to NetCDF
 		echo "##  asc2profile.py"
 		python3 ${scripts_dir}/asc2profile.py ${glider} ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
 	fi
 
 	# Ignore files with only 1 timestamp. They're likely to miss some variables. Next step doesn't like it.
-	cd ${mission_dir}/nc
-	mkdir ${mission_dir}/nc/ignored
-	for f in *.nc; do
-		i=$(ncdump $f | grep "time =" | head -1 | awk '{print $3}')
-		if [[ $i -le 1 ]]; then mv -v $f ignored; fi
-	done
+	# cd ${mission_dir}/nc
+	# mkdir ${mission_dir}/nc/ignored
+	# for f in *.nc; do
+	# 	i=$(ncdump $f | grep "time =" | head -1 | awk '{print $3}')
+	# 	if [[ $i -le 1 ]]; then mv -v $f ignored; fi
+	# done
+	# find . -type d -empty -delete
 
-	echo "##  profile2traj.py"
-	python3 ${scripts_dir}/profile2traj.py ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
+	# echo "##  profile2traj.py"
+	# python3 ${scripts_dir}/profile2traj.py ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
 
-	rm -r ${mission_dir}/nc/dask-worker-space
+	# rm -r ${mission_dir}/nc/dask-worker-space
 fi

@@ -92,11 +92,11 @@ def data_attributes(data, source_info):
 	data.attrs['processing_level'] = processing_levels.get(processing_key, 'Unknown processing level')
 	data.attrs['deployment_name'] = '%s-%s' % (gliderName, deploymentDateTime)
 	data.attrs['deployment_id'] = deploymentID
-	data.attrs['instrument_id'] = gliderName
-	data.attrs['glider_serial_id'] = gliderSerialID
+	data.attrs['instrument_id'] = attrs['glider']['name']
+	data.attrs['glider_serial_id'] = attrs['glider']['serial']
 	data.attrs['platform_type'] = platformType
-	data.attrs['wmo_id'] = WMOid
-	data.attrs['wmo_platform_code'] = WMOid
+	data.attrs['wmo_id'] = attrs['glider']['WMO']
+	data.attrs['wmo_platform_code'] = attrs['glider']['WMO']
 	data.attrs['geospatial_lat_min'] = latMin
 	data.attrs['geospatial_lat_max'] = latMax
 	data.attrs['geospatial_lon_min'] = lonMin
@@ -159,21 +159,22 @@ def data_attributes(data, source_info):
 	# return data with attributes
 	return data
 
-def save_netcdf(data, raw_data, source_info):
-	output_fn = source_info['filepath'] + source_info['filename']
-
+def save_netcdf(data, raw_data, output_fn):
+	print(output_fn)
 	def check_variables(dataset):
 		time_dim_size = dataset.dims['time']
 		data_vars = {var_name: var_data for var_name, var_data in dataset.variables.items() if var_name != 'time'}
 		reshaped_vars = {var_name: var_data if var_data.ndim == len(var_data.dims) else var_data.broadcast_like(dataset['time']).fillna(np.nan)
 						 for var_name, var_data in data_vars.items()}
 		return xr.Dataset(reshaped_vars, coords=dataset.coords)
-	    
+	#
+	print('HI')
 	if not data.empty:
 		data = data.set_index('time').to_xarray()
-		modified_data = data_attributes(data, source_info)
+		modified_data = data # data_attributes(data, source_info)
 		modified_data.to_netcdf(output_fn)
 	if not raw_data.empty:
 		raw_data = raw_data.set_index('time').to_xarray()
+		print(raw_data)
 		raw_data = check_variables(raw_data)
 		raw_data.to_netcdf(output_fn, group="glider_record", mode="a")
