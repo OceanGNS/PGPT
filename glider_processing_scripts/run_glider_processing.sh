@@ -67,6 +67,7 @@ if [[ -d "${mission_dir}/txt" ]]; then
 		echo "##  asc2profile.py"
 		python3 ${scripts_dir}/asc2profile.py ${glider} ${mission_dir} ${processing_mode} ${gliders_db} ${metadata_file}
 	fi
+	find ${mission_dir}/nc -empty -delete
 
 	# Ignore files with only 1 timestamp. They're likely to miss some variables. Next step doesn't like it.
 	# cd ${mission_dir}/nc

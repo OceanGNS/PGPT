@@ -115,8 +115,8 @@ def process_data(data, source_info):
 	#
 	# derive CTD sensor data
 	if(np.all([k in glider_data for k in ['sci_water_cond', 'sci_water_temp', 'sci_water_pressure', 'sci_water_depth']])):
-		data['conductivity'],data['temperature'],data['depth'], data['pressure']=glider_data['sci_water_cond'],glider_data['sci_water_temp'],glider_data['sci_water_depth'],glider_data['sci_water_pressure']
-		data['salinity'],data['absolute_salinity'],data['conservative_temperature'],data['density']=deriveCTD(data['conductivity'],data['temperature'],data['pressure'],data['lon'],data['lat'])
+		data['conductivity'],data['temperature'],data['depth'], data['pressure'] = glider_data['sci_water_cond'],glider_data['sci_water_temp'],glider_data['sci_water_depth'],glider_data['sci_water_pressure']
+		data['salinity'],data['absolute_salinity'],data['conservative_temperature'],data['density'] = deriveCTD(data['conductivity'],data['temperature'],data['pressure'],data['lon'],data['lat'])
 	else:
 		return
 	#
@@ -164,8 +164,9 @@ def process_data(data, source_info):
 	name, ext = os.path.splitext(source_info['filename'])
 	filename, bd_ext = os.path.splitext(name)
 	source_info['filename'] = "%s_%s.nc" % (filename,source_info['processing_mode'])
-	source_info['filepath'] = source_info['filepath']+'/nc/'
-	save_netcdf(data, glider_data, source_info['filepath'] + source_info['filename'])
+	source_info['filepath'] = source_info['filepath']
+	#
+	save_netcdf(data, glider_data, source_info)
 	return data,glider_data
 
 def main(source_info):
@@ -232,7 +233,7 @@ if __name__ == "__main__":
 			source_infos.append({
 				'encoder': encoder_file,
 				'data_type': 'profile',
-				'gliders_db': args.gliders_db,
+				# 'gliders_db': args.gliders_db,
 				'metadata_source': args.metadata_file,
 				'processing_mode': args.processing_mode,
 				'data_source': f,
@@ -243,6 +244,8 @@ if __name__ == "__main__":
 		#
 		file_number = file_number + 1
 	#
+	# main(source_infos[0])
+	# exit()
 	with multiprocessing.Pool() as p:
 		all = p.map(main, source_infos)
 	#
@@ -256,5 +259,14 @@ if __name__ == "__main__":
 	if 'depth' in allData.keys():
 		allData['profile_index'], allData['profile_direction'] = findProfiles(allData['time'], allData['depth'], stall=20, shake=200)
 	#
-	print("%s/%s_%s_trajectory.nc" % (source_infos[0]['filepath'], args.glider, args.processing_mode))
-	save_netcdf(allData, allGliderData, "%s/nc/%s_%s_trajectory.nc" % (source_infos[0]['filepath'], args.glider, args.processing_mode))
+	source_info = {
+		# 'gliders_db': gliders_db,
+		'metadata_source': args.metadata_file,
+		'encoder': encoder_file,
+		'processing_mode': args.processing_mode,
+		'data_type': 'trajectory',
+		'data_source': '',
+		'filename': "%s_%s_trajectory.nc" % (args.glider, args.processing_mode),
+		'filepath': source_infos[0]['filepath']
+	}
+	save_netcdf(allData, allGliderData, source_info)
