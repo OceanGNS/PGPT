@@ -43,7 +43,7 @@ def read_bd_data(filename, var_filter, ignore=False):
 		return pd.DataFrame()  # Return an empty DataFrame in case of error
 
 def read_var_filter(filter_name):
-	pwd_dir = os.path.dirname(os.path.realpath(__file__))
+	pwd_dir = "/home/ubuntu/data/gliderFilesProcessing/glider_processing_scripts" # os.path.dirname(os.path.realpath(__file__))
 	filter_dir = os.path.join(pwd_dir, './bin/')
 	filter_file = os.path.join(filter_dir, filter_name)
 	#
@@ -231,14 +231,14 @@ if __name__ == "__main__":
 		nc_filename = os.path.join(nc_directory, f"{os.path.splitext(f)[0]}.nc")
 		if not os.path.exists(nc_filename):
 			source_infos.append({
-				'encoder': encoder_file,
+				'encoder': "/home/ubuntu/data/gliderFilesProcessing/glider_processing_scripts/attributes/glider_dac_3.0_conventions.yml", # encoder_file,
 				'data_type': 'profile',
 				# 'gliders_db': args.gliders_db,
-				'metadata_source': args.metadata_file,
-				'processing_mode': args.processing_mode,
+				'metadata_source': "/home/ubuntu/data/missions/64cbd1f30f1a926a6d82abe9/metadata.yml", # args.metadata_file,
+				'processing_mode': "delayed", # args.processing_mode,
 				'data_source': f,
 				'filename': f,
-				'filepath': args.mission_dir,
+				'filepath': "/home/ubuntu/data/missions/64cbd1f30f1a926a6d82abe9/delayed", # args.mission_dir,
 				'file_number': file_number
 			})
 		#
@@ -250,8 +250,8 @@ if __name__ == "__main__":
 		all = p.map(main, source_infos)
 	#
 	##  TRAJECTORY
-	allData = pd.concat([df[0] for df in all if df!=None], ignore_index=True, sort=True).sort_values(by=['time'])
-	allGliderData = pd.concat([df[1] for df in all if df!=None], ignore_index=True, sort=True).sort_values(by=['time'])
+	allData = pd.concat([df[0] for df in all if df!=None], ignore_index=True, sort=True).sort_values(by=['time']).reset_index()
+	allGliderData = pd.concat([df[1] for df in all if df!=None], ignore_index=True, sort=True).sort_values(by=['time']).reset_index()
 	#
 	if 'x_dr_state' in allGliderData.keys() and np.all([key in allGliderData.keys() for key in ['m_gps_lon', 'm_gps_lat', 'm_lat', 'm_lon']]):
 		allData['lon_qc'], allData['lat_qc'] = correct_dead_reckoning(allGliderData['m_lon'], allGliderData['m_lat'], allGliderData['time'], allGliderData['x_dr_state'], allGliderData['m_gps_lon'], allGliderData['m_gps_lat'])
