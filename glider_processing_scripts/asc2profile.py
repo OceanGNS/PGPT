@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import math
 import multiprocessing
+from datetime import datetime
 
 from gliderfuncs import p2depth, dm2d, deriveCTD, deriveO2, findProfiles, correct_dead_reckoning
 from data2attr import save_netcdf
@@ -43,7 +44,7 @@ def read_bd_data(filename, var_filter, ignore=False):
 		return pd.DataFrame()  # Return an empty DataFrame in case of error
 
 def read_var_filter(filter_name):
-	pwd_dir = "/home/ubuntu/data/gliderFilesProcessing/glider_processing_scripts" # os.path.dirname(os.path.realpath(__file__))
+	pwd_dir = os.path.dirname(os.path.realpath(__file__))
 	filter_dir = os.path.join(pwd_dir, './bin/')
 	filter_file = os.path.join(filter_dir, filter_name)
 	#
@@ -231,14 +232,14 @@ if __name__ == "__main__":
 		nc_filename = os.path.join(nc_directory, f"{os.path.splitext(f)[0]}.nc")
 		if not os.path.exists(nc_filename):
 			source_infos.append({
-				'encoder': "/home/ubuntu/data/gliderFilesProcessing/glider_processing_scripts/attributes/glider_dac_3.0_conventions.yml", # encoder_file,
+				'encoder': encoder_file,
 				'data_type': 'profile',
 				# 'gliders_db': args.gliders_db,
-				'metadata_source': "/home/ubuntu/data/missions/64cbd1f30f1a926a6d82abe9/metadata.yml", # args.metadata_file,
-				'processing_mode': "delayed", # args.processing_mode,
+				'metadata_source': args.metadata_file,
+				'processing_mode': args.processing_mode,
 				'data_source': f,
 				'filename': f,
-				'filepath': "/home/ubuntu/data/missions/64cbd1f30f1a926a6d82abe9/delayed", # args.mission_dir,
+				'filepath': args.mission_dir,
 				'file_number': file_number
 			})
 		#
@@ -260,13 +261,13 @@ if __name__ == "__main__":
 		allData['profile_index'], allData['profile_direction'] = findProfiles(allData['time'], allData['depth'], stall=20, shake=200)
 	#
 	source_info = {
+		'encoder': encoder_file,
+		'data_type': 'trajectory',
 		# 'gliders_db': gliders_db,
 		'metadata_source': args.metadata_file,
-		'encoder': encoder_file,
 		'processing_mode': args.processing_mode,
-		'data_type': 'trajectory',
 		'data_source': '',
-		'filename': "%s_%s_trajectory.nc" % (args.glider, args.processing_mode),
+		'filename': "%s-%s-%s-trajectory.nc" % (args.glider, datetime.utcfromtimestamp(allData['time'][0]).strftime('%Y-%m-%d'), args.processing_mode),
 		'filepath': source_infos[0]['filepath']
 	}
 	save_netcdf(allData, allGliderData, source_info)

@@ -204,7 +204,8 @@ def save_netcdf(data, raw_data, source_info):
 		if(source_info['data_type'] == 'profile'):
 			modified_data = data_attributes(data, source_info)
 		else:
-			modified_data = data
+			modified_data = data_attributes(data, source_info)
+			# modified_data = data
 		modified_data.to_netcdf(source_info['filepath'] +'/nc/'+ source_info['filename'], mode='w')
 	if not raw_data.empty:
 		raw_data = raw_data.set_index('time').to_xarray()
