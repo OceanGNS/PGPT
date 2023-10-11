@@ -29,7 +29,7 @@ if [[ -d "${mission_dir}/raw" ]]; then
 	${scripts_dir}/bin/rename_dbd_files *.*[bB][dD] /
 
 	# Create symbolic link to cache
-	ln -sf ../../cache .
+	ln -sf ../cache .
 
 	# Convert binary files to text
 	function dbd2asc {
