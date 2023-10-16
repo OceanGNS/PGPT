@@ -1,0 +1,105 @@
+global:
+  project: Salmon Tracking 2023
+  region: Gulf of St. Lawrence
+  deployment_date: 2023-08-03
+  deployment_id: 44
+  deployment_coordinate: 49.564366666666665°N, 57.94854999999999°W
+  deployment_vessel: BBARS station boat "Freezy"
+  recovery_date: 2023-09-24
+  recovery_coordinate: ""
+  recovery_vessel: ""
+  longitude_extent: 59.818599999999996°W,57.89581666666666°W
+  latitude_extent: 49.329766666666664°N,50.11666666666667°N
+  acknowledgment: Funding for this project provided by Ocean Tracking Network
+    (OTN) and by Dalhousie University (DAL).
+  comment: No comment.
+  contributor_name: Sarik Shaikh-Upadhye, Nicolai von Oppeln-Bronikowski, Adam Comeau
+  contributor_role: Glider Technician, Glider Pilot, Principal Investigator
+  creator_institution: Memorial University
+  creator_name: Taimaz Bahadory
+  creator_email: taimaz.bahadory@mun.ca
+  creator_type: Data Manager
+  creator_url: www.mungliders.com
+  institution: Memorial University
+  program: CREAIT AOSCENT Glider Node
+  processing_level: Delayed and realtime glider data files converted from raw
+    glider data without data validation.
+  publisher_email: info@mungliders.com
+  publisher_institution: Memorial University
+  summary: Glider survey to detect salmon mortality tags. Slocum gliders are
+    small, free-swimming, unmanned vehicles that use changes in buoyancy to move
+    vertically and horizontally through the water column in a saw-tooth pattern.
+    They are deployed for days to several months and gather detailed information
+    about the physical, chemical and biological processes of the world's oceans.
+    The Slocum glider was designed and built by Teledyne Webb Research
+    Corporation, Falmouth, MA, USA.
+  publisher_url: www.mungliders.com
+  license: This data may be redistributed without restriction. Data provided as is
+    with no expressed or implied assurance of quality assurance or quality
+    control.
+  keywords: AUVs,Oceans
+glider:
+  name: unit_334
+  serial: 334
+  type: Slocum Glider
+  subType: G2 200m
+  WMO: 6801670
+  comment: Is our iceberg and underwater navigation champion, having done many
+    successful ice profiling missions. It now is being used to study oxygen
+    exchange in the Gulf of St. Lawrence
+sensors:
+  CTD:
+    sensor: CTD
+    serial_number: 9028 - 334
+    comment: ""
+    long_name: Seabird Glider Payload CTD
+    platform: platform
+    factory_calibrated: ""
+    make_model: SBE 41CP GPCTD
+    type: platform
+    calibration_date: 2023-05-23
+    calibration_report: ""
+    calibration_Conductivity Cell: ""
+    calibration_g: "-9.844717e-001"
+    calibration_h: "1.305274e-001"
+    calibration_i: "-1.945101e-004"
+    calibration_j: "3.169073e-005"
+    calibration_CPcor: "-9.5700e-008"
+    calibration_CTcor: "3.2500e-006"
+    calibration_WBOTC: "-1.5154e-007"
+    calibration_Pressure Cell: ""
+    calibration_PA0: "5.121617e-001"
+    calibration_PA1: "4.865178e-003"
+    calibration_PA2: -1.638952-011
+    calibration_PTEMPA0: -6.835003+001
+    calibration_PTEMPA1: 5.247984-002
+    calibration_PTEMPA2: "-7.724851e-007"
+    calibration_PTCA0: "5.246051e+005"
+    calibration_PTCA1: "5.222993e+000"
+    calibration_PTCA2: "-3.078613e-002"
+    calibration_PTCB0: "2.545500e+001"
+    calibration_PTCB1: "-3.800000e-003"
+    calibration_PTCB2: "0.000000e+000"
+    calibration_Temperature Cell: ""
+    calibration_a0: -4.715005-005
+    calibration_a1: "2.999095e-004"
+    calibration_a2: "-4.151618e-006"
+    calibration_a3: "1.914905e-007"
+  ecopuc:
+    sensor: ecopuc
+    serial_number: 7981 - 334
+    comment: ""
+    long_name: ""
+    platform: platform
+    factory_calibrated: ""
+    make_model: FLBB-SLC
+    type: platform
+    calibration_date: 2023-01-31
+    calibration_report: ""
+    calibration_bb_700_sf: "1.693E-06"
+    calibration_bb_700_dk: "49"
+    calibration_bb_700_res: "1.0"
+    calibration_chlor_sf: "0.0072"
+    calibration_chlor_dk: "49"
+    calibration_chlor_max_counts: "4130"
+    calibration_chlor_res: "1.0"
