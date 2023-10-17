@@ -8,22 +8,18 @@ while getopts ":g:d:m:p:" opt; do
 	case "${opt}" in
 	g)
 		glider=${OPTARG}
-		echo "Glider name"
 		;;
 
 	d)
 		missionDir=${OPTARG}
-		echo 'Mission absolute path (where the "raw" directory is located).'
 		;;
 
 	m)
 		metadataFile=${OPTARG}
-		echo 'Metadata YAML absolute or relative path.'
 		;;
 
 	p)
 		processingMode=${OPTARG}
-		echo 'Processing mode.  Either "realtime" or "delayed".'
 		;;
 
 	h)
@@ -64,38 +60,15 @@ fi
 # export processing_mode="$6"
 
 script=$(realpath $0)
-export scriptsDir=$(dirname ${script})
+export scriptsDir=$(dirname ${script})/scripts
 
 ######################################################
 ####  INITIAL CHECKS
-##  RAW DIRECTORY
-if [[ ! -e ${missionDir}/raw ]]; then
-	cat <<EOF
-	The "raw" directory wasn\'t found!
-	Please run the script in your mission directory with the "raw" directory present.
-	See the README file for more information.
-EOF
+bash ${scriptsDir}/check.sh ${scriptsDir} ${missionDir} ${metadataFile}
+if [[ $? -ne 0 ]]; then
 	exit 1
 fi
 
-##  METADATA FILE EXIST
-if [[ ! -e ${metadataFile} ]]; then
-	cat <<EOF
-	Metadata file "${metadataFile}" wasn\'t found!
-EOF
-	exit 1
-fi
-
-##  METADATA FILE VALID
-
-##  CACHE FILES EXIST
-if [[ ! -e ${missionDir}/cache ]]; then
-	cat <<EOF
-	"cache" directory wasn't found.
-	See the README file for more information.
-EOF
-	exit 1
-fi
 
 ######################################################
 
