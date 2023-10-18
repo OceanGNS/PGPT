@@ -35,13 +35,13 @@ PyYAML, Cerberus, pandas, numpy, multiprocessing, xarray, gsw
 
 ### Directory Structure
 
-Create a new directory called _raw_ and put all your **.TBD|.SBD** (if realtime data) or **.DBD|.EBD** (if delayed data) in there.  You can also put compressed **.?CD** files; the script will automatically uncompress themting data looks like
+Create a new directory called _raw_ and put all your **.TBD|.SBD** (if realtime data) or **.DBD|.EBD** (if delayed data) files in there.  You can also put compressed **.?CD** files in the raw directory; the script will automatically uncompress them.
 
 Create a new directory called _cache_ in the same path as the _raw_ directory and put the necessary cache files in there.
 
-Create a YAML file including all the metadata needed for the netCDF files in the same path as the _raw_ and _cache_ directories.  You can modify the _metadata.yml_ file included in the _exmple_ directory.
+Create a YAML file including all the metadata needed for the netCDF files in the same path as the _raw_ and _cache_ directories.  You can use the _metadata.yml_ file included in the _exmple_ directory as a template and modify as needed.
 
-Your directory structure should look like this:
+At the end, your directory structure should look like this:
 
 ```
 .                   
@@ -65,7 +65,7 @@ Your directory structure should look like this:
 ### Processing Files
 Once all files and directories are in place, execute the following command:
 
-`run.sh -g glider_name -d path_to_raw_directory -m path_to_metadata_yaml_file -p realtime_or_delayed`
+`run.sh -g glider_name -d path_to_mission_directory -m metadata_yaml_file -p realtime_or_delayed`
 
 example:
 
