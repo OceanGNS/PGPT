@@ -92,14 +92,12 @@ The next plot shows the glider track and GPS surfacing positions. We have implem
 
 
 ## Sharing Results
-
 Once the toolbox runs or if it runs every day for realtime data, the user can set a shell script to download new data (for example from SFMC) and upload the data to an FTP server or a GDAC.
 
 
 ## MAC Users
-
 This code uses Linux "date" function. Download the coreutils library  `brew install coreutils ; echo "alias date=gdate" >> ~/.bash_profile`
 
-					
 
-					
+## Docker Image
+A docker image of the **Glider Processing Toolbox** will soon be uploaded in the **Docker Hub** for convenience, and the link will be included here.
