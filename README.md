@@ -28,18 +28,10 @@ This toolbox seperately supports both `realtime` (while glider is deployed) and 
  
 ## How to Run
 ### Requirements
-bash\
-[GNU parallel](https://www.gnu.org/software/parallel/)
+bash, [GNU parallel](https://www.gnu.org/software/parallel/)
 
-Python3\
-_Python packages:_\
-$~~$ PyYAML\
-$~~$ Cerberus\
-$~~$ pandas\
-$~~$ numpy\
-$~~$ multiprocessing\
-$~~$ xarray\
-$~~$ gsw
+Python3 & Packages:\
+PyYAML, Cerberus, pandas, numpy, multiprocessing, xarray, gsw
 
 ### Directory Structure
 
