@@ -15,15 +15,15 @@ EOF
 fi
 
 ##  METADATA FILE EXIST
-if [[ ! -e ${metadataFile} ]]; then
+if [[ ! -e ${missionDir}/${metadataFile} ]]; then
     cat <<EOF
-	Metadata file "${metadataFile}" wasn\'t found!
+	Metadata file "${metadataFile}" wasn\'t found in ${missionDir}!
 EOF
     exit 1
 fi
 
 ##  METADATA FILE VALIDATION
-python3 ${scriptsDir}/metaCheck.py ${metadataFile}
+python3 ${scriptsDir}/metaCheck.py ${missionDir}/${metadataFile}
 if [[ $? -ne 0 ]]; then
     exit 1
 fi
