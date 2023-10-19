@@ -188,14 +188,17 @@ def saveNetcdf(data, rawData, sourceInfo):
 						 for varName, varData in dataVars.items()}
 		return xr.Dataset(reshapedVars, coords=dataset.coords)
 	#
+	comp = dict(zlib=True, complevel=5)
 	if not data.empty:
 		data = data.set_index('time').to_xarray()
 		# if(sourceInfo['dataType'] == 'profile'):
 		modifiedData = dataAttributes(data, sourceInfo)
 		# else:
 		# 	modifiedData = data
-		modifiedData.to_netcdf(sourceInfo['missionDir'] +'/nc/'+ sourceInfo['filename'], mode='w')
+		encoding = {var: comp for var in modifiedData.data_vars}
+		modifiedData.to_netcdf(sourceInfo['missionDir'] +'/nc/'+ sourceInfo['filename'], mode='w', encoding=encoding)
 	if not rawData.empty:
 		rawData = rawData.set_index('time').to_xarray()
 		rawData = checkVariables(rawData)
-		rawData.to_netcdf(sourceInfo['missionDir'] +'/nc/'+ sourceInfo['filename'], group="glider_record", mode="a")
+		encoding = {var: comp for var in rawData.data_vars}
+		rawData.to_netcdf(sourceInfo['missionDir'] +'/nc/'+ sourceInfo['filename'], group="glider_record", mode="a", encoding=encoding)
