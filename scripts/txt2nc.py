@@ -231,7 +231,7 @@ def main(sourceInfo):
     if not np.all(timeDiff > 0):
         print("Warning: Time values are not monotonically increasing. Correcting the time values.")
         # Correct the time values to make them monotonically increasing
-        correction = np.where(timeDiff <= 0, -timeDiff + 1e-6, 0)
+        correction = np.where(timeDiff <= 0, -timeDiff + 1.005828380584717e-05, 0)
         correctedTime = data['time'].values.copy()
         correctedTime[1:] += np.cumsum(correction)
         data['time'] = correctedTime
