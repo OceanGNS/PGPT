@@ -1,0 +1,206 @@
+{
+    "global": {
+        "required": True,
+        "type": "dict",
+        "schema": {
+            "project": {
+                "required": True,
+                "type": "string"
+            },
+            "region": {
+                "required": True,
+                "type": "string"
+            },
+            "deployment_date": {
+                "required": True,
+                "type": "string"
+            },
+            "deployment_id": {
+                "required": True,
+                "type": "string"
+            },
+            "deployment_coordinate": {
+                "required": True,
+                "type": "string"
+            },
+            "deployment_vessel": {
+                "required": True,
+                "type": "string"
+            },
+            "recovery_date": {
+                "required": True,
+                "type": "string"
+            },
+            "recovery_coordinate": {
+                "required": False,
+                "type": "string"
+            },
+            "recovery_vessel": {
+                "required": False,
+                "type": "string"
+            },
+            "longitude_extent": {
+                "required": True,
+                "type": "string"
+            },
+            "latitude_extent": {
+                "required": True,
+                "type": "string"
+            },
+            "acknowledgment": {
+                "required": True,
+                "type": "string"
+            },
+            "comment": {
+                "required": True,
+                "type": "string"
+            },
+            "contributor_name": {
+                "required": True,
+                "type": "string"
+            },
+            "contributor_role": {
+                "required": True,
+                "type": "string"
+            },
+            "creator_institution": {
+                "required": True,
+                "type": "string"
+            },
+            "creator_name": {
+                "required": True,
+                "type": "string"
+            },
+            "creator_email": {
+                "required": True,
+                "type": "string"
+            },
+            "creator_type": {
+                "required": True,
+                "type": "string"
+            },
+            "creator_url": {
+                "required": True,
+                "type": "string"
+            },
+            "institution": {
+                "required": True,
+                "type": "string"
+            },
+            "program": {
+                "required": False,
+                "type": "string"
+            },
+            "processing_level": {
+                "required": True,
+                "type": "string"
+            },
+            "publisher_email": {
+                "required": True,
+                "type": "string"
+            },
+            "publisher_institution": {
+                "required": True,
+                "type": "string"
+            },
+            "publisher_url": {
+                "required": True,
+                "type": "string"
+            },
+            "summary": {
+                "required": True,
+                "type": "string"
+            },
+            "license": {
+                "required": True,
+                "type": "string"
+            },
+            "keywords": {
+                "required": False,
+                "type": "string"
+            }
+        }
+    },
+    "glider": {
+        "required": True,
+        "type": "dict",
+        "schema": {
+            "name": {
+                "required": True,
+                "type": "string"
+            },
+            "serial": {
+                "required": True,
+                "type": "string"
+            },
+            "type": {
+                "required": True,
+                "type": "string"
+            },
+            "subType": {
+                "required": True,
+                "type": "string"
+            },
+            "WMO": {
+                "required": True,
+                "type": "string"
+            },
+            "comment": {
+                "required": True,
+                "type": "string"
+            }
+        }
+    },
+    "sensors": {
+        "required": True,
+        "type": "dict",
+        "schema": {
+                "CTD": {
+                    "required": True,
+                    "type": "dict",
+                    "schema": {
+                        "sensor": {
+                            "required": True,
+                            "type": "string"
+                        },
+                        "serial_number": {
+                            "required": True,
+                            "type": "string"
+                        },
+                        "comment": {
+                            "required": True,
+                            "type": "string"
+                        },
+                        "long_name": {
+                            "required": True,
+                            "type": "string"
+                        },
+                        "platform": {
+                            "required": True,
+                            "type": "string"
+                        },
+                        "factory_calibrated": {
+                            "required": True,
+                            "type": "string"
+                        },
+                        "make_model": {
+                            "required": True,
+                            "type": "string"
+                        },
+                        "type": {
+                            "required": True,
+                            "type": "string"
+                        },
+                        "calibration_date": {
+                            "required": True,
+                            "type": "string"
+                        },
+                        "calibration_report": {
+                            "required": True,
+                            "type": "string"
+                        },
+                    }
+                },
+        }
+    }
+}

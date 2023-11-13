@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+
+usage() {
+	echo "Usage: $(basename $0) [-g glider_name] [-d missionDirectory] [-m metadata.yml] [-p realtime|delayed]"
+}
+
+while getopts ":g:d:m:p:" opt; do
+	case "${opt}" in
+	g)
+		glider=${OPTARG}
+		;;
+
+	d)
+		missionDir=${OPTARG}
+		;;
+
+	m)
+		metadataFile=${OPTARG}
+		;;
+
+	p)
+		processingMode=${OPTARG}
+		;;
+
+	h)
+		usage
+		exit 0
+		;;
+
+	:)
+		echo -e "option requires an argument."
+		usage
+		exit 1
+		;;
+
+	?)
+		echo -e "Invalid command option."
+		usage
+		exit 1
+		;;
+
+	*)
+		usage
+		exit 1
+		;;
+	esac
+done
+
+if [[ -z ${glider} ]] || [[ -z ${missionDir} ]] || [[ -z ${metadataFile} ]] || [[ -z ${processingMode} ]]; then
+	usage
+	exit 1
+fi
+
+script=$(realpath $0)
+export scriptsDir=$(dirname ${script})/scripts
+
+######################################################
+####  INITIAL CHECKS
+bash ${scriptsDir}/check.sh ${scriptsDir} ${missionDir} ${metadataFile}
+if [[ $? -ne 0 ]]; then
+	exit 1
+fi
+
+######################################################
+
+##  PREPARE DIRECTORIES
+mkdir -p ${missionDir}/{txt,nc}
+
+##  DECOMPRESS & RENAME FILES
+cd ${missionDir}/raw
+n=$(ls *.?[cC][dD] | wc -l)
+if [[ $n -eq 0 ]]; then
+	echo "No compressed files found.  Moving on ..."
+else
+	echo "Decompressing files ..."
+	ls *.?[cC][dD] | parallel "out=$(echo {} | sed 's/cd$/bd/') ; ${scriptsDir}/bin/compexp x {} ${out}"
+	echo "Decompression done."
+fi
+
+echo "##  Renaming ?BD files ..."
+${scriptsDir}/bin/rename_dbd_files *.*[bB][dD] /
+echo "##  Renaming ?BD files done."
+
+######################################################
+
+##  BINARY -> TXT
+function bd2asc {
+	f=$1
+	txt_path="../txt/$f.txt"
+	if [[ ! -e $txt_path ]]; then
+		echo "bd2ascii $f"
+		"${scriptsDir}/bin/bd2ascii" "$f" >"$txt_path"
+		sed -i "s/ $//" "$txt_path"
+	fi
+}
+export -f bd2asc
+
+cd ${missionDir}/raw
+ln -sf ${missionDir}/../cache .
+# ls ${glider}*bd 2>/dev/null | parallel 'bd2asc {}' ##  DO NOT DO IN PARALLEL.  SOME CACHE FILES GET OVERWRITTEN OR SOMETHING!  RESULTS IN CONVERSION FAILURE FOR SOME FILES!
+for f in ${glider}*.?bd; do
+    bd2asc $f
+done
+rm ${missionDir}/raw/cache
+
+######################################################
+
+cd ${missionDir}/txt
+
+##  REMOVE EMPTY FILES
+find . -empty -delete
+
+##  CHECK IF THERE IS ANY NC FILE OLDER THAN A TXT FILE
+newestTXTfile=$(ls -tr ${missionDir}/txt | tail -1 | xargs -I{} date -r {} +%s)
+newestNCfile=$(ls -tr ${missionDir}/nc | tail -1 | xargs -I{} date -r {} +%s)
+if [[ ${newestTXTfile} -gt ${newestNCfile} ]]; then
+	python3 ${scriptsDir}/txt2nc.py --glider=${glider} --mode=${processingMode} --metadataFile=${metadataFile}
+else
+	echo "No new file to process.  Exiting now."
+fi
+find ${missionDir}/nc -empty -delete
