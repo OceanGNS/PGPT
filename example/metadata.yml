@@ -1,31 +1,17 @@
 global:
   project: Salmon Tracking 2023
-  region: Gulf of St. Lawrence
-  deployment_date: 2023-08-03
-  deployment_id: 44
-  deployment_coordinate: 49.564366666666665°N, 57.94854999999999°W
-  deployment_vessel: BBARS station boat "Freezy"
-  recovery_date: 2023-09-24
-  recovery_coordinate: ""
-  recovery_vessel: ""
-  longitude_extent: 59.818599999999996°W,57.89581666666666°W
-  latitude_extent: 49.329766666666664°N,50.11666666666667°N
   acknowledgment: Funding for this project provided by Ocean Tracking Network
     (OTN) and by Dalhousie University (DAL).
-  comment: No comment.
+  comment: Glider deployment to monitor salmon mortality in the Gulf of St. Lawrence.
   contributor_name: Sarik Shaikh-Upadhye, Nicolai von Oppeln-Bronikowski, Adam Comeau
   contributor_role: Glider Technician, Glider Pilot, Principal Investigator
-  creator_institution: Memorial University
-  creator_name: Taimaz Bahadory
-  creator_email: taimaz.bahadory@mun.ca
-  creator_type: Data Manager
-  creator_url: www.mungliders.com
-  institution: Memorial University
-  program: CREAIT AOSCENT Glider Node
-  processing_level: Delayed and realtime glider data files converted from raw
-    glider data without data validation.
-  publisher_email: info@mungliders.com
-  publisher_institution: Memorial University
+  deployment_date: 2023-08-03T12:00:00Z
+  keywords: Oceans > Ocean Pressure > Water Pressure, Oceans > Ocean Temperature >
+    Water Temperature, Oceans > Salinity/Density > Conductivity, Oceans >
+    Salinity/Density > Density, Oceans > Salinity/Density > Salinity
+  platform_type: Slocum Glider
+  sea_name: Gulf of St. Lawrence
+  source: ""
   summary: Glider survey to detect salmon mortality tags. Slocum gliders are
     small, free-swimming, unmanned vehicles that use changes in buoyancy to move
     vertically and horizontally through the water column in a saw-tooth pattern.
@@ -33,11 +19,31 @@ global:
     about the physical, chemical and biological processes of the world's oceans.
     The Slocum glider was designed and built by Teledyne Webb Research
     Corporation, Falmouth, MA, USA.
-  publisher_url: www.mungliders.com
+  Conventions: CF-1.6
+  Metadata_Conventions: CF-1.6, Unidata Dataset Discovery v1.0
+  creator_email: taimaz.bahadory@mun.ca
+  creator_name: Taimaz Bahadory
+  creator_url: www.mungliders.com
+  date_created: 2023-11-07T12:07:35Z
+  date_issued: 2023-11-07T12:07:35Z
+  date_modified: 2023-11-07T12:07:35Z
+  format_version: IOOS_Glider_NetCDF_v2.0.nc
+  history: This file was created using the gliderFileProcessing toolbox.
+  id: unit_334-2023-08-03T12:00:00Z
+  institution: Memorial University
+  keywords_vocabulary: GCMD Science Keywords
   license: This data may be redistributed without restriction. Data provided as is
     with no expressed or implied assurance of quality assurance or quality
-    control.
-  keywords: AUVs,Oceans
+    control
+  metadata_link: www.mungliders.com
+  naming_authority: ca.mun.www
+  publisher_email: info@mungliders.com
+  publisher_name: mungliders
+  publisher_url: www.mungliders.com
+  references: https://ioos.github.io/glider-dac/ngdac-netcdf-file-format-version-2.html#global-attributes
+  standard_name_vocabulary: CF Standard Name Table v27
+  title: unit_334-2023-08-03T12:00:00Z
+  wmo_id: 6801670
 glider:
   name: unit_334
   serial: 334
@@ -51,14 +57,14 @@ sensors:
   CTD:
     sensor: CTD
     serial_number: 9028 - 334
-    comment: ""
+    comment: "No comment."
     long_name: Seabird Glider Payload CTD
     platform: platform
-    factory_calibrated: ""
+    factory_calibrated: "2023-05-23"
     make_model: SBE 41CP GPCTD
     type: platform
     calibration_date: 2023-05-23
-    calibration_report: ""
+    calibration_report: "Calibrated by ..."
     calibration_Conductivity Cell: ""
     calibration_g: "-9.844717e-001"
     calibration_h: "1.305274e-001"

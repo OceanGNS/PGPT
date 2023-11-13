@@ -135,6 +135,11 @@ def processData(data, sourceInfo):
     else:
         return
     #
+    ##  FOR GDAC 3.0
+    data['lat_qc'] = data['lat']*0
+    data['lon_qc'] = data['lon']*0
+    data['depth_qc'] = data['depth']*0
+    #
     # derive oxygen sensor data
     if np.all([k in gliderData.keys() for k in ['sci_oxy4_oxygen', 'sci_water_temp', 'sci_water_pressure']]):
         data['oxygen_concentration'] = deriveO2(
@@ -275,7 +280,7 @@ if __name__ == "__main__":
         #
         fileNumber += 1
     #
-    with multiprocessing.Pool() as p:
+    with multiprocessing.Pool(1) as p:
         all = p.map(main, sourceInfos)
     #
     # TRAJECTORY
@@ -287,10 +292,13 @@ if __name__ == "__main__":
     if 'x_dr_state' in allGliderData.keys() and np.all([key in allGliderData.keys() for key in ['m_gps_lon', 'm_gps_lat', 'm_lat', 'm_lon']]):
         allData['lon_qc'], allData['lat_qc'] = correctDeadReckoning(
             allGliderData['m_lon'], allGliderData['m_lat'], allGliderData['time'], allGliderData['x_dr_state'], allGliderData['m_gps_lon'], allGliderData['m_gps_lat'])
+    else:
+        allData['lon_qc'], allData['lat_qc'] = allGliderData['m_lon'], allGliderData['m_lat']
     #
     if 'depth' in allData.keys():
         allData['profile_index'], allData['profile_direction'] = findProfiles(
             allData['time'], allData['depth'], stall=20, shake=200)
+        allData['depth_qc'] = allData['depth']
     #
     sourceInfo = {
         'metadataFile': "%s/%s" % (missionDir, metadataFile),

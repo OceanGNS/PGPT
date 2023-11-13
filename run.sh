@@ -51,14 +51,6 @@ if [[ -z ${glider} ]] || [[ -z ${missionDir} ]] || [[ -z ${metadataFile} ]] || [
 	exit 1
 fi
 
-# Set variables
-# export glider="$1"
-# export missionDir="$2"
-# export scriptsDir="$3"
-# export gliders_db="$4"
-# export metadata_file="$5"
-# export processing_mode="$6"
-
 script=$(realpath $0)
 export scriptsDir=$(dirname ${script})/scripts
 
@@ -68,7 +60,6 @@ bash ${scriptsDir}/check.sh ${scriptsDir} ${missionDir} ${metadataFile}
 if [[ $? -ne 0 ]]; then
 	exit 1
 fi
-
 
 ######################################################
 
@@ -84,14 +75,6 @@ else
 	echo "Decompressing files ..."
 	ls *.?[cC][dD] | parallel "out=$(echo {} | sed 's/cd$/bd/') ; ${scriptsDir}/bin/compexp x {} ${out}"
 	echo "Decompression done."
-	# ls *.?[cC][dD] | while read f; do
-	# 	out="$(echo $f | sed 's/cd$/bd/')"
-	# 	# Check if decompressed file already exists
-	# 	if [[ ! -e $out ]]; then
-	# 		echo "##  DECOMPRESSING $f TO ${out}"
-	# 		${scriptsDir}/bin/compexp x "$f" ${out}
-	# 	fi
-	# done
 fi
 
 echo "##  Renaming ?BD files ..."
@@ -113,8 +96,11 @@ function bd2asc {
 export -f bd2asc
 
 cd ${missionDir}/raw
-ln -sf ${missionDir}/cache .
-ls ${glider}*bd 2>/dev/null | parallel 'bd2asc {}'
+ln -sf ${missionDir}/../cache .
+# ls ${glider}*bd 2>/dev/null | parallel 'bd2asc {}' ##  DO NOT DO IN PARALLEL.  SOME CACHE FILES GET OVERWRITTEN OR SOMETHING!  RESULTS IN CONVERSION FAILURE FOR SOME FILES!
+for f in ${glider}*.?bd; do
+    bd2asc $f
+done
 rm ${missionDir}/raw/cache
 
 ######################################################
@@ -133,17 +119,3 @@ else
 	echo "No new file to process.  Exiting now."
 fi
 find ${missionDir}/nc -empty -delete
-
-# Ignore files with only 1 timestamp. They're likely to miss some variables. Next step doesn't like it.
-# cd ${missionDir}/nc
-# mkdir ${missionDir}/nc/ignored
-# for f in *.nc; do
-# 	i=$(ncdump $f | grep "time =" | head -1 | awk '{print $3}')
-# 	if [[ $i -le 1 ]]; then mv -v $f ignored; fi
-# done
-# find . -type d -empty -delete
-
-# echo "##  profile2traj.py"
-# python3 ${scriptsDir}/profile2traj.py ${missionDir} ${processing_mode} ${gliders_db} ${metadata_file}
-
-# rm -r ${missionDir}/nc/dask-worker-space

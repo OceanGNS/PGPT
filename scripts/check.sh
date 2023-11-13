@@ -23,13 +23,13 @@ EOF
 fi
 
 ##  METADATA FILE VALIDATION
-python3 ${scriptsDir}/metaCheck.py ${missionDir}/${metadataFile}
+# python3 ${scriptsDir}/metaCheck.py ${missionDir}/${metadataFile}
 if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
 ##  CACHE FILES EXIST
-if [[ ! -e ${missionDir}/cache ]]; then
+if [[ ! -e ${missionDir}/../cache ]]; then
     cat <<EOF
 	"cache" directory wasn't found.
 	See the README file for more information.

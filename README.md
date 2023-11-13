@@ -35,30 +35,31 @@ PyYAML, Cerberus, pandas, numpy, multiprocessing, xarray, gsw
 
 ### Directory Structure
 
-Create a new directory called _raw_ and put all your **.TBD|.SBD** (if realtime data) or **.DBD|.EBD** (if delayed data) files in there.  You can also put compressed **.?CD** files in the raw directory; the script will automatically uncompress them.
+Create a new directory called _realtime_ or _delayed_, and another directory inside called _raw_ and put all your **.TBD|.SBD** (if realtime data) or **.DBD|.EBD** (if delayed data) files in there.  You can also put compressed **.?CD** files in the raw directory; the script will automatically uncompress them.
 
-Create a new directory called _cache_ in the same path as the _raw_ directory and put the necessary cache files in there.
+Create a new directory called _cache_ in the same path as the _realtime_ or _delayed_ directory and put the necessary cache files in there.
 
-Create a YAML file including all the metadata needed for the netCDF files in the same path as the _raw_ and _cache_ directories.  You can use the _metadata.yml_ file included in the _exmple_ directory as a template and modify as needed.
+Create a YAML file including all the metadata needed for the netCDF files in the same path as the _realtime_ or _delayed_ and _cache_ directories.  You can use the _metadata.yml_ file included in the _exmple_ directory as a template and modify as needed.
 
 At the end, your directory structure should look like this:
 
 ```
-.                   
+.
 ├── cache
 │   ├── 00CDA96E.CAC
 │   ├── 02A6E8E6.CAC
 │   ├── 1A2BF75A.CAC
 │   ├── 1BD4CF69.CAC
 │   └── ...
-├── raw
-│   ├── 02150054.DBD
-│   ├── 02150054.EBD
-│   ├── 02150055.DBD
-│   ├── 02150055.EBD
-│   ├── 02150056.DBD
-│   ├── 02150056.EBD
-│   └── ...
+├── delayed
+│	└──	raw
+│   	├── 02150054.DBD
+│   	├── 02150054.EBD
+│   	├── 02150055.DBD
+│   	├── 02150055.EBD
+│   	├── 02150056.DBD
+│   	├── 02150056.EBD
+│   	└── ...
 └── metadata.yml
 ```
 
