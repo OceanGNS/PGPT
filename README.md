@@ -52,14 +52,14 @@ At the end, your directory structure should look like this:
 │   ├── 1BD4CF69.CAC
 │   └── ...
 ├── delayed
-│	└──	raw
-│   	├── 02150054.DBD
-│   	├── 02150054.EBD
-│   	├── 02150055.DBD
-│   	├── 02150055.EBD
-│   	├── 02150056.DBD
-│   	├── 02150056.EBD
-│   	└── ...
+│   └──	raw
+│      ├── 02150054.DBD
+│      ├── 02150054.EBD
+│      ├── 02150055.DBD
+│      ├── 02150055.EBD
+│      ├── 02150056.DBD
+│      ├── 02150056.EBD
+│      └── ...
 └── metadata.yml
 ```
 
