@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 usage() {
-	echo "Usage: $(basename $0) [-g glider_name] [-d missionDirectory] [-m metadata.yml] [-p realtime|delayed]"
+	echo "Usage: $(basename $0) -g glider_name -d missionDirectory -m metadata.yml -p realtime|delayed [-t CGDACusername]"
 }
 
-while getopts ":g:d:m:p:" opt; do
+while getopts ":g:d:m:p:t::" opt; do
 	case "${opt}" in
 	g)
 		glider=${OPTARG}
@@ -20,6 +20,10 @@ while getopts ":g:d:m:p:" opt; do
 
 	p)
 		processingMode=${OPTARG}
+		;;
+
+	t)
+		CGDAC_username=${OPTARG}
 		;;
 
 	h)
@@ -99,7 +103,7 @@ cd ${missionDir}/raw
 ln -sf ${missionDir}/../cache .
 # ls ${glider}*bd 2>/dev/null | parallel 'bd2asc {}' ##  DO NOT DO IN PARALLEL.  SOME CACHE FILES GET OVERWRITTEN OR SOMETHING!  RESULTS IN CONVERSION FAILURE FOR SOME FILES!
 for f in ${glider}*.?bd; do
-    bd2asc $f
+	bd2asc $f
 done
 rm ${missionDir}/raw/cache
 
@@ -119,3 +123,28 @@ else
 	echo "No new file to process.  Exiting now."
 fi
 find ${missionDir}/nc -empty -delete
+
+##  UPLOAD NC FILES TO CGDAC
+# CREATE A NEW DEPLOYMENT
+if [[ -z ${CGDAC_username} ]]; then 
+	if [[ ${processingMode} == 'delayed' ]]; then delayedModeBool=true; fi
+	deplymentDate=$(grep deployment_date ${metadataFile} | awk '{print $2}' | cut -dT -f1 | sed 's/-//g')T0000
+
+	curl -X 'POST' \
+		"https://cgdac.ca/api/deployment/?username=${CGDAC_username}&deployment_name=${glider}&deployment_date=${deplymentDate}&delayed_mode=${delayedModeBool}" \
+		-H 'accept: application/json' \
+		-H "X-API-KEY: ${token}" \
+		-d ''
+
+	deploymentName="${glider}-${deplymentDate}"
+	if [[ ${processingMode} == 'delayed' ]]; then deploymentName="${deploymentName}-delayed"; fi
+
+	for f in *.nc; do
+		curl -X 'POST' \
+			"https://cgdac.ca/api/deployment_file/?username=${CGDAC_username}&deployment_name=${deploymentDate}" \
+			-H 'accept: application/json' \
+			-H "X-API-KEY: ${token}" \
+			-H 'Content-Type: multipart/form-data' \
+			-F "file=@${f};type=application/x-netcdf"
+	done
+fi
