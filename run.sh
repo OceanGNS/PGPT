@@ -60,7 +60,7 @@ export scriptsDir=$(dirname ${script})/scripts
 
 ######################################################
 ####  INITIAL CHECKS
-bash ${scriptsDir}/check.sh ${scriptsDir} ${missionDir} ${metadataFile}
+bash ${scriptsDir}/check.sh ${scriptsDir} ${missionDir} ${metadataFile} ${processingMode}
 if [[ $? -ne 0 ]]; then
 	exit 1
 fi
@@ -68,10 +68,11 @@ fi
 ######################################################
 
 ##  PREPARE DIRECTORIES
-mkdir -p ${missionDir}/{txt,nc}
+# mkdir -p ${missionDir}/{txt,nc}
+mkdir -p ${missionDir}/${processingMode}/nc
 
 ##  DECOMPRESS & RENAME FILES
-cd ${missionDir}/raw
+cd ${missionDir}/${processingMode}/raw
 n=$(ls *.?[cC][dD] | wc -l)
 if [[ $n -eq 0 ]]; then
 	echo "No compressed files found.  Moving on ..."
@@ -87,46 +88,30 @@ echo "##  Renaming ?BD files done."
 
 ######################################################
 
-##  BINARY -> TXT
-function bd2asc {
-	f=$1
-	txt_path="../txt/$f.txt"
-	if [[ ! -e $txt_path ]]; then
-		echo "bd2ascii $f"
-		"${scriptsDir}/bin/bd2ascii" "$f" >"$txt_path"
-		sed -i "s/ $//" "$txt_path"
-	fi
-}
-export -f bd2asc
-
-cd ${missionDir}/raw
-ln -sf ${missionDir}/../cache .
-# ls ${glider}*bd 2>/dev/null | parallel 'bd2asc {}' ##  DO NOT DO IN PARALLEL.  SOME CACHE FILES GET OVERWRITTEN OR SOMETHING!  RESULTS IN CONVERSION FAILURE FOR SOME FILES!
-for f in ${glider}*.?bd; do
-	bd2asc $f
+##  LOWERCASE CACHE FILES (NEEDED BY "dbdreader")
+cd ${missionDir}/cache
+for f in $(find .); do
+	ln -s "$f" "$(echo $f | tr '[A-Z]' '[a-z]')"
 done
-rm ${missionDir}/raw/cache
 
 ######################################################
 
-cd ${missionDir}/txt
-
-##  REMOVE EMPTY FILES
-find . -empty -delete
+cd ${missionDir}/${processingMode}/raw
 
 ##  CHECK IF THERE IS ANY NC FILE OLDER THAN A TXT FILE
-newestTXTfile=$(ls -tr ${missionDir}/txt | tail -1 | xargs -I{} date -r {} +%s)
-newestNCfile=$(ls -tr ${missionDir}/nc | tail -1 | xargs -I{} date -r {} +%s)
-if [[ ${newestTXTfile} -gt ${newestNCfile} ]]; then
-	python3 ${scriptsDir}/txt2nc.py --glider=${glider} --mode=${processingMode} --metadataFile=${metadataFile}
+newestRAWfile=$(ls -tr ${missionDir}/${processingMode}/raw | tail -1 | xargs -I{} date -r {} +%s)
+newestNCfile=$(ls -tr ${missionDir}/${processingMode}/nc | tail -1 | xargs -I{} date -r {} +%s)
+
+if [[ ${newestRAWfile} -gt ${newestNCfile} ]]; then
+	python3 ${scriptsDir}/bd2nc.py --glider=${glider} --mode=${processingMode} --metadataFile=${metadataFile}
 else
 	echo "No new file to process.  Exiting now."
 fi
-find ${missionDir}/nc -empty -delete
+find ${missionDir}/${processingMode}/nc -empty -delete
 
 ##  UPLOAD NC FILES TO CGDAC
 # CREATE A NEW DEPLOYMENT
-if [[ -z ${CGDAC_username} ]]; then 
+if [[ ! -z ${CGDAC_username} ]]; then
 	if [[ ${processingMode} == 'delayed' ]]; then delayedModeBool=true; fi
 	deplymentDate=$(grep deployment_date ${metadataFile} | awk '{print $2}' | cut -dT -f1 | sed 's/-//g')T0000
 
