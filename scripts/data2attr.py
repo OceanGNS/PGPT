@@ -60,12 +60,12 @@ def dataAttributes(data, sourceInfo):
 	data.attrs['processingMode'] = sourceInfo['processingMode']
 	data.attrs['cdm_dataType'] = sourceInfo['dataType']
 	#
-	if any('/' in file or '\\' in file for file in sourceInfo['dataSource']):
+	if any('/' in file or '\\' in file for file in sourceInfo['bdFilename']):
 		# Use os.path.basename() to get only the file names
-		file_names = [os.path.basename(file) for file in sourceInfo['dataSource']]
+		file_names = [os.path.basename(file) for file in sourceInfo['bdFilename']]
 		data.attrs['source'] = ', '.join(file_names)
 	else:
-		data.attrs['source'] = sourceInfo['dataSource']
+		data.attrs['source'] = sourceInfo['bdFilename']
 	#
 	processing_levels = {
 		('realtime', 'profile'): 'Realtime raw Slocum glider profile data converted from the native data file format. No quality control provided.',
@@ -150,14 +150,13 @@ def saveNetcdf(data, rawData, sourceInfo):
 		return xr.Dataset(reshapedVars, coords=dataset.coords)
 	#
 	comp = dict(zlib=True, complevel=5)
-	fileName = sourceInfo['missionDir'] +'/nc/'+ sourceInfo['filename']
 	if not data.empty:
 		data = data.set_index('time').to_xarray()
 		modifiedData = dataAttributes(data, sourceInfo)
 		encoding = {var: comp for var in modifiedData.data_vars}
-		modifiedData.to_netcdf(fileName, mode='w', encoding=encoding)
+		modifiedData.to_netcdf(sourceInfo['ncFilename'], mode='w', encoding=encoding)
 	if not rawData.empty:
 		rawData = rawData.set_index('time').to_xarray()
 		rawData = checkVariables(rawData)
 		encoding = {var: comp for var in rawData.data_vars}
-		rawData.to_netcdf(fileName, group="glider_record", mode="a", encoding=encoding)
+		rawData.to_netcdf(sourceInfo['ncFilename'], group="glider_record", mode="a", encoding=encoding)

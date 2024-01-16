@@ -3,9 +3,10 @@
 scriptsDir=$1
 missionDir=$2
 metadataFile=$3
+processingMode=$4
 
 ##  RAW DIRECTORY
-if [[ ! -e ${missionDir}/raw ]]; then
+if [[ ! -e ${missionDir}/${processingMode}/raw ]]; then
     cat <<EOF
 	The "raw" directory wasn\'t found!
 	Please run the script in your mission directory with the "raw" directory present.
@@ -29,7 +30,7 @@ if [[ $? -ne 0 ]]; then
 fi
 
 ##  CACHE FILES EXIST
-if [[ ! -e ${missionDir}/../cache ]]; then
+if [[ ! -e ${missionDir}/cache ]]; then
     cat <<EOF
 	"cache" directory wasn't found.
 	See the README file for more information.
