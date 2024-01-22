@@ -8,8 +8,7 @@ processingMode=$4
 ##  RAW DIRECTORY
 if [[ ! -e ${missionDir}/${processingMode}/raw ]]; then
     cat <<EOF
-	The "raw" directory wasn\'t found!
-	Please run the script in your mission directory with the "raw" directory present.
+	The "raw" directory wasn't found in ${missionDir}!
 	See the README file for more information.
 EOF
     exit 1
@@ -18,7 +17,7 @@ fi
 ##  METADATA FILE EXIST
 if [[ ! -e ${missionDir}/${metadataFile} ]]; then
     cat <<EOF
-	Metadata file "${metadataFile}" wasn\'t found in ${missionDir}!
+	Metadata file "${metadataFile}" wasn't found in ${missionDir}!
 EOF
     exit 1
 fi
@@ -32,7 +31,7 @@ fi
 ##  CACHE FILES EXIST
 if [[ ! -e ${missionDir}/cache ]]; then
     cat <<EOF
-	"cache" directory wasn't found.
+	"cache" directory wasn't found in ${missionDir}.
 	See the README file for more information.
 EOF
     exit 1

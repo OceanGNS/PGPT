@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 usage() {
-	echo "Usage: $(basename $0) -g glider_name -d missionDirectory -m metadata.yml -p realtime|delayed [-t CGDACusername]"
+	echo "Usage: $(basename $0) -g glider_name -d mission_directory -m metadata_file_name -p mode(realtime|delayed) [-t CGDACusername]"
 }
 
 while getopts ":g:d:m:p:t::" opt; do

@@ -1,6 +1,6 @@
 # Slocum Glider Python Processing Toolbox
 
-This is a minimal glider processing toolbox using the Python language, to go from Slocum glider raw data files to self describing `*.nc` files, that pass [compliance checking](https://compliance.ioos.us/index.html "compliance checking") with the US Integrated Ocean Observing System (US-IOOS) Glider Data Aquisition Centre (GDAC). The `*.nc` files from this toolbox should pass requirements to be ingested into the Global Telecomunications System (GTS) for further use in models. We follow the US IOOS guidelines for file format and structure of glider data.
+This is a minimal glider processing toolbox using Python to go from Slocum glider raw data files to self-describing `*.nc` files, that pass [compliance checking](https://compliance.ioos.us/index.html "compliance checking") with the US Integrated Ocean Observing System (US-IOOS) Glider Data Acquisition Centre (GDAC). The `*.nc` files from this toolbox should pass requirements to be ingested into the Global Telecomunications System (GTS) for further use in models. We follow the US IOOS guidelines for file format and structure of glider data.
 
 The intent of this toolbox is to produce a clean data set from raw glider data for sharing with data centres and for further careful scientific post-processing (expert processing), by preserving the original data resolution and associated metadata. This toolbox does not do enhanced checks for data Quality Control (QC).
 
@@ -72,7 +72,7 @@ example:
 
 `run.sh -g unit_334 -d /home/taimaz/Projects/missions/example -m metadata.yml -p delayed`
 
-Once done, there will be 2 new directories alongside the _raw_ directory: _txt_, which includes all your binary files converted to ASCII files, and _nc_, which includes the netCDF files for each profile in the format _gliderName-fileNameXXXX_processingMode.nc_ and a trajectory file that combines all the profiles in the format _gliderName_processingMode_trajectory.nc_.
+Once done, there will be 1 new directories alongside the _raw_ directory, _nc_, which includes the netCDF files for each profile in the format _gliderName-fileNameXXXX_processingMode.nc_ and a trajectory file that combines all the profiles in the format _gliderName_processingMode_trajectory.nc_.
 
 <!-- Modify and copy the attached data example `*deployment_info*.yml` and `process_deployment*.sh` scripts for either realtime or delayed mode processing.
 Be sure to update the metadata form in the `*.yml` file so that the toolbox uses the right information for metadata association.
@@ -101,4 +101,9 @@ This code uses Linux "date" function. Download the coreutils library  `brew inst
 
 
 ## Docker Image
-A docker image of the **Glider Processing Toolbox** will soon be uploaded in the **Docker Hub** for convenience, and the link will be included here.
+A docker image of the **Glider Processing Toolbox** is available in **Docker Hub** for convenience:
+`docker pull taimaz/glider_files_processing:tagname`
+
+and then run:
+
+`docker run -it glider_files_processing`

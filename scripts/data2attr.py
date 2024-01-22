@@ -24,7 +24,7 @@ def dataAttributes(data, sourceInfo):
 	with open(sourceInfo['metadataFile'], 'r') as f:
 		missionMeta = yaml.load(f, Loader=yaml.BaseLoader)
 	with open(sourceInfo['encoder'], 'r') as f:
-		cfl = yaml.load(f)
+		cfl = yaml.load(f, Loader=yaml.BaseLoader)
 	# Merge dictionaries from master yaml and IOOS Decoder
 	attrs = {**missionMeta, **cfl}
 	#
