@@ -32,7 +32,7 @@ def printF(*args, **kwargs):
 
 def readBDdata(filename, varFilter, ignore=False):
     """
-    Reads *.bd data from a given file and filters the columns based on the provided filter.
+    Reads *.?bd data from a given file and filters the columns based on the provided filter.
 
     :param filename: str, path to the file containing .bd data
     :param varFilter: list, a list of column names to filter the data
