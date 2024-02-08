@@ -27,7 +27,10 @@ warnings.simplefilter("ignore", category=RuntimeWarning)
 
 def printF(*args, **kwargs):
     kwargs["flush"] = True
-    return print(*args, **kwargs)
+    print("##############################")
+    print(*args, **kwargs)
+    print()
+    return
 
 
 def readBDdata(filename, varFilter, ignore=False):
@@ -293,8 +296,10 @@ if __name__ == "__main__":
     if 'x_dr_state' in allGliderData.keys() and np.all([key in allGliderData.keys() for key in ['m_gps_lon', 'm_gps_lat', 'm_lat', 'm_lon']]):
         allData['lon_qc'], allData['lat_qc'] = correctDeadReckoning(
             allGliderData['m_lon'], allGliderData['m_lat'], allGliderData['time'], allGliderData['x_dr_state'], allGliderData['m_gps_lon'], allGliderData['m_gps_lat'])
-    else:
+    elif 'm_lat' in allGliderData and 'm_lon' in allGliderData:
         allData['lon_qc'], allData['lat_qc'] = allGliderData['m_lon'], allGliderData['m_lat']
+    else:
+        printF('m_lat and/or m_lon not present in files -> NO Dead Reckoning Correction')
     #
     if 'depth' in allData.keys():
         allData['profile_index'], allData['profile_direction'] = findProfiles(
