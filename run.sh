@@ -104,6 +104,7 @@ newestNCfile=$(ls -tr ${missionDir}/${processingMode}/nc | tail -1 | xargs -I{} 
 
 if [[ ${newestRAWfile} -gt ${newestNCfile} ]]; then
 	python3 ${scriptsDir}/bd2nc.py --glider=${glider} --mode=${processingMode} --metadataFile=${metadataFile}
+	# python3 ${scriptsDir}/bd2nc_oldMissions.py --glider=${glider} --mode=${processingMode} --metadataFile=${metadataFile}
 else
 	echo "No new file to process.  Exiting now."
 fi

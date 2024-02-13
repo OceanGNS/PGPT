@@ -217,9 +217,9 @@ def main(sourceInfo):
     if sourceInfo['processingMode'] == 'delayed':
         flightVarFilter = readVarFilter('dbd_filter.csv')
         scienceVarFilter = readVarFilter('ebd_filter_ignore.csv')
-        flightData = readBDdata(f'{filename}.dbd', flightVarFilter)
-        scienceData = readBDdata(
-            f'{filename}.ebd', scienceVarFilter, ignore=True)
+        flightData = readBDdata(f'{filename}.dbd', None)
+        #TEMP scienceData = readBDdata(
+        #TEMP     f'{filename}.ebd', scienceVarFilter, ignore=True)
     elif sourceInfo['processingMode'] == 'realtime':
         flightData = readBDdata(f'{filename}.sbd.txt', None)
         scienceData = readBDdata(f'{filename}.tbd.txt', None)
@@ -228,12 +228,12 @@ def main(sourceInfo):
             "Invalid processing mode. Supported modes are 'delayed_mode' and 'realtime'.")
     #
     # Merge records and sort by time
-    data = pd.concat([df for df in [flightData, scienceData]],
-                     ignore_index=True, sort=True)
-    if('time' in data):
-        data = data.sort_values(by=['time'])
-    if (data.empty):
+    #TEMP data = pd.concat([df for df in [flightData, scienceData]],
+    #TEMP                  ignore_index=True, sort=True).sort_values(by=['time'])
+    if (flightData.empty):
         return
+    if('time' in flightData):
+        data = flightData.sort_values(by=['time']) #TEMP
     #
     # Check if the time values are monotonically increasing
     timeDiff = np.diff(data['time'].values)

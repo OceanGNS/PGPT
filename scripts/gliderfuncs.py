@@ -306,8 +306,8 @@ def correctDeadReckoning(gliderLon, gliderLat, gliderTimestamp, diveState, gpsLo
 		while gliderLon[diveStarts[ki]] != gliderLon[diveStarts[ki]]:
 			diveStarts[ki] = diveStarts[ki] + 1
 	#
-	# Find the end of each dive (diveState 2 > 3)
-	diveEnds = np.argwhere(np.diff(diveState**2, n=1) == 5)[:,0] + 1 # 
+	# Find the end of each dive (diveState 2 -> 3 or 2 -> 4)
+	diveEnds = np.argwhere(np.logical_or(np.diff(diveState**2, n=1) == 5, np.diff(diveState**2, n=1) == 12))[:,0]+1
 	# diff = np.diff(diveState**2, n=1)
 	# diff_12 = diff==3  ##T diveState change from 1 to 2
 	# diff_13 = diff==8  ##T diveState change from 1 to 3
@@ -326,7 +326,7 @@ def correctDeadReckoning(gliderLon, gliderLat, gliderTimestamp, diveState, gpsLo
 		while gliderLon[diveMids[ki]] != gliderLon[diveMids[ki]]:
 			diveMids[ki] = diveMids[ki] - 1
 	#
-	print(diveStarts.shape,diveMids.shape,diveEnds.shape)
+	print(diveStarts.shape, diveMids.shape, diveEnds.shape)
 	# Calculate the velocity for longitude and latitude
 	# print(diveStarts,diveStarts.shape)
 	# print(diveMids,diveMids.shape)
