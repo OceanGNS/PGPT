@@ -1,4 +1,4 @@
-# Slocum Glider Python Processing Toolbox
+# Slocum Python Glider Processing Toolbox (PGPT)
 
 This is a minimal glider processing toolbox using Python to go from Slocum glider raw data files to self-describing `*.nc` files, that pass [compliance checking](https://compliance.ioos.us/index.html "compliance checking") with the US Integrated Ocean Observing System (US-IOOS) Glider Data Acquisition Centre (GDAC). The `*.nc` files from this toolbox should pass requirements to be ingested into the Global Telecomunications System (GTS) for further use in models. We follow the US IOOS guidelines for file format and structure of glider data.
 
