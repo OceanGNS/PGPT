@@ -103,8 +103,8 @@ This code uses Linux "date" function. Download the coreutils library  `brew inst
 ## Docker Image
 A docker image of the **Glider Processing Toolbox** is available in **Docker Hub** for convenience:
 
-`docker pull taimaz/glider_files_processing:tagname`
+`docker pull taimaz/pgpt:1.0.1`
 
 and then run:
 
-`docker run -it glider_files_processing`
+`docker run -it pgpt`
