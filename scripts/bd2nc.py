@@ -17,7 +17,7 @@ scriptsDir = os.path.dirname(os.path.realpath(__file__))
 missionDir = os.path.abspath('../..')
 sys.path.insert(0, scriptsDir)
 
-from gliderfuncs import p2depth, dm2d, deriveCTD, deriveO2, findProfiles, correctDeadReckoning
+from gliderfuncs import p2depth, deriveCTD, deriveO2, findProfiles, correctDeadReckoning
 from data2attr import saveNetcdf
 from quartod_qc import quartodQCchecks
 
