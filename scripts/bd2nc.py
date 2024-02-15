@@ -232,7 +232,7 @@ def main(sourceInfo):
     # Merge records and sort by time
     data = pd.concat([df for df in [flightData, scienceData]],
                      ignore_index=True, sort=True)
-    sourceInfo['ncFilename'] = "../nc/%s_%s.nc" % (ncFilename, processingMode)
+    sourceInfo['ncFilename'] = "../nc/%s_%s.nc" % (ncFilename, sourceInfo['processingMode'])
     if ('time' in data):
         data = data.sort_values(by=['time'])
     if (data.empty):
