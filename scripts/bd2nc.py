@@ -56,9 +56,10 @@ def readBDdata(filename, varFilter, ignore=False):
                 data = data.drop(columns=varFilter, errors='ignore')
             else:
                 data = data.filter(varFilter, axis='columns')
-        return data.rename(columns={bd.timeVariable: 'time'})
+        ncFilename = bd.headerInfo['full_filename']
+        return data.rename(columns={bd.timeVariable: 'time'}), ncFilename
     except Exception as e:
-        return pd.DataFrame()  # Return an empty DataFrame in case of error
+        return pd.DataFrame(), ''  # Return an empty DataFrame in case of error
 
 
 def readVarFilter(filterName):
@@ -206,31 +207,32 @@ def processData(data, sourceInfo):
 
 def main(sourceInfo):
     # Validate command-line arguments
-    fileTypes = ['dbd', 'sbd', 'tbd', 'ebd']
+    fileTypes = ['dbd', 'sbd', 'tbd', 'ebd', 'DBD','SBD','TBD','EBD']
     filename, ext = os.path.splitext(sourceInfo['bdFilename'])
     #
     fileExists = any(os.path.isfile(
         f'{filename}.{file_type}') for file_type in fileTypes)
     if not fileExists:
         raise FileNotFoundError(
-            f'No matching file found for {filename} with extensions .dbd, .sbd, .tbd, or .ebd')
+            f'No matching file found for {filename} with extensions .dbd, .sbd, .tbd, .ebd, DBD, SBD, TBD, or EBD')
     #
     if sourceInfo['processingMode'] == 'delayed':
         flightVarFilter = readVarFilter('dbd_filter.csv')
         scienceVarFilter = readVarFilter('ebd_filter_ignore.csv')
-        flightData = readBDdata(f'{filename}.dbd', flightVarFilter)
-        scienceData = readBDdata(
-            f'{filename}.ebd', scienceVarFilter, ignore=True)
+        flightData, ncFilename = readBDdata('%s%s' % (filename, ext), flightVarFilter)
+        scienceData, ncFilename = readBDdata(
+            '%s%s' % (filename, ext.replace('d','e',1).replace('D','E',1)), scienceVarFilter, ignore=True)
     elif sourceInfo['processingMode'] == 'realtime':
-        flightData = readBDdata(f'{filename}.sbd.txt', None)
-        scienceData = readBDdata(f'{filename}.tbd.txt', None)
+        flightData = readBDdata(f'{filename}.sbd', None)
+        scienceData = readBDdata(f'{filename}.tbd', None)
     else:
         raise ValueError(
-            "Invalid processing mode. Supported modes are 'delayed_mode' and 'realtime'.")
+            "Invalid processing mode. Supported modes are 'delayed' and 'realtime'.")
     #
     # Merge records and sort by time
     data = pd.concat([df for df in [flightData, scienceData]],
                      ignore_index=True, sort=True)
+    sourceInfo['ncFilename'] = "../nc/%s_%s.nc" % (ncFilename, processingMode)
     if ('time' in data):
         data = data.sort_values(by=['time'])
     if (data.empty):
@@ -269,7 +271,8 @@ if __name__ == "__main__":
 
     encoderFile = "%s/attributes/glider_dac_3.0_conventions.yml" % scriptsDir
 
-    files = sorted(glob.glob(f'{glider}*.[dt]bd'))
+    files = sorted(glob.glob('*.[dDtT][bB][dD]'))
+    print(files)
     fileNumber = 1
     sourceInfos = []
     for f in files:

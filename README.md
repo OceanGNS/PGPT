@@ -66,7 +66,7 @@ At the end, your directory structure should look like this:
 ### Processing Files
 Once all files and directories are in place, execute the following command:
 
-`run.sh -g glider_name -d path_to_mission_directory -m metadata_yaml_file -p realtime_or_delayed`
+`run.sh -g glider_name -d absolute_path_to_mission_directory -m metadata_yaml_filename -p realtime_or_delayed`
 
 example:
 

@@ -82,16 +82,12 @@ else
 	echo "Decompression done."
 fi
 
-echo "##  Renaming ?BD files ..."
-${scriptsDir}/bin/rename_dbd_files *.*[bB][dD] /
-echo "##  Renaming ?BD files done."
-
 ######################################################
 
 ##  LOWERCASE CACHE FILES (NEEDED BY "dbdreader")
 cd ${missionDir}/cache
 for f in $(find .); do
-	ln -s "$f" "$(echo $f | tr '[A-Z]' '[a-z]')"
+	ln -s "$f" "$(echo $f | tr '[A-Z]' '[a-z]')" 2>/dev/null
 done
 
 ######################################################
