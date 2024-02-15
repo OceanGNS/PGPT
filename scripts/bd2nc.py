@@ -10,15 +10,16 @@ import math
 import multiprocessing
 import sys
 import dbdreader
+from datetime import datetime
 
 
 scriptsDir = os.path.dirname(os.path.realpath(__file__))
 missionDir = os.path.abspath('../..')
 sys.path.insert(0, scriptsDir)
 
-from quartod_qc import quartodQCchecks
-from data2attr import saveNetcdf
 from gliderfuncs import p2depth, dm2d, deriveCTD, deriveO2, findProfiles, correctDeadReckoning
+from data2attr import saveNetcdf
+from quartod_qc import quartodQCchecks
 
 # remove empty arrays and nanmean slice warnings
 warnings.simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
@@ -90,8 +91,8 @@ def processData(data, sourceInfo):
     for col in data.columns:
         data[col] = fillExactZeroWithNan(data[col].values)
     #
-    updateColumns(data, ['c_wpt_lat', 'c_wpt_lon',
-                         'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'], dm2d)
+    # updateColumns(data, ['c_wpt_lat', 'c_wpt_lon',
+    #                      'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'], dm2d)
     updateColumns(data, ['c_fin', 'c_heading', 'c_pitch',
                          'm_fin', 'm_heading', 'm_pitch', 'm_roll'], np.degrees)
     #
@@ -230,7 +231,7 @@ def main(sourceInfo):
     # Merge records and sort by time
     data = pd.concat([df for df in [flightData, scienceData]],
                      ignore_index=True, sort=True)
-    if('time' in data):
+    if ('time' in data):
         data = data.sort_values(by=['time'])
     if (data.empty):
         return
@@ -254,6 +255,8 @@ def main(sourceInfo):
 
 
 if __name__ == "__main__":
+    now = (datetime.utcnow()).strftime("%FT%TZ")
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--glider', help='glider name')
     parser.add_argument('--mode', help='Processing mode (realtime | delayed)')
@@ -281,7 +284,8 @@ if __name__ == "__main__":
                 'bdFilename': f,
                 'ncFilename': ncFilename,
                 'missionDir': missionDir,
-                'fileNumber': fileNumber
+                'fileNumber': fileNumber,
+                'datetime': now
             })
         #
         fileNumber += 1
@@ -315,6 +319,8 @@ if __name__ == "__main__":
         'dataType': 'trajectory',
         'bdFilename': '',
         'ncFilename': "../nc/%s_%s_trajectory.nc" % (glider, processingMode),
-        'missionDir': missionDir
+        'missionDir': missionDir,
+        'datetime': now,
+        'files': ','.join(files)+','+','.join(files).replace('dbd', 'ebd')
     }
     saveNetcdf(allData, allGliderData, sourceInfo)

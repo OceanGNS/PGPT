@@ -59,6 +59,10 @@ def dataAttributes(data, sourceInfo):
 	##  CALCULATED
 	data.attrs['processingMode'] = sourceInfo['processingMode']
 	data.attrs['cdm_dataType'] = sourceInfo['dataType']
+	data.attrs['history'] = '%s: %s' % (sourceInfo['datetime'], "This file was created using the Python Glider Processing Toolbox.")
+	if('files' in sourceInfo.keys()):
+		data.attrs['history'] += "  Glider files: " + sourceInfo['files']
+		
 	#
 	if any('/' in file or '\\' in file for file in sourceInfo['bdFilename']):
 		# Use os.path.basename() to get only the file names

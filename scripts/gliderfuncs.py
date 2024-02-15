@@ -76,19 +76,20 @@ def p2depth(p: np.ndarray, time: np.ndarray = None, interpolate: bool = True, tg
 	# Calculate the depth using the given pressure and the constants
 	return (p * (p * (p* (p * a + b) - c) + d)) / g
 
-def dm2d(x: np.ndarray):
-	"""
-	Converts degree-minute (NMEA stamp ddmm.mm) to decimal degree (dd.dd).
+##T  NOT NEEDED ANYMORE.  DBDREADER PACKAGE TAKES CARE OF IT.
+# def dm2d(x: np.ndarray):
+# 	"""
+# 	Converts degree-minute (NMEA stamp ddmm.mm) to decimal degree (dd.dd).
 	
-	Args:
-		x (ndarray): Value in degree-minute format (e.g. 4453.44 for 44 degrees 53.44 minutes)
+# 	Args:
+# 		x (ndarray): Value in degree-minute format (e.g. 4453.44 for 44 degrees 53.44 minutes)
 	
-	Returns:
-		x: Value in decimal degree format (e.g. 44.889 degrees)
-	"""
-	sign = np.sign(x)
-	x = np.abs(x)
-	return sign * (np.trunc(x / 100) + (x % 100) / 60)
+# 	Returns:
+# 		x: Value in decimal degree format (e.g. 44.889 degrees)
+# 	"""
+# 	sign = np.sign(x)
+# 	x = np.abs(x)
+# 	return sign * (np.trunc(x / 100) + (x % 100) / 60)
 
 def deriveCTD(c, t, p, lon, lat, time=None, interpolate=False, tgap=20):
 	"""
