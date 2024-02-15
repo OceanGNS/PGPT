@@ -272,7 +272,6 @@ if __name__ == "__main__":
     encoderFile = "%s/attributes/glider_dac_3.0_conventions.yml" % scriptsDir
 
     files = sorted(glob.glob('*.[dDtT][bB][dD]'))
-    print(files)
     fileNumber = 1
     sourceInfos = []
     for f in files:
