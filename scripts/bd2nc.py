@@ -16,8 +16,7 @@ import dbdreader
 from datetime import datetime
 
 
-# os.path.dirname(os.path.realpath(__file__))
-scriptsDir = '/home/ubuntu/data/gliderFilesProcessing/scripts'
+scriptsDir = os.path.dirname(os.path.realpath(__file__))
 missionDir = os.path.abspath('../..')
 sys.path.insert(0, scriptsDir)
 
@@ -269,8 +268,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     glider = args.glider
-    processingMode = 'delayed'  # args.mode
-    metadataFile = 'metadata.yml'  # args.metadataFile
+    processingMode = args.mode
+    metadataFile = args.metadataFile
 
     encoderFile = "%s/attributes/glider_dac_3.0_conventions.yml" % scriptsDir
 
