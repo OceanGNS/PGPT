@@ -19,7 +19,7 @@ sys.path.insert(0, scriptsDir)
 
 from quartod_qc import quartodQCchecks
 from data2attr import saveNetcdf
-from gliderfuncs import p2depth, deriveCTD, deriveO2, findProfiles, correctDeadReckoning
+from gliderfuncs import p2depth, deriveCTD, deriveO2, findProfiles, correctDeadReckoning, ignoreBadLatLon
 
 # remove empty arrays and nanmean slice warnings
 warnings.simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
@@ -300,8 +300,10 @@ if __name__ == "__main__":
     # TRAJECTORY
     allData = pd.concat([df[0] for df in all if df != None],
                         ignore_index=True, sort=True).sort_values(by=['time']).reset_index()
+    allData = ignoreBadLatLon(allData)
     allGliderData = pd.concat([df[1] for df in all if df != None],
                               ignore_index=True, sort=True).sort_values(by=['time']).reset_index()
+    allGliderData = ignoreBadLatLon(allGliderData)
     #
     if 'x_dr_state' in allGliderData.keys() and np.all([key in allGliderData.keys() for key in ['m_gps_lon', 'm_gps_lat', 'm_lat', 'm_lon']]):
         try:

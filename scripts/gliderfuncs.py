@@ -360,3 +360,19 @@ def correctDeadReckoning(gliderLon, gliderLat, gliderTimestamp, diveState, gpsLo
 	correctedLat.iloc[ap.astype(int)] = latcDD
 	#
 	return correctedLon, correctedLat
+
+
+def ignoreBadLatLon(data):
+    filtered_columns = data.filter(regex='lat')
+    filtered_columns = filtered_columns.replace(0, np.nan)
+    filtered_columns = filtered_columns.replace(90, np.nan)
+    filtered_columns = filtered_columns.replace(-90, np.nan)
+    data[filtered_columns.columns] = filtered_columns.replace(0, np.nan)
+    #
+    filtered_columns = data.filter(regex='lon')
+    filtered_columns = filtered_columns.replace(0, np.nan)
+    filtered_columns = filtered_columns.replace(180, np.nan)
+    filtered_columns = filtered_columns.replace(-180, np.nan)
+    data[filtered_columns.columns] = filtered_columns.replace(0, np.nan)
+    #
+    return data
