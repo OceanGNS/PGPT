@@ -13,8 +13,7 @@ import dbdreader
 from datetime import datetime
 
 
-os.path.dirname(os.path.realpath(__file__))
-scriptsDir = '/home/ubuntu/data/gliderFilesProcessing/scripts'
+scriptsDir = os.path.dirname(os.path.realpath(__file__))
 missionDir = os.path.abspath('../..')
 sys.path.insert(0, scriptsDir)
 
