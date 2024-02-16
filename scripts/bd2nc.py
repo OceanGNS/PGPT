@@ -1,3 +1,6 @@
+from quartod_qc import quartodQCchecks
+from data2attr import saveNetcdf
+from gliderfuncs import p2depth, deriveCTD, deriveO2, findProfiles, correctDeadReckoning
 import warnings
 import argparse
 import os.path
@@ -13,13 +16,11 @@ import dbdreader
 from datetime import datetime
 
 
-scriptsDir = os.path.dirname(os.path.realpath(__file__))
+# os.path.dirname(os.path.realpath(__file__))
+scriptsDir = '/home/ubuntu/data/gliderFilesProcessing/scripts'
 missionDir = os.path.abspath('../..')
 sys.path.insert(0, scriptsDir)
 
-from gliderfuncs import p2depth, deriveCTD, deriveO2, findProfiles, correctDeadReckoning
-from data2attr import saveNetcdf
-from quartod_qc import quartodQCchecks
 
 # remove empty arrays and nanmean slice warnings
 warnings.simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
@@ -207,21 +208,22 @@ def processData(data, sourceInfo):
 
 def main(sourceInfo):
     # Validate command-line arguments
-    fileTypes = ['dbd', 'sbd', 'tbd', 'ebd', 'DBD','SBD','TBD','EBD']
+    fileTypes = ['dbd', 'sbd', 'tbd', 'ebd', 'DBD', 'SBD', 'TBD', 'EBD', 'dcd', 'scd', 'tcd', 'ecd', 'DCD', 'SCD', 'TCD', 'ECD']
     filename, ext = os.path.splitext(sourceInfo['bdFilename'])
     #
     fileExists = any(os.path.isfile(
         f'{filename}.{file_type}') for file_type in fileTypes)
     if not fileExists:
         raise FileNotFoundError(
-            f'No matching file found for {filename} with extensions .dbd, .sbd, .tbd, .ebd, DBD, SBD, TBD, or EBD')
+            f'No matching file found for {filename} with extensions .dbd, .sbd, .tbd, .ebd, DBD, SBD, TBD, EBD, .dcd, .scd, .tcd, .ecd, DCD, SCD, TCD, or ECD')
     #
     if sourceInfo['processingMode'] == 'delayed':
         flightVarFilter = readVarFilter('dbd_filter.csv')
         scienceVarFilter = readVarFilter('ebd_filter_ignore.csv')
-        flightData, ncFilename = readBDdata('%s%s' % (filename, ext), flightVarFilter)
+        flightData, ncFilename = readBDdata(
+            '%s%s' % (filename, ext), flightVarFilter)
         scienceData, ncFilename = readBDdata(
-            '%s%s' % (filename, ext.replace('d','e',1).replace('D','E',1)), scienceVarFilter, ignore=True)
+            '%s%s' % (filename, ext.replace('d', 'e', 1).replace('D', 'E', 1)), scienceVarFilter, ignore=True)
     elif sourceInfo['processingMode'] == 'realtime':
         flightData = readBDdata(f'{filename}.sbd', None)
         scienceData = readBDdata(f'{filename}.tbd', None)
@@ -232,7 +234,8 @@ def main(sourceInfo):
     # Merge records and sort by time
     data = pd.concat([df for df in [flightData, scienceData]],
                      ignore_index=True, sort=True)
-    sourceInfo['ncFilename'] = "../nc/%s_%s.nc" % (ncFilename, sourceInfo['processingMode'])
+    sourceInfo['ncFilename'] = "../nc/%s_%s.nc" % (
+        ncFilename, sourceInfo['processingMode'])
     if ('time' in data):
         data = data.sort_values(by=['time'])
     if (data.empty):
@@ -266,12 +269,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     glider = args.glider
-    processingMode = args.mode
-    metadataFile = args.metadataFile
+    processingMode = 'delayed'  # args.mode
+    metadataFile = 'metadata.yml'  # args.metadataFile
 
     encoderFile = "%s/attributes/glider_dac_3.0_conventions.yml" % scriptsDir
 
-    files = sorted(glob.glob('*.[dDtT][bB][dD]'))
+    files = sorted(glob.glob('*.[dDtT][bBcC][dD]'))
     fileNumber = 1
     sourceInfos = []
     for f in files:
@@ -302,8 +305,11 @@ if __name__ == "__main__":
                               ignore_index=True, sort=True).sort_values(by=['time']).reset_index()
     #
     if 'x_dr_state' in allGliderData.keys() and np.all([key in allGliderData.keys() for key in ['m_gps_lon', 'm_gps_lat', 'm_lat', 'm_lon']]):
-        allData['lon_qc'], allData['lat_qc'] = correctDeadReckoning(
-            allGliderData['m_lon'], allGliderData['m_lat'], allGliderData['time'], allGliderData['x_dr_state'], allGliderData['m_gps_lon'], allGliderData['m_gps_lat'])
+        try:
+            allData['lon_qc'], allData['lat_qc'] = correctDeadReckoning(
+                allGliderData['m_lon'], allGliderData['m_lat'], allGliderData['time'], allGliderData['x_dr_state'], allGliderData['m_gps_lon'], allGliderData['m_gps_lat'])
+        except:
+            print("##  Dead Reckoning Correction FAILED.  No lon_qc/lat_qc generated.")
     elif 'm_lat' in allGliderData and 'm_lon' in allGliderData:
         allData['lon_qc'], allData['lat_qc'] = allGliderData['m_lon'], allGliderData['m_lat']
     else:

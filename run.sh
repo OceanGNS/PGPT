@@ -68,19 +68,7 @@ fi
 ######################################################
 
 ##  PREPARE DIRECTORIES
-# mkdir -p ${missionDir}/{txt,nc}
 mkdir -p ${missionDir}/${processingMode}/nc
-
-##  DECOMPRESS & RENAME FILES
-cd ${missionDir}/${processingMode}/raw
-n=$(ls *.?[cC][dD] | wc -l)
-if [[ $n -eq 0 ]]; then
-	echo "No compressed files found.  Moving on ..."
-else
-	echo "Decompressing files ..."
-	ls *.?[cC][dD] | parallel "out=$(echo {} | sed 's/cd$/bd/') ; ${scriptsDir}/bin/compexp x {} ${out}"
-	echo "Decompression done."
-fi
 
 ######################################################
 
