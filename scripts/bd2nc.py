@@ -1,6 +1,3 @@
-from quartod_qc import quartodQCchecks
-from data2attr import saveNetcdf
-from gliderfuncs import p2depth, deriveCTD, deriveO2, findProfiles, correctDeadReckoning
 import warnings
 import argparse
 import os.path
@@ -20,6 +17,9 @@ scriptsDir = os.path.dirname(os.path.realpath(__file__))
 missionDir = os.path.abspath('../..')
 sys.path.insert(0, scriptsDir)
 
+from quartod_qc import quartodQCchecks
+from data2attr import saveNetcdf
+from gliderfuncs import p2depth, deriveCTD, deriveO2, findProfiles, correctDeadReckoning
 
 # remove empty arrays and nanmean slice warnings
 warnings.simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
