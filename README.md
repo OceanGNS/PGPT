@@ -40,7 +40,7 @@ This toolbox seperately supports both `realtime` (while glider is deployed) and 
  
 ## 3. How to Run
 
-Clone this repository to your desired location on your machine. Follow the steps below and run the provided shell script to process your glider data. Modify as needed. And example is provided.
+Clone this repository to your desired location on your machine. Follow the steps below and run the provided shell script to process your glider data. Modify the toolbox as needed. A working example is provided.
 
 ### Directory Structure
 
@@ -73,6 +73,7 @@ At the end, your directory structure should look like this:
 ```
 
 ### Processing Files
+
 Once all files and directories are in place, execute the following command (**specify absolute path to the run directory**):
 
 `run.sh -g glider_name -d absolute_path_to_mission_directory -m metadata_yaml_filename -p realtime_or_delayed`
@@ -83,9 +84,7 @@ For the included example:
 
 Once the `run.sh` script is done, there will be 1 new directory in the mission directory, `nc`, which includes the netCDF files for each profile in the format `gliderName-fileNameXXXX_processingMode.nc` and a trajectory file that combines all the profiles in the format `gliderName_processingMode_trajectory.nc`.
 
-### Sharing Results
-
-Once the toolbox run is completed or if it runs every day for realtime data, the user can set a shell script to download new data (for example from SFMC) and upload the data to an FTP server or a GDAC.
+Once the toolbox has run, the user can set a shell script to upload the data to an FTP server or a GDAC. Similarly the user can setup a script to sync the directory with the glider remote server (e.g. SFMC) and re-run the toolbox whenever there is new data to be processed.
 
 
 ## 4. Docker Image
