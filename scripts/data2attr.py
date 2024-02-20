@@ -145,7 +145,7 @@ def dataAttributes(data, sourceInfo):
 	#
 	return data
 
-def saveNetcdf(data, rawData, sourceInfo):
+def saveNetcdf(data, gliderData, sourceInfo):
 	def checkVariables(dataset):
 		# time_dim_size = dataset.dims['time']
 		dataVars = {varName: varData for varName, varData in dataset.variables.items() if varName != 'time'}
@@ -159,8 +159,8 @@ def saveNetcdf(data, rawData, sourceInfo):
 		modifiedData = dataAttributes(data, sourceInfo)
 		encoding = {var: comp for var in modifiedData.data_vars}
 		modifiedData.to_netcdf(sourceInfo['ncFilename'], mode='w', encoding=encoding)
-	if not rawData.empty:
-		rawData = rawData.set_index('time').to_xarray()
-		rawData = checkVariables(rawData)
-		encoding = {var: comp for var in rawData.data_vars}
-		rawData.to_netcdf(sourceInfo['ncFilename'], group="glider_record", mode="a", encoding=encoding)
+	if not gliderData.empty:
+		gliderData = gliderData.set_index('time').to_xarray()
+		gliderData = checkVariables(gliderData)
+		encoding = {var: comp for var in gliderData.data_vars}
+		gliderData.to_netcdf(sourceInfo['ncFilename'], group="glider_record", mode="a", encoding=encoding)

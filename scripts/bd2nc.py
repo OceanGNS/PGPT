@@ -207,7 +207,8 @@ def processData(data, sourceInfo):
 
 def main(sourceInfo):
     # Validate command-line arguments
-    fileTypes = ['dbd', 'sbd', 'tbd', 'ebd', 'DBD', 'SBD', 'TBD', 'EBD', 'dcd', 'scd', 'tcd', 'ecd', 'DCD', 'SCD', 'TCD', 'ECD']
+    fileTypes = ['dbd', 'sbd', 'tbd', 'ebd', 'DBD', 'SBD', 'TBD',
+                 'EBD', 'dcd', 'scd', 'tcd', 'ecd', 'DCD', 'SCD', 'TCD', 'ECD']
     filename, ext = os.path.splitext(sourceInfo['bdFilename'])
     #
     fileExists = any(os.path.isfile(
@@ -239,6 +240,11 @@ def main(sourceInfo):
         data = data.sort_values(by=['time'])
     if (data.empty):
         return
+    #
+    #T  Remove bad times
+    data['time'][data['time'] > 2000000000] = np.nan  # T Remove bad times
+    data['time'][data['time'] < 1000000000] = np.nan  # T Remove bad times
+    data = data[~data['time'].isna()]
     #
     # Check if the time values are monotonically increasing
     timeDiff = np.diff(data['time'].values)
