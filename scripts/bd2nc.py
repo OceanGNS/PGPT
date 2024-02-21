@@ -301,15 +301,18 @@ if __name__ == "__main__":
         fileNumber += 1
     #
     with multiprocessing.Pool(8) as p:
-        all = p.map(main, sourceInfos)
+        ALL = p.map(main, sourceInfos)
     #
     # TRAJECTORY
-    allData = pd.concat([df[0] for df in all if df != None],
+    allData = pd.concat([df[0] for df in ALL if df != None],
                         ignore_index=True, sort=True).sort_values(by=['time']).reset_index()
     allData = ignoreBadLatLon(allData)
-    allGliderData = pd.concat([df[1] for df in all if df != None],
+    allGliderData = pd.concat([df[1] for df in ALL if df != None],
                               ignore_index=True, sort=True).sort_values(by=['time']).reset_index()
     allGliderData = ignoreBadLatLon(allGliderData)
+    #
+    # REMOVE DUPLICATE ROWS (or profile_index is messed up!)
+    allData = allData.drop_duplicates(subset=['time'])
     #
     if 'x_dr_state' in allGliderData.keys() and np.all([key in allGliderData.keys() for key in ['m_gps_lon', 'm_gps_lat', 'm_lat', 'm_lon']]):
         try:

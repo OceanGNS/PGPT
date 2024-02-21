@@ -10,15 +10,16 @@ import math
 import multiprocessing
 import sys
 import dbdreader
+from datetime import datetime
 
 
 scriptsDir = os.path.dirname(os.path.realpath(__file__))
 missionDir = os.path.abspath('../..')
 sys.path.insert(0, scriptsDir)
 
-from quartod_qc import quartodQCchecks
+from gliderfuncs import p2depth, deriveCTD, deriveO2, findProfiles, correctDeadReckoning, ignoreBadLatLon
 from data2attr import saveNetcdf
-from gliderfuncs import p2depth, dm2d, deriveCTD, deriveO2, findProfiles, correctDeadReckoning
+from quartod_qc import quartodQCchecks
 
 # remove empty arrays and nanmean slice warnings
 warnings.simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
@@ -90,8 +91,8 @@ def processData(data, sourceInfo):
     for col in data.columns:
         data[col] = fillExactZeroWithNan(data[col].values)
     #
-    updateColumns(data, ['c_wpt_lat', 'c_wpt_lon',
-                         'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'], dm2d)
+    # updateColumns(data, ['c_wpt_lat', 'c_wpt_lon',
+    #                      'm_gps_lat', 'm_gps_lon', 'm_lat', 'm_lon'], dm2d)
     updateColumns(data, ['c_fin', 'c_heading', 'c_pitch',
                          'm_fin', 'm_heading', 'm_pitch', 'm_roll'], np.degrees)
     #
@@ -235,6 +236,11 @@ def main(sourceInfo):
     if('time' in flightData):
         data = flightData.sort_values(by=['time']) #TEMP
     #
+    #T  Remove bad times
+    data['time'][data['time'] > 2000000000] = np.nan  # T Remove bad times
+    data['time'][data['time'] < 1000000000] = np.nan  # T Remove bad times
+    data = data[~data['time'].isna()]
+    #
     # Check if the time values are monotonically increasing
     timeDiff = np.diff(data['time'].values)
     if not np.all(timeDiff > 0):
@@ -254,6 +260,8 @@ def main(sourceInfo):
 
 
 if __name__ == "__main__":
+    now = (datetime.utcnow()).strftime("%FT%TZ")
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--glider', help='glider name')
     parser.add_argument('--mode', help='Processing mode (realtime | delayed)')
@@ -281,19 +289,22 @@ if __name__ == "__main__":
                 'bdFilename': f,
                 'ncFilename': ncFilename,
                 'missionDir': missionDir,
-                'fileNumber': fileNumber
+                'fileNumber': fileNumber,
+                'datetime': now
             })
         #
         fileNumber += 1
     #
     with multiprocessing.Pool(8) as p:
-        all = p.map(main, sourceInfos)
+        ALL = p.map(main, sourceInfos)
     #
     # TRAJECTORY
-    allData = pd.concat([df[0] for df in all if df != None],
+    allData = pd.concat([df[0] for df in ALL if df != None],
                         ignore_index=True, sort=True).sort_values(by=['time']).reset_index()
-    allGliderData = pd.concat([df[1] for df in all if df != None],
+    allData = ignoreBadLatLon(allData)
+    allGliderData = pd.concat([df[1] for df in ALL if df != None],
                               ignore_index=True, sort=True).sort_values(by=['time']).reset_index()
+    allGliderData = ignoreBadLatLon(allGliderData)
     #
     if 'x_dr_state' in allGliderData.keys() and np.all([key in allGliderData.keys() for key in ['m_gps_lon', 'm_gps_lat', 'm_lat', 'm_lon']]):
         allData['lon_qc'], allData['lat_qc'] = correctDeadReckoning(
@@ -315,6 +326,8 @@ if __name__ == "__main__":
         'dataType': 'trajectory',
         'bdFilename': '',
         'ncFilename': "../nc/%s_%s_trajectory.nc" % (glider, processingMode),
-        'missionDir': missionDir
+        'missionDir': missionDir,
+        'datetime': now,
+        'files': ','.join(files)+','+','.join(files).replace('dbd', 'ebd')
     }
     saveNetcdf(allData, allGliderData, sourceInfo)

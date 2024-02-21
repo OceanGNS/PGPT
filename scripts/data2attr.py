@@ -156,9 +156,9 @@ def saveNetcdf(data, gliderData, sourceInfo):
 	comp = dict(zlib=True, complevel=5)
 	if not data.empty:
 		data = data.set_index('time').to_xarray()
-		modifiedData = dataAttributes(data, sourceInfo)
-		encoding = {var: comp for var in modifiedData.data_vars}
-		modifiedData.to_netcdf(sourceInfo['ncFilename'], mode='w', encoding=encoding)
+		data = dataAttributes(data, sourceInfo)
+		encoding = {var: comp for var in data.data_vars}
+		data.to_netcdf(sourceInfo['ncFilename'], mode='w', encoding=encoding)
 	if not gliderData.empty:
 		gliderData = gliderData.set_index('time').to_xarray()
 		gliderData = checkVariables(gliderData)
