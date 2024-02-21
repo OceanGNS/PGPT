@@ -91,7 +91,7 @@ Once the toolbox has run, the user can set a shell script to upload the data to 
 
 A docker image of the **Glider Processing Toolbox** is available in **Docker Hub** for convenience:
 
-`docker pull taimaz/pgpt:1.0.1`
+`docker pull taimaz/pgpt:1.0.2`
 
 and then run:
 
